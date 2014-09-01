@@ -10,11 +10,14 @@
 		C106A14F19B46A7800774788 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C106A14E19B46A7800774788 /* Foundation.framework */; };
 		C106A15119B46A7800774788 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C106A15019B46A7800774788 /* CoreGraphics.framework */; };
 		C106A15319B46A7800774788 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C106A15219B46A7800774788 /* UIKit.framework */; };
-		C18C9DE119B46CD2003E6833 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C18C9DDD19B46CD2003E6833 /* AppDelegate.m */; };
-		C18C9DE319B46CD2003E6833 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C18C9DE019B46CD2003E6833 /* main.m */; };
+		C18C9DE119B46CD2003E6833 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = C18C9DDD19B46CD2003E6833 /* AppDelegate.mm */; };
+		C18C9DE319B46CD2003E6833 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = C18C9DE019B46CD2003E6833 /* main.mm */; };
 		C18C9DFB19B46D69003E6833 /* libkowalski_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C18C9DF219B46D58003E6833 /* libkowalski_ios.a */; };
 		C18C9DFD19B46E19003E6833 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C18C9DFC19B46E19003E6833 /* CoreAudio.framework */; };
 		C18C9DFF19B46E1F003E6833 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C18C9DFE19B46E1F003E6833 /* AudioToolbox.framework */; };
+		C18C9E0219B470D7003E6833 /* digger_recorder.c in Sources */ = {isa = PBXBuildFile; fileRef = C18C9E0119B470D7003E6833 /* digger_recorder.c */; };
+		C18C9E0519B471E3003E6833 /* SandboxViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = C18C9E0419B471E3003E6833 /* SandboxViewController.mm */; };
+		C18C9E0819B47345003E6833 /* SandboxView.mm in Sources */ = {isa = PBXBuildFile; fileRef = C18C9E0719B47345003E6833 /* SandboxView.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,13 +79,19 @@
 		C106A15219B46A7800774788 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		C106A16719B46A7800774788 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		C18C9DDC19B46CD2003E6833 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		C18C9DDD19B46CD2003E6833 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		C18C9DDD19B46CD2003E6833 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
 		C18C9DDE19B46CD2003E6833 /* DiggerRecorder-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "DiggerRecorder-Info.plist"; sourceTree = "<group>"; };
 		C18C9DDF19B46CD2003E6833 /* DiggerRecorder-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DiggerRecorder-Prefix.pch"; sourceTree = "<group>"; };
-		C18C9DE019B46CD2003E6833 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		C18C9DE019B46CD2003E6833 /* main.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
 		C18C9DE419B46D57003E6833 /* kowalski.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = kowalski.xcodeproj; path = ../../external/kowalski/projects/xcode/kowalski.xcodeproj; sourceTree = "<group>"; };
 		C18C9DFC19B46E19003E6833 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/CoreAudio.framework; sourceTree = DEVELOPER_DIR; };
 		C18C9DFE19B46E1F003E6833 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/AudioToolbox.framework; sourceTree = DEVELOPER_DIR; };
+		C18C9E0019B46F58003E6833 /* digger_recorder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = digger_recorder.h; sourceTree = "<group>"; };
+		C18C9E0119B470D7003E6833 /* digger_recorder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = digger_recorder.c; sourceTree = "<group>"; };
+		C18C9E0319B471E3003E6833 /* SandboxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SandboxViewController.h; sourceTree = "<group>"; };
+		C18C9E0419B471E3003E6833 /* SandboxViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SandboxViewController.mm; sourceTree = "<group>"; };
+		C18C9E0619B47345003E6833 /* SandboxView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SandboxView.h; sourceTree = "<group>"; };
+		C18C9E0719B47345003E6833 /* SandboxView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SandboxView.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +155,8 @@
 		C18C9DDA19B46CD2003E6833 /* recorder */ = {
 			isa = PBXGroup;
 			children = (
+				C18C9E0119B470D7003E6833 /* digger_recorder.c */,
+				C18C9E0019B46F58003E6833 /* digger_recorder.h */,
 			);
 			path = recorder;
 			sourceTree = "<group>";
@@ -154,10 +165,14 @@
 			isa = PBXGroup;
 			children = (
 				C18C9DDC19B46CD2003E6833 /* AppDelegate.h */,
-				C18C9DDD19B46CD2003E6833 /* AppDelegate.m */,
+				C18C9DDD19B46CD2003E6833 /* AppDelegate.mm */,
 				C18C9DDE19B46CD2003E6833 /* DiggerRecorder-Info.plist */,
 				C18C9DDF19B46CD2003E6833 /* DiggerRecorder-Prefix.pch */,
-				C18C9DE019B46CD2003E6833 /* main.m */,
+				C18C9DE019B46CD2003E6833 /* main.mm */,
+				C18C9E0619B47345003E6833 /* SandboxView.h */,
+				C18C9E0719B47345003E6833 /* SandboxView.mm */,
+				C18C9E0319B471E3003E6833 /* SandboxViewController.h */,
+				C18C9E0419B471E3003E6833 /* SandboxViewController.mm */,
 			);
 			path = sandbox_ios;
 			sourceTree = "<group>";
@@ -287,8 +302,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C18C9DE319B46CD2003E6833 /* main.m in Sources */,
-				C18C9DE119B46CD2003E6833 /* AppDelegate.m in Sources */,
+				C18C9E0219B470D7003E6833 /* digger_recorder.c in Sources */,
+				C18C9DE319B46CD2003E6833 /* main.mm in Sources */,
+				C18C9E0519B471E3003E6833 /* SandboxViewController.mm in Sources */,
+				C18C9E0819B47345003E6833 /* SandboxView.mm in Sources */,
+				C18C9DE119B46CD2003E6833 /* AppDelegate.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
