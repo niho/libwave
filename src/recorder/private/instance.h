@@ -5,6 +5,7 @@
 
 #include "kowalski.h"
 #include "tinycthread.h"
+#include "messagequeue.h"
 
 #ifdef __cplusplus
 extern "C"

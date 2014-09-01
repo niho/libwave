@@ -8,6 +8,7 @@
 #include "digger_recorder.h"
 #include "messagequeue.h"
 #include "tinycthread.h"
+#include "instance.h"
 
 //TODO: move to settings file or take as input?
 #define kEventQueueCapactity (50)

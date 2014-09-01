@@ -7,183 +7,195 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C106A14F19B46A7800774788 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C106A14E19B46A7800774788 /* Foundation.framework */; };
-		C106A15119B46A7800774788 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C106A15019B46A7800774788 /* CoreGraphics.framework */; };
-		C106A15319B46A7800774788 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C106A15219B46A7800774788 /* UIKit.framework */; };
-		C18C9DE119B46CD2003E6833 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = C18C9DDD19B46CD2003E6833 /* AppDelegate.mm */; };
-		C18C9DE319B46CD2003E6833 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = C18C9DE019B46CD2003E6833 /* main.mm */; };
-		C18C9DFB19B46D69003E6833 /* libkowalski_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C18C9DF219B46D58003E6833 /* libkowalski_ios.a */; };
-		C18C9DFD19B46E19003E6833 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C18C9DFC19B46E19003E6833 /* CoreAudio.framework */; };
-		C18C9DFF19B46E1F003E6833 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C18C9DFE19B46E1F003E6833 /* AudioToolbox.framework */; };
-		C18C9E0519B471E3003E6833 /* SandboxViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = C18C9E0419B471E3003E6833 /* SandboxViewController.mm */; };
-		C18C9E0819B47345003E6833 /* SandboxView.mm in Sources */ = {isa = PBXBuildFile; fileRef = C18C9E0719B47345003E6833 /* SandboxView.mm */; };
-		C1C7B9D519B49AFB00C0ED1D /* tinycthread.c in Sources */ = {isa = PBXBuildFile; fileRef = C1C7B9D419B49AFB00C0ED1D /* tinycthread.c */; };
+		C1F579E019B4A262000C6BCF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F579DF19B4A262000C6BCF /* Foundation.framework */; };
+		C1F57A1019B4A282000C6BCF /* digger_recorder.c in Sources */ = {isa = PBXBuildFile; fileRef = C1F57A0519B4A282000C6BCF /* digger_recorder.c */; };
+		C1F57A1119B4A282000C6BCF /* instance.c in Sources */ = {isa = PBXBuildFile; fileRef = C1F57A0619B4A282000C6BCF /* instance.c */; };
+		C1F57A1219B4A282000C6BCF /* level_meter.c in Sources */ = {isa = PBXBuildFile; fileRef = C1F57A0819B4A282000C6BCF /* level_meter.c */; };
+		C1F57A1319B4A282000C6BCF /* messagequeue.c in Sources */ = {isa = PBXBuildFile; fileRef = C1F57A0A19B4A282000C6BCF /* messagequeue.c */; };
+		C1F57A2C19B4A2D4000C6BCF /* libkowalski_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F57A2319B4A2C3000C6BCF /* libkowalski_ios.a */; };
+		C1F57A8619B4A475000C6BCF /* tinycthread.c in Sources */ = {isa = PBXBuildFile; fileRef = C1F57A8519B4A475000C6BCF /* tinycthread.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		C18C9DED19B46D58003E6833 /* PBXContainerItemProxy */ = {
+		C1F57A1E19B4A2C3000C6BCF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = C18C9DE419B46D57003E6833 /* kowalski.xcodeproj */;
+			containerPortal = C1F57A1519B4A2C3000C6BCF /* kowalski.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = D2AAC046055464E500DB518D;
 			remoteInfo = kowalski_portaudio;
 		};
-		C18C9DEF19B46D58003E6833 /* PBXContainerItemProxy */ = {
+		C1F57A2019B4A2C3000C6BCF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = C18C9DE419B46D57003E6833 /* kowalski.xcodeproj */;
+			containerPortal = C1F57A1519B4A2C3000C6BCF /* kowalski.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = C1B3D57A135B8E880025DD08;
 			remoteInfo = kowalski_sdl;
 		};
-		C18C9DF119B46D58003E6833 /* PBXContainerItemProxy */ = {
+		C1F57A2219B4A2C3000C6BCF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = C18C9DE419B46D57003E6833 /* kowalski.xcodeproj */;
+			containerPortal = C1F57A1519B4A2C3000C6BCF /* kowalski.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = C1DD3C2B1370D12B00D10AA6;
 			remoteInfo = kowalski_ios;
 		};
-		C18C9DF319B46D58003E6833 /* PBXContainerItemProxy */ = {
+		C1F57A2419B4A2C3000C6BCF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = C18C9DE419B46D57003E6833 /* kowalski.xcodeproj */;
+			containerPortal = C1F57A1519B4A2C3000C6BCF /* kowalski.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = C1760F7B1620D6160044204B;
 			remoteInfo = kowalski;
 		};
-		C18C9DF519B46D58003E6833 /* PBXContainerItemProxy */ = {
+		C1F57A2619B4A2C3000C6BCF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = C18C9DE419B46D57003E6833 /* kowalski.xcodeproj */;
+			containerPortal = C1F57A1519B4A2C3000C6BCF /* kowalski.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = C19BB85D1630C1E9000F1BE7;
 			remoteInfo = kowalski_test;
 		};
-		C18C9DF719B46D58003E6833 /* PBXContainerItemProxy */ = {
+		C1F57A2819B4A2C3000C6BCF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = C18C9DE419B46D57003E6833 /* kowalski.xcodeproj */;
+			containerPortal = C1F57A1519B4A2C3000C6BCF /* kowalski.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = C145484D1632CAFE00DE1EA6;
 			remoteInfo = kowalski_tools;
 		};
-		C18C9DF919B46D61003E6833 /* PBXContainerItemProxy */ = {
+		C1F57A2A19B4A2CE000C6BCF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = C18C9DE419B46D57003E6833 /* kowalski.xcodeproj */;
+			containerPortal = C1F57A1519B4A2C3000C6BCF /* kowalski.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = C1DD3C2A1370D12B00D10AA6;
 			remoteInfo = kowalski_ios;
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		C1F579DA19B4A262000C6BCF /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		C106A14B19B46A7800774788 /* DiggerRecorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DiggerRecorder.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C106A14E19B46A7800774788 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		C106A15019B46A7800774788 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		C106A15219B46A7800774788 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		C106A16719B46A7800774788 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		C18C9DDC19B46CD2003E6833 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		C18C9DDD19B46CD2003E6833 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
-		C18C9DDE19B46CD2003E6833 /* DiggerRecorder-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "DiggerRecorder-Info.plist"; sourceTree = "<group>"; };
-		C18C9DDF19B46CD2003E6833 /* DiggerRecorder-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DiggerRecorder-Prefix.pch"; sourceTree = "<group>"; };
-		C18C9DE019B46CD2003E6833 /* main.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
-		C18C9DE419B46D57003E6833 /* kowalski.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = kowalski.xcodeproj; path = ../../external/kowalski/projects/xcode/kowalski.xcodeproj; sourceTree = "<group>"; };
-		C18C9DFC19B46E19003E6833 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/CoreAudio.framework; sourceTree = DEVELOPER_DIR; };
-		C18C9DFE19B46E1F003E6833 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/AudioToolbox.framework; sourceTree = DEVELOPER_DIR; };
-		C18C9E0319B471E3003E6833 /* SandboxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SandboxViewController.h; sourceTree = "<group>"; };
-		C18C9E0419B471E3003E6833 /* SandboxViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SandboxViewController.mm; sourceTree = "<group>"; };
-		C18C9E0619B47345003E6833 /* SandboxView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SandboxView.h; sourceTree = "<group>"; };
-		C18C9E0719B47345003E6833 /* SandboxView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SandboxView.mm; sourceTree = "<group>"; };
-		C1C7B9D419B49AFB00C0ED1D /* tinycthread.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = tinycthread.c; path = ../external/tinycthread/source/tinycthread.c; sourceTree = "<group>"; };
+		C1F579DC19B4A262000C6BCF /* libdigger_recorder_ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libdigger_recorder_ios.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C1F579DF19B4A262000C6BCF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		C1F579ED19B4A262000C6BCF /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		C1F579F019B4A262000C6BCF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		C1F57A0519B4A282000C6BCF /* digger_recorder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = digger_recorder.c; sourceTree = "<group>"; };
+		C1F57A0619B4A282000C6BCF /* instance.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = instance.c; sourceTree = "<group>"; };
+		C1F57A0719B4A282000C6BCF /* instance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = instance.h; sourceTree = "<group>"; };
+		C1F57A0819B4A282000C6BCF /* level_meter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = level_meter.c; sourceTree = "<group>"; };
+		C1F57A0919B4A282000C6BCF /* level_meter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = level_meter.h; sourceTree = "<group>"; };
+		C1F57A0A19B4A282000C6BCF /* messagequeue.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = messagequeue.c; sourceTree = "<group>"; };
+		C1F57A0B19B4A282000C6BCF /* messagequeue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = messagequeue.h; sourceTree = "<group>"; };
+		C1F57A0E19B4A282000C6BCF /* digger_recorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = digger_recorder.h; sourceTree = "<group>"; };
+		C1F57A1519B4A2C3000C6BCF /* kowalski.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = kowalski.xcodeproj; path = ../../external/kowalski/projects/xcode/kowalski.xcodeproj; sourceTree = "<group>"; };
+		C1F57A8519B4A475000C6BCF /* tinycthread.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = tinycthread.c; path = ../../external/tinycthread/source/tinycthread.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		C106A14819B46A7800774788 /* Frameworks */ = {
+		C1F579D919B4A262000C6BCF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C18C9DFF19B46E1F003E6833 /* AudioToolbox.framework in Frameworks */,
-				C18C9DFD19B46E19003E6833 /* CoreAudio.framework in Frameworks */,
-				C18C9DFB19B46D69003E6833 /* libkowalski_ios.a in Frameworks */,
-				C106A15119B46A7800774788 /* CoreGraphics.framework in Frameworks */,
-				C106A15319B46A7800774788 /* UIKit.framework in Frameworks */,
-				C106A14F19B46A7800774788 /* Foundation.framework in Frameworks */,
+				C1F57A2C19B4A2D4000C6BCF /* libkowalski_ios.a in Frameworks */,
+				C1F579E019B4A262000C6BCF /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C106A14019B4665400774788 = {
+		C1C7B9EC19B4A1EB00C0ED1D = {
 			isa = PBXGroup;
 			children = (
-				C18C9DE419B46D57003E6833 /* kowalski.xcodeproj */,
-				C18C9DD919B46CD2003E6833 /* src */,
-				C106A14D19B46A7800774788 /* Frameworks */,
-				C106A14C19B46A7800774788 /* Products */,
+				C1F57A1519B4A2C3000C6BCF /* kowalski.xcodeproj */,
+				C1F57A1419B4A288000C6BCF /* src */,
+				C1F579DE19B4A262000C6BCF /* Frameworks */,
+				C1F579DD19B4A262000C6BCF /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		C106A14C19B46A7800774788 /* Products */ = {
+		C1F579DD19B4A262000C6BCF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C106A14B19B46A7800774788 /* DiggerRecorder.app */,
+				C1F579DC19B4A262000C6BCF /* libdigger_recorder_ios.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C106A14D19B46A7800774788 /* Frameworks */ = {
+		C1F579DE19B4A262000C6BCF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C18C9DFE19B46E1F003E6833 /* AudioToolbox.framework */,
-				C18C9DFC19B46E19003E6833 /* CoreAudio.framework */,
-				C106A14E19B46A7800774788 /* Foundation.framework */,
-				C106A15019B46A7800774788 /* CoreGraphics.framework */,
-				C106A15219B46A7800774788 /* UIKit.framework */,
-				C106A16719B46A7800774788 /* XCTest.framework */,
+				C1F579DF19B4A262000C6BCF /* Foundation.framework */,
+				C1F579ED19B4A262000C6BCF /* XCTest.framework */,
+				C1F579F019B4A262000C6BCF /* UIKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		C18C9DD919B46CD2003E6833 /* src */ = {
+		C1F57A0319B4A282000C6BCF /* recorder */ = {
 			isa = PBXGroup;
 			children = (
-				C1C7B9D319B49AF300C0ED1D /* external */,
-				C18C9DDB19B46CD2003E6833 /* sandbox_ios */,
+				C1F57A0419B4A282000C6BCF /* private */,
+				C1F57A0D19B4A282000C6BCF /* public */,
+			);
+			name = recorder;
+			path = ../../src/recorder;
+			sourceTree = "<group>";
+		};
+		C1F57A0419B4A282000C6BCF /* private */ = {
+			isa = PBXGroup;
+			children = (
+				C1F57A0519B4A282000C6BCF /* digger_recorder.c */,
+				C1F57A0619B4A282000C6BCF /* instance.c */,
+				C1F57A0719B4A282000C6BCF /* instance.h */,
+				C1F57A0819B4A282000C6BCF /* level_meter.c */,
+				C1F57A0919B4A282000C6BCF /* level_meter.h */,
+				C1F57A0A19B4A282000C6BCF /* messagequeue.c */,
+				C1F57A0B19B4A282000C6BCF /* messagequeue.h */,
+			);
+			path = private;
+			sourceTree = "<group>";
+		};
+		C1F57A0D19B4A282000C6BCF /* public */ = {
+			isa = PBXGroup;
+			children = (
+				C1F57A0E19B4A282000C6BCF /* digger_recorder.h */,
+			);
+			path = public;
+			sourceTree = "<group>";
+		};
+		C1F57A1419B4A288000C6BCF /* src */ = {
+			isa = PBXGroup;
+			children = (
+				C1F57A8419B4A463000C6BCF /* external */,
+				C1F57A0319B4A282000C6BCF /* recorder */,
 			);
 			name = src;
-			path = ../../src;
 			sourceTree = "<group>";
 		};
-		C18C9DDB19B46CD2003E6833 /* sandbox_ios */ = {
+		C1F57A1619B4A2C3000C6BCF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C18C9DDC19B46CD2003E6833 /* AppDelegate.h */,
-				C18C9DDD19B46CD2003E6833 /* AppDelegate.mm */,
-				C18C9DDE19B46CD2003E6833 /* DiggerRecorder-Info.plist */,
-				C18C9DDF19B46CD2003E6833 /* DiggerRecorder-Prefix.pch */,
-				C18C9DE019B46CD2003E6833 /* main.mm */,
-				C18C9E0619B47345003E6833 /* SandboxView.h */,
-				C18C9E0719B47345003E6833 /* SandboxView.mm */,
-				C18C9E0319B471E3003E6833 /* SandboxViewController.h */,
-				C18C9E0419B471E3003E6833 /* SandboxViewController.mm */,
-			);
-			path = sandbox_ios;
-			sourceTree = "<group>";
-		};
-		C18C9DE519B46D57003E6833 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				C18C9DEE19B46D58003E6833 /* libkowalski.dylib */,
-				C18C9DF019B46D58003E6833 /* kowalski_sdl.dylib */,
-				C18C9DF219B46D58003E6833 /* libkowalski_ios.a */,
-				C18C9DF419B46D58003E6833 /* kowalski */,
-				C18C9DF619B46D58003E6833 /* kowalski_test.octest */,
-				C18C9DF819B46D58003E6833 /* libkowalski_tools.a */,
+				C1F57A1F19B4A2C3000C6BCF /* libkowalski.dylib */,
+				C1F57A2119B4A2C3000C6BCF /* kowalski_sdl.dylib */,
+				C1F57A2319B4A2C3000C6BCF /* libkowalski_ios.a */,
+				C1F57A2519B4A2C3000C6BCF /* kowalski */,
+				C1F57A2719B4A2C3000C6BCF /* kowalski_test.octest */,
+				C1F57A2919B4A2C3000C6BCF /* libkowalski_tools.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C1C7B9D319B49AF300C0ED1D /* external */ = {
+		C1F57A8419B4A463000C6BCF /* external */ = {
 			isa = PBXGroup;
 			children = (
-				C1C7B9D419B49AFB00C0ED1D /* tinycthread.c */,
+				C1F57A8519B4A475000C6BCF /* tinycthread.c */,
 			);
 			name = external;
 			sourceTree = "<group>";
@@ -191,158 +203,146 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C106A14A19B46A7800774788 /* DiggerRecorder */ = {
+		C1F579DB19B4A262000C6BCF /* digger_recorder_ios */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C106A17919B46A7800774788 /* Build configuration list for PBXNativeTarget "DiggerRecorder" */;
+			buildConfigurationList = C1F57A0119B4A262000C6BCF /* Build configuration list for PBXNativeTarget "digger_recorder_ios" */;
 			buildPhases = (
-				C106A14719B46A7800774788 /* Sources */,
-				C106A14819B46A7800774788 /* Frameworks */,
-				C106A14919B46A7800774788 /* Resources */,
+				C1F579D819B4A262000C6BCF /* Sources */,
+				C1F579D919B4A262000C6BCF /* Frameworks */,
+				C1F579DA19B4A262000C6BCF /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				C18C9DFA19B46D61003E6833 /* PBXTargetDependency */,
+				C1F57A2B19B4A2CE000C6BCF /* PBXTargetDependency */,
 			);
-			name = DiggerRecorder;
-			productName = DiggerRecorder;
-			productReference = C106A14B19B46A7800774788 /* DiggerRecorder.app */;
-			productType = "com.apple.product-type.application";
+			name = digger_recorder_ios;
+			productName = digger_recorder_ios;
+			productReference = C1F579DC19B4A262000C6BCF /* libdigger_recorder_ios.a */;
+			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		C106A14119B4665400774788 /* Project object */ = {
+		C1C7B9ED19B4A1EB00C0ED1D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0510;
 			};
-			buildConfigurationList = C106A14419B4665400774788 /* Build configuration list for PBXProject "digger_recorder" */;
+			buildConfigurationList = C1C7B9F019B4A1EB00C0ED1D /* Build configuration list for PBXProject "digger_recorder" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = C106A14019B4665400774788;
-			productRefGroup = C106A14C19B46A7800774788 /* Products */;
+			mainGroup = C1C7B9EC19B4A1EB00C0ED1D;
+			productRefGroup = C1F579DD19B4A262000C6BCF /* Products */;
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = C18C9DE519B46D57003E6833 /* Products */;
-					ProjectRef = C18C9DE419B46D57003E6833 /* kowalski.xcodeproj */;
+					ProductGroup = C1F57A1619B4A2C3000C6BCF /* Products */;
+					ProjectRef = C1F57A1519B4A2C3000C6BCF /* kowalski.xcodeproj */;
 				},
 			);
 			projectRoot = "";
 			targets = (
-				C106A14A19B46A7800774788 /* DiggerRecorder */,
+				C1F579DB19B4A262000C6BCF /* digger_recorder_ios */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		C18C9DEE19B46D58003E6833 /* libkowalski.dylib */ = {
+		C1F57A1F19B4A2C3000C6BCF /* libkowalski.dylib */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libkowalski.dylib;
-			remoteRef = C18C9DED19B46D58003E6833 /* PBXContainerItemProxy */;
+			remoteRef = C1F57A1E19B4A2C3000C6BCF /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		C18C9DF019B46D58003E6833 /* kowalski_sdl.dylib */ = {
+		C1F57A2119B4A2C3000C6BCF /* kowalski_sdl.dylib */ = {
 			isa = PBXReferenceProxy;
 			fileType = "compiled.mach-o.dylib";
 			path = kowalski_sdl.dylib;
-			remoteRef = C18C9DEF19B46D58003E6833 /* PBXContainerItemProxy */;
+			remoteRef = C1F57A2019B4A2C3000C6BCF /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		C18C9DF219B46D58003E6833 /* libkowalski_ios.a */ = {
+		C1F57A2319B4A2C3000C6BCF /* libkowalski_ios.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libkowalski_ios.a;
-			remoteRef = C18C9DF119B46D58003E6833 /* PBXContainerItemProxy */;
+			remoteRef = C1F57A2219B4A2C3000C6BCF /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		C18C9DF419B46D58003E6833 /* kowalski */ = {
+		C1F57A2519B4A2C3000C6BCF /* kowalski */ = {
 			isa = PBXReferenceProxy;
 			fileType = "compiled.mach-o.executable";
 			path = kowalski;
-			remoteRef = C18C9DF319B46D58003E6833 /* PBXContainerItemProxy */;
+			remoteRef = C1F57A2419B4A2C3000C6BCF /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		C18C9DF619B46D58003E6833 /* kowalski_test.octest */ = {
+		C1F57A2719B4A2C3000C6BCF /* kowalski_test.octest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = kowalski_test.octest;
-			remoteRef = C18C9DF519B46D58003E6833 /* PBXContainerItemProxy */;
+			remoteRef = C1F57A2619B4A2C3000C6BCF /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		C18C9DF819B46D58003E6833 /* libkowalski_tools.a */ = {
+		C1F57A2919B4A2C3000C6BCF /* libkowalski_tools.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libkowalski_tools.a;
-			remoteRef = C18C9DF719B46D58003E6833 /* PBXContainerItemProxy */;
+			remoteRef = C1F57A2819B4A2C3000C6BCF /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
 
-/* Begin PBXResourcesBuildPhase section */
-		C106A14919B46A7800774788 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
-		C106A14719B46A7800774788 /* Sources */ = {
+		C1F579D819B4A262000C6BCF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C18C9DE319B46CD2003E6833 /* main.mm in Sources */,
-				C18C9E0519B471E3003E6833 /* SandboxViewController.mm in Sources */,
-				C1C7B9D519B49AFB00C0ED1D /* tinycthread.c in Sources */,
-				C18C9E0819B47345003E6833 /* SandboxView.mm in Sources */,
-				C18C9DE119B46CD2003E6833 /* AppDelegate.mm in Sources */,
+				C1F57A1219B4A282000C6BCF /* level_meter.c in Sources */,
+				C1F57A1319B4A282000C6BCF /* messagequeue.c in Sources */,
+				C1F57A1119B4A282000C6BCF /* instance.c in Sources */,
+				C1F57A8619B4A475000C6BCF /* tinycthread.c in Sources */,
+				C1F57A1019B4A282000C6BCF /* digger_recorder.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		C18C9DFA19B46D61003E6833 /* PBXTargetDependency */ = {
+		C1F57A2B19B4A2CE000C6BCF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = kowalski_ios;
-			targetProxy = C18C9DF919B46D61003E6833 /* PBXContainerItemProxy */;
+			targetProxy = C1F57A2A19B4A2CE000C6BCF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		C106A14519B4665400774788 /* Debug */ = {
+		C1C7B9F119B4A1EB00C0ED1D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				USER_HEADER_SEARCH_PATHS = "../../external/kowalski/src/engine ../../external/tinycthread/source";
 			};
 			name = Debug;
 		};
-		C106A14619B4665400774788 /* Release */ = {
+		C1C7B9F219B4A1EB00C0ED1D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				USER_HEADER_SEARCH_PATHS = "../../external/kowalski/src/engine ../../external/tinycthread/source";
 			};
 			name = Release;
 		};
-		C106A17519B46A7800774788 /* Debug */ = {
+		C1F579FD19B4A262000C6BCF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -351,17 +351,13 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
+				DSTROOT = /tmp/digger_recorder_ios.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "../../src/sandbox_ios/DiggerRecorder-Prefix.pch";
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -373,26 +369,23 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "../../src/sandbox_ios/DiggerRecorder-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				WRAPPER_EXTENSION = app;
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
-		C106A17619B46A7800774788 /* Release */ = {
+		C1F579FE19B4A262000C6BCF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -401,54 +394,49 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/digger_recorder_ios.dst;
 				ENABLE_NS_ASSERTIONS = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "../../src/sandbox_ios/DiggerRecorder-Prefix.pch";
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "../../src/sandbox_ios/DiggerRecorder-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;
-				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C106A14419B4665400774788 /* Build configuration list for PBXProject "digger_recorder" */ = {
+		C1C7B9F019B4A1EB00C0ED1D /* Build configuration list for PBXProject "digger_recorder" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C106A14519B4665400774788 /* Debug */,
-				C106A14619B4665400774788 /* Release */,
+				C1C7B9F119B4A1EB00C0ED1D /* Debug */,
+				C1C7B9F219B4A1EB00C0ED1D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C106A17919B46A7800774788 /* Build configuration list for PBXNativeTarget "DiggerRecorder" */ = {
+		C1F57A0119B4A262000C6BCF /* Build configuration list for PBXNativeTarget "digger_recorder_ios" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C106A17519B46A7800774788 /* Debug */,
-				C106A17619B46A7800774788 /* Release */,
+				C1F579FD19B4A262000C6BCF /* Debug */,
+				C1F579FE19B4A262000C6BCF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = C106A14119B4665400774788 /* Project object */;
+	rootObject = C1C7B9ED19B4A1EB00C0ED1D /* Project object */;
 }
