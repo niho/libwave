@@ -1,7 +1,7 @@
 
 #import "SandboxViewController.h"
 
-static void eventCallback(void* userData, const drEvent* event)
+static void eventCallback(const drEvent* event, void* userData)
 {
     SandboxViewController* vc = (__bridge SandboxViewController*)userData;
     [vc onEvent:event];
@@ -28,7 +28,15 @@ static void eventCallback(void* userData, const drEvent* event)
 
 -(void)onEvent:(const drEvent*)event
 {
-    
+    switch (event->type)
+    {
+        case DR_DID_START_AUDIO_STREAM:
+        {
+            break;
+        }
+        default:
+            break;
+    }
 }
 
 -(void)updateTick

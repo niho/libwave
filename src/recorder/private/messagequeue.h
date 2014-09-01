@@ -47,7 +47,7 @@ extern "C"
     
     /**
      * Removes all messages from a given queue.
-     * @queue The queue to clear.
+     * @param queue The queue to clear.
      */
     void stfMessageQueue_clear(stfMessageQueue* queue);
     

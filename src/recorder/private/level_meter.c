@@ -6,17 +6,20 @@
 
 #include "level_meter.h"
 
-void drLevelMeter_init(drLevelMeter* meter)
+void drLevelMeter_init(drLevelMeter* meter, int channel)
 {
     memset(meter, 0, sizeof(drLevelMeter));
+    meter->channel = channel;
 }
 
-void drLevelMeter_processBuffer(drLevelMeter* meter,
-                                const float* buffer,
-                                int numFrames,
-                                int offset,
-                                int stride)
+void drLevelMeter_processBuffer(void* levelMeter,
+                                float* inBuffer,
+                                int numChannels,
+                                int numFrames)
 {
+    
+    drLevelMeter* meter = (drLevelMeter*)levelMeter;
+    
     if (numFrames == 0)
     {
         return;
@@ -26,9 +29,11 @@ void drLevelMeter_processBuffer(drLevelMeter* meter,
     float rms = 0.0f;
     float peak = 0.0f;
     
+    const int channel = meter->channel;
+    
     for (int i = 0; i < numFrames; i++)
     {
-        const float absVal = fabs(buffer[i * stride + offset]);
+        const float absVal = fabs(inBuffer[i * numChannels + channel]);
         rms += absVal * absVal;
         
         if (peak < absVal)

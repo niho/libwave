@@ -7,34 +7,66 @@
 #include "tinycthread.h"
 #include "messagequeue.h"
 #include "digger_recorder.h"
+#include "level_meter.h"
 
 #ifdef __cplusplus
 extern "C"
 {
 #endif /* __cplusplus */
   
+    #define MAX_NUM_ANALYZER_SLOTS 16
+    #define MAX_NUM_INPUT_CHANNELS 1
+    #define MAX_NUM_OUTPUT_CHANNELS 2
+    
+    typedef void (*drAnalyzerAudioCallback)(void* analyzer, float* inBuffer, int numChannels, int numFrames);
+    
+    typedef struct drAnalyzerSlot
+    {
+        void* analyzerData;
+        drAnalyzerAudioCallback audioCallback;
+    } drAnalyzerSlot;
+    
     /**
      * A Digger recorder instance.
      */
     typedef struct drInstance
     {
+        drAnalyzerSlot inputAnalyzerSlots[MAX_NUM_ANALYZER_SLOTS];
+        
         float sampleRate;
         kwlDSPUnitHandle inputDSPUnit;
         kwlDSPUnitHandle outputDSPUnit;
-        float inputPeakValue;
+        int firstSampleHasPlayed;
         
         mtx_t sharedEventQueueLock;
         stfMessageQueue* outgoingEventQueueShared;
         stfMessageQueue* outgoingEventQueueMain;
         stfMessageQueue* outgoingEventQueueAudio;
         
+        drEventCallback eventCallback;
+        void* eventCallbackData;
+        
+        //Audio analyzers
+        drLevelMeter inputLevelMeters[MAX_NUM_INPUT_CHANNELS];
+        drLevelMeter outputLevelMeters[MAX_NUM_OUTPUT_CHANNELS];
+        
     } drInstance;
     
-    void drInstance_init(drInstance* instance);
+    void drInstance_init(drInstance* instance, drEventCallback eventCallback, void* eventCallbackUserData);
     
     void drInstance_deinit(drInstance* instance);
     
-    void drInstance_enqueuEventFromAudioToMainThread(drInstance* instance, const drEvent* event);
+    void drInstance_update(drInstance* instance, float timeStep);
+    
+    /**
+     * Returns 0 on success, or non-zero if there is no free analyzer slot.
+     */
+    int drInstance_addInputAnalyzer(drInstance* instance, void* analyzerData, drAnalyzerAudioCallback audioCallback);
+    
+    /**
+     * Must be called <strong>only from the audio thread</strong>!
+     */
+    void drInstance_enqueueEventFromAudioToMainThread(drInstance* instance, const drEvent* event);
     
 #ifdef __cplusplus
 }

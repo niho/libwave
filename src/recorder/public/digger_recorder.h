@@ -25,8 +25,8 @@ extern "C"
      */
     typedef enum drEventType
     {
-        DR_DID_INITIALIZE = 0,
-        DR_DID_DEINITIALIZE,
+        DR_DID_START_AUDIO_STREAM = 0,
+        DR_DID_DEINITIALIZE_AUDIO_SYSTEM,
         
         DR_RECORDING_STARTED,
         DR_RECORDING_PAUSED,
@@ -46,7 +46,7 @@ extern "C"
     /**
      * A callback to invoke for each incoming event.
      */
-    typedef void (*drEventCallback)(void* userData, const drEvent* event);
+    typedef void (*drEventCallback)(const drEvent* event, void* userData);
     
     /**
      * Initializes the recorder.

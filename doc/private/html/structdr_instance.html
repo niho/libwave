@@ -102,12 +102,18 @@ kwlDSPUnitHandle&#160;</td><td class="memItemRight" valign="bottom"><b>outputDSP
 <tr class="memitem:ac44c13b479be789de2cd12f1e3f9bd36"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac44c13b479be789de2cd12f1e3f9bd36"></a>
 float&#160;</td><td class="memItemRight" valign="bottom"><b>inputPeakValue</b></td></tr>
 <tr class="separator:ac44c13b479be789de2cd12f1e3f9bd36"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac885aba9242e27666cde01e584d04cd6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac885aba9242e27666cde01e584d04cd6"></a>
-mtx_t&#160;</td><td class="memItemRight" valign="bottom"><b>outgoingEventQueueLock</b></td></tr>
-<tr class="separator:ac885aba9242e27666cde01e584d04cd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b72b306a8938b152c1370945ec28014"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3b72b306a8938b152c1370945ec28014"></a>
-<a class="el" href="structstf_message_queue.html">stfMessageQueue</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>outgoingEventQueue</b></td></tr>
-<tr class="separator:a3b72b306a8938b152c1370945ec28014"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5b199a4f3d4f2759a811b5a29595f77"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac5b199a4f3d4f2759a811b5a29595f77"></a>
+mtx_t&#160;</td><td class="memItemRight" valign="bottom"><b>sharedEventQueueLock</b></td></tr>
+<tr class="separator:ac5b199a4f3d4f2759a811b5a29595f77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a867fa7aef8352c30ecc8466ec8d443ec"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a867fa7aef8352c30ecc8466ec8d443ec"></a>
+<a class="el" href="structstf_message_queue.html">stfMessageQueue</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>outgoingEventQueueShared</b></td></tr>
+<tr class="separator:a867fa7aef8352c30ecc8466ec8d443ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a590970faffe827409cb276915d409f0e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a590970faffe827409cb276915d409f0e"></a>
+<a class="el" href="structstf_message_queue.html">stfMessageQueue</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>outgoingEventQueueMain</b></td></tr>
+<tr class="separator:a590970faffe827409cb276915d409f0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73c5d47239e56871d559d9e8b2ef0fd7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a73c5d47239e56871d559d9e8b2ef0fd7"></a>
+<a class="el" href="structstf_message_queue.html">stfMessageQueue</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>outgoingEventQueueAudio</b></td></tr>
+<tr class="separator:a73c5d47239e56871d559d9e8b2ef0fd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A Digger recorder instance. </p>
@@ -117,7 +123,7 @@ mtx_t&#160;</td><td class="memItemRight" valign="bottom"><b>outgoingEventQueueLo
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 1 2014 14:41:28 for Digger Recorder Private API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 1 2014 16:16:49 for Digger Recorder Private API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>

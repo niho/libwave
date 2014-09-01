@@ -8,6 +8,7 @@ var searchData=
   ['dreventtype',['drEventType',['../digger__recorder_8h.html#a4d6cb176617e2b758a13ae98e1c784f8',1,'drEventType():&#160;digger_recorder.h'],['../digger__recorder_8h.html#a154ec1595c892496085a9fbf0c84af7a',1,'drEventType():&#160;digger_recorder.h']]],
   ['drinitialize',['drInitialize',['../digger__recorder_8h.html#a4592fafe48b670f51d66b7330b39f6f0',1,'digger_recorder.c']]],
   ['drinstance',['drInstance',['../structdr_instance.html',1,'drInstance'],['../instance_8h.html#af38ade5d20fc4cd124aa8e77d05da814',1,'drInstance():&#160;instance.h']]],
+  ['drinstance_5fenqueueventfromaudiotomainthread',['drInstance_enqueuEventFromAudioToMainThread',['../instance_8h.html#a38140bb3c3bf56f5a6d05c5749087a35',1,'instance.c']]],
   ['drlevelmeter',['drLevelMeter',['../structdr_level_meter.html',1,'']]],
   ['drupdate',['drUpdate',['../digger__recorder_8h.html#a58dfcfa12e2fdbfbd8cc8894e7db5842',1,'digger_recorder.c']]]
 ];

@@ -20,7 +20,8 @@ drError drInitialize(drEventCallback eventCallback, void* eventCallbackUserData)
     }
     
     instance = malloc(sizeof(drInstance));
-    drInstance_init(instance);
+    drInstance_init(instance, eventCallback, eventCallbackUserData);
+    
     
     return DR_NO_ERROR;
 }
@@ -39,7 +40,13 @@ drError drDeinitialize()
 
 drError drUpdate(float timeStep)
 {
-    kwlUpdate(timeStep);
+    if (!instance)
+    {
+        return DR_NOT_INITIALIZED;
+    }
+    
+    drInstance_update(instance, timeStep);
+    
     return DR_NO_ERROR;
 }
 

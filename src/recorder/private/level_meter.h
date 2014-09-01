@@ -7,9 +7,12 @@
 extern "C"
 {
 #endif /* __cplusplus */
-  
+      
     typedef struct drLevelMeter
     {
+        /** The index of the channel to process. */
+        int channel;
+        
         float peakLog;
         float peakLin;
         float peakEnvelopeLog;
@@ -28,13 +31,9 @@ extern "C"
     } drLevelMeter;
     
     //TODO: pass parameters, like env speed
-    void drLevelMeter_init(drLevelMeter* meter);
+    void drLevelMeter_init(drLevelMeter* meter, int channel);
     
-    void drLevelMeter_processBuffer(drLevelMeter* meter,
-                                    const float* buffer,
-                                    int numFrames,
-                                    int offset,
-                                    int stride);
+    void drLevelMeter_processBuffer(void* levelMeter, float* inBuffer, int numChannels, int numFrames);
     
 #ifdef __cplusplus
 }
