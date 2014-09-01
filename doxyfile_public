@@ -1,0 +1,15 @@
+//Instructions for Doxygen on how to generate 
+//API documentation.
+PROJECT_NAME      = "Digger Recorder Public API"
+OUTPUT_DIRECTORY  = doc/public
+GENERATE_MAN      = NO
+GENERATE_LATEX    = NO
+GENERATE_HTML     = YES
+GENERATE_HTMLHELP = NO
+GENERATE_RTF      = NO
+GENERATE_XML      = NO
+INPUT             = src/recorder/public
+FILE_PATTERNS     = *.h
+USE_MDFILE_AS_MAINPAGE = src/recorder/public/README.md
+EXCLUDE_PATTERNS  = ._*
+OPTIMIZE_OUTPUT_FOR_C = YES

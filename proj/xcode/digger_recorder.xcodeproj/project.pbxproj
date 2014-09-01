@@ -15,13 +15,9 @@
 		C18C9DFB19B46D69003E6833 /* libkowalski_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C18C9DF219B46D58003E6833 /* libkowalski_ios.a */; };
 		C18C9DFD19B46E19003E6833 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C18C9DFC19B46E19003E6833 /* CoreAudio.framework */; };
 		C18C9DFF19B46E1F003E6833 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C18C9DFE19B46E1F003E6833 /* AudioToolbox.framework */; };
-		C18C9E0219B470D7003E6833 /* digger_recorder.c in Sources */ = {isa = PBXBuildFile; fileRef = C18C9E0119B470D7003E6833 /* digger_recorder.c */; };
 		C18C9E0519B471E3003E6833 /* SandboxViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = C18C9E0419B471E3003E6833 /* SandboxViewController.mm */; };
 		C18C9E0819B47345003E6833 /* SandboxView.mm in Sources */ = {isa = PBXBuildFile; fileRef = C18C9E0719B47345003E6833 /* SandboxView.mm */; };
-		C1C7B9CA19B4951A00C0ED1D /* level_meter.c in Sources */ = {isa = PBXBuildFile; fileRef = C1C7B9C819B4951A00C0ED1D /* level_meter.c */; };
-		C1C7B9D219B4994200C0ED1D /* messagequeue.c in Sources */ = {isa = PBXBuildFile; fileRef = C1C7B9D019B4994200C0ED1D /* messagequeue.c */; };
 		C1C7B9D519B49AFB00C0ED1D /* tinycthread.c in Sources */ = {isa = PBXBuildFile; fileRef = C1C7B9D419B49AFB00C0ED1D /* tinycthread.c */; };
-		C1C7B9D819B49BFA00C0ED1D /* instance.c in Sources */ = {isa = PBXBuildFile; fileRef = C1C7B9D619B49BFA00C0ED1D /* instance.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,19 +86,11 @@
 		C18C9DE419B46D57003E6833 /* kowalski.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = kowalski.xcodeproj; path = ../../external/kowalski/projects/xcode/kowalski.xcodeproj; sourceTree = "<group>"; };
 		C18C9DFC19B46E19003E6833 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/CoreAudio.framework; sourceTree = DEVELOPER_DIR; };
 		C18C9DFE19B46E1F003E6833 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/AudioToolbox.framework; sourceTree = DEVELOPER_DIR; };
-		C18C9E0019B46F58003E6833 /* digger_recorder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = digger_recorder.h; sourceTree = "<group>"; };
-		C18C9E0119B470D7003E6833 /* digger_recorder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = digger_recorder.c; sourceTree = "<group>"; };
 		C18C9E0319B471E3003E6833 /* SandboxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SandboxViewController.h; sourceTree = "<group>"; };
 		C18C9E0419B471E3003E6833 /* SandboxViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SandboxViewController.mm; sourceTree = "<group>"; };
 		C18C9E0619B47345003E6833 /* SandboxView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SandboxView.h; sourceTree = "<group>"; };
 		C18C9E0719B47345003E6833 /* SandboxView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SandboxView.mm; sourceTree = "<group>"; };
-		C1C7B9C819B4951A00C0ED1D /* level_meter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = level_meter.c; sourceTree = "<group>"; };
-		C1C7B9C919B4951A00C0ED1D /* level_meter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = level_meter.h; sourceTree = "<group>"; };
-		C1C7B9D019B4994200C0ED1D /* messagequeue.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = messagequeue.c; sourceTree = "<group>"; };
-		C1C7B9D119B4994200C0ED1D /* messagequeue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = messagequeue.h; sourceTree = "<group>"; };
 		C1C7B9D419B49AFB00C0ED1D /* tinycthread.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = tinycthread.c; path = ../external/tinycthread/source/tinycthread.c; sourceTree = "<group>"; };
-		C1C7B9D619B49BFA00C0ED1D /* instance.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = instance.c; sourceTree = "<group>"; };
-		C1C7B9D719B49BFA00C0ED1D /* instance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = instance.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,26 +145,10 @@
 			isa = PBXGroup;
 			children = (
 				C1C7B9D319B49AF300C0ED1D /* external */,
-				C18C9DDA19B46CD2003E6833 /* recorder */,
 				C18C9DDB19B46CD2003E6833 /* sandbox_ios */,
 			);
 			name = src;
 			path = ../../src;
-			sourceTree = "<group>";
-		};
-		C18C9DDA19B46CD2003E6833 /* recorder */ = {
-			isa = PBXGroup;
-			children = (
-				C18C9E0119B470D7003E6833 /* digger_recorder.c */,
-				C18C9E0019B46F58003E6833 /* digger_recorder.h */,
-				C1C7B9D619B49BFA00C0ED1D /* instance.c */,
-				C1C7B9D719B49BFA00C0ED1D /* instance.h */,
-				C1C7B9C819B4951A00C0ED1D /* level_meter.c */,
-				C1C7B9C919B4951A00C0ED1D /* level_meter.h */,
-				C1C7B9D019B4994200C0ED1D /* messagequeue.c */,
-				C1C7B9D119B4994200C0ED1D /* messagequeue.h */,
-			);
-			path = recorder;
 			sourceTree = "<group>";
 		};
 		C18C9DDB19B46CD2003E6833 /* sandbox_ios */ = {
@@ -328,10 +300,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C1C7B9D219B4994200C0ED1D /* messagequeue.c in Sources */,
-				C1C7B9CA19B4951A00C0ED1D /* level_meter.c in Sources */,
-				C18C9E0219B470D7003E6833 /* digger_recorder.c in Sources */,
-				C1C7B9D819B49BFA00C0ED1D /* instance.c in Sources */,
 				C18C9DE319B46CD2003E6833 /* main.mm in Sources */,
 				C18C9E0519B471E3003E6833 /* SandboxViewController.mm in Sources */,
 				C1C7B9D519B49AFB00C0ED1D /* tinycthread.c in Sources */,
