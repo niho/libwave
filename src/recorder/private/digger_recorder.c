@@ -10,10 +10,7 @@
 #include "tinycthread.h"
 #include "instance.h"
 
-
 static drInstance* instance = NULL;
-
-
 
 drError drInitialize(drEventCallback eventCallback, void* eventCallbackUserData)
 {
