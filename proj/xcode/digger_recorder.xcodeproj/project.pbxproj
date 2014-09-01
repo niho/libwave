@@ -18,6 +18,10 @@
 		C18C9E0219B470D7003E6833 /* digger_recorder.c in Sources */ = {isa = PBXBuildFile; fileRef = C18C9E0119B470D7003E6833 /* digger_recorder.c */; };
 		C18C9E0519B471E3003E6833 /* SandboxViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = C18C9E0419B471E3003E6833 /* SandboxViewController.mm */; };
 		C18C9E0819B47345003E6833 /* SandboxView.mm in Sources */ = {isa = PBXBuildFile; fileRef = C18C9E0719B47345003E6833 /* SandboxView.mm */; };
+		C1C7B9CA19B4951A00C0ED1D /* level_meter.c in Sources */ = {isa = PBXBuildFile; fileRef = C1C7B9C819B4951A00C0ED1D /* level_meter.c */; };
+		C1C7B9D219B4994200C0ED1D /* messagequeue.c in Sources */ = {isa = PBXBuildFile; fileRef = C1C7B9D019B4994200C0ED1D /* messagequeue.c */; };
+		C1C7B9D519B49AFB00C0ED1D /* tinycthread.c in Sources */ = {isa = PBXBuildFile; fileRef = C1C7B9D419B49AFB00C0ED1D /* tinycthread.c */; };
+		C1C7B9D819B49BFA00C0ED1D /* instance.c in Sources */ = {isa = PBXBuildFile; fileRef = C1C7B9D619B49BFA00C0ED1D /* instance.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +96,13 @@
 		C18C9E0419B471E3003E6833 /* SandboxViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SandboxViewController.mm; sourceTree = "<group>"; };
 		C18C9E0619B47345003E6833 /* SandboxView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SandboxView.h; sourceTree = "<group>"; };
 		C18C9E0719B47345003E6833 /* SandboxView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SandboxView.mm; sourceTree = "<group>"; };
+		C1C7B9C819B4951A00C0ED1D /* level_meter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = level_meter.c; sourceTree = "<group>"; };
+		C1C7B9C919B4951A00C0ED1D /* level_meter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = level_meter.h; sourceTree = "<group>"; };
+		C1C7B9D019B4994200C0ED1D /* messagequeue.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = messagequeue.c; sourceTree = "<group>"; };
+		C1C7B9D119B4994200C0ED1D /* messagequeue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = messagequeue.h; sourceTree = "<group>"; };
+		C1C7B9D419B49AFB00C0ED1D /* tinycthread.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = tinycthread.c; path = ../external/tinycthread/source/tinycthread.c; sourceTree = "<group>"; };
+		C1C7B9D619B49BFA00C0ED1D /* instance.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = instance.c; sourceTree = "<group>"; };
+		C1C7B9D719B49BFA00C0ED1D /* instance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = instance.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +156,7 @@
 		C18C9DD919B46CD2003E6833 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				C1C7B9D319B49AF300C0ED1D /* external */,
 				C18C9DDA19B46CD2003E6833 /* recorder */,
 				C18C9DDB19B46CD2003E6833 /* sandbox_ios */,
 			);
@@ -157,6 +169,12 @@
 			children = (
 				C18C9E0119B470D7003E6833 /* digger_recorder.c */,
 				C18C9E0019B46F58003E6833 /* digger_recorder.h */,
+				C1C7B9D619B49BFA00C0ED1D /* instance.c */,
+				C1C7B9D719B49BFA00C0ED1D /* instance.h */,
+				C1C7B9C819B4951A00C0ED1D /* level_meter.c */,
+				C1C7B9C919B4951A00C0ED1D /* level_meter.h */,
+				C1C7B9D019B4994200C0ED1D /* messagequeue.c */,
+				C1C7B9D119B4994200C0ED1D /* messagequeue.h */,
 			);
 			path = recorder;
 			sourceTree = "<group>";
@@ -188,6 +206,14 @@
 				C18C9DF819B46D58003E6833 /* libkowalski_tools.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		C1C7B9D319B49AF300C0ED1D /* external */ = {
+			isa = PBXGroup;
+			children = (
+				C1C7B9D419B49AFB00C0ED1D /* tinycthread.c */,
+			);
+			name = external;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -302,9 +328,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1C7B9D219B4994200C0ED1D /* messagequeue.c in Sources */,
+				C1C7B9CA19B4951A00C0ED1D /* level_meter.c in Sources */,
 				C18C9E0219B470D7003E6833 /* digger_recorder.c in Sources */,
+				C1C7B9D819B49BFA00C0ED1D /* instance.c in Sources */,
 				C18C9DE319B46CD2003E6833 /* main.mm in Sources */,
 				C18C9E0519B471E3003E6833 /* SandboxViewController.mm in Sources */,
+				C1C7B9D519B49AFB00C0ED1D /* tinycthread.c in Sources */,
 				C18C9E0819B47345003E6833 /* SandboxView.mm in Sources */,
 				C18C9DE119B46CD2003E6833 /* AppDelegate.mm in Sources */,
 			);
@@ -324,14 +354,14 @@
 		C106A14519B4665400774788 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				USER_HEADER_SEARCH_PATHS = ../../external/kowalski/src/engine;
+				USER_HEADER_SEARCH_PATHS = "../../external/kowalski/src/engine ../../external/tinycthread/source";
 			};
 			name = Debug;
 		};
 		C106A14619B4665400774788 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				USER_HEADER_SEARCH_PATHS = ../../external/kowalski/src/engine;
+				USER_HEADER_SEARCH_PATHS = "../../external/kowalski/src/engine ../../external/tinycthread/source";
 			};
 			name = Release;
 		};

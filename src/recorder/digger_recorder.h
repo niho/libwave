@@ -1,43 +1,71 @@
-#ifndef DIGGER_RECORDER_H
-#define DIGGER_RECORDER_H
+#ifndef DR_DIGGER_RECORDER_H
+#define DR_DIGGER_RECORDER_H
 
-/*! \file */
+/*! \file 
+ Public Digger Recorder API
+ */
 
 #ifdef __cplusplus
 extern "C"
 {
 #endif /* __cplusplus */
     
+    /**
+     * Error codes.
+     */
     typedef enum drError
     {
         DR_NO_ERROR = 0,
         DR_ALREADY_INITIALIZED,
         DR_NOT_INITIALIZED
     } drError;
-    
+
+    /**
+     * Valid event types.
+     */
     typedef enum drEventType
     {
-        DR_RECORDING_STARTED = 0,
+        DR_DID_INITIALIZE = 0,
+        DR_DID_DEINITIALIZE,
+        
+        DR_RECORDING_STARTED,
         DR_RECORDING_PAUSED,
-        DR_RECORDING_STOPPED
+        DR_RECORDING_STOPPED,
+        
+        DR_INPUT_CLIPPED
     } drEventType;
     
+    /**
+     * An event passed to the main (i.e UI) thread.
+     */
     typedef struct drEvent
     {
         drEventType type;
     } drEvent;
     
+    /**
+     * A callback to invoke for each incoming event.
+     */
     typedef void (*drEventCallback)(void* userData, const drEvent* event);
     
-    //TODO: pass sample rate etc here
+    /**
+     * Initializes the recorder.
+     */
     drError drInitialize(drEventCallback eventCallback, void* eventCallbackUserData);
     
+    /**
+     * Shuts down the recorder.
+     */
     drError drDeinitialize();
     
+    /**
+     * Called continually from the main/UI thread to pump new events
+     * and invoke event callbacks.
+     */
     drError drUpdate(float timeStep);
     
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
 
-#endif /* DIGGER_RECORDER_H */
+#endif /* DR_DIGGER_RECORDER_H */
