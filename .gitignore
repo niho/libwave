@@ -1,0 +1,7 @@
+build
+._*
+*.class
+xcuserdata
+*.xcworkspace
+*.o
+external
