@@ -58,6 +58,8 @@ extern "C"
     
     void drInstance_update(drInstance* instance, float timeStep);
     
+    void drInstance_getInputLevels(drInstance* instance, int channel, int logLevels, drLevels* result);
+    
     /**
      * Returns 0 on success, or non-zero if there is no free analyzer slot.
      */

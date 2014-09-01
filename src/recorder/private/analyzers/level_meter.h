@@ -13,17 +13,13 @@ extern "C"
         /** The index of the channel to process. */
         int channel;
         
-        float peakLog;
-        float peakLin;
-        float peakEnvelopeLog;
-        float peakEnvelopeLin;
+        float peak;
+        float peakEnvelope;
         
         float peakEnvelopeFeedback;
         
-        float rmsLog;
-        float rmsLin;
-        float rmsEnvelopeLog;
-        float rmsEnvelopeLin;
+        float rms;
+        float rmsEnvelope;
         
         float rmsEnvelopeFeedback;
         

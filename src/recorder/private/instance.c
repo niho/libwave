@@ -136,7 +136,6 @@ void drInstance_init(drInstance* instance, drEventCallback eventCallback, void* 
     const int numInputChannels = 1;
     const int bufferSize = 512;
     
-    
     //create audio analyzers
     assert(numOutChannels <= MAX_NUM_OUTPUT_CHANNELS);
     for (int i = 0; i < numOutChannels; i++)
@@ -181,4 +180,42 @@ void drInstance_update(drInstance* instance, float timeStep)
 {
     //update kowalski, invoking thread communication callbacks
     kwlUpdate(timeStep);
+}
+
+static float lin2LogLevel(float lin)
+{
+    //TODO: tweak this
+    return powf(lin, 0.3f);
+}
+
+void drInstance_getInputLevels(drInstance* instance, int channel, int logLevels, drLevels* result)
+{
+    assert(0 && "TODO: copy data between threads etc");
+    
+    memset(result, 0, sizeof(drLevels));
+    
+    if (channel >= MAX_NUM_INPUT_CHANNELS)
+    {
+        return;
+    }
+    
+    drLevelMeter* lm = &instance->inputLevelMeters[channel];
+    
+    if (logLevels)
+    {
+        result->peakLevel = lin2LogLevel(lm->peak);
+        result->peakLevelEnvelope = lin2LogLevel(lm->peakEnvelope);
+        result->rmsLevel = lin2LogLevel(lm->rms);
+        result->rmsLevelEnvelope = lin2LogLevel(lm->rmsEnvelope);
+    }
+    else
+    {
+        result->peakLevel = lm->peak;
+        result->peakLevelEnvelope = lm->peakEnvelope;
+        result->rmsLevel = lm->rms;
+        result->rmsLevelEnvelope = lm->rmsEnvelope;
+    }
+    
+    result->hasClipped = lm->clip;
+    
 }

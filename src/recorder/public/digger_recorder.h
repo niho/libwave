@@ -36,6 +36,18 @@ extern "C"
     } drEventType;
     
     /**
+     *
+     */
+    typedef struct drLevels
+    {
+        float rmsLevel;
+        float rmsLevelEnvelope;
+        float peakLevel;
+        float peakLevelEnvelope;
+        int hasClipped;
+    } drLevels;
+    
+    /**
      * An event passed to the main (i.e UI) thread.
      */
     typedef struct drEvent
@@ -63,6 +75,12 @@ extern "C"
      * and invoke event callbacks.
      */
     drError drUpdate(float timeStep);
+    
+    /**
+     *
+     */
+    drError drGetInputLevels(int channel, int logLevels, drLevels* result);
+    
     
 #ifdef __cplusplus
 }
