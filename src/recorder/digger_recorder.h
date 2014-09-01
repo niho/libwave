@@ -10,7 +10,9 @@ extern "C"
     
     typedef enum drError
     {
-        DR_NO_ERROR = 0
+        DR_NO_ERROR = 0,
+        DR_ALREADY_INITIALIZED,
+        DR_NOT_INITIALIZED
     } drError;
     
     typedef enum drEventType
@@ -25,12 +27,14 @@ extern "C"
         drEventType type;
     } drEvent;
     
-    typedef void (*drEventListener)(void* userData, const drEvent* event);
+    typedef void (*drEventCallback)(void* userData, const drEvent* event);
     
     //TODO: pass sample rate etc here
-    drError drInitialize(drEventListener* eventListener);
+    drError drInitialize(drEventCallback eventCallback, void* eventCallbackUserData);
     
     drError drDeinitialize();
+    
+    drError drUpdate(float timeStep);
     
 #ifdef __cplusplus
 }
