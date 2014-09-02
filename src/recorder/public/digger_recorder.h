@@ -23,17 +23,16 @@ extern "C"
     /**
      * Valid event types.
      */
-    typedef enum drEventType
+    typedef enum drNotificationType
     {
         DR_DID_START_AUDIO_STREAM = 0,
-        DR_DID_DEINITIALIZE_AUDIO_SYSTEM,
         
         DR_RECORDING_STARTED,
         DR_RECORDING_PAUSED,
         DR_RECORDING_STOPPED,
         
         DR_INPUT_CLIPPED
-    } drEventType;
+    } drNotificationType;
     
     /**
      *
@@ -48,22 +47,22 @@ extern "C"
     } drLevels;
     
     /**
-     * An event passed to the main (i.e UI) thread.
+     * A notification passed to the main (i.e UI) thread.
      */
-    typedef struct drEvent
+    typedef struct drNotification
     {
-        drEventType type;
-    } drEvent;
+        drNotificationType type;
+    } drNotification;
     
     /**
      * A callback to invoke for each incoming event.
      */
-    typedef void (*drEventCallback)(const drEvent* event, void* userData);
+    typedef void (*drNotificationCallback)(const drNotification* event, void* userData);
     
     /**
      * Initializes the recorder.
      */
-    drError drInitialize(drEventCallback eventCallback, void* eventCallbackUserData);
+    drError drInitialize(drNotificationCallback notificationCallback, void* notificationCallbackUserData);
     
     /**
      * Shuts down the recorder.

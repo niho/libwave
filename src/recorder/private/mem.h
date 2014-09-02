@@ -12,10 +12,17 @@
 extern "C"
 {
 #endif /* __cplusplus */
-  
-#define DR_MALLOC(size, tag) (malloc(size))
+
+    /**
+     * Tries to allocate a given number of bytes, associating the allocation
+     * with an arbitrary user tag.
+     */
+    #define DR_MALLOC(size, tag) (malloc(size))
     
-#define DR_FREE(ptr) (free(ptr))
+    /**
+     * Frees a given pointer.
+     */
+    #define DR_FREE(ptr) (free(ptr))
     
 #ifdef __cplusplus
 }

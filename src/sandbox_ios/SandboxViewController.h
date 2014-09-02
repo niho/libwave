@@ -11,7 +11,7 @@
 
 @property (nonatomic, retain) SandboxView* sandboxView;
 
--(void)onEvent:(const drEvent*)event;
+-(void)onEvent:(const drNotification*)event;
 
 -(void)updateTick;
 

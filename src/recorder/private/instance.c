@@ -9,39 +9,66 @@
 
 #define kEventQueueCapactity (50)
 
-static void engineThreadUpdateCallback(void* data)
+/**
+ * Gets called from the main thread.
+ */
+static void mainThreadUpdateCallback(void* data)
 {
     drInstance* in = (drInstance*)data;
     
-    mtx_lock(&in->sharedEventQueueLock);
-    drMessageQueue_moveMessages(in->outgoingEventQueueShared, in->outgoingEventQueueMain);
-    mtx_unlock(&in->sharedEventQueueLock);
     
-    //invoke the event callback for any incoming events
-    if (in->eventCallback)
+    mtx_lock(&in->communicationQueueLock);
+    
+    //move any incoming messages to memory shared between the main
+    //and the audio threads
+    drMessageQueue_moveMessages(in->controlEventQueueMain, in->controlEventQueueShared);
+    
+    //move any outgoing messages to memory only accessed from the main thread
+    drMessageQueue_moveMessages(in->outgoingEventQueueShared, in->outgoingEventQueueMain);
+    
+    mtx_unlock(&in->communicationQueueLock);
+    
+    //invoke the event callback for any incoming events on the main thread
+    if (in->notificationCallback)
     {
         const int numEvents = drMessageQueue_getNumMessages(in->outgoingEventQueueMain);
         for (int i = 0; i < numEvents; i++)
         {
-            const drEvent* e = (const drEvent*)drMessageQueue_getMessage(in->outgoingEventQueueMain, i);
-            in->eventCallback(e, in->eventCallbackData);
+            const drNotification* e = (const drNotification*)drMessageQueue_getMessage(in->outgoingEventQueueMain, i);
+            drInstance_onMainThreadEvent(in, e);
+            in->notificationCallback(e, in->notificationCallbackData);
         }
         
         drMessageQueue_clear(in->outgoingEventQueueMain);
     }
 }
 
+/**
+ * Gets called from the audio thread.
+ */
 static void audioThreadUpdateCallback(void* data)
 {
     drInstance* in = (drInstance*)data;
     
-    const int numMessages = drMessageQueue_getNumMessages(in->outgoingEventQueueAudio);
-    if (numMessages)
+    mtx_lock(&in->communicationQueueLock);
+    
+    //move any incoming messages to memory only accessed from the audio thread
+    drMessageQueue_moveMessages(in->controlEventQueueShared, in->controlEventQueueAudio);
+    
+    //move any outgoing messages to memory shared between the main
+    //and the audio threads
+    drMessageQueue_moveMessages(in->outgoingEventQueueAudio, in->outgoingEventQueueShared);
+    
+    mtx_unlock(&in->communicationQueueLock);
+    
+    const int numEvents = drMessageQueue_getNumMessages(in->controlEventQueueAudio);
+    for (int i = 0; i < numEvents; i++)
     {
-        mtx_lock(&in->sharedEventQueueLock);
-        drMessageQueue_moveMessages(in->outgoingEventQueueAudio, in->outgoingEventQueueShared);
-        mtx_unlock(&in->sharedEventQueueLock);
+        const drNotification* e = (const drNotification*)drMessageQueue_getMessage(in->controlEventQueueAudio, i);
+        drInstance_onAudioThreadEvent(in, e);
     }
+    
+    drMessageQueue_clear(in->outgoingEventQueueMain);
 }
 
 static void inputCallback(float* inBuffer, int numChannels, int numFrames, void* data)
@@ -63,7 +90,7 @@ static void outputCallback(float* inBuffer, int numChannels, int numFrames, void
     
     if (in->firstSampleHasPlayed == 0)
     {
-        drEvent e;
+        drNotification e;
         e.type = DR_DID_START_AUDIO_STREAM;
         drInstance_enqueueEventFromAudioToMainThread(in, &e);
         in->firstSampleHasPlayed = 1;
@@ -98,28 +125,39 @@ int drInstance_addInputAnalyzer(drInstance* instance,
     return 1;
 }
 
-void drInstance_enqueueEventFromAudioToMainThread(drInstance* instance, const drEvent* event)
+void drInstance_enqueueEventFromAudioToMainThread(drInstance* instance, const drNotification* event)
 {
-    //TODO: pass instance as param
     drMessageQueue_addMessage(instance->outgoingEventQueueAudio, (void*)event);
 }
 
-void drInstance_init(drInstance* instance, drEventCallback eventCallback, void* eventCallbackUserData)
+void drInstance_enqueueEventFromMainToAudioThread(drInstance* instance, const drControlEvent* event)
+{
+    drMessageQueue_addMessage(instance->controlEventQueueMain, (void*)event);
+}
+
+void drInstance_init(drInstance* instance, drNotificationCallback notificationCallback, void* notificationCallbackUserData)
 {
     memset(instance, 0, sizeof(drInstance));
     
     
-    instance->eventCallback = eventCallback;
-    instance->eventCallbackData = eventCallbackUserData;
+    instance->notificationCallback = notificationCallback;
+    instance->notificationCallbackData = notificationCallbackUserData;
     
     instance->outgoingEventQueueShared = drMessageQueue_new(kEventQueueCapactity,
-                                                             sizeof(drEvent));
+                                                             sizeof(drNotification));
     instance->outgoingEventQueueAudio = drMessageQueue_new(kEventQueueCapactity,
-                                                             sizeof(drEvent));
+                                                             sizeof(drNotification));
     instance->outgoingEventQueueMain = drMessageQueue_new(kEventQueueCapactity,
-                                                             sizeof(drEvent));
+                                                             sizeof(drNotification));
     
-    mtx_init(&instance->sharedEventQueueLock, mtx_plain);
+    instance->controlEventQueueShared = drMessageQueue_new(kEventQueueCapactity,
+                                                            sizeof(drControlEvent));
+    instance->controlEventQueueAudio = drMessageQueue_new(kEventQueueCapactity,
+                                                           sizeof(drControlEvent));
+    instance->controlEventQueueMain = drMessageQueue_new(kEventQueueCapactity,
+                                                          sizeof(drControlEvent));
+    
+    mtx_init(&instance->communicationQueueLock, mtx_plain);
     
     instance->inputDSPUnit = kwlDSPUnitCreateCustom(instance,
                                                     inputCallback,
@@ -129,7 +167,7 @@ void drInstance_init(drInstance* instance, drEventCallback eventCallback, void* 
     
     instance->outputDSPUnit = kwlDSPUnitCreateCustom(instance,
                                                      outputCallback,
-                                                     engineThreadUpdateCallback,
+                                                     mainThreadUpdateCallback,
                                                      audioThreadUpdateCallback,
                                                      NULL);
     
@@ -192,7 +230,12 @@ void drInstance_deinit(drInstance* instance)
     drMessageQueue_delete(instance->outgoingEventQueueAudio);
     drMessageQueue_delete(instance->outgoingEventQueueMain);
     drMessageQueue_delete(instance->outgoingEventQueueShared);
-    mtx_destroy(&instance->sharedEventQueueLock);
+    
+    drMessageQueue_delete(instance->controlEventQueueAudio);
+    drMessageQueue_delete(instance->controlEventQueueMain);
+    drMessageQueue_delete(instance->controlEventQueueShared);
+    
+    mtx_destroy(&instance->communicationQueueLock);
 
     //clear the instance
     memset(instance, 0, sizeof(drInstance));
@@ -202,6 +245,16 @@ void drInstance_update(drInstance* instance, float timeStep)
 {
     //update kowalski, invoking thread communication callbacks
     kwlUpdate(timeStep);
+}
+
+void drInstance_onAudioThreadEvent(drInstance* instance, const drNotification* event)
+{
+    
+}
+
+void drInstance_onMainThreadEvent(drInstance* instance, const drNotification* event)
+{
+
 }
 
 static float lin2LogLevel(float lin)

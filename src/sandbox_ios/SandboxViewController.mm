@@ -1,7 +1,7 @@
 
 #import "SandboxViewController.h"
 
-static void eventCallback(const drEvent* event, void* userData)
+static void eventCallback(const drNotification* event, void* userData)
 {
     SandboxViewController* vc = (__bridge SandboxViewController*)userData;
     [vc onEvent:event];
@@ -26,7 +26,7 @@ static void eventCallback(const drEvent* event, void* userData)
     return self;
 }
 
--(void)onEvent:(const drEvent*)event
+-(void)onEvent:(const drNotification*)event
 {
     switch (event->type)
     {

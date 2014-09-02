@@ -7,7 +7,10 @@
 extern "C"
 {
 #endif /* __cplusplus */
-      
+    
+    /**
+     * The state of a single channel level meter.
+     */
     typedef struct drLevelMeter
     {
         /** The index of the channel to process. */

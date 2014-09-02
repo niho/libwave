@@ -19,6 +19,17 @@ extern "C"
     #define MAX_NUM_INPUT_CHANNELS 1
     #define MAX_NUM_OUTPUT_CHANNELS 2
     
+    typedef enum drControlEventType
+    {
+        DR_START_RECORDING = 0,
+        DR_PAUSE_RECORDING,
+        DR_STOP_RECORDING
+    } drControlEventType;
+    
+    typedef struct drControlEvent
+    {
+        drControlEventType type;
+    } drControlEvent;
     
     typedef struct drAnalyzerSlot
     {
@@ -39,13 +50,17 @@ extern "C"
         kwlDSPUnitHandle outputDSPUnit;
         int firstSampleHasPlayed;
         
-        mtx_t sharedEventQueueLock;
+        mtx_t communicationQueueLock;
         drMessageQueue* outgoingEventQueueShared;
         drMessageQueue* outgoingEventQueueMain;
         drMessageQueue* outgoingEventQueueAudio;
         
-        drEventCallback eventCallback;
-        void* eventCallbackData;
+        drMessageQueue* controlEventQueueShared;
+        drMessageQueue* controlEventQueueMain;
+        drMessageQueue* controlEventQueueAudio;
+        
+        drNotificationCallback notificationCallback;
+        void* notificationCallbackData;
         
         //Audio analyzers
         drLevelMeter inputLevelMeters[MAX_NUM_INPUT_CHANNELS];
@@ -53,13 +68,17 @@ extern "C"
         
     } drInstance;
     
-    void drInstance_init(drInstance* instance, drEventCallback eventCallback, void* eventCallbackUserData);
+    void drInstance_init(drInstance* instance, drNotificationCallback notificationCallback, void* notificationCallbackUserData);
     
     void drInstance_deinit(drInstance* instance);
     
     void drInstance_update(drInstance* instance, float timeStep);
     
     void drInstance_getInputLevels(drInstance* instance, int channel, int logLevels, drLevels* result);
+    
+    void drInstance_onAudioThreadEvent(drInstance* instance, const drNotification* event);
+    
+    void drInstance_onMainThreadEvent(drInstance* instance, const drNotification* event);
     
     /**
      * Returns 0 on success, or non-zero if there is no free analyzer slot.
@@ -72,7 +91,12 @@ extern "C"
     /**
      * Must be called <strong>only from the audio thread</strong>!
      */
-    void drInstance_enqueueEventFromAudioToMainThread(drInstance* instance, const drEvent* event);
+    void drInstance_enqueueEventFromAudioToMainThread(drInstance* instance, const drNotification* event);
+    
+    /**
+     *
+     */
+    void drInstance_enqueueEventFromMainToAudioThread(drInstance* instance, const drControlEvent* event);
     
 #ifdef __cplusplus
 }

@@ -13,7 +13,7 @@
 
 static drInstance* instance = NULL;
 
-drError drInitialize(drEventCallback eventCallback, void* eventCallbackUserData)
+drError drInitialize(drNotificationCallback notificationCallback, void* notificationCallbackUserData)
 {
     if (instance)
     {
@@ -21,7 +21,7 @@ drError drInitialize(drEventCallback eventCallback, void* eventCallbackUserData)
     }
     
     instance = DR_MALLOC(sizeof(drInstance), "Digger recorder instance");
-    drInstance_init(instance, eventCallback, eventCallbackUserData);
+    drInstance_init(instance, notificationCallback, notificationCallbackUserData);
     
     
     return DR_NO_ERROR;

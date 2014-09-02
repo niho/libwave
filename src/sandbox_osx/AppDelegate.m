@@ -29,13 +29,13 @@
 
 }
 
-static void eventCallback(void* userData, const drEvent* event)
+static void eventCallback(void* userData, const drNotification* event)
 {
     
 }
 
 
--(void)onEvent:(const drEvent*)event
+-(void)onEvent:(const drNotification*)event
 {
     
 }
