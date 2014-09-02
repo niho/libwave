@@ -376,13 +376,13 @@ void drInstance_getInputLevels(drInstance* instance, int channel, int logLevels,
     {
         result->peakLevel = lin2LogLevel(lm->peak);
         result->peakLevelEnvelope = lin2LogLevel(lm->peakEnvelope);
-        result->rmsLevel = lin2LogLevel(lm->rms);
+        result->rmsLevel = lin2LogLevel(lm->rmsLevel);
     }
     else
     {
         result->peakLevel = lm->peak;
         result->peakLevelEnvelope = lm->peakEnvelope;
-        result->rmsLevel = lm->rms;
+        result->rmsLevel = lm->rmsLevel;
     }
     
     result->hasClipped = lm->clip;

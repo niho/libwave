@@ -21,7 +21,7 @@ extern "C"
     } drError;
 
     /**
-     * Valid event types.
+     * Valid notification types.
      */
     typedef enum drNotificationType
     {

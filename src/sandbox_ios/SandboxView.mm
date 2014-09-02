@@ -20,7 +20,7 @@
         
         self.latestNotificationLabel = [[UILabel alloc] init];
         self.latestNotificationLabel.textAlignment = NSTextAlignmentCenter;
-        self.latestNotificationLabel.alpha = 0.7f;
+        self.latestNotificationLabel.alpha = 0.5f;
         [self addUIRow:self.latestNotificationLabel];
     }
     
@@ -37,6 +37,7 @@
         
         self.recCancelButton = [UIButton buttonWithType:UIButtonTypeSystem];
         [self.recCancelButton setTitle:@"cancel" forState:UIControlStateNormal];
+        [self.recCancelButton addTarget:vc action:@selector(onRecCancel:) forControlEvents:UIControlEventTouchUpInside];
         self.recCancelButton.enabled = NO;
         
         [self addUIRow:self.recToggleButton
@@ -77,7 +78,7 @@
     
     //level meters
     {
-        [self addUITitleRow:@"Levels"];
+        //[self addUITitleRow:@"Levels"];
     }
     
     m_scrollView.contentSize = CGSizeMake(self.frame.size.width, m_currUIRow * kUIRowHeight);

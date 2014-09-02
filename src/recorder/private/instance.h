@@ -19,6 +19,9 @@ extern "C"
     #define MAX_NUM_INPUT_CHANNELS 1
     #define MAX_NUM_OUTPUT_CHANNELS 2
     
+    /**
+     * Valid control event types
+     */
     typedef enum drControlEventType
     {
         DR_START_RECORDING = 0,
@@ -28,18 +31,18 @@ extern "C"
         DR_FINISH_RECORDING,
     } drControlEventType;
     
+    /**
+     * A control event, i.e an event sent form the 
+     * main thread to the audio thread.
+     */
     typedef struct drControlEvent
     {
         drControlEventType type;
     } drControlEvent;
     
-    typedef struct drAnalyzerSlot
-    {
-        void* analyzerData;
-        drAnalyzerAudioCallback audioCallback;
-        drAnalyzerDeinitCallback deinitCallback;
-    } drAnalyzerSlot;
-    
+    /**
+     * Possible recorder instance states.
+     */
     typedef enum drState
     {
         DR_STATE_IDLE = 0,
@@ -47,6 +50,16 @@ extern "C"
         DR_STATE_RECORDING_PAUSED
         
     } drState;
+    
+    /**
+     * An analyzer slot.
+     */
+    typedef struct drAnalyzerSlot
+    {
+        void* analyzerData;
+        drAnalyzerAudioCallback audioCallback;
+        drAnalyzerDeinitCallback deinitCallback;
+    } drAnalyzerSlot;
     
     /**
      * A Digger recorder instance.
@@ -81,11 +94,20 @@ extern "C"
         drLevelMeter outputLevelMeters[MAX_NUM_OUTPUT_CHANNELS];
         
     } drInstance;
-    
+
+    /**
+     *
+     */
     void drInstance_init(drInstance* instance, drNotificationCallback notificationCallback, void* notificationCallbackUserData);
     
+    /**
+     *
+     */
     void drInstance_deinit(drInstance* instance);
     
+    /**
+     *
+     */
     void drInstance_update(drInstance* instance, float timeStep);
     
     /**
@@ -93,11 +115,19 @@ extern "C"
      */
     int drInstance_isOnMainThread(drInstance* instance);
     
-    
+    /**
+     *
+     */
     void drInstance_getInputLevels(drInstance* instance, int channel, int logLevels, drLevels* result);
     
+    /**
+     * Invoked when a control event reaches the audio thread. Invoked on the audio thread.
+     */
     void drInstance_onAudioThreadControlEvent(drInstance* instance, const drControlEvent* event);
     
+    /**
+     * Invoked when a notification reaches the main thread. Invoked on the main thread.
+     */
     void drInstance_onMainThreadNotification(drInstance* instance, const drNotification* notification);
     
     /**

@@ -69,6 +69,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="globals_func.html"><span>Functions</span></a></li>
       <li><a href="globals_type.html"><span>Typedefs</span></a></li>
       <li><a href="globals_enum.html"><span>Enumerations</span></a></li>
+      <li><a href="globals_defs.html"><span>Macros</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -77,7 +78,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -88,62 +89,86 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div class="contents">
 <div class="textblock">Here is a list of all documented functions, variables, defines, enums, and typedefs with links to the documentation:</div><ul>
+<li>DR_FREE
+: <a class="el" href="mem_8h.html#abf47b1ae70ada80392bf56d6669af530">mem.h</a>
+</li>
+<li>DR_MALLOC
+: <a class="el" href="mem_8h.html#a7929988ef95158d3331d7f1d13411e91">mem.h</a>
+</li>
 <li>drDeinitialize()
 : <a class="el" href="digger__recorder_8h.html#a2741b7750b8ba1f066d0e03165753edd">digger_recorder.h</a>
 </li>
 <li>drError
 : <a class="el" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">digger_recorder.h</a>
 </li>
-<li>drEvent
-: <a class="el" href="digger__recorder_8h.html#a2b9d96a9e7b10bee72a5d6762259618b">digger_recorder.h</a>
-</li>
-<li>drEventCallback
-: <a class="el" href="digger__recorder_8h.html#aaa535b1160a47585bb1826f5102cade7">digger_recorder.h</a>
-</li>
-<li>drEventType
-: <a class="el" href="digger__recorder_8h.html#a154ec1595c892496085a9fbf0c84af7a">digger_recorder.h</a>
-</li>
 <li>drInitialize()
-: <a class="el" href="digger__recorder_8h.html#a4592fafe48b670f51d66b7330b39f6f0">digger_recorder.h</a>
+: <a class="el" href="digger__recorder_8h.html#a185d1c7eda36e20c2ed40a3cfb2850eb">digger_recorder.h</a>
 </li>
 <li>drInstance
 : <a class="el" href="instance_8h.html#af38ade5d20fc4cd124aa8e77d05da814">instance.h</a>
 </li>
-<li>drInstance_enqueuEventFromAudioToMainThread()
-: <a class="el" href="instance_8h.html#a38140bb3c3bf56f5a6d05c5749087a35">instance.h</a>
+<li>drInstance_addInputAnalyzer()
+: <a class="el" href="instance_8h.html#aecddc614f402ba00c2a8904ce544cfd9">instance.h</a>
+</li>
+<li>drInstance_enqueueControlEvent()
+: <a class="el" href="instance_8h.html#af630066616f0ecccb150b87d784f8d59">instance.h</a>
+</li>
+<li>drInstance_enqueueControlEventOfType()
+: <a class="el" href="instance_8h.html#aa017a1f360ae6146302a5881bf795e64">instance.h</a>
+</li>
+<li>drInstance_enqueueNotification()
+: <a class="el" href="instance_8h.html#a952f566c91e479b7b5175e5183e3bd92">instance.h</a>
+</li>
+<li>drInstance_enqueueNotificationOfType()
+: <a class="el" href="instance_8h.html#a6ae1f9767b70c750f6eeb32a7d1014c8">instance.h</a>
+</li>
+<li>drInstance_isOnMainThread()
+: <a class="el" href="instance_8h.html#ad7cf93f2ab72c808b80e495b661f851d">instance.h</a>
+</li>
+<li>drMessageQueue
+: <a class="el" href="messagequeue_8h.html#ab788495dafb1dc5d883b4ca4865fc6c2">messagequeue.h</a>
+</li>
+<li>drMessageQueue_addMessage()
+: <a class="el" href="messagequeue_8h.html#a6a4c282caf50735b39131b7a5b1bce1c">messagequeue.h</a>
+</li>
+<li>drMessageQueue_clear()
+: <a class="el" href="messagequeue_8h.html#a92e7e77ede11dea7a0a4f66b9845799e">messagequeue.h</a>
+</li>
+<li>drMessageQueue_delete()
+: <a class="el" href="messagequeue_8h.html#a7e30db7dac82e75b01ec6e9d8557219c">messagequeue.h</a>
+</li>
+<li>drMessageQueue_getMessage()
+: <a class="el" href="messagequeue_8h.html#ac93742d75a791d0638c977d823deb889">messagequeue.h</a>
+</li>
+<li>drMessageQueue_getNumMessages()
+: <a class="el" href="messagequeue_8h.html#a3b1b6918a79a676f66bc41372757a575">messagequeue.h</a>
+</li>
+<li>drMessageQueue_moveMessages()
+: <a class="el" href="messagequeue_8h.html#a17bba2b63bb80ec61bafb4efadea2d28">messagequeue.h</a>
+</li>
+<li>drMessageQueue_new()
+: <a class="el" href="messagequeue_8h.html#a362678d5d838a66a31bea3730167cc12">messagequeue.h</a>
+</li>
+<li>drNotification
+: <a class="el" href="digger__recorder_8h.html#a28ae04d4723cceb9165444d54947fdaa">digger_recorder.h</a>
+</li>
+<li>drNotificationCallback
+: <a class="el" href="digger__recorder_8h.html#a581c20bdc1055562f0ee04af0f5cd434">digger_recorder.h</a>
+</li>
+<li>drNotificationType
+: <a class="el" href="digger__recorder_8h.html#ab9973d109ff125cfed8ac5742cdfbf54">digger_recorder.h</a>
+</li>
+<li>drNotificationTypeToString()
+: <a class="el" href="digger__recorder_8h.html#ab5e8a86983f4956c21ede61dbdcd0f4f">digger_recorder.h</a>
 </li>
 <li>drUpdate()
 : <a class="el" href="digger__recorder_8h.html#a58dfcfa12e2fdbfbd8cc8894e7db5842">digger_recorder.h</a>
-</li>
-<li>stfMessageQueue
-: <a class="el" href="messagequeue_8h.html#a529e54d8a84cf368f6f6e80b0a965122">messagequeue.h</a>
-</li>
-<li>stfMessageQueue_addMessage()
-: <a class="el" href="messagequeue_8h.html#adefe3b6845df7478484ee2baae7f7cfc">messagequeue.h</a>
-</li>
-<li>stfMessageQueue_clear()
-: <a class="el" href="messagequeue_8h.html#a224586653d8feaf7c6d1a5bfd7caab9e">messagequeue.h</a>
-</li>
-<li>stfMessageQueue_delete()
-: <a class="el" href="messagequeue_8h.html#a6cfc46264d6e5fbcb9f8f5cbcb205a95">messagequeue.h</a>
-</li>
-<li>stfMessageQueue_getMessage()
-: <a class="el" href="messagequeue_8h.html#ae5fff269fd92c119100ea9ae71cfa490">messagequeue.h</a>
-</li>
-<li>stfMessageQueue_getNumMessages()
-: <a class="el" href="messagequeue_8h.html#a3736260000745c5e665ebcebcf13cf51">messagequeue.h</a>
-</li>
-<li>stfMessageQueue_moveMessages()
-: <a class="el" href="messagequeue_8h.html#afcbccb2382ce4626b40914fbfa0226b9">messagequeue.h</a>
-</li>
-<li>stfMessageQueue_new()
-: <a class="el" href="messagequeue_8h.html#ada32ac510d34302ae76c9de3eea8a983">messagequeue.h</a>
 </li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 1 2014 16:16:49 for Digger Recorder Private API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Sep 2 2014 14:48:26 for Digger Recorder Private API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>

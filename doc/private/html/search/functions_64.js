@@ -1,7 +1,20 @@
 var searchData=
 [
   ['drdeinitialize',['drDeinitialize',['../digger__recorder_8h.html#a2741b7750b8ba1f066d0e03165753edd',1,'digger_recorder.c']]],
-  ['drinitialize',['drInitialize',['../digger__recorder_8h.html#a4592fafe48b670f51d66b7330b39f6f0',1,'digger_recorder.c']]],
-  ['drinstance_5fenqueueventfromaudiotomainthread',['drInstance_enqueuEventFromAudioToMainThread',['../instance_8h.html#a38140bb3c3bf56f5a6d05c5749087a35',1,'instance.c']]],
+  ['drinitialize',['drInitialize',['../digger__recorder_8h.html#a185d1c7eda36e20c2ed40a3cfb2850eb',1,'digger_recorder.c']]],
+  ['drinstance_5faddinputanalyzer',['drInstance_addInputAnalyzer',['../instance_8h.html#aecddc614f402ba00c2a8904ce544cfd9',1,'instance.c']]],
+  ['drinstance_5fenqueuecontrolevent',['drInstance_enqueueControlEvent',['../instance_8h.html#af630066616f0ecccb150b87d784f8d59',1,'instance.c']]],
+  ['drinstance_5fenqueuecontroleventoftype',['drInstance_enqueueControlEventOfType',['../instance_8h.html#aa017a1f360ae6146302a5881bf795e64',1,'instance.c']]],
+  ['drinstance_5fenqueuenotification',['drInstance_enqueueNotification',['../instance_8h.html#a952f566c91e479b7b5175e5183e3bd92',1,'instance.c']]],
+  ['drinstance_5fenqueuenotificationoftype',['drInstance_enqueueNotificationOfType',['../instance_8h.html#a6ae1f9767b70c750f6eeb32a7d1014c8',1,'instance.c']]],
+  ['drinstance_5fisonmainthread',['drInstance_isOnMainThread',['../instance_8h.html#ad7cf93f2ab72c808b80e495b661f851d',1,'instance.c']]],
+  ['drmessagequeue_5faddmessage',['drMessageQueue_addMessage',['../messagequeue_8h.html#a6a4c282caf50735b39131b7a5b1bce1c',1,'messagequeue.c']]],
+  ['drmessagequeue_5fclear',['drMessageQueue_clear',['../messagequeue_8h.html#a92e7e77ede11dea7a0a4f66b9845799e',1,'messagequeue.c']]],
+  ['drmessagequeue_5fdelete',['drMessageQueue_delete',['../messagequeue_8h.html#a7e30db7dac82e75b01ec6e9d8557219c',1,'messagequeue.c']]],
+  ['drmessagequeue_5fgetmessage',['drMessageQueue_getMessage',['../messagequeue_8h.html#ac93742d75a791d0638c977d823deb889',1,'messagequeue.c']]],
+  ['drmessagequeue_5fgetnummessages',['drMessageQueue_getNumMessages',['../messagequeue_8h.html#a3b1b6918a79a676f66bc41372757a575',1,'messagequeue.c']]],
+  ['drmessagequeue_5fmovemessages',['drMessageQueue_moveMessages',['../messagequeue_8h.html#a17bba2b63bb80ec61bafb4efadea2d28',1,'messagequeue.c']]],
+  ['drmessagequeue_5fnew',['drMessageQueue_new',['../messagequeue_8h.html#a362678d5d838a66a31bea3730167cc12',1,'messagequeue.c']]],
+  ['drnotificationtypetostring',['drNotificationTypeToString',['../digger__recorder_8h.html#ab5e8a86983f4956c21ede61dbdcd0f4f',1,'digger_recorder.c']]],
   ['drupdate',['drUpdate',['../digger__recorder_8h.html#a58dfcfa12e2fdbfbd8cc8894e7db5842',1,'digger_recorder.c']]]
 ];

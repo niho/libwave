@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <math.h>
 #include "assert.h"
+#include "mem.h"
 
 #include "level_meter.h"
 
@@ -10,6 +11,10 @@ void drLevelMeter_init(drLevelMeter* meter, int channel)
 {
     memset(meter, 0, sizeof(drLevelMeter));
     meter->channel = channel;
+    
+    meter->rmsWindowSize = 1000;
+    meter->rmsWindow = (float*)DR_MALLOC(sizeof(float) * meter->rmsWindowSize, "rms window");
+    memset(meter->rmsWindow, 0, sizeof(float) * meter->rmsWindowSize);
 }
 
 void drLevelMeter_processBuffer(void* levelMeter,
@@ -17,7 +22,6 @@ void drLevelMeter_processBuffer(void* levelMeter,
                                 int numChannels,
                                 int numFrames)
 {
-    
     drLevelMeter* meter = (drLevelMeter*)levelMeter;
     
     if (numFrames == 0)
@@ -25,27 +29,35 @@ void drLevelMeter_processBuffer(void* levelMeter,
         return;
     }
     
-    //RMS http://www.mathworks.se/help/signal/ref/rms.html
-    float rms = 0.0f;
     float peak = 0.0f;
     
     const int channel = meter->channel;
     
     for (int i = 0; i < numFrames; i++)
     {
-        const float absVal = fabs(inBuffer[i * numChannels + channel]);
-        rms += absVal * absVal;
+        const float val = inBuffer[i * numChannels + channel];
+        const float absVal = fabs(val);
+        const float sq = absVal * absVal;
         
+        //update rms running sum
+        const float lastValue = meter->rmsWindow[meter->rmsWindowPos];
+        meter->rmsWindow[meter->rmsWindowPos] = sq;
+        meter->runningSquareSum += (sq - lastValue);
+        meter->rmsWindowPos = (meter->rmsWindowPos + 1) % meter->rmsWindowSize;
+        
+        //measure peak per buffer
         if (peak < absVal)
         {
             peak = absVal;
         }
     }
     
-    rms = sqrtf(rms / numFrames);
+    //refresh rms value
+    meter->rmsLevel = sqrtf(meter->runningSquareSum / meter->rmsWindowSize);
 }
 
 void drLevelMeter_deinit(void* levelMeter)
 {
-    //nothing to clean up
+    drLevelMeter* meter = (drLevelMeter*)levelMeter;
+    DR_FREE(meter->rmsWindow);
 }

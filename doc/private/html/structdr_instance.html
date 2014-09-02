@@ -68,7 +68,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -90,6 +90,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
+<tr class="memitem:aa028991dd624a1a88b063ea82289ba0b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa028991dd624a1a88b063ea82289ba0b"></a>
+drState&#160;</td><td class="memItemRight" valign="bottom"><b>state</b></td></tr>
+<tr class="separator:aa028991dd624a1a88b063ea82289ba0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aebbe88256b939aeb5680e7c2efc15e2c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aebbe88256b939aeb5680e7c2efc15e2c"></a>
+<a class="el" href="structdr_analyzer_slot.html">drAnalyzerSlot</a>&#160;</td><td class="memItemRight" valign="bottom"><b>inputAnalyzerSlots</b> [MAX_NUM_ANALYZER_SLOTS]</td></tr>
+<tr class="separator:aebbe88256b939aeb5680e7c2efc15e2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab9dd87da8c1f6740b3064f6e935d0bee"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab9dd87da8c1f6740b3064f6e935d0bee"></a>
 float&#160;</td><td class="memItemRight" valign="bottom"><b>sampleRate</b></td></tr>
 <tr class="separator:ab9dd87da8c1f6740b3064f6e935d0bee"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -99,21 +105,45 @@ kwlDSPUnitHandle&#160;</td><td class="memItemRight" valign="bottom"><b>inputDSPU
 <tr class="memitem:a90459cfc63326bc8051ce3bfab12c396"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a90459cfc63326bc8051ce3bfab12c396"></a>
 kwlDSPUnitHandle&#160;</td><td class="memItemRight" valign="bottom"><b>outputDSPUnit</b></td></tr>
 <tr class="separator:a90459cfc63326bc8051ce3bfab12c396"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac44c13b479be789de2cd12f1e3f9bd36"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac44c13b479be789de2cd12f1e3f9bd36"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>inputPeakValue</b></td></tr>
-<tr class="separator:ac44c13b479be789de2cd12f1e3f9bd36"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac5b199a4f3d4f2759a811b5a29595f77"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac5b199a4f3d4f2759a811b5a29595f77"></a>
-mtx_t&#160;</td><td class="memItemRight" valign="bottom"><b>sharedEventQueueLock</b></td></tr>
-<tr class="separator:ac5b199a4f3d4f2759a811b5a29595f77"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a867fa7aef8352c30ecc8466ec8d443ec"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a867fa7aef8352c30ecc8466ec8d443ec"></a>
-<a class="el" href="structstf_message_queue.html">stfMessageQueue</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>outgoingEventQueueShared</b></td></tr>
-<tr class="separator:a867fa7aef8352c30ecc8466ec8d443ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a590970faffe827409cb276915d409f0e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a590970faffe827409cb276915d409f0e"></a>
-<a class="el" href="structstf_message_queue.html">stfMessageQueue</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>outgoingEventQueueMain</b></td></tr>
-<tr class="separator:a590970faffe827409cb276915d409f0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a73c5d47239e56871d559d9e8b2ef0fd7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a73c5d47239e56871d559d9e8b2ef0fd7"></a>
-<a class="el" href="structstf_message_queue.html">stfMessageQueue</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>outgoingEventQueueAudio</b></td></tr>
-<tr class="separator:a73c5d47239e56871d559d9e8b2ef0fd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7cd5b4c5e8faaffcd91e501bc94dfbf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae7cd5b4c5e8faaffcd91e501bc94dfbf"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>firstSampleHasPlayed</b></td></tr>
+<tr class="separator:ae7cd5b4c5e8faaffcd91e501bc94dfbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1558a56efe5fddcc24d3a3e5582a9df"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa1558a56efe5fddcc24d3a3e5582a9df"></a>
+thrd_t&#160;</td><td class="memItemRight" valign="bottom"><b>mainThread</b></td></tr>
+<tr class="separator:aa1558a56efe5fddcc24d3a3e5582a9df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a769ff95d872e7033ab56a5b2e7fa4e23"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a769ff95d872e7033ab56a5b2e7fa4e23"></a>
+mtx_t&#160;</td><td class="memItemRight" valign="bottom"><b>communicationQueueLock</b></td></tr>
+<tr class="separator:a769ff95d872e7033ab56a5b2e7fa4e23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d7951bc6d73a472b0c8e16b56226b2b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8d7951bc6d73a472b0c8e16b56226b2b"></a>
+<a class="el" href="structdr_message_queue.html">drMessageQueue</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>outgoingEventQueueShared</b></td></tr>
+<tr class="separator:a8d7951bc6d73a472b0c8e16b56226b2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9a1b4fe2f230d5430ff2c3536de4363"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad9a1b4fe2f230d5430ff2c3536de4363"></a>
+<a class="el" href="structdr_message_queue.html">drMessageQueue</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>outgoingEventQueueMain</b></td></tr>
+<tr class="separator:ad9a1b4fe2f230d5430ff2c3536de4363"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b500c4469ab541f6b9013584bba550a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7b500c4469ab541f6b9013584bba550a"></a>
+<a class="el" href="structdr_message_queue.html">drMessageQueue</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>outgoingEventQueueAudio</b></td></tr>
+<tr class="separator:a7b500c4469ab541f6b9013584bba550a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adaf73081565ee4d89618d459bed1b577"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adaf73081565ee4d89618d459bed1b577"></a>
+<a class="el" href="structdr_message_queue.html">drMessageQueue</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>controlEventQueueShared</b></td></tr>
+<tr class="separator:adaf73081565ee4d89618d459bed1b577"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b3d60c7112444aa51168d097cf23adf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0b3d60c7112444aa51168d097cf23adf"></a>
+<a class="el" href="structdr_message_queue.html">drMessageQueue</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>controlEventQueueMain</b></td></tr>
+<tr class="separator:a0b3d60c7112444aa51168d097cf23adf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6688e021eccbe5d9989b8213f03b1806"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6688e021eccbe5d9989b8213f03b1806"></a>
+<a class="el" href="structdr_message_queue.html">drMessageQueue</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>controlEventQueueAudio</b></td></tr>
+<tr class="separator:a6688e021eccbe5d9989b8213f03b1806"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5dff1a5fb59063a1d56bc5d2d0327ade"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5dff1a5fb59063a1d56bc5d2d0327ade"></a>
+<a class="el" href="digger__recorder_8h.html#a581c20bdc1055562f0ee04af0f5cd434">drNotificationCallback</a>&#160;</td><td class="memItemRight" valign="bottom"><b>notificationCallback</b></td></tr>
+<tr class="separator:a5dff1a5fb59063a1d56bc5d2d0327ade"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac07090c18cccd903bc7c1f440b2c2c0f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac07090c18cccd903bc7c1f440b2c2c0f"></a>
+void *&#160;</td><td class="memItemRight" valign="bottom"><b>notificationCallbackData</b></td></tr>
+<tr class="separator:ac07090c18cccd903bc7c1f440b2c2c0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab37650ecb352adf5488d40fc782c0217"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab37650ecb352adf5488d40fc782c0217"></a>
+drLevelMeter&#160;</td><td class="memItemRight" valign="bottom"><b>inputLevelMeters</b> [MAX_NUM_INPUT_CHANNELS]</td></tr>
+<tr class="separator:ab37650ecb352adf5488d40fc782c0217"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4b236bdb6a1f8a181059ca6735a75ee"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae4b236bdb6a1f8a181059ca6735a75ee"></a>
+drLevelMeter&#160;</td><td class="memItemRight" valign="bottom"><b>outputLevelMeters</b> [MAX_NUM_OUTPUT_CHANNELS]</td></tr>
+<tr class="separator:ae4b236bdb6a1f8a181059ca6735a75ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A Digger recorder instance. </p>
@@ -123,7 +153,7 @@ mtx_t&#160;</td><td class="memItemRight" valign="bottom"><b>sharedEventQueueLock
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 1 2014 16:16:49 for Digger Recorder Private API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Sep 2 2014 14:48:26 for Digger Recorder Private API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>

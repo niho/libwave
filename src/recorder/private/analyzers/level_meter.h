@@ -15,13 +15,26 @@ extern "C"
     {
         /** The index of the channel to process. */
         int channel;
+        /** */
+        int rmsWindowPos;
+        /** */
+        int rmsWindowSize;
+        /** */
+        float runningSquareSum;
+        /** 
+         * @see http://www.mathworks.se/help/signal/ref/rms.html
+         */
+        float rmsLevel;
+        /** */
+        float* rmsWindow;
         
+        /** */
         float peak;
-        float peakEnvelope;        
+        /** */
+        float peakEnvelope;
+        /** */
         float peakEnvelopeFeedback;
-        
-        float rms;
-        
+        /** */
         int clip;
     } drLevelMeter;
     

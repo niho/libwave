@@ -68,7 +68,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -97,19 +97,24 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdr_event.html">drEvent</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdr_levels.html">drLevels</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdr_notification.html">drNotification</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
 <tr class="memitem:a7e5fa3554a083bde109f9a09b3715dc9"><td class="memItemLeft" align="right" valign="top">typedef enum <a class="el" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="digger__recorder_8h.html#a7e5fa3554a083bde109f9a09b3715dc9">drError</a></td></tr>
 <tr class="separator:a7e5fa3554a083bde109f9a09b3715dc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a154ec1595c892496085a9fbf0c84af7a"><td class="memItemLeft" align="right" valign="top">typedef enum <a class="el" href="digger__recorder_8h.html#a4d6cb176617e2b758a13ae98e1c784f8">drEventType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="digger__recorder_8h.html#a154ec1595c892496085a9fbf0c84af7a">drEventType</a></td></tr>
-<tr class="separator:a154ec1595c892496085a9fbf0c84af7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2b9d96a9e7b10bee72a5d6762259618b"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structdr_event.html">drEvent</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="digger__recorder_8h.html#a2b9d96a9e7b10bee72a5d6762259618b">drEvent</a></td></tr>
-<tr class="separator:a2b9d96a9e7b10bee72a5d6762259618b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa535b1160a47585bb1826f5102cade7"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="digger__recorder_8h.html#aaa535b1160a47585bb1826f5102cade7">drEventCallback</a> )(void *userData, const <a class="el" href="structdr_event.html">drEvent</a> *event)</td></tr>
-<tr class="separator:aaa535b1160a47585bb1826f5102cade7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9973d109ff125cfed8ac5742cdfbf54"><td class="memItemLeft" align="right" valign="top">typedef enum <a class="el" href="digger__recorder_8h.html#aec428a6e7cda7dcbcf08964c34a21861">drNotificationType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="digger__recorder_8h.html#ab9973d109ff125cfed8ac5742cdfbf54">drNotificationType</a></td></tr>
+<tr class="separator:ab9973d109ff125cfed8ac5742cdfbf54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e2eee6882b130dab5c9d443e394fe14"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9e2eee6882b130dab5c9d443e394fe14"></a>
+typedef struct <a class="el" href="structdr_levels.html">drLevels</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drLevels</b></td></tr>
+<tr class="separator:a9e2eee6882b130dab5c9d443e394fe14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28ae04d4723cceb9165444d54947fdaa"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structdr_notification.html">drNotification</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="digger__recorder_8h.html#a28ae04d4723cceb9165444d54947fdaa">drNotification</a></td></tr>
+<tr class="separator:a28ae04d4723cceb9165444d54947fdaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a581c20bdc1055562f0ee04af0f5cd434"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="digger__recorder_8h.html#a581c20bdc1055562f0ee04af0f5cd434">drNotificationCallback</a> )(const <a class="el" href="structdr_notification.html">drNotification</a> *event, void *userData)</td></tr>
+<tr class="separator:a581c20bdc1055562f0ee04af0f5cd434"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -118,26 +123,46 @@ Enumerations</h2></td></tr>
 <b>DR_NOT_INITIALIZED</b>
  }</td></tr>
 <tr class="separator:ad51fe2bf01827fafcca3b93cbe6091e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4d6cb176617e2b758a13ae98e1c784f8"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="digger__recorder_8h.html#a4d6cb176617e2b758a13ae98e1c784f8">drEventType</a> { <br/>
-&#160;&#160;<b>DR_DID_INITIALIZE</b> = 0, 
-<b>DR_DID_DEINITIALIZE</b>, 
+<tr class="memitem:aec428a6e7cda7dcbcf08964c34a21861"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="digger__recorder_8h.html#aec428a6e7cda7dcbcf08964c34a21861">drNotificationType</a> { <br/>
+&#160;&#160;<b>DR_DID_START_AUDIO_STREAM</b> = 0, 
 <b>DR_RECORDING_STARTED</b>, 
 <b>DR_RECORDING_PAUSED</b>, 
+<b>DR_RECORDING_RESUMED</b>, 
 <br/>
-&#160;&#160;<b>DR_RECORDING_STOPPED</b>, 
-<b>DR_INPUT_CLIPPED</b>
+&#160;&#160;<b>DR_RECORDING_FINISHED</b>, 
+<b>DR_RECORDING_CANCELED</b>
 <br/>
  }</td></tr>
-<tr class="separator:a4d6cb176617e2b758a13ae98e1c784f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:aec428a6e7cda7dcbcf08964c34a21861"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a4592fafe48b670f51d66b7330b39f6f0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="digger__recorder_8h.html#a4592fafe48b670f51d66b7330b39f6f0">drInitialize</a> (<a class="el" href="digger__recorder_8h.html#aaa535b1160a47585bb1826f5102cade7">drEventCallback</a> eventCallback, void *eventCallbackUserData)</td></tr>
-<tr class="separator:a4592fafe48b670f51d66b7330b39f6f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5e8a86983f4956c21ede61dbdcd0f4f"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="digger__recorder_8h.html#ab5e8a86983f4956c21ede61dbdcd0f4f">drNotificationTypeToString</a> (<a class="el" href="digger__recorder_8h.html#aec428a6e7cda7dcbcf08964c34a21861">drNotificationType</a> type)</td></tr>
+<tr class="separator:ab5e8a86983f4956c21ede61dbdcd0f4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a185d1c7eda36e20c2ed40a3cfb2850eb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="digger__recorder_8h.html#a185d1c7eda36e20c2ed40a3cfb2850eb">drInitialize</a> (<a class="el" href="digger__recorder_8h.html#a581c20bdc1055562f0ee04af0f5cd434">drNotificationCallback</a> notificationCallback, void *notificationCallbackUserData)</td></tr>
+<tr class="separator:a185d1c7eda36e20c2ed40a3cfb2850eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2741b7750b8ba1f066d0e03165753edd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="digger__recorder_8h.html#a2741b7750b8ba1f066d0e03165753edd">drDeinitialize</a> ()</td></tr>
 <tr class="separator:a2741b7750b8ba1f066d0e03165753edd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a58dfcfa12e2fdbfbd8cc8894e7db5842"><td class="memItemLeft" align="right" valign="top"><a class="el" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="digger__recorder_8h.html#a58dfcfa12e2fdbfbd8cc8894e7db5842">drUpdate</a> (float timeStep)</td></tr>
 <tr class="separator:a58dfcfa12e2fdbfbd8cc8894e7db5842"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03f9a275675bc4f1b4c5d585ad00ab66"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a03f9a275675bc4f1b4c5d585ad00ab66"></a>
+<a class="el" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drGetInputLevels</b> (int channel, int logLevels, <a class="el" href="structdr_levels.html">drLevels</a> *result)</td></tr>
+<tr class="separator:a03f9a275675bc4f1b4c5d585ad00ab66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a4472bdd876f02ce654e8fe66453bbf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9a4472bdd876f02ce654e8fe66453bbf"></a>
+<a class="el" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drStartRecording</b> ()</td></tr>
+<tr class="separator:a9a4472bdd876f02ce654e8fe66453bbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ccec3151c38c309e7aeabbc7976af97"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1ccec3151c38c309e7aeabbc7976af97"></a>
+<a class="el" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drCancelRecording</b> ()</td></tr>
+<tr class="separator:a1ccec3151c38c309e7aeabbc7976af97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cf8a2ac24620f62aff63ffb7a580e35"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3cf8a2ac24620f62aff63ffb7a580e35"></a>
+<a class="el" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drFinishRecording</b> ()</td></tr>
+<tr class="separator:a3cf8a2ac24620f62aff63ffb7a580e35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a152f4a1e8585f210a7a7b41f0b4c7496"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a152f4a1e8585f210a7a7b41f0b4c7496"></a>
+<a class="el" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drPauseRecording</b> ()</td></tr>
+<tr class="separator:a152f4a1e8585f210a7a7b41f0b4c7496"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1993d93c090be674c585eb897229b247"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1993d93c090be674c585eb897229b247"></a>
+<a class="el" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drResumeRecording</b> ()</td></tr>
+<tr class="separator:a1993d93c090be674c585eb897229b247"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Public Digger Recorder API </p>
@@ -155,25 +180,25 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a2b9d96a9e7b10bee72a5d6762259618b"></a>
+<a class="anchor" id="a28ae04d4723cceb9165444d54947fdaa"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef struct <a class="el" href="structdr_event.html">drEvent</a>  <a class="el" href="structdr_event.html">drEvent</a></td>
+          <td class="memname">typedef struct <a class="el" href="structdr_notification.html">drNotification</a>  <a class="el" href="structdr_notification.html">drNotification</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>An event passed to the main (i.e UI) thread. </p>
+<p>A notification passed to the main (i.e UI) thread. </p>
 
 </div>
 </div>
-<a class="anchor" id="aaa535b1160a47585bb1826f5102cade7"></a>
+<a class="anchor" id="a581c20bdc1055562f0ee04af0f5cd434"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef void(* drEventCallback)(void *userData, const <a class="el" href="structdr_event.html">drEvent</a> *event)</td>
+          <td class="memname">typedef void(* drNotificationCallback)(const <a class="el" href="structdr_notification.html">drNotification</a> *event, void *userData)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -181,12 +206,12 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a154ec1595c892496085a9fbf0c84af7a"></a>
+<a class="anchor" id="ab9973d109ff125cfed8ac5742cdfbf54"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef enum <a class="el" href="digger__recorder_8h.html#a4d6cb176617e2b758a13ae98e1c784f8">drEventType</a>  <a class="el" href="digger__recorder_8h.html#a4d6cb176617e2b758a13ae98e1c784f8">drEventType</a></td>
+          <td class="memname">typedef enum <a class="el" href="digger__recorder_8h.html#aec428a6e7cda7dcbcf08964c34a21861">drNotificationType</a>  <a class="el" href="digger__recorder_8h.html#aec428a6e7cda7dcbcf08964c34a21861">drNotificationType</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -208,12 +233,12 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a4d6cb176617e2b758a13ae98e1c784f8"></a>
+<a class="anchor" id="aec428a6e7cda7dcbcf08964c34a21861"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="digger__recorder_8h.html#a4d6cb176617e2b758a13ae98e1c784f8">drEventType</a></td>
+          <td class="memname">enum <a class="el" href="digger__recorder_8h.html#aec428a6e7cda7dcbcf08964c34a21861">drNotificationType</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -238,21 +263,21 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a4592fafe48b670f51d66b7330b39f6f0"></a>
+<a class="anchor" id="a185d1c7eda36e20c2ed40a3cfb2850eb"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a> drInitialize </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="digger__recorder_8h.html#aaa535b1160a47585bb1826f5102cade7">drEventCallback</a>&#160;</td>
-          <td class="paramname"><em>eventCallback</em>, </td>
+          <td class="paramtype"><a class="el" href="digger__recorder_8h.html#a581c20bdc1055562f0ee04af0f5cd434">drNotificationCallback</a>&#160;</td>
+          <td class="paramname"><em>notificationCallback</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>eventCallbackUserData</em>&#160;</td>
+          <td class="paramname"><em>notificationCallbackUserData</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -262,6 +287,23 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Initializes the recorder. </p>
+
+</div>
+</div>
+<a class="anchor" id="ab5e8a86983f4956c21ede61dbdcd0f4f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* drNotificationTypeToString </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="digger__recorder_8h.html#aec428a6e7cda7dcbcf08964c34a21861">drNotificationType</a>&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Helper function that returns a human readable description of a notification type. </p>
 
 </div>
 </div>
@@ -285,7 +327,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 1 2014 16:16:49 for Digger Recorder Private API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Sep 2 2014 14:48:26 for Digger Recorder Private API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>
