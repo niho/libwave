@@ -16,10 +16,7 @@
     
     //level meters
     {
-        UILabel* l = [[UILabel alloc] init];
-        l.text = @"Latest notification";
-        l.textAlignment = NSTextAlignmentCenter;
-        [self addUIRow:l];
+        [self addUITitleRow:@"Latest notification"];
         
         self.latestNotificationLabel = [[UILabel alloc] init];
         self.latestNotificationLabel.textAlignment = NSTextAlignmentCenter;
@@ -27,7 +24,27 @@
         [self addUIRow:self.latestNotificationLabel];
     }
     
-    //rec control buttons
+    //rec buttons
+    {
+        [self addUITitleRow:@"Recording controls"];
+        
+        self.recToggleButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [self.recToggleButton setTitle:@"start" forState:UIControlStateNormal];
+        
+        self.recPauseButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [self.recPauseButton setTitle:@"pause" forState:UIControlStateNormal];
+        self.recPauseButton.enabled = NO;
+        
+        self.recCancelButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [self.recCancelButton setTitle:@"cancel" forState:UIControlStateNormal];
+        self.recCancelButton.enabled = NO;
+        
+        [self addUIRow:self.recToggleButton
+                      :self.recPauseButton
+                      :self.recCancelButton];
+    }
+    
+    //rec dev control buttons
     {
         UIButton* recStartButton = [UIButton buttonWithType:UIButtonTypeSystem];
         [recStartButton setTitle:@"start" forState:UIControlStateNormal];
@@ -49,30 +66,33 @@
         [recFinishButton setTitle:@"finish" forState:UIControlStateNormal];
         [recFinishButton addTarget:vc action:@selector(onRecFinish:) forControlEvents:UIControlEventTouchUpInside];
         
-        UILabel* l = [[UILabel alloc] init];
-        l.text = @"Recording";
-        l.textAlignment = NSTextAlignmentCenter;
-        [self addUIRow:l];
+        [self addUITitleRow:@"Recording dev controls"];
         
         [self addUIRow:recStartButton
                       :recPauseButton
-                      :recCancelButton
                       :recResumeButton
-                      :recFinishButton];
+                      :recFinishButton
+                      :recCancelButton];
     }
     
     //level meters
     {
-        UILabel* l = [[UILabel alloc] init];
-        l.text = @"Levels";
-        l.textAlignment = NSTextAlignmentCenter;
-        [self addUIRow:l];
+        [self addUITitleRow:@"Levels"];
     }
     
     m_scrollView.contentSize = CGSizeMake(self.frame.size.width, m_currUIRow * kUIRowHeight);
     [self addSubview:m_scrollView];
     
     return self;
+}
+
+-(void)addUITitleRow:(NSString*)title
+{
+    UILabel* l = [[UILabel alloc] init];
+    l.text = title;
+    l.textAlignment = NSTextAlignmentCenter;
+    l.backgroundColor = [UIColor colorWithWhite:0.9f alpha:1.0f];
+    [self addUIRow:l];
 }
 
 -(void)addUIRow:(UIView*)v0

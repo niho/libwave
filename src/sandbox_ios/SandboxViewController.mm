@@ -37,8 +37,44 @@ static void eventCallback(const drNotification* event, void* userData)
         {
             break;
         }
-        default:
+        case DR_RECORDING_STARTED:
+        {
+            self.sandboxView.recPauseButton.enabled = YES;
+            self.sandboxView.recCancelButton.enabled = YES;
+            [self.sandboxView.recToggleButton setTitle:@"finish" forState:UIControlStateNormal];
+            self.sandboxView.recToggleButton.backgroundColor = [UIColor redColor];
             break;
+        }
+        case DR_RECORDING_FINISHED:
+        {
+            self.sandboxView.recPauseButton.enabled = NO;
+            self.sandboxView.recCancelButton.enabled = NO;
+            [self.sandboxView.recToggleButton setTitle:@"start" forState:UIControlStateNormal];
+            self.sandboxView.recToggleButton.backgroundColor = [UIColor clearColor];
+            break;
+        }
+        case DR_RECORDING_PAUSED:
+        {
+            [self.sandboxView.recPauseButton setTitle:@"resume" forState:UIControlStateNormal];
+            break;
+        }
+        case DR_RECORDING_RESUMED:
+        {
+            [self.sandboxView.recPauseButton setTitle:@"pause" forState:UIControlStateNormal];
+            break;
+        }
+        case DR_RECORDING_CANCELED:
+        {
+            self.sandboxView.recPauseButton.enabled = NO;
+            self.sandboxView.recCancelButton.enabled = NO;
+            [self.sandboxView.recToggleButton setTitle:@"start" forState:UIControlStateNormal];
+            self.sandboxView.recToggleButton.backgroundColor = [UIColor clearColor];
+            break;
+        }
+        default:
+        {
+            break;
+        }
     }
 }
 
