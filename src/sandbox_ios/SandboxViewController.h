@@ -15,4 +15,10 @@
 
 -(void)updateTick;
 
+-(void)onRecStart:(id)sender;
+
+-(void)onRecStop:(id)sender;
+
+-(void)onRecPause:(id)sender;
+
 @end

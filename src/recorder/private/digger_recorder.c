@@ -63,3 +63,45 @@ drError drGetInputLevels(int channel, int logLevels, drLevels* result)
     
     return DR_NO_ERROR;
 }
+
+drError drStartRecording()
+{
+    if (!instance)
+    {
+        return DR_NOT_INITIALIZED;
+    }
+    
+    drControlEvent ce;
+    ce.type = DR_START_RECORDING;
+    drInstance_enqueueControlEvent(instance, &ce);
+    
+    return DR_NO_ERROR;
+}
+
+drError drStopRecording()
+{
+    if (!instance)
+    {
+        return DR_NOT_INITIALIZED;
+    }
+    
+    drControlEvent ce;
+    ce.type = DR_STOP_RECORDING;
+    drInstance_enqueueControlEvent(instance, &ce);
+    
+    return DR_NO_ERROR;
+}
+
+drError drPauseRecording()
+{
+    if (!instance)
+    {
+        return DR_NOT_INITIALIZED;
+    }
+    
+    drControlEvent ce;
+    ce.type = DR_PAUSE_RECORDING;
+    drInstance_enqueueControlEvent(instance, &ce);
+    
+    return DR_NO_ERROR;
+}

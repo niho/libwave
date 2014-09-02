@@ -35,7 +35,7 @@ static void mainThreadUpdateCallback(void* data)
         for (int i = 0; i < numEvents; i++)
         {
             const drNotification* e = (const drNotification*)drMessageQueue_getMessage(in->outgoingEventQueueMain, i);
-            drInstance_onMainThreadEvent(in, e);
+            drInstance_onMainThreadNotification(in, e);
             in->notificationCallback(e, in->notificationCallbackData);
         }
         
@@ -65,10 +65,10 @@ static void audioThreadUpdateCallback(void* data)
     for (int i = 0; i < numEvents; i++)
     {
         const drNotification* e = (const drNotification*)drMessageQueue_getMessage(in->controlEventQueueAudio, i);
-        drInstance_onAudioThreadEvent(in, e);
+        drInstance_onAudioThreadControlEvent(in, e);
     }
     
-    drMessageQueue_clear(in->outgoingEventQueueMain);
+    drMessageQueue_clear(in->controlEventQueueAudio);
 }
 
 static void inputCallback(float* inBuffer, int numChannels, int numFrames, void* data)
@@ -92,7 +92,7 @@ static void outputCallback(float* inBuffer, int numChannels, int numFrames, void
     {
         drNotification e;
         e.type = DR_DID_START_AUDIO_STREAM;
-        drInstance_enqueueEventFromAudioToMainThread(in, &e);
+        drInstance_enqueueNotification(in, &e);
         in->firstSampleHasPlayed = 1;
     }
     
@@ -103,46 +103,19 @@ static void outputCallback(float* inBuffer, int numChannels, int numFrames, void
     }
 }
 
-int drInstance_addInputAnalyzer(drInstance* instance,
-                                void* analyzerData,
-                                drAnalyzerAudioCallback audioCallback,
-                                drAnalyzerDeinitCallback deinitCallback)
-{
-    //TODO: make sure this is not called when the audio system is running. or lock this somehow.
-    for (int i = 0; MAX_NUM_ANALYZER_SLOTS; i++)
-    {
-        if (instance->inputAnalyzerSlots[i].analyzerData == NULL)
-        {
-            instance->inputAnalyzerSlots[i].analyzerData = analyzerData;
-            instance->inputAnalyzerSlots[i].audioCallback = audioCallback;
-            instance->inputAnalyzerSlots[i].deinitCallback = deinitCallback;
-            
-            return 0;
-        }
-    }
-    
-    //no free slots :(
-    return 1;
-}
-
-void drInstance_enqueueEventFromAudioToMainThread(drInstance* instance, const drNotification* event)
-{
-    drMessageQueue_addMessage(instance->outgoingEventQueueAudio, (void*)event);
-}
-
-void drInstance_enqueueEventFromMainToAudioThread(drInstance* instance, const drControlEvent* event)
-{
-    drMessageQueue_addMessage(instance->controlEventQueueMain, (void*)event);
-}
-
 void drInstance_init(drInstance* instance, drNotificationCallback notificationCallback, void* notificationCallbackUserData)
 {
     memset(instance, 0, sizeof(drInstance));
     
+    //remember which thread created the instance to verify that functions get called
+    //from the right threads
+    instance->mainThread = thrd_current();
     
+    //hook up notification callback
     instance->notificationCallback = notificationCallback;
     instance->notificationCallbackData = notificationCallbackUserData;
     
+    //create notification and control event queues
     instance->outgoingEventQueueShared = drMessageQueue_new(kEventQueueCapactity,
                                                              sizeof(drNotification));
     instance->outgoingEventQueueAudio = drMessageQueue_new(kEventQueueCapactity,
@@ -211,6 +184,7 @@ void drInstance_init(drInstance* instance, drNotificationCallback notificationCa
 
 void drInstance_deinit(drInstance* instance)
 {
+    assert(drInstance_isOnMainThread(instance));
     //stop the audio system
     kwlDeinitialize();
     kwlError deinitResult = kwlGetError();
@@ -244,17 +218,58 @@ void drInstance_deinit(drInstance* instance)
 void drInstance_update(drInstance* instance, float timeStep)
 {
     //update kowalski, invoking thread communication callbacks
+    assert(drInstance_isOnMainThread(instance));
     kwlUpdate(timeStep);
 }
 
-void drInstance_onAudioThreadEvent(drInstance* instance, const drNotification* event)
+int drInstance_isOnMainThread(drInstance* instance)
 {
-    
+    return thrd_equal(thrd_current(), instance->mainThread);
 }
 
-void drInstance_onMainThreadEvent(drInstance* instance, const drNotification* event)
+int drInstance_addInputAnalyzer(drInstance* instance,
+                                void* analyzerData,
+                                drAnalyzerAudioCallback audioCallback,
+                                drAnalyzerDeinitCallback deinitCallback)
 {
+    //TODO: make sure this is not called when the audio system is running. or lock this somehow.
+    for (int i = 0; MAX_NUM_ANALYZER_SLOTS; i++)
+    {
+        if (instance->inputAnalyzerSlots[i].analyzerData == NULL)
+        {
+            instance->inputAnalyzerSlots[i].analyzerData = analyzerData;
+            instance->inputAnalyzerSlots[i].audioCallback = audioCallback;
+            instance->inputAnalyzerSlots[i].deinitCallback = deinitCallback;
+            
+            return 0;
+        }
+    }
+    
+    //no free slots :(
+    return 1;
+}
 
+void drInstance_enqueueNotification(drInstance* instance, const drNotification* notification)
+{
+    assert(!drInstance_isOnMainThread(instance));
+    drMessageQueue_addMessage(instance->outgoingEventQueueAudio, (void*)notification);
+}
+
+void drInstance_enqueueControlEvent(drInstance* instance, const drControlEvent* event)
+{
+    assert(drInstance_isOnMainThread(instance));
+    drMessageQueue_addMessage(instance->controlEventQueueMain, (void*)event);
+}
+
+void drInstance_onAudioThreadControlEvent(drInstance* instance, const drControlEvent* event)
+{
+    assert(!drInstance_isOnMainThread(instance));
+    printf("got audio thread event %d\n", event->type);
+}
+
+void drInstance_onMainThreadNotification(drInstance* instance, const drNotification* notification)
+{
+    assert(drInstance_isOnMainThread(instance));
 }
 
 static float lin2LogLevel(float lin)

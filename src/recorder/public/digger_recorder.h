@@ -80,6 +80,21 @@ extern "C"
      */
     drError drGetInputLevels(int channel, int logLevels, drLevels* result);
     
+    /**
+     *
+     */
+    drError drStartRecording();
+    
+    /**
+     *
+     */
+    drError drStopRecording();
+    
+    /**
+     *
+     */
+    drError drPauseRecording();
+    
     
 #ifdef __cplusplus
 }

@@ -12,7 +12,8 @@ static void eventCallback(const drNotification* event, void* userData)
 -(id)init
 {
     self = [super init];
-    self.sandboxView = [[SandboxView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    self.sandboxView = [[SandboxView alloc] initWithFrame:[UIScreen mainScreen].bounds
+                                                         :self];
     self.view = self.sandboxView;
     
     drInitialize(eventCallback, (__bridge void*)(self));
@@ -42,6 +43,21 @@ static void eventCallback(const drNotification* event, void* userData)
 -(void)updateTick
 {
     drUpdate(kUpdateInterval);
+}
+
+-(void)onRecStart:(id)sender
+{
+    drStartRecording();
+}
+
+-(void)onRecStop:(id)sender
+{
+    drStopRecording();
+}
+
+-(void)onRecPause:(id)sender
+{
+    drPauseRecording();
 }
 
 @end

@@ -50,6 +50,9 @@ extern "C"
         kwlDSPUnitHandle outputDSPUnit;
         int firstSampleHasPlayed;
         
+        //used to verify that functions are being called from the right threads
+        thrd_t mainThread;
+        
         mtx_t communicationQueueLock;
         drMessageQueue* outgoingEventQueueShared;
         drMessageQueue* outgoingEventQueueMain;
@@ -74,11 +77,16 @@ extern "C"
     
     void drInstance_update(drInstance* instance, float timeStep);
     
+    /**
+     * Returns a non-zero value if called from the same thread that called drInstance_init.
+     */
+    int drInstance_isOnMainThread(drInstance* instance);
+    
     void drInstance_getInputLevels(drInstance* instance, int channel, int logLevels, drLevels* result);
     
-    void drInstance_onAudioThreadEvent(drInstance* instance, const drNotification* event);
+    void drInstance_onAudioThreadControlEvent(drInstance* instance, const drControlEvent* event);
     
-    void drInstance_onMainThreadEvent(drInstance* instance, const drNotification* event);
+    void drInstance_onMainThreadNotification(drInstance* instance, const drNotification* notification);
     
     /**
      * Returns 0 on success, or non-zero if there is no free analyzer slot.
@@ -91,12 +99,12 @@ extern "C"
     /**
      * Must be called <strong>only from the audio thread</strong>!
      */
-    void drInstance_enqueueEventFromAudioToMainThread(drInstance* instance, const drNotification* event);
+    void drInstance_enqueueNotification(drInstance* instance, const drNotification* notification);
     
     /**
      *
      */
-    void drInstance_enqueueEventFromMainToAudioThread(drInstance* instance, const drControlEvent* event);
+    void drInstance_enqueueControlEvent(drInstance* instance, const drControlEvent* event);
     
 #ifdef __cplusplus
 }
