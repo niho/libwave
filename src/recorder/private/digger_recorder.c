@@ -6,7 +6,6 @@
 #include "kowalski.h"
 
 #include "digger_recorder.h"
-#include "messagequeue.h"
 #include "tinycthread.h"
 #include "instance.h"
 #include "mem.h"

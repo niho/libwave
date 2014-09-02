@@ -5,7 +5,6 @@
 
 #include "kowalski.h"
 #include "tinycthread.h"
-#include "messagequeue.h"
 #include "digger_recorder.h"
 #include "level_meter.h"
 #include "analyzer.h"
@@ -88,13 +87,8 @@ extern "C"
         thrd_t mainThread;
         
         mtx_t communicationQueueLock;
-        drMessageQueue* outgoingEventQueueShared;
-        drMessageQueue* outgoingEventQueueMain;
-        drMessageQueue* outgoingEventQueueAudio;
-        
-        drMessageQueue* controlEventQueueShared;
-        drMessageQueue* controlEventQueueMain;
-        drMessageQueue* controlEventQueueAudio;
+        drLockFreeFIFO notificationFIFO;
+        drLockFreeFIFO controlEventFIFO;
         
         drNotificationCallback notificationCallback;
         void* notificationCallbackData;

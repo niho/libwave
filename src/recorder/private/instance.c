@@ -9,6 +9,8 @@
 #include "instance.h"
 #include "digger_recorder.h"
 
+#define kControlEventFIFOCapacity (50)
+#define kNotificationFIFOCapacity (50)
 #define kEventQueueCapactity (50)
 #define kRecordFIFOCapacity (50)
 
@@ -22,13 +24,6 @@ static void mainThreadUpdateCallback(void* data)
     
     mtx_lock(&in->communicationQueueLock);
     
-    //move any incoming messages to memory shared between the main
-    //and the audio threads
-    drMessageQueue_moveMessages(in->controlEventQueueMain, in->controlEventQueueShared);
-    
-    //move any outgoing messages to memory only accessed from the main thread
-    drMessageQueue_moveMessages(in->outgoingEventQueueShared, in->outgoingEventQueueMain);
-    
     //get measured levels
     memcpy(in->inputLevelsMain, in->inputLevelsShared, sizeof(drLevels) * MAX_NUM_INPUT_CHANNELS);
     
@@ -37,15 +32,12 @@ static void mainThreadUpdateCallback(void* data)
     //invoke the event callback for any incoming events on the main thread
     if (in->notificationCallback)
     {
-        const int numEvents = drMessageQueue_getNumMessages(in->outgoingEventQueueMain);
-        for (int i = 0; i < numEvents; i++)
+        drNotification n;
+        while (drLockFreeFIFO_pop(&in->notificationFIFO, &n))
         {
-            const drNotification* e = (const drNotification*)drMessageQueue_getMessage(in->outgoingEventQueueMain, i);
-            drInstance_onMainThreadNotification(in, e);
-            in->notificationCallback(e, in->notificationCallbackData);
+            drInstance_onMainThreadNotification(in, &n);
+            in->notificationCallback(&n, in->notificationCallbackData);
         }
-        
-        drMessageQueue_clear(in->outgoingEventQueueMain);
     }
 }
 
@@ -72,26 +64,16 @@ static void audioThreadUpdateCallback(void* data)
     
     mtx_lock(&in->communicationQueueLock);
     
-    //move any incoming messages to memory only accessed from the audio thread
-    drMessageQueue_moveMessages(in->controlEventQueueShared, in->controlEventQueueAudio);
-    
-    //move any outgoing messages to memory shared between the main
-    //and the audio threads
-    drMessageQueue_moveMessages(in->outgoingEventQueueAudio, in->outgoingEventQueueShared);
-    
     //copy measured levels to the main thread
     memcpy(in->inputLevelsShared, in->inputLevelsAudio, sizeof(drLevels) * MAX_NUM_INPUT_CHANNELS);
     
     mtx_unlock(&in->communicationQueueLock);
     
-    const int numEvents = drMessageQueue_getNumMessages(in->controlEventQueueAudio);
-    for (int i = 0; i < numEvents; i++)
+    drControlEvent e;
+    while (drLockFreeFIFO_pop(&in->controlEventFIFO, &e))
     {
-        const drControlEvent* e = (const drControlEvent*)drMessageQueue_getMessage(in->controlEventQueueAudio, i);
-        drInstance_onAudioThreadControlEvent(in, e);
+        drInstance_onAudioThreadControlEvent(in, &e);
     }
-    
-    drMessageQueue_clear(in->controlEventQueueAudio);
 }
 
 static void inputCallback(float* inBuffer, int numChannels, int numFrames, void* data)
@@ -170,19 +152,8 @@ void drInstance_init(drInstance* instance, drNotificationCallback notificationCa
     drLockFreeFIFO_init(&instance->inputAudioDataQueue, kRecordFIFOCapacity, sizeof(drRecordedChunk));
     
     //create notification and control event queues
-    instance->outgoingEventQueueShared = drMessageQueue_new(kEventQueueCapactity,
-                                                             sizeof(drNotification));
-    instance->outgoingEventQueueAudio = drMessageQueue_new(kEventQueueCapactity,
-                                                             sizeof(drNotification));
-    instance->outgoingEventQueueMain = drMessageQueue_new(kEventQueueCapactity,
-                                                             sizeof(drNotification));
-    
-    instance->controlEventQueueShared = drMessageQueue_new(kEventQueueCapactity,
-                                                            sizeof(drControlEvent));
-    instance->controlEventQueueAudio = drMessageQueue_new(kEventQueueCapactity,
-                                                           sizeof(drControlEvent));
-    instance->controlEventQueueMain = drMessageQueue_new(kEventQueueCapactity,
-                                                          sizeof(drControlEvent));
+    drLockFreeFIFO_init(&instance->notificationFIFO, kNotificationFIFOCapacity, sizeof(drNotification));
+    drLockFreeFIFO_init(&instance->controlEventFIFO, kControlEventFIFOCapacity, sizeof(drControlEvent));
     
     mtx_init(&instance->communicationQueueLock, mtx_plain);
     
@@ -252,13 +223,9 @@ void drInstance_deinit(drInstance* instance)
     drLockFreeFIFO_deinit(&instance->inputAudioDataQueue);
     
     //release event queues
-    drMessageQueue_delete(instance->outgoingEventQueueAudio);
-    drMessageQueue_delete(instance->outgoingEventQueueMain);
-    drMessageQueue_delete(instance->outgoingEventQueueShared);
+    drLockFreeFIFO_deinit(&instance->notificationFIFO);
     
-    drMessageQueue_delete(instance->controlEventQueueAudio);
-    drMessageQueue_delete(instance->controlEventQueueMain);
-    drMessageQueue_delete(instance->controlEventQueueShared);
+    drLockFreeFIFO_deinit(&instance->controlEventFIFO);
     
     mtx_destroy(&instance->communicationQueueLock);
 
@@ -310,7 +277,7 @@ int drInstance_addInputAnalyzer(drInstance* instance,
 void drInstance_enqueueNotification(drInstance* instance, const drNotification* notification)
 {
     assert(!drInstance_isOnMainThread(instance));
-    drMessageQueue_addMessage(instance->outgoingEventQueueAudio, (void*)notification);
+    drLockFreeFIFO_push(&instance->notificationFIFO, notification);
 }
 
 void drInstance_enqueueNotificationOfType(drInstance* instance, drNotificationType type)
@@ -324,7 +291,7 @@ void drInstance_enqueueNotificationOfType(drInstance* instance, drNotificationTy
 void drInstance_enqueueControlEvent(drInstance* instance, const drControlEvent* event)
 {
     assert(drInstance_isOnMainThread(instance));
-    drMessageQueue_addMessage(instance->controlEventQueueMain, (void*)event);
+    drLockFreeFIFO_push(&instance->controlEventFIFO, (void*)event);
 }
 
 void drInstance_enqueueControlEventOfType(drInstance* instance, drControlEventType type)
