@@ -7,12 +7,22 @@
 
 #include "level_meter.h"
 
-void drLevelMeter_init(drLevelMeter* meter, int channel)
+void drLevelMeter_init(drLevelMeter* meter,
+                       int channel,
+                       float fs,
+                       float attackTime,
+                       float decayTime,
+                       float rmsWindowSizeInSeconds)
 {
     memset(meter, 0, sizeof(drLevelMeter));
     meter->channel = channel;
     
-    meter->rmsWindowSize = 1000;
+    const float thresh = 0.01f;
+    
+    meter->peakEnvelopeFeedbackAttack = powf(thresh, 1.0f / (fs * attackTime));
+    meter->peakEnvelopeFeedbackDecay = powf(thresh, 1.0f / (fs * decayTime));
+    
+    meter->rmsWindowSize = (int)(fs * rmsWindowSizeInSeconds + 0.5f);
     meter->rmsWindow = (float*)DR_MALLOC(sizeof(float) * meter->rmsWindowSize, "rms window");
     memset(meter->rmsWindow, 0, sizeof(float) * meter->rmsWindowSize);
 }
@@ -33,11 +43,18 @@ void drLevelMeter_processBuffer(void* levelMeter,
     
     const int channel = meter->channel;
     
+    meter->clip = 0.0f;
+    
     for (int i = 0; i < numFrames; i++)
     {
         const float val = inBuffer[i * numChannels + channel];
         const float absVal = fabs(val);
         const float sq = absVal * absVal;
+        
+        if (absVal >= 1.0f)
+        {
+            meter->clip = 1;
+        }
         
         //update rms running sum
         const float lastValue = meter->rmsWindow[meter->rmsWindowPos];
@@ -50,6 +67,10 @@ void drLevelMeter_processBuffer(void* levelMeter,
         {
             peak = absVal;
         }
+        
+        //compute peak level envelope
+        const float a = absVal > meter->peakEnvelope ? meter->peakEnvelopeFeedbackAttack : meter->peakEnvelopeFeedbackDecay;
+        meter->peakEnvelope = absVal * (1.0f - a) + a * meter->peakEnvelope;
     }
     
     //refresh rms value
@@ -60,4 +81,5 @@ void drLevelMeter_deinit(void* levelMeter)
 {
     drLevelMeter* meter = (drLevelMeter*)levelMeter;
     DR_FREE(meter->rmsWindow);
+    memset(meter, sizeof(drLevelMeter), 0);
 }

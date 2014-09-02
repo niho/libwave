@@ -33,16 +33,28 @@ extern "C"
         /** */
         float peakEnvelope;
         /** */
-        float peakEnvelopeFeedback;
+        float peakEnvelopeFeedbackAttack;
+        /** */
+        float peakEnvelopeFeedbackDecay;
         /** */
         int clip;
     } drLevelMeter;
     
-    //TODO: pass parameters, like env speed
-    void drLevelMeter_init(drLevelMeter* meter, int channel);
+    void drLevelMeter_init(drLevelMeter* meter,
+                           int channel,
+                           float fs,
+                           float attackTime,
+                           float decayTime,
+                           float rmsWindowSizeInSeconds);
     
+    /** 
+     * Buffer processing callback.
+     */
     void drLevelMeter_processBuffer(void* levelMeter, float* inBuffer, int numChannels, int numFrames);
     
+    /** 
+     * Cleanup callback.
+     */
     void drLevelMeter_deinit(void* levelMeter);
     
 #ifdef __cplusplus

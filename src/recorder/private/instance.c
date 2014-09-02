@@ -154,17 +154,27 @@ void drInstance_init(drInstance* instance, drNotificationCallback notificationCa
     assert(numOutChannels <= MAX_NUM_OUTPUT_CHANNELS);
     for (int i = 0; i < numOutChannels; i++)
     {
-        drLevelMeter_init(&instance->inputLevelMeters[i], i);
-        drInstance_addInputAnalyzer(instance,
+        drLevelMeter_init(&instance->inputLevelMeters[i],
+                          i,
+                          sampleRate,
+                          0.001f,
+                          0.5f,
+                          0.5f);
+        /*drInstance_addInputAnalyzer(instance,
                                     &instance->inputLevelMeters[i],
                                     drLevelMeter_processBuffer,
-                                    drLevelMeter_deinit);
+                                    drLevelMeter_deinit);*/
     }
     
     assert(numInputChannels <= MAX_NUM_INPUT_CHANNELS);
     for (int i = 0; i < numInputChannels; i++)
     {
-        drLevelMeter_init(&instance->outputLevelMeters[i], i);
+        drLevelMeter_init(&instance->outputLevelMeters[i],
+                          i,
+                          sampleRate,
+                          0.001f,
+                          1.6f,
+                          0.5f);
         drInstance_addInputAnalyzer(instance,
                                     &instance->outputLevelMeters[i],
                                     drLevelMeter_processBuffer,
