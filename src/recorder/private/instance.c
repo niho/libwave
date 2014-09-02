@@ -4,6 +4,8 @@
 #include <math.h>
 #include "assert.h"
 
+#include "opus.h"
+
 #include "instance.h"
 #include "digger_recorder.h"
 
@@ -126,6 +128,9 @@ static void outputCallback(float* inBuffer, int numChannels, int numFrames, void
 void drInstance_init(drInstance* instance, drNotificationCallback notificationCallback, void* notificationCallbackUserData)
 {
     memset(instance, 0, sizeof(drInstance));
+    
+    //printf("opus_get_version_string %s\n", opus_get_version_string());
+    
     
     //remember which thread created the instance to verify that functions get called
     //from the right threads

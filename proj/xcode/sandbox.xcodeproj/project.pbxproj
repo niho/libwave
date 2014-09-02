@@ -10,6 +10,7 @@
 		C118B3EC19B4B18D00005678 /* libdigger_recorder_osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F57B0019B4A88A000C6BCF /* libdigger_recorder_osx.a */; };
 		C118B3FE19B4B2DC00005678 /* libkowalski.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C118B3FD19B4B2DC00005678 /* libkowalski.dylib */; };
 		C118B40119B4B5D400005678 /* LevelMeterView.mm in Sources */ = {isa = PBXBuildFile; fileRef = C118B40019B4B5D400005678 /* LevelMeterView.mm */; };
+		C12E1F0319B61523004532A8 /* libkowalski_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C12E1F0219B61523004532A8 /* libkowalski_ios.a */; };
 		C1F57A3519B4A36D000C6BCF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F57A3419B4A36D000C6BCF /* Foundation.framework */; };
 		C1F57A3719B4A36D000C6BCF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F57A3619B4A36D000C6BCF /* CoreGraphics.framework */; };
 		C1F57A3919B4A36D000C6BCF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F57A3819B4A36D000C6BCF /* UIKit.framework */; };
@@ -68,6 +69,7 @@
 		C118B40019B4B5D400005678 /* LevelMeterView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LevelMeterView.mm; sourceTree = "<group>"; };
 		C12E1A8E19B5D9A8004532A8 /* sandbox_ios-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "sandbox_ios-Info.plist"; sourceTree = "<group>"; };
 		C12E1A8F19B5D9A8004532A8 /* sandbox_ios-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "sandbox_ios-Prefix.pch"; sourceTree = "<group>"; };
+		C12E1F0219B61523004532A8 /* libkowalski_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libkowalski_ios.a; path = "../../external/kowalski/projects/xcode/build/Debug-iphoneos/libkowalski_ios.a"; sourceTree = "<group>"; };
 		C1F57A3119B4A36D000C6BCF /* sandbox_ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sandbox_ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1F57A3419B4A36D000C6BCF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C1F57A3619B4A36D000C6BCF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -106,6 +108,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C12E1F0319B61523004532A8 /* libkowalski_ios.a in Frameworks */,
 				C1F57A8319B4A42B000C6BCF /* AudioToolbox.framework in Frameworks */,
 				C1F57A8119B4A424000C6BCF /* CoreAudio.framework in Frameworks */,
 				C1F57A7F19B4A41C000C6BCF /* libdigger_recorder_ios.a in Frameworks */,
@@ -153,6 +156,7 @@
 		C1F57A3319B4A36D000C6BCF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C12E1F0219B61523004532A8 /* libkowalski_ios.a */,
 				C118B3FD19B4B2DC00005678 /* libkowalski.dylib */,
 				C1F57B0B19B4AA22000C6BCF /* CoreAudioKit.framework */,
 				C1F57B0919B4A9B8000C6BCF /* AudioToolbox.framework */,
@@ -435,6 +439,11 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "../../src/sandbox_ios/sandbox_ios-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/sandbox-fhfsgipjxfyknhcabryyxbpksmut/Build/Products/Debug",
+					"/Users/perarne/code/digger_recorder/external/kowalski/projects/xcode/build/Debug-iphoneos",
+				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -479,6 +488,11 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "../../src/sandbox_ios/sandbox_ios-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/sandbox-fhfsgipjxfyknhcabryyxbpksmut/Build/Products/Debug",
+					"/Users/perarne/code/digger_recorder/external/kowalski/projects/xcode/build/Debug-iphoneos",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
