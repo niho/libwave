@@ -1,5 +1,6 @@
 
 #import <UIKit/UIKit.h>
+#import "LevelMeterView.h"
 
 @class SandboxViewController;
 
@@ -10,6 +11,7 @@
 }
 
 @property (nonatomic, retain) UILabel* latestNotificationLabel;
+@property (nonatomic, retain) LevelMeterView* levelMeterView;
 
 @property (nonatomic, retain) UIButton* recToggleButton;
 @property (nonatomic, retain) UIButton* recPauseButton;

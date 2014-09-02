@@ -89,9 +89,13 @@ extern "C"
         drNotificationCallback notificationCallback;
         void* notificationCallbackData;
         
-        //Audio analyzers
+        //Level meters, only accessed from the audio thread
         drLevelMeter inputLevelMeters[MAX_NUM_INPUT_CHANNELS];
-        drLevelMeter outputLevelMeters[MAX_NUM_OUTPUT_CHANNELS];
+        
+        //Measured levels
+        drLevels inputLevelsAudio[MAX_NUM_INPUT_CHANNELS];
+        drLevels inputLevelsShared[MAX_NUM_INPUT_CHANNELS];
+        drLevels inputLevelsMain[MAX_NUM_INPUT_CHANNELS];
         
     } drInstance;
 

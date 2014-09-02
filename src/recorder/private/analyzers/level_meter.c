@@ -73,6 +73,8 @@ void drLevelMeter_processBuffer(void* levelMeter,
         meter->peakEnvelope = absVal * (1.0f - a) + a * meter->peakEnvelope;
     }
     
+    meter->peak = peak;
+    
     //refresh rms value
     meter->rmsLevel = sqrtf(meter->runningSquareSum / meter->rmsWindowSize);
 }

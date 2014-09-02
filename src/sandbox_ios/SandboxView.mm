@@ -14,7 +14,7 @@
     self.backgroundColor = [UIColor whiteColor];
     m_scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
     
-    //level meters
+    //latest notification
     {
         [self addUITitleRow:@"Latest notification"];
         
@@ -78,7 +78,9 @@
     
     //level meters
     {
-        //[self addUITitleRow:@"Levels"];
+        [self addUITitleRow:@"Input level"];
+        self.levelMeterView = [[LevelMeterView alloc] init];
+        [self addUIRow:self.levelMeterView];
     }
     
     m_scrollView.contentSize = CGSizeMake(self.frame.size.width, m_currUIRow * kUIRowHeight);

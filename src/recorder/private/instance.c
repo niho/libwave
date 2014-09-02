@@ -26,6 +26,9 @@ static void mainThreadUpdateCallback(void* data)
     //move any outgoing messages to memory only accessed from the main thread
     drMessageQueue_moveMessages(in->outgoingEventQueueShared, in->outgoingEventQueueMain);
     
+    //get measured levels
+    memcpy(in->inputLevelsMain, in->inputLevelsShared, sizeof(drLevels) * MAX_NUM_INPUT_CHANNELS);
+    
     mtx_unlock(&in->communicationQueueLock);
     
     //invoke the event callback for any incoming events on the main thread
@@ -50,6 +53,20 @@ static void audioThreadUpdateCallback(void* data)
 {
     drInstance* in = (drInstance*)data;
     
+    //update measured levels
+    for (int i = 0; i < MAX_NUM_INPUT_CHANNELS; i++)
+    {
+        drLevels* ol = &in->inputLevelsAudio[i];
+        drLevelMeter* m = &in->inputLevelMeters[i];
+        
+        ol->peakLevel = m->peak;
+        ol->peakLevelEnvelope = m->peakEnvelope;
+        ol->rmsLevel = m->rmsLevel;
+        
+        //TODO: edge detect or something?
+        ol->hasClipped = m->clip;
+    }
+    
     mtx_lock(&in->communicationQueueLock);
     
     //move any incoming messages to memory only accessed from the audio thread
@@ -58,6 +75,9 @@ static void audioThreadUpdateCallback(void* data)
     //move any outgoing messages to memory shared between the main
     //and the audio threads
     drMessageQueue_moveMessages(in->outgoingEventQueueAudio, in->outgoingEventQueueShared);
+    
+    //copy measured levels to the main thread
+    memcpy(in->inputLevelsShared, in->inputLevelsAudio, sizeof(drLevels) * MAX_NUM_INPUT_CHANNELS);
     
     mtx_unlock(&in->communicationQueueLock);
     
@@ -151,32 +171,17 @@ void drInstance_init(drInstance* instance, drNotificationCallback notificationCa
     const int bufferSize = 512;
     
     //create audio analyzers
-    assert(numOutChannels <= MAX_NUM_OUTPUT_CHANNELS);
-    for (int i = 0; i < numOutChannels; i++)
+    assert(numInputChannels <= MAX_NUM_INPUT_CHANNELS);
+    for (int i = 0; i < numInputChannels; i++)
     {
         drLevelMeter_init(&instance->inputLevelMeters[i],
                           i,
                           sampleRate,
-                          0.001f,
-                          0.5f,
-                          0.5f);
-        /*drInstance_addInputAnalyzer(instance,
-                                    &instance->inputLevelMeters[i],
-                                    drLevelMeter_processBuffer,
-                                    drLevelMeter_deinit);*/
-    }
-    
-    assert(numInputChannels <= MAX_NUM_INPUT_CHANNELS);
-    for (int i = 0; i < numInputChannels; i++)
-    {
-        drLevelMeter_init(&instance->outputLevelMeters[i],
-                          i,
-                          sampleRate,
-                          0.001f,
-                          1.6f,
+                          0.0001f,
+                          2.0f,
                           0.5f);
         drInstance_addInputAnalyzer(instance,
-                                    &instance->outputLevelMeters[i],
+                                    &instance->inputLevelMeters[i],
                                     drLevelMeter_processBuffer,
                                     drLevelMeter_deinit);
     }
@@ -371,8 +376,6 @@ static float lin2LogLevel(float lin)
 
 void drInstance_getInputLevels(drInstance* instance, int channel, int logLevels, drLevels* result)
 {
-    assert(0 && "TODO: copy data between threads etc");
-    
     memset(result, 0, sizeof(drLevels));
     
     if (channel >= MAX_NUM_INPUT_CHANNELS)
@@ -380,21 +383,10 @@ void drInstance_getInputLevels(drInstance* instance, int channel, int logLevels,
         return;
     }
     
-    drLevelMeter* lm = &instance->inputLevelMeters[channel];
+    drLevels* lSrc = &instance->inputLevelsMain[channel];
     
-    if (logLevels)
-    {
-        result->peakLevel = lin2LogLevel(lm->peak);
-        result->peakLevelEnvelope = lin2LogLevel(lm->peakEnvelope);
-        result->rmsLevel = lin2LogLevel(lm->rmsLevel);
-    }
-    else
-    {
-        result->peakLevel = lm->peak;
-        result->peakLevelEnvelope = lm->peakEnvelope;
-        result->rmsLevel = lm->rmsLevel;
-    }
-    
-    result->hasClipped = lm->clip;
-    
+    result->hasClipped = lSrc->hasClipped;
+    result->peakLevel = logLevels ? lin2LogLevel(lSrc->peakLevel) : lSrc->peakLevel;
+    result->peakLevelEnvelope = logLevels ? lin2LogLevel(lSrc->peakLevelEnvelope) : lSrc->peakLevelEnvelope;
+    result->rmsLevel = logLevels ? lin2LogLevel(lSrc->rmsLevel) : lSrc->rmsLevel;
 }

@@ -47,7 +47,6 @@ extern "C"
     typedef struct drLevels
     {
         float rmsLevel;
-        float rmsLevelEnvelope;
         float peakLevel;
         float peakLevelEnvelope;
         int hasClipped;

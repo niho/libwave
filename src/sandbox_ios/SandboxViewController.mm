@@ -104,6 +104,9 @@ static void eventCallback(const drNotification* event, void* userData)
 -(void)updateTick
 {
     drUpdate(kUpdateInterval);
+    drLevels il;
+    drGetInputLevels(0, 1, &il);
+    [self.sandboxView.levelMeterView updateLevels:&il];
 }
 
 -(void)onRecStart:(id)sender
