@@ -1,5 +1,5 @@
-#ifndef STF_MESSAGE_QUEUE_H
-#define STF_MESSAGE_QUEUE_H
+#ifndef DR_MESSAGE_QUEUE_H
+#define DR_MESSAGE_QUEUE_H
 
 /*! \file */ 
 
@@ -11,13 +11,13 @@ extern "C"
     /**
      * A message queue with messages of a custom type.
      */
-    typedef struct stfMessageQueue
+    typedef struct drMessageQueue
     {
         int capacity;
         int numMessages;
         int messageSizeInBytes;
         void* messages;
-    } stfMessageQueue;
+    } drMessageQueue;
     
     /**
      * Creates a new message queue with a given capacity and a given
@@ -26,13 +26,13 @@ extern "C"
      * @param messageByteSize The size in bytes of a single message.
      * @return The created queue.
      */
-    stfMessageQueue* stfMessageQueue_new(int capacity, int messageByteSize);
+    drMessageQueue* drMessageQueue_new(int capacity, int messageByteSize);
     
     /**
      * Deletes a given queue.
      * @param queue The queue to delete.
      */
-    void stfMessageQueue_delete(stfMessageQueue* queue);
+    void drMessageQueue_delete(drMessageQueue* queue);
     
     /**
      * Moves messages from one queue to the end of another. If there is not
@@ -43,13 +43,13 @@ extern "C"
      * @return The number of messages that were not moved. This is non-zero
      * if there is not enough room in the destination queue.
      */
-    int stfMessageQueue_moveMessages(stfMessageQueue* src, stfMessageQueue* dest);
+    int drMessageQueue_moveMessages(drMessageQueue* src, drMessageQueue* dest);
     
     /**
      * Removes all messages from a given queue.
      * @param queue The queue to clear.
      */
-    void stfMessageQueue_clear(stfMessageQueue* queue);
+    void drMessageQueue_clear(drMessageQueue* queue);
     
     /**
      * Adds a message to a given queue by copying the message contents.
@@ -59,14 +59,14 @@ extern "C"
      * creation of the \c queue.
      * @return Zero on success, non-zero if \c queue is full.
      */
-    int stfMessageQueue_addMessage(stfMessageQueue* queue, void* message);
+    int drMessageQueue_addMessage(drMessageQueue* queue, void* message);
     
     /**
      * Get the number of messages in a given queue.
      * @param queue The queue.
      * @return The number of messages currently in the queue.
      */
-    int stfMessageQueue_getNumMessages(stfMessageQueue* queue);
+    int drMessageQueue_getNumMessages(drMessageQueue* queue);
     
     /**
      * Get a message at a given index from a given queue. If the index
@@ -75,11 +75,11 @@ extern "C"
      * @param idx The message slot index.
      * @return A pointer to the message at index \c idx.
      */ 
-    void* stfMessageQueue_getMessage(stfMessageQueue* queue, int idx);
+    void* drMessageQueue_getMessage(drMessageQueue* queue, int idx);
     
     
 #ifdef __cplusplus
 } //extern "C"
 #endif /* __cplusplus */
 
-#endif //STF_MESSAGE_QUEUE_H
+#endif //DR_MESSAGE_QUEUE_H

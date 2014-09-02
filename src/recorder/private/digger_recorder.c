@@ -9,6 +9,7 @@
 #include "messagequeue.h"
 #include "tinycthread.h"
 #include "instance.h"
+#include "mem.h"
 
 static drInstance* instance = NULL;
 
@@ -19,7 +20,7 @@ drError drInitialize(drEventCallback eventCallback, void* eventCallbackUserData)
         return DR_ALREADY_INITIALIZED;
     }
     
-    instance = malloc(sizeof(drInstance));
+    instance = DR_MALLOC(sizeof(drInstance), "Digger recorder instance");
     drInstance_init(instance, eventCallback, eventCallbackUserData);
     
     
@@ -34,6 +35,7 @@ drError drDeinitialize()
     }
     
     drInstance_deinit(instance);
+    DR_FREE(instance);
     
     return DR_NO_ERROR;
 }

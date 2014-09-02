@@ -14,14 +14,10 @@ extern "C"
         int channel;
         
         float peak;
-        float peakEnvelope;
-        
+        float peakEnvelope;        
         float peakEnvelopeFeedback;
         
         float rms;
-        float rmsEnvelope;
-        
-        float rmsEnvelopeFeedback;
         
         int clip;
     } drLevelMeter;
@@ -30,6 +26,8 @@ extern "C"
     void drLevelMeter_init(drLevelMeter* meter, int channel);
     
     void drLevelMeter_processBuffer(void* levelMeter, float* inBuffer, int numChannels, int numFrames);
+    
+    void drLevelMeter_deinit(void* levelMeter);
     
 #ifdef __cplusplus
 }

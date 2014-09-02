@@ -44,3 +44,8 @@ void drLevelMeter_processBuffer(void* levelMeter,
     
     rms = sqrtf(rms / numFrames);
 }
+
+void drLevelMeter_deinit(void* levelMeter)
+{
+    //nothing to clean up
+}

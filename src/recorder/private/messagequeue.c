@@ -2,32 +2,33 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "mem.h"
 #include "messagequeue.h"
 
-stfMessageQueue* stfMessageQueue_new(int capacity, int messageByteSize)
+drMessageQueue* drMessageQueue_new(int capacity, int messageByteSize)
 {
     assert(capacity > 0);
     assert(messageByteSize > 0);
     
-    stfMessageQueue* queue = malloc(sizeof(stfMessageQueue));
-    memset(queue, 0, sizeof(stfMessageQueue));
+    drMessageQueue* queue = DR_MALLOC(sizeof(drMessageQueue), "message queue");
+    memset(queue, 0, sizeof(drMessageQueue));
     
     queue->messageSizeInBytes = messageByteSize;
     queue->capacity = capacity;
     queue->numMessages = 0;
-    queue->messages = malloc(capacity * messageByteSize);
+    queue->messages = DR_MALLOC(capacity * messageByteSize, "message queue messages");
     memset(queue->messages, 0, capacity * messageByteSize);
     
     return queue;
 }
 
-void stfMessageQueue_delete(stfMessageQueue* queue)
+void drMessageQueue_delete(drMessageQueue* queue)
 {
     free(queue->messages);
     free(queue);
 }
 
-int stfMessageQueue_moveMessages(stfMessageQueue* src, stfMessageQueue* dest)
+int drMessageQueue_moveMessages(drMessageQueue* src, drMessageQueue* dest)
 {
     assert(src);
     assert(dest);
@@ -68,13 +69,13 @@ int stfMessageQueue_moveMessages(stfMessageQueue* src, stfMessageQueue* dest)
     return numMessagesNotMoved;
 }
 
-void stfMessageQueue_clear(stfMessageQueue* queue)
+void drMessageQueue_clear(drMessageQueue* queue)
 {
     memset(queue->messages, 0, queue->numMessages * queue->messageSizeInBytes);
     queue->numMessages = 0;
 }
 
-int stfMessageQueue_addMessage(stfMessageQueue* queue, void* message)
+int drMessageQueue_addMessage(drMessageQueue* queue, void* message)
 {
     if (queue->numMessages == queue->capacity)
     {
@@ -91,12 +92,12 @@ int stfMessageQueue_addMessage(stfMessageQueue* queue, void* message)
     return 0;
 }
 
-int stfMessageQueue_getNumMessages(stfMessageQueue* queue)
+int drMessageQueue_getNumMessages(drMessageQueue* queue)
 {
     return queue->numMessages;
 }
 
-void* stfMessageQueue_getMessage(stfMessageQueue* queue, int idx)
+void* drMessageQueue_getMessage(drMessageQueue* queue, int idx)
 {
     assert(idx >= 0);
     

@@ -8,6 +8,7 @@
 #include "messagequeue.h"
 #include "digger_recorder.h"
 #include "level_meter.h"
+#include "analyzer.h"
 
 #ifdef __cplusplus
 extern "C"
@@ -18,12 +19,12 @@ extern "C"
     #define MAX_NUM_INPUT_CHANNELS 1
     #define MAX_NUM_OUTPUT_CHANNELS 2
     
-    typedef void (*drAnalyzerAudioCallback)(void* analyzer, float* inBuffer, int numChannels, int numFrames);
     
     typedef struct drAnalyzerSlot
     {
         void* analyzerData;
         drAnalyzerAudioCallback audioCallback;
+        drAnalyzerDeinitCallback deinitCallback;
     } drAnalyzerSlot;
     
     /**
@@ -39,9 +40,9 @@ extern "C"
         int firstSampleHasPlayed;
         
         mtx_t sharedEventQueueLock;
-        stfMessageQueue* outgoingEventQueueShared;
-        stfMessageQueue* outgoingEventQueueMain;
-        stfMessageQueue* outgoingEventQueueAudio;
+        drMessageQueue* outgoingEventQueueShared;
+        drMessageQueue* outgoingEventQueueMain;
+        drMessageQueue* outgoingEventQueueAudio;
         
         drEventCallback eventCallback;
         void* eventCallbackData;
@@ -63,7 +64,10 @@ extern "C"
     /**
      * Returns 0 on success, or non-zero if there is no free analyzer slot.
      */
-    int drInstance_addInputAnalyzer(drInstance* instance, void* analyzerData, drAnalyzerAudioCallback audioCallback);
+    int drInstance_addInputAnalyzer(drInstance* instance,
+                                    void* analyzerData,
+                                    drAnalyzerAudioCallback audioCallback,
+                                    drAnalyzerDeinitCallback deinitCallback);
     
     /**
      * Must be called <strong>only from the audio thread</strong>!

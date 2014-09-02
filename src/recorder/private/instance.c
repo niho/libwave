@@ -14,20 +14,20 @@ static void engineThreadUpdateCallback(void* data)
     drInstance* in = (drInstance*)data;
     
     mtx_lock(&in->sharedEventQueueLock);
-    stfMessageQueue_moveMessages(in->outgoingEventQueueShared, in->outgoingEventQueueMain);
+    drMessageQueue_moveMessages(in->outgoingEventQueueShared, in->outgoingEventQueueMain);
     mtx_unlock(&in->sharedEventQueueLock);
     
     //invoke the event callback for any incoming events
     if (in->eventCallback)
     {
-        const int numEvents = stfMessageQueue_getNumMessages(in->outgoingEventQueueMain);
+        const int numEvents = drMessageQueue_getNumMessages(in->outgoingEventQueueMain);
         for (int i = 0; i < numEvents; i++)
         {
-            const drEvent* e = (const drEvent*)stfMessageQueue_getMessage(in->outgoingEventQueueMain, i);
+            const drEvent* e = (const drEvent*)drMessageQueue_getMessage(in->outgoingEventQueueMain, i);
             in->eventCallback(e, in->eventCallbackData);
         }
         
-        stfMessageQueue_clear(in->outgoingEventQueueMain);
+        drMessageQueue_clear(in->outgoingEventQueueMain);
     }
 }
 
@@ -35,11 +35,11 @@ static void audioThreadUpdateCallback(void* data)
 {
     drInstance* in = (drInstance*)data;
     
-    const int numMessages = stfMessageQueue_getNumMessages(in->outgoingEventQueueAudio);
+    const int numMessages = drMessageQueue_getNumMessages(in->outgoingEventQueueAudio);
     if (numMessages)
     {
         mtx_lock(&in->sharedEventQueueLock);
-        stfMessageQueue_moveMessages(in->outgoingEventQueueAudio, in->outgoingEventQueueShared);
+        drMessageQueue_moveMessages(in->outgoingEventQueueAudio, in->outgoingEventQueueShared);
         mtx_unlock(&in->sharedEventQueueLock);
     }
 }
@@ -76,7 +76,10 @@ static void outputCallback(float* inBuffer, int numChannels, int numFrames, void
     }
 }
 
-int drInstance_addInputAnalyzer(drInstance* instance, void* analyzerData, drAnalyzerAudioCallback audioCallback)
+int drInstance_addInputAnalyzer(drInstance* instance,
+                                void* analyzerData,
+                                drAnalyzerAudioCallback audioCallback,
+                                drAnalyzerDeinitCallback deinitCallback)
 {
     //TODO: make sure this is not called when the audio system is running. or lock this somehow.
     for (int i = 0; MAX_NUM_ANALYZER_SLOTS; i++)
@@ -85,6 +88,7 @@ int drInstance_addInputAnalyzer(drInstance* instance, void* analyzerData, drAnal
         {
             instance->inputAnalyzerSlots[i].analyzerData = analyzerData;
             instance->inputAnalyzerSlots[i].audioCallback = audioCallback;
+            instance->inputAnalyzerSlots[i].deinitCallback = deinitCallback;
             
             return 0;
         }
@@ -97,23 +101,22 @@ int drInstance_addInputAnalyzer(drInstance* instance, void* analyzerData, drAnal
 void drInstance_enqueueEventFromAudioToMainThread(drInstance* instance, const drEvent* event)
 {
     //TODO: pass instance as param
-    stfMessageQueue_addMessage(instance->outgoingEventQueueAudio, (void*)event);
+    drMessageQueue_addMessage(instance->outgoingEventQueueAudio, (void*)event);
 }
 
 void drInstance_init(drInstance* instance, drEventCallback eventCallback, void* eventCallbackUserData)
 {
-    instance = (drInstance*)malloc(sizeof(drInstance));
     memset(instance, 0, sizeof(drInstance));
     
     
     instance->eventCallback = eventCallback;
     instance->eventCallbackData = eventCallbackUserData;
     
-    instance->outgoingEventQueueShared = stfMessageQueue_new(kEventQueueCapactity,
+    instance->outgoingEventQueueShared = drMessageQueue_new(kEventQueueCapactity,
                                                              sizeof(drEvent));
-    instance->outgoingEventQueueAudio = stfMessageQueue_new(kEventQueueCapactity,
+    instance->outgoingEventQueueAudio = drMessageQueue_new(kEventQueueCapactity,
                                                              sizeof(drEvent));
-    instance->outgoingEventQueueMain = stfMessageQueue_new(kEventQueueCapactity,
+    instance->outgoingEventQueueMain = drMessageQueue_new(kEventQueueCapactity,
                                                              sizeof(drEvent));
     
     mtx_init(&instance->sharedEventQueueLock, mtx_plain);
@@ -141,14 +144,20 @@ void drInstance_init(drInstance* instance, drEventCallback eventCallback, void* 
     for (int i = 0; i < numOutChannels; i++)
     {
         drLevelMeter_init(&instance->inputLevelMeters[i], i);
-        drInstance_addInputAnalyzer(instance, &instance->inputLevelMeters[i], drLevelMeter_processBuffer);
+        drInstance_addInputAnalyzer(instance,
+                                    &instance->inputLevelMeters[i],
+                                    drLevelMeter_processBuffer,
+                                    drLevelMeter_deinit);
     }
     
     assert(numInputChannels <= MAX_NUM_INPUT_CHANNELS);
     for (int i = 0; i < numInputChannels; i++)
     {
         drLevelMeter_init(&instance->outputLevelMeters[i], i);
-        drInstance_addInputAnalyzer(instance, &instance->outputLevelMeters[i], drLevelMeter_processBuffer);
+        drInstance_addInputAnalyzer(instance,
+                                    &instance->outputLevelMeters[i],
+                                    drLevelMeter_processBuffer,
+                                    drLevelMeter_deinit);
     }
     
     
@@ -164,16 +173,29 @@ void drInstance_init(drInstance* instance, drEventCallback eventCallback, void* 
 
 void drInstance_deinit(drInstance* instance)
 {
+    //stop the audio system
     kwlDeinitialize();
     kwlError deinitResult = kwlGetError();
     assert(deinitResult == KWL_NO_ERROR);
     
-    stfMessageQueue_delete(instance->outgoingEventQueueAudio);
-    stfMessageQueue_delete(instance->outgoingEventQueueMain);
-    stfMessageQueue_delete(instance->outgoingEventQueueShared);
+    //clean up analyzers
+    for (int i = 0; i < MAX_NUM_ANALYZER_SLOTS; i++)
+    {
+        if (instance->inputAnalyzerSlots[i].analyzerData &&
+            instance->inputAnalyzerSlots[i].deinitCallback)
+        {
+            instance->inputAnalyzerSlots[i].deinitCallback(instance->inputAnalyzerSlots[i].analyzerData);
+        }
+    }
+    
+    //release event queues
+    drMessageQueue_delete(instance->outgoingEventQueueAudio);
+    drMessageQueue_delete(instance->outgoingEventQueueMain);
+    drMessageQueue_delete(instance->outgoingEventQueueShared);
     mtx_destroy(&instance->sharedEventQueueLock);
+
+    //clear the instance
     memset(instance, 0, sizeof(drInstance));
-    free(instance);
 }
 
 void drInstance_update(drInstance* instance, float timeStep)
@@ -206,14 +228,12 @@ void drInstance_getInputLevels(drInstance* instance, int channel, int logLevels,
         result->peakLevel = lin2LogLevel(lm->peak);
         result->peakLevelEnvelope = lin2LogLevel(lm->peakEnvelope);
         result->rmsLevel = lin2LogLevel(lm->rms);
-        result->rmsLevelEnvelope = lin2LogLevel(lm->rmsEnvelope);
     }
     else
     {
         result->peakLevel = lm->peak;
         result->peakLevelEnvelope = lm->peakEnvelope;
         result->rmsLevel = lm->rms;
-        result->rmsLevelEnvelope = lm->rmsEnvelope;
     }
     
     result->hasClipped = lm->clip;
