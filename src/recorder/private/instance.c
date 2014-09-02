@@ -10,6 +10,7 @@
 #include "digger_recorder.h"
 
 #define kEventQueueCapactity (50)
+#define kRecordFIFOCapacity (50)
 
 /**
  * Gets called from the main thread.
@@ -104,6 +105,32 @@ static void inputCallback(float* inBuffer, int numChannels, int numFrames, void*
             in->inputAnalyzerSlots[i].audioCallback(in->inputAnalyzerSlots[i].analyzerData, inBuffer, numChannels, numFrames);
         }
     }
+    
+    //record, if requested
+    if (in->state == DR_STATE_RECORDING)
+    {
+        drRecordedChunk c;
+        
+        const int numSamples = numChannels * numFrames;
+        int sampleIdx = 0;
+        const int chunkSize = MAX_RECORDED_CHUNK_SIZE;
+        while (sampleIdx < numSamples)
+        {
+            int samplesLeft = numSamples - sampleIdx;
+            if (samplesLeft > chunkSize)
+            {
+                samplesLeft = chunkSize;
+            }
+            
+            //TODO: this is a double memcpy....
+            c.numFrames = samplesLeft;
+            c.numChannels = numChannels;
+            memcpy(c.samples, &inBuffer[sampleIdx], samplesLeft * sizeof(float));
+            printf("sending %d frames of recorded %d channel audio to the main thread\n", samplesLeft, numChannels);
+            drLockFreeFIFO_push(&in->inputAudioDataQueue, &c);
+            sampleIdx += samplesLeft;
+        }
+    }
 }
 
 static void outputCallback(float* inBuffer, int numChannels, int numFrames, void* data)
@@ -139,6 +166,8 @@ void drInstance_init(drInstance* instance, drNotificationCallback notificationCa
     //hook up notification callback
     instance->notificationCallback = notificationCallback;
     instance->notificationCallbackData = notificationCallbackUserData;
+    
+    drLockFreeFIFO_init(&instance->inputAudioDataQueue, kRecordFIFOCapacity, sizeof(drRecordedChunk));
     
     //create notification and control event queues
     instance->outgoingEventQueueShared = drMessageQueue_new(kEventQueueCapactity,
@@ -220,6 +249,8 @@ void drInstance_deinit(drInstance* instance)
         }
     }
     
+    drLockFreeFIFO_deinit(&instance->inputAudioDataQueue);
+    
     //release event queues
     drMessageQueue_delete(instance->outgoingEventQueueAudio);
     drMessageQueue_delete(instance->outgoingEventQueueMain);
@@ -240,6 +271,12 @@ void drInstance_update(drInstance* instance, float timeStep)
     //update kowalski, invoking thread communication callbacks
     assert(drInstance_isOnMainThread(instance));
     kwlUpdate(timeStep);
+    
+    drRecordedChunk c;
+    while (drLockFreeFIFO_pop(&instance->inputAudioDataQueue, &c))
+    {
+        printf("%d frames of recorded %d channel audio arrived on the main thread\n", c.numFrames, c.numChannels);
+    }
 }
 
 int drInstance_isOnMainThread(drInstance* instance)

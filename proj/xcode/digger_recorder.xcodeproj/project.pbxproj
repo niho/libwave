@@ -431,6 +431,16 @@
 		C12E1EFE19B6132B004532A8 /* repacketizer_demo.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1D4F19B6132B004532A8 /* repacketizer_demo.c */; };
 		C12E1EFF19B6132B004532A8 /* repacketizer_demo.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1D4F19B6132B004532A8 /* repacketizer_demo.c */; };
 		C12E1F0019B6132B004532A8 /* tansig_table.h in Headers */ = {isa = PBXBuildFile; fileRef = C12E1D5019B6132B004532A8 /* tansig_table.h */; };
+		C12E1F0919B61817004532A8 /* opus_encoder.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F0719B61817004532A8 /* opus_encoder.c */; };
+		C12E1F0A19B61817004532A8 /* opus_encoder.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F0719B61817004532A8 /* opus_encoder.c */; };
+		C12E1F0B19B61817004532A8 /* opus_encoder.h in Headers */ = {isa = PBXBuildFile; fileRef = C12E1F0819B61817004532A8 /* opus_encoder.h */; };
+		C12E1F4019B62485004532A8 /* recording_session.h in Headers */ = {isa = PBXBuildFile; fileRef = C12E1F3F19B62485004532A8 /* recording_session.h */; };
+		C12E1F4319B62595004532A8 /* atomic_darwin.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F4119B62595004532A8 /* atomic_darwin.c */; };
+		C12E1F4419B62595004532A8 /* atomic_darwin.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F4119B62595004532A8 /* atomic_darwin.c */; };
+		C12E1F4519B62595004532A8 /* atomic.h in Headers */ = {isa = PBXBuildFile; fileRef = C12E1F4219B62595004532A8 /* atomic.h */; };
+		C12E1F4D19B62635004532A8 /* lock_free_fifo.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F4B19B62635004532A8 /* lock_free_fifo.c */; };
+		C12E1F4E19B62635004532A8 /* lock_free_fifo.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F4B19B62635004532A8 /* lock_free_fifo.c */; };
+		C12E1F4F19B62635004532A8 /* lock_free_fifo.h in Headers */ = {isa = PBXBuildFile; fileRef = C12E1F4C19B62635004532A8 /* lock_free_fifo.h */; };
 		C1F579E019B4A262000C6BCF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F579DF19B4A262000C6BCF /* Foundation.framework */; };
 		C1F57A1019B4A282000C6BCF /* digger_recorder.c in Sources */ = {isa = PBXBuildFile; fileRef = C1F57A0519B4A282000C6BCF /* digger_recorder.c */; };
 		C1F57A1119B4A282000C6BCF /* instance.c in Sources */ = {isa = PBXBuildFile; fileRef = C1F57A0619B4A282000C6BCF /* instance.c */; };
@@ -772,6 +782,13 @@
 		C12E1D4E19B6132B004532A8 /* repacketizer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = repacketizer.c; sourceTree = "<group>"; };
 		C12E1D4F19B6132B004532A8 /* repacketizer_demo.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = repacketizer_demo.c; sourceTree = "<group>"; };
 		C12E1D5019B6132B004532A8 /* tansig_table.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tansig_table.h; sourceTree = "<group>"; };
+		C12E1F0719B61817004532A8 /* opus_encoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = opus_encoder.c; sourceTree = "<group>"; };
+		C12E1F0819B61817004532A8 /* opus_encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = opus_encoder.h; sourceTree = "<group>"; };
+		C12E1F3F19B62485004532A8 /* recording_session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = recording_session.h; sourceTree = "<group>"; };
+		C12E1F4119B62595004532A8 /* atomic_darwin.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = atomic_darwin.c; sourceTree = "<group>"; };
+		C12E1F4219B62595004532A8 /* atomic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = atomic.h; sourceTree = "<group>"; };
+		C12E1F4B19B62635004532A8 /* lock_free_fifo.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lock_free_fifo.c; sourceTree = "<group>"; };
+		C12E1F4C19B62635004532A8 /* lock_free_fifo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lock_free_fifo.h; sourceTree = "<group>"; };
 		C1F579DC19B4A262000C6BCF /* libdigger_recorder_ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libdigger_recorder_ios.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1F579DF19B4A262000C6BCF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C1F579ED19B4A262000C6BCF /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -1183,6 +1200,15 @@
 			path = ../../external/opus/src;
 			sourceTree = "<group>";
 		};
+		C12E1F0619B61817004532A8 /* encoders */ = {
+			isa = PBXGroup;
+			children = (
+				C12E1F0719B61817004532A8 /* opus_encoder.c */,
+				C12E1F0819B61817004532A8 /* opus_encoder.h */,
+			);
+			path = encoders;
+			sourceTree = "<group>";
+		};
 		C1C7B9EC19B4A1EB00C0ED1D = {
 			isa = PBXGroup;
 			children = (
@@ -1228,13 +1254,19 @@
 			isa = PBXGroup;
 			children = (
 				C118B40919B4C9FB00005678 /* analyzers */,
+				C12E1F0619B61817004532A8 /* encoders */,
 				C12E1A8619B5B774004532A8 /* analyzer.h */,
+				C12E1F4119B62595004532A8 /* atomic_darwin.c */,
+				C12E1F4219B62595004532A8 /* atomic.h */,
 				C1F57A0519B4A282000C6BCF /* digger_recorder.c */,
 				C1F57A0619B4A282000C6BCF /* instance.c */,
 				C1F57A0719B4A282000C6BCF /* instance.h */,
+				C12E1F4B19B62635004532A8 /* lock_free_fifo.c */,
+				C12E1F4C19B62635004532A8 /* lock_free_fifo.h */,
 				C12E1A8C19B5B8CD004532A8 /* mem.h */,
 				C1F57A0A19B4A282000C6BCF /* messagequeue.c */,
 				C1F57A0B19B4A282000C6BCF /* messagequeue.h */,
+				C12E1F3F19B62485004532A8 /* recording_session.h */,
 			);
 			path = private;
 			sourceTree = "<group>";
@@ -1317,6 +1349,7 @@
 				C12E1D8E19B6132B004532A8 /* mdct.h in Headers */,
 				C12E1EE519B6132B004532A8 /* mlp.h in Headers */,
 				C12E1D7719B6132B004532A8 /* entcode.h in Headers */,
+				C12E1F4F19B62635004532A8 /* lock_free_fifo.h in Headers */,
 				C12E1DB419B6132B004532A8 /* vq.h in Headers */,
 				C12E1EB719B6132B004532A8 /* SigProc_FIX.h in Headers */,
 				C12E1D5C19B6132B004532A8 /* kiss_fft_armv4.h in Headers */,
@@ -1326,6 +1359,7 @@
 				C12E1F0019B6132B004532A8 /* tansig_table.h in Headers */,
 				C12E1E2119B6132B004532A8 /* structs_FIX.h in Headers */,
 				C12E1D8519B6132B004532A8 /* kiss_fft.h in Headers */,
+				C12E1F4519B62595004532A8 /* atomic.h in Headers */,
 				C12E1D9819B6132B004532A8 /* pitch.h in Headers */,
 				C12E1D8119B6132B004532A8 /* fixed_generic.h in Headers */,
 				C12E1D9E19B6132B004532A8 /* rate.h in Headers */,
@@ -1353,6 +1387,7 @@
 				C12E1DF119B6132B004532A8 /* errors.h in Headers */,
 				C12E1A8719B5B774004532A8 /* analyzer.h in Headers */,
 				C12E1E7E19B6132B004532A8 /* MacroCount.h in Headers */,
+				C12E1F0B19B61817004532A8 /* opus_encoder.h in Headers */,
 				C12E1DB619B6132B004532A8 /* opus.h in Headers */,
 				C12E1E4A19B6132B004532A8 /* main_FLP.h in Headers */,
 				C12E1D5D19B6132B004532A8 /* kiss_fft_armv5e.h in Headers */,
@@ -1374,6 +1409,7 @@
 				C12E1D9F19B6132B004532A8 /* stack_alloc.h in Headers */,
 				C12E1EDB19B6132B004532A8 /* typedef.h in Headers */,
 				C12E1DA019B6132B004532A8 /* static_modes_fixed.h in Headers */,
+				C12E1F4019B62485004532A8 /* recording_session.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1531,6 +1567,7 @@
 				C12E1EFF19B6132B004532A8 /* repacketizer_demo.c in Sources */,
 				C12E1EEE19B6132B004532A8 /* opus_compare.c in Sources */,
 				C12E1E5019B6132B004532A8 /* prefilter_FLP.c in Sources */,
+				C12E1F4419B62595004532A8 /* atomic_darwin.c in Sources */,
 				C12E1D6619B6132B004532A8 /* celt_decoder.c in Sources */,
 				C12E1E2719B6132B004532A8 /* apply_sine_window_FLP.c in Sources */,
 				C12E1DE319B6132B004532A8 /* decode_parameters.c in Sources */,
@@ -1551,6 +1588,8 @@
 				C12E1EAA19B6132B004532A8 /* resampler_private_down_FIR.c in Sources */,
 				C12E1EE719B6132B004532A8 /* mlp_data.c in Sources */,
 				C12E1DF519B6132B004532A8 /* autocorr_FIX.c in Sources */,
+				C12E1F4E19B62635004532A8 /* lock_free_fifo.c in Sources */,
+				C12E1F0A19B61817004532A8 /* opus_encoder.c in Sources */,
 				C12E1DF319B6132B004532A8 /* apply_sine_window_FIX.c in Sources */,
 				C12E1DE119B6132B004532A8 /* decode_indices.c in Sources */,
 				C12E1DBE19B6132B004532A8 /* ana_filt_bank_1.c in Sources */,
@@ -1712,6 +1751,7 @@
 				C12E1EFE19B6132B004532A8 /* repacketizer_demo.c in Sources */,
 				C12E1EED19B6132B004532A8 /* opus_compare.c in Sources */,
 				C12E1E4F19B6132B004532A8 /* prefilter_FLP.c in Sources */,
+				C12E1F4319B62595004532A8 /* atomic_darwin.c in Sources */,
 				C12E1D6519B6132B004532A8 /* celt_decoder.c in Sources */,
 				C12E1E2619B6132B004532A8 /* apply_sine_window_FLP.c in Sources */,
 				C12E1DE219B6132B004532A8 /* decode_parameters.c in Sources */,
@@ -1732,6 +1772,8 @@
 				C12E1EA919B6132B004532A8 /* resampler_private_down_FIR.c in Sources */,
 				C12E1EE619B6132B004532A8 /* mlp_data.c in Sources */,
 				C12E1DF419B6132B004532A8 /* autocorr_FIX.c in Sources */,
+				C12E1F4D19B62635004532A8 /* lock_free_fifo.c in Sources */,
+				C12E1F0919B61817004532A8 /* opus_encoder.c in Sources */,
 				C12E1DF219B6132B004532A8 /* apply_sine_window_FIX.c in Sources */,
 				C12E1DE019B6132B004532A8 /* decode_indices.c in Sources */,
 				C12E1DBD19B6132B004532A8 /* ana_filt_bank_1.c in Sources */,

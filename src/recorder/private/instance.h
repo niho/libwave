@@ -9,6 +9,7 @@
 #include "digger_recorder.h"
 #include "level_meter.h"
 #include "analyzer.h"
+#include "lock_free_fifo.h"
 
 #ifdef __cplusplus
 extern "C"
@@ -18,6 +19,15 @@ extern "C"
     #define MAX_NUM_ANALYZER_SLOTS 16
     #define MAX_NUM_INPUT_CHANNELS 1
     #define MAX_NUM_OUTPUT_CHANNELS 2
+    
+    #define MAX_RECORDED_CHUNK_SIZE 255
+    
+    typedef struct drRecordedChunk
+    {
+        int numChannels;
+        int numFrames;
+        float samples[MAX_RECORDED_CHUNK_SIZE];
+    } drRecordedChunk;
     
     /**
      * Valid control event types
@@ -92,10 +102,12 @@ extern "C"
         //Level meters, only accessed from the audio thread
         drLevelMeter inputLevelMeters[MAX_NUM_INPUT_CHANNELS];
         
-        //Measured levels
+        //Measured levels, copied from audio to main via shared memory
         drLevels inputLevelsAudio[MAX_NUM_INPUT_CHANNELS];
         drLevels inputLevelsShared[MAX_NUM_INPUT_CHANNELS];
         drLevels inputLevelsMain[MAX_NUM_INPUT_CHANNELS];
+        
+        drLockFreeFIFO inputAudioDataQueue;
         
     } drInstance;
 

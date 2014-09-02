@@ -92,7 +92,7 @@ extern "C"
     drError drStartRecording();
     
     /**
-     *
+     * 
      */
     drError drCancelRecording();
     

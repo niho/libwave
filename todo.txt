@@ -1,0 +1,2 @@
+[ ] Associate recording sessions with handles, to make it possible to resume sessions
+[ ] Verify FIFO data integrity when it arrives on the main thread
