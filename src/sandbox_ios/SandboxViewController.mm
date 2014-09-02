@@ -4,7 +4,7 @@
 static void eventCallback(const drNotification* event, void* userData)
 {
     SandboxViewController* vc = (__bridge SandboxViewController*)userData;
-    [vc onEvent:event];
+    [vc onNotification:event];
 }
 
 @implementation SandboxViewController
@@ -27,9 +27,11 @@ static void eventCallback(const drNotification* event, void* userData)
     return self;
 }
 
--(void)onEvent:(const drNotification*)event
+-(void)onNotification:(const drNotification*)notification
 {
-    switch (event->type)
+    self.sandboxView.latestNotificationLabel.text = [NSString stringWithUTF8String:drNotificationTypeToString(notification->type)];
+    
+    switch (notification->type)
     {
         case DR_DID_START_AUDIO_STREAM:
         {
@@ -50,14 +52,24 @@ static void eventCallback(const drNotification* event, void* userData)
     drStartRecording();
 }
 
--(void)onRecStop:(id)sender
+-(void)onRecFinish:(id)sender
 {
-    drStopRecording();
+    drFinishRecording();
+}
+
+-(void)onRecCancel:(id)sender
+{
+    drCancelRecording();
 }
 
 -(void)onRecPause:(id)sender
 {
     drPauseRecording();
+}
+
+-(void)onRecResume:(id)sender
+{
+    drResumeRecording();
 }
 
 @end

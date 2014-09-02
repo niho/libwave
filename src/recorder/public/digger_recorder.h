@@ -29,10 +29,17 @@ extern "C"
         
         DR_RECORDING_STARTED,
         DR_RECORDING_PAUSED,
-        DR_RECORDING_STOPPED,
+        DR_RECORDING_RESUMED,
+        DR_RECORDING_FINISHED,
+        DR_RECORDING_CANCELED
         
-        DR_INPUT_CLIPPED
     } drNotificationType;
+    
+    /**
+     * Helper function that returns a human readable description of a 
+     * notification type.
+     */
+    const char* drNotificationTypeToString(drNotificationType type);
     
     /**
      *
@@ -88,12 +95,22 @@ extern "C"
     /**
      *
      */
-    drError drStopRecording();
+    drError drCancelRecording();
+    
+    /**
+     *
+     */
+    drError drFinishRecording();
     
     /**
      *
      */
     drError drPauseRecording();
+    
+    /**
+     *
+     */
+    drError drResumeRecording();
     
     
 #ifdef __cplusplus

@@ -35,7 +35,7 @@ static void eventCallback(void* userData, const drNotification* event)
 }
 
 
--(void)onEvent:(const drNotification*)event
+-(void)onNotification:(const drNotification*)event
 {
     
 }

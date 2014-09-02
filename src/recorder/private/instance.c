@@ -64,7 +64,7 @@ static void audioThreadUpdateCallback(void* data)
     const int numEvents = drMessageQueue_getNumMessages(in->controlEventQueueAudio);
     for (int i = 0; i < numEvents; i++)
     {
-        const drNotification* e = (const drNotification*)drMessageQueue_getMessage(in->controlEventQueueAudio, i);
+        const drControlEvent* e = (const drControlEvent*)drMessageQueue_getMessage(in->controlEventQueueAudio, i);
         drInstance_onAudioThreadControlEvent(in, e);
     }
     
@@ -227,6 +227,7 @@ int drInstance_isOnMainThread(drInstance* instance)
     return thrd_equal(thrd_current(), instance->mainThread);
 }
 
+
 int drInstance_addInputAnalyzer(drInstance* instance,
                                 void* analyzerData,
                                 drAnalyzerAudioCallback audioCallback,
@@ -255,16 +256,96 @@ void drInstance_enqueueNotification(drInstance* instance, const drNotification* 
     drMessageQueue_addMessage(instance->outgoingEventQueueAudio, (void*)notification);
 }
 
+void drInstance_enqueueNotificationOfType(drInstance* instance, drNotificationType type)
+{
+    drNotification n;
+    memset(&n, 0, sizeof(drNotification));
+    n.type = type;
+    drInstance_enqueueNotification(instance, &n);
+}
+
 void drInstance_enqueueControlEvent(drInstance* instance, const drControlEvent* event)
 {
     assert(drInstance_isOnMainThread(instance));
     drMessageQueue_addMessage(instance->controlEventQueueMain, (void*)event);
 }
 
+void drInstance_enqueueControlEventOfType(drInstance* instance, drControlEventType type)
+{
+    drControlEvent e;
+    memset(&e, 0, sizeof(drControlEvent));
+    e.type = type;
+    drInstance_enqueueControlEvent(instance, &e);
+}
+
 void drInstance_onAudioThreadControlEvent(drInstance* instance, const drControlEvent* event)
 {
     assert(!drInstance_isOnMainThread(instance));
-    printf("got audio thread event %d\n", event->type);
+    
+    switch (event->type)
+    {
+        case DR_START_RECORDING:
+        {
+            if (instance->state == DR_STATE_IDLE)
+            {
+                //recording requested and we're currently not recording.
+                //start recording.
+                instance->state = DR_STATE_RECORDING;
+                drInstance_enqueueNotificationOfType(instance, DR_RECORDING_STARTED);
+            }
+            break;
+        }
+        case DR_PAUSE_RECORDING:
+        {
+            if (instance->state == DR_STATE_RECORDING)
+            {
+                //recording pause requested and we're currently recording.
+                //pause recording.
+                instance->state = DR_STATE_RECORDING_PAUSED;
+                drInstance_enqueueNotificationOfType(instance, DR_RECORDING_PAUSED);
+            }
+            break;
+        }
+        case DR_RESUME_RECORDING:
+        {
+            if (instance->state == DR_STATE_RECORDING_PAUSED)
+            {
+                //recording resume requested and we're currently paused.
+                //resume recording.
+                instance->state = DR_STATE_RECORDING;
+                drInstance_enqueueNotificationOfType(instance, DR_RECORDING_RESUMED);
+            }
+            break;
+        }
+        case DR_FINISH_RECORDING:
+        {
+            if (instance->state == DR_STATE_RECORDING ||
+                instance->state == DR_STATE_RECORDING_PAUSED)
+            {
+                //finish recording requested and we're currently recording.
+                //finish up.
+                instance->state = DR_STATE_IDLE;
+                drInstance_enqueueNotificationOfType(instance, DR_RECORDING_FINISHED);
+            }
+            break;
+        }
+        case DR_CANCEL_RECORDING:
+        {
+            if (instance->state == DR_STATE_RECORDING ||
+                instance->state == DR_STATE_RECORDING_PAUSED)
+            {
+                //cancel recording requested and we're currently recording.
+                //cancel.
+                instance->state = DR_STATE_IDLE;
+                drInstance_enqueueNotificationOfType(instance, DR_RECORDING_CANCELED);
+            }
+            break;
+        }
+        default:
+        {
+            break;
+        }
+    }
 }
 
 void drInstance_onMainThreadNotification(drInstance* instance, const drNotification* notification)

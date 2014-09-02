@@ -23,7 +23,9 @@ extern "C"
     {
         DR_START_RECORDING = 0,
         DR_PAUSE_RECORDING,
-        DR_STOP_RECORDING
+        DR_RESUME_RECORDING,
+        DR_CANCEL_RECORDING,
+        DR_FINISH_RECORDING,
     } drControlEventType;
     
     typedef struct drControlEvent
@@ -38,11 +40,20 @@ extern "C"
         drAnalyzerDeinitCallback deinitCallback;
     } drAnalyzerSlot;
     
+    typedef enum drState
+    {
+        DR_STATE_IDLE = 0,
+        DR_STATE_RECORDING,
+        DR_STATE_RECORDING_PAUSED
+        
+    } drState;
+    
     /**
      * A Digger recorder instance.
      */
     typedef struct drInstance
     {
+        drState state;
         drAnalyzerSlot inputAnalyzerSlots[MAX_NUM_ANALYZER_SLOTS];
         
         float sampleRate;
@@ -82,6 +93,7 @@ extern "C"
      */
     int drInstance_isOnMainThread(drInstance* instance);
     
+    
     void drInstance_getInputLevels(drInstance* instance, int channel, int logLevels, drLevels* result);
     
     void drInstance_onAudioThreadControlEvent(drInstance* instance, const drControlEvent* event);
@@ -102,9 +114,19 @@ extern "C"
     void drInstance_enqueueNotification(drInstance* instance, const drNotification* notification);
     
     /**
-     *
+     * Must be called <strong>only from the audio thread</strong>!
+     */
+    void drInstance_enqueueNotificationOfType(drInstance* instance, drNotificationType type);
+    
+    /**
+     * Must be called <strong>only from the main thread</strong>!
      */
     void drInstance_enqueueControlEvent(drInstance* instance, const drControlEvent* event);
+    
+    /**
+     * Must be called <strong>only from the main thread</strong>!
+     */
+    void drInstance_enqueueControlEventOfType(drInstance* instance, drControlEventType type);
     
 #ifdef __cplusplus
 }

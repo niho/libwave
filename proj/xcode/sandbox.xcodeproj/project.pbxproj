@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C118B3EC19B4B18D00005678 /* digger_recorder_osx.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F57B0019B4A88A000C6BCF /* digger_recorder_osx.dylib */; };
+		C118B3EC19B4B18D00005678 /* libdigger_recorder_osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F57B0019B4A88A000C6BCF /* libdigger_recorder_osx.a */; };
 		C118B3FE19B4B2DC00005678 /* libkowalski.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C118B3FD19B4B2DC00005678 /* libkowalski.dylib */; };
 		C118B40119B4B5D400005678 /* LevelMeterView.mm in Sources */ = {isa = PBXBuildFile; fileRef = C118B40019B4B5D400005678 /* LevelMeterView.mm */; };
 		C1F57A3519B4A36D000C6BCF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F57A3419B4A36D000C6BCF /* Foundation.framework */; };
@@ -66,6 +66,8 @@
 		C118B3FD19B4B2DC00005678 /* libkowalski.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libkowalski.dylib; path = "../../../../Library/Developer/Xcode/DerivedData/sandbox-fhfsgipjxfyknhcabryyxbpksmut/Build/Products/Debug/libkowalski.dylib"; sourceTree = "<group>"; };
 		C118B3FF19B4B5D400005678 /* LevelMeterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelMeterView.h; sourceTree = "<group>"; };
 		C118B40019B4B5D400005678 /* LevelMeterView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LevelMeterView.mm; sourceTree = "<group>"; };
+		C12E1A8E19B5D9A8004532A8 /* sandbox_ios-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "sandbox_ios-Info.plist"; sourceTree = "<group>"; };
+		C12E1A8F19B5D9A8004532A8 /* sandbox_ios-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "sandbox_ios-Prefix.pch"; sourceTree = "<group>"; };
 		C1F57A3119B4A36D000C6BCF /* sandbox_ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sandbox_ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1F57A3419B4A36D000C6BCF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C1F57A3619B4A36D000C6BCF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -118,7 +120,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C118B3FE19B4B2DC00005678 /* libkowalski.dylib in Frameworks */,
-				C118B3EC19B4B18D00005678 /* digger_recorder_osx.dylib in Frameworks */,
+				C118B3EC19B4B18D00005678 /* libdigger_recorder_osx.a in Frameworks */,
 				C1F57A9119B4A757000C6BCF /* Cocoa.framework in Frameworks */,
 				C1F57B0A19B4A9B8000C6BCF /* AudioToolbox.framework in Frameworks */,
 				C1F57B0819B4A9A4000C6BCF /* AudioUnit.framework in Frameworks */,
@@ -185,6 +187,8 @@
 				C118B3FF19B4B5D400005678 /* LevelMeterView.h */,
 				C118B40019B4B5D400005678 /* LevelMeterView.mm */,
 				C1F57A6719B4A38A000C6BCF /* main.mm */,
+				C12E1A8E19B5D9A8004532A8 /* sandbox_ios-Info.plist */,
+				C12E1A8F19B5D9A8004532A8 /* sandbox_ios-Prefix.pch */,
 				C1F57A6819B4A38A000C6BCF /* SandboxView.h */,
 				C1F57A6919B4A38A000C6BCF /* SandboxView.mm */,
 				C1F57A6A19B4A38A000C6BCF /* SandboxViewController.h */,
@@ -198,7 +202,7 @@
 			isa = PBXGroup;
 			children = (
 				C1F57A7719B4A40C000C6BCF /* libdigger_recorder_ios.a */,
-				C1F57B0019B4A88A000C6BCF /* digger_recorder_osx.dylib */,
+				C1F57B0019B4A88A000C6BCF /* libdigger_recorder_osx.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -308,10 +312,10 @@
 			remoteRef = C1F57A7619B4A40C000C6BCF /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		C1F57B0019B4A88A000C6BCF /* digger_recorder_osx.dylib */ = {
+		C1F57B0019B4A88A000C6BCF /* libdigger_recorder_osx.a */ = {
 			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.dylib";
-			path = digger_recorder_osx.dylib;
+			fileType = archive.ar;
+			path = libdigger_recorder_osx.a;
 			remoteRef = C1F57AFF19B4A88A000C6BCF /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};

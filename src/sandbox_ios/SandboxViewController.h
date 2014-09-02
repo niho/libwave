@@ -11,14 +11,18 @@
 
 @property (nonatomic, retain) SandboxView* sandboxView;
 
--(void)onEvent:(const drNotification*)event;
+-(void)onNotification:(const drNotification*)event;
 
 -(void)updateTick;
 
 -(void)onRecStart:(id)sender;
 
--(void)onRecStop:(id)sender;
+-(void)onRecFinish:(id)sender;
+
+-(void)onRecCancel:(id)sender;
 
 -(void)onRecPause:(id)sender;
+
+-(void)onRecResume:(id)sender;
 
 @end

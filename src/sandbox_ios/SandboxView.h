@@ -9,6 +9,8 @@
     int m_currUIRow;
 }
 
+@property (nonatomic, retain) UILabel* latestNotificationLabel;
+
 -(id)initWithFrame:(CGRect)frame
                   :(SandboxViewController*)vc;
 
