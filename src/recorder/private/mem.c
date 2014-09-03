@@ -53,7 +53,8 @@ void* drMalloc(size_t size, const char* tag)
     record->tag = tag;
     numLiveBytes += size;
     
-    printf("allocated pointer %p (%s), live bytes %ld\n", record->ptr, tag, numLiveBytes);
+    printf("allocated pointer %ld bytes at %p (%s), live bytes %ld\n",
+           record->size, record->ptr, tag, numLiveBytes);
     
     return record->ptr;
 #else
@@ -73,7 +74,7 @@ void drFree(void* ptr)
     drAllocationRecord* record = NULL;
     for (int i = 0; i < DR_MAX_NUM_DEBUG_ALLOCATION_RECORDS; i++)
     {
-        if (allocationRecords[i].ptr == 0)
+        if (allocationRecords[i].ptr == ptr)
         {
             record = &allocationRecords[i];
             break;

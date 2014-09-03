@@ -4,3 +4,4 @@
 [ ] Handle FIFO underruns somehow
 [ ] iOS input level adjust?
 [ ] avoid mutexes
+[ ] actually record chunks of MAX_RECORDED_CHUNK_SIZE instead of current buffer size

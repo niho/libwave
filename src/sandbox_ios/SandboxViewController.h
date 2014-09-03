@@ -30,4 +30,8 @@
 
 -(void)onUpdateIntervalChanged:(UISegmentedControl*)c;
 
+-(void)onInit:(id)sender;
+
+-(void)onDeinit:(id)sender;
+
 @end

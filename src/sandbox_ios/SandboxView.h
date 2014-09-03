@@ -19,6 +19,9 @@
 @property (nonatomic, retain) UIButton* recPauseButton;
 @property (nonatomic, retain) UIButton* recCancelButton;
 
+@property (nonatomic, retain) UIButton* drInitButton;
+@property (nonatomic, retain) UIButton* drDeinitButton;
+
 @property (nonatomic, retain) UISegmentedControl* updateIntervalButton;
 
 -(id)initWithFrame:(CGRect)frame

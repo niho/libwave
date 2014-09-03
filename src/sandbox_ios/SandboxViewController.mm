@@ -17,7 +17,7 @@ static void eventCallback(const drNotification* event, void* userData)
                                                          :self];
     self.view = self.sandboxView;
     
-    drInitialize(eventCallback, (__bridge void*)(self));
+    [self onInit:nil];
     
     NSTimer* t = [NSTimer scheduledTimerWithTimeInterval:kUpdateInterval
                                                   target:self
@@ -34,7 +34,7 @@ static void eventCallback(const drNotification* event, void* userData)
     
     switch (notification->type)
     {
-        case DR_DID_START_AUDIO_STREAM:
+        case DR_DID_INITIALIZE:
         {
             [self.sandboxView.recToggleButton addTarget:self
                                                 action:@selector(onRecStart:)
@@ -150,6 +150,16 @@ static void eventCallback(const drNotification* event, void* userData)
     int skip[5] = {1, 2, 4, 10, 10000000};
     m_updateStride = skip[c.selectedSegmentIndex];
     m_updateCounter = 0;
+}
+
+-(void)onInit:(id)sender
+{
+    drInitialize(eventCallback, (__bridge void*)(self));
+}
+
+-(void)onDeinit:(id)sender
+{
+    drDeinitialize();
 }
 
 @end

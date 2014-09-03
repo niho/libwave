@@ -19,7 +19,12 @@ extern "C"
     #define MAX_NUM_INPUT_CHANNELS 1
     #define MAX_NUM_OUTPUT_CHANNELS 2
     
-    #define MAX_RECORDED_CHUNK_SIZE 255
+    #define kControlEventFIFOCapacity (50)
+    #define kNotificationFIFOCapacity (50)
+    #define kEventQueueCapactity (50)
+    
+    #define kRecordFIFOCapacity (50)
+    #define MAX_RECORDED_CHUNK_SIZE 1024
     
     typedef struct drRecordedChunk
     {

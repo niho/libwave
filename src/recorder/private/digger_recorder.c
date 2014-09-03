@@ -14,9 +14,13 @@ const char* drNotificationTypeToString(drNotificationType type)
 {
     switch (type)
     {
-        case DR_DID_START_AUDIO_STREAM:
+        case DR_DID_INITIALIZE:
         {
-            return "audio stream started";
+            return "audio system did initialize";
+        }
+        case DR_DID_SHUT_DOWN:
+        {
+            return "audio system shut down";
         }
         case DR_RECORDING_STARTED:
         {
@@ -72,6 +76,7 @@ drError drDeinitialize()
     
     drInstance_deinit(instance);
     DR_FREE(instance);
+    instance = 0;
     
     return DR_NO_ERROR;
 }

@@ -14,6 +14,23 @@
     self.backgroundColor = [UIColor whiteColor];
     m_scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
     
+    //init/deinit buttons
+    {
+        [self addUITitleRow:@"Digger Recorder lifecycle"];
+        self.drInitButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [self.drInitButton setTitle:@"Initialize" forState:UIControlStateNormal];
+        [self.drInitButton addTarget:vc action:@selector(onInit:)
+                        forControlEvents:UIControlEventTouchUpInside];
+        
+        self.drDeinitButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [self.drDeinitButton setTitle:@"Shut down" forState:UIControlStateNormal];
+        [self.drDeinitButton addTarget:vc action:@selector(onDeinit:)
+                      forControlEvents:UIControlEventTouchUpInside];
+        
+        [self addUIRow:self.drInitButton
+                      :self.drDeinitButton];
+    }
+    
     //latest notification
     {
         [self addUITitleRow:@"Latest notification"];
@@ -46,6 +63,7 @@
     }
     
     //rec dev control buttons
+    if (0)
     {
         UIButton* recStartButton = [UIButton buttonWithType:UIButtonTypeSystem];
         [recStartButton setTitle:@"start" forState:UIControlStateNormal];

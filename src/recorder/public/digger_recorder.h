@@ -25,7 +25,8 @@ extern "C"
      */
     typedef enum drNotificationType
     {
-        DR_DID_START_AUDIO_STREAM = 0,
+        DR_DID_INITIALIZE = 0,
+        DR_DID_SHUT_DOWN,
         
         DR_RECORDING_STARTED,
         DR_RECORDING_PAUSED,

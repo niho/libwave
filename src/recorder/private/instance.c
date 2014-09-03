@@ -9,10 +9,6 @@
 #include "instance.h"
 #include "digger_recorder.h"
 
-#define kControlEventFIFOCapacity (50)
-#define kNotificationFIFOCapacity (50)
-#define kEventQueueCapactity (50)
-#define kRecordFIFOCapacity (500)
 
 /**
  * Gets called from the main thread.
@@ -122,7 +118,7 @@ static void outputCallback(float* inBuffer, int numChannels, int numFrames, void
     if (in->firstSampleHasPlayed == 0)
     {
         drNotification e;
-        e.type = DR_DID_START_AUDIO_STREAM;
+        e.type = DR_DID_INITIALIZE;
         drInstance_enqueueNotification(in, &e);
         in->firstSampleHasPlayed = 1;
     }
@@ -209,6 +205,13 @@ void drInstance_deinit(drInstance* instance)
     kwlDeinitialize();
     kwlError deinitResult = kwlGetError();
     assert(deinitResult == KWL_NO_ERROR);
+    
+    if (instance->notificationCallback)
+    {
+        drNotification n;
+        n.type = DR_DID_SHUT_DOWN;
+        instance->notificationCallback(&n, instance->notificationCallbackData);
+    }
     
     //clean up analyzers
     for (int i = 0; i < MAX_NUM_ANALYZER_SLOTS; i++)
@@ -391,7 +394,7 @@ void drInstance_onMainThreadNotification(drInstance* instance, const drNotificat
     
     switch (notification->type)
     {
-        case DR_DID_START_AUDIO_STREAM:
+        case DR_DID_INITIALIZE:
         {
             break;
         }
