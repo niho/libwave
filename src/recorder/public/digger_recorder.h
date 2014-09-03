@@ -5,42 +5,13 @@
  Public Digger Recorder API
  */
 
+#include "error_codes.h"
+#include "notification.h"
+
 #ifdef __cplusplus
 extern "C"
 {
 #endif /* __cplusplus */
-    
-    /**
-     * Error codes.
-     */
-    typedef enum drError
-    {
-        DR_NO_ERROR = 0,
-        DR_ALREADY_INITIALIZED,
-        DR_NOT_INITIALIZED
-    } drError;
-
-    /**
-     * Valid notification types.
-     */
-    typedef enum drNotificationType
-    {
-        DR_DID_INITIALIZE = 0,
-        DR_DID_SHUT_DOWN,
-        
-        DR_RECORDING_STARTED,
-        DR_RECORDING_PAUSED,
-        DR_RECORDING_RESUMED,
-        DR_RECORDING_FINISHED,
-        DR_RECORDING_CANCELED
-        
-    } drNotificationType;
-    
-    /**
-     * Helper function that returns a human readable description of a 
-     * notification type.
-     */
-    const char* drNotificationTypeToString(drNotificationType type);
     
     /**
      *
@@ -66,16 +37,10 @@ extern "C"
         float controlEventFIFOLevel;
     } drDevInfo;
     
-    /**
-     * A notification passed to the main (i.e UI) thread.
-     */
-    typedef struct drNotification
-    {
-        drNotificationType type;
-    } drNotification;
+    
     
     /**
-     * A callback to invoke for each incoming event.
+     * A callback to invoke for each incoming notification.
      */
     typedef void (*drNotificationCallback)(const drNotification* event, void* userData);
     

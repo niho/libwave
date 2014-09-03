@@ -89,9 +89,13 @@ static void inputCallback(float* inBuffer, int numChannels, int numFrames, void*
     {
         drRecordedChunk c;
         
+        const int lastBuffer = in->finishRecordingRequested;
+        
         const int numSamples = numChannels * numFrames;
         int sampleIdx = 0;
         const int chunkSize = MAX_RECORDED_CHUNK_SIZE;
+        const int numChunks = ceil(numSamples / (float)chunkSize);
+        int chunkIdx = 0;
         while (sampleIdx < numSamples)
         {
             int samplesLeft = numSamples - sampleIdx;
@@ -103,10 +107,22 @@ static void inputCallback(float* inBuffer, int numChannels, int numFrames, void*
             //TODO: this is a double memcpy....
             c.numFrames = samplesLeft;
             c.numChannels = numChannels;
+            c.lastChunk = 0;
+            if (lastBuffer && chunkIdx == numChunks - 1)
+            {
+                c.lastChunk = 1;
+            }
             memcpy(c.samples, &inBuffer[sampleIdx], samplesLeft * sizeof(float));
-            printf("sending %d frames of recorded %d channel audio to the main thread\n", samplesLeft, numChannels);
+            //printf("sending %d frames of recorded %d channel audio to the main thread\n", samplesLeft, numChannels);
             drLockFreeFIFO_push(&in->inputAudioDataQueue, &c);
             sampleIdx += samplesLeft;
+            chunkIdx++;
+        }
+        
+        if (in->finishRecordingRequested)
+        {
+            in->stateAudioThread = DR_STATE_IDLE;
+            drInstance_enqueueNotificationOfType(in, DR_RECORDING_FINISHED);
         }
     }
 }
@@ -258,7 +274,13 @@ void drInstance_update(drInstance* instance, float timeStep)
     drRecordedChunk c;
     while (drLockFreeFIFO_pop(&instance->inputAudioDataQueue, &c))
     {
-        printf("%d frames of recorded %d channel audio arrived on the main thread\n", c.numFrames, c.numChannels);
+        //printf("%d frames of recorded %d channel audio arrived on the main thread\n", c.numFrames, c.numChannels);
+        instance->recordingSession.numRecordedFrames += c.numFrames;
+        //printf("recorded %d frames on the main thread\n", instance->recordingSession.numRecordedFrames);
+        if (c.lastChunk)
+        {
+            drInstance_finishRecording(instance);
+        }
     }
 }
 
@@ -288,6 +310,29 @@ int drInstance_addInputAnalyzer(drInstance* instance,
     
     //no free slots :(
     return 1;
+}
+
+void drInstance_initiateRecording(drInstance* instance)
+{
+    assert(drInstance_isOnMainThread(instance));
+    printf("drInstance_initiateRecording\n");
+}
+
+void drInstance_finishRecording(drInstance* instance)
+{
+    assert(drInstance_isOnMainThread(instance));
+    printf("drInstance_finishRecording\n");
+    
+    instance->recordingSession.numRecordedFrames = 0;
+}
+
+void drInstance_cancelRecording(drInstance* instance)
+{
+    assert(drInstance_isOnMainThread(instance));
+    printf("drInstance_cancelRecording\n");
+    
+    instance->recordingSession.numRecordedFrames = 0;
+    
 }
 
 void drInstance_enqueueNotification(drInstance* instance, const drNotification* notification)
@@ -364,8 +409,7 @@ void drInstance_onAudioThreadControlEvent(drInstance* instance, const drControlE
             {
                 //finish recording requested and we're currently recording.
                 //finish up.
-                instance->stateAudioThread = DR_STATE_IDLE;
-                drInstance_enqueueNotificationOfType(instance, DR_RECORDING_FINISHED);
+                instance->finishRecordingRequested = 1;
             }
             break;
         }
@@ -400,11 +444,14 @@ void drInstance_onMainThreadNotification(drInstance* instance, const drNotificat
         }
         case DR_RECORDING_CANCELED:
         {
+            drInstance_cancelRecording(instance);
             instance->stateMainThread = DR_STATE_IDLE;
             break;
         }
         case DR_RECORDING_FINISHED:
         {
+            //nothing here. the recording is finished when the last buffer
+            //has been received.
             instance->stateMainThread = DR_STATE_IDLE;
             break;
         }
@@ -421,6 +468,8 @@ void drInstance_onMainThreadNotification(drInstance* instance, const drNotificat
         case DR_RECORDING_STARTED:
         {
             instance->stateMainThread = DR_STATE_RECORDING;
+            //initiate recording
+            drInstance_initiateRecording(instance);
             break;
         }
         default:

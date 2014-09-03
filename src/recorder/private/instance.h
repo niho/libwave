@@ -9,6 +9,7 @@
 #include "level_meter.h"
 #include "analyzer.h"
 #include "lock_free_fifo.h"
+#include "recording_session.h"
 
 #ifdef __cplusplus
 extern "C"
@@ -21,8 +22,6 @@ extern "C"
     
     #define kControlEventFIFOCapacity (50)
     #define kNotificationFIFOCapacity (50)
-    #define kEventQueueCapactity (50)
-    
     #define kRecordFIFOCapacity (50)
     #define MAX_RECORDED_CHUNK_SIZE 1024
     
@@ -92,6 +91,7 @@ extern "C"
         kwlDSPUnitHandle inputDSPUnit;
         kwlDSPUnitHandle outputDSPUnit;
         int firstSampleHasPlayed;
+        int finishRecordingRequested;
         
         //used to verify that functions are being called from the right threads
         thrd_t mainThread;
@@ -112,6 +112,8 @@ extern "C"
         drLevels inputLevelsMain[MAX_NUM_INPUT_CHANNELS];
         
         drLockFreeFIFO inputAudioDataQueue;
+        
+        drRecordingSession recordingSession;
         
     } drInstance;
 
@@ -157,6 +159,21 @@ extern "C"
                                     void* analyzerData,
                                     drAnalyzerAudioCallback audioCallback,
                                     drAnalyzerDeinitCallback deinitCallback);
+    
+    /**
+     *
+     */
+    void drInstance_initiateRecording(drInstance* instance);
+    
+    /**
+     *
+     */
+    void drInstance_finishRecording(drInstance* instance);
+    
+    /**
+     *
+     */
+    void drInstance_cancelRecording(drInstance* instance);
     
     /**
      * Must be called <strong>only from the audio thread</strong>!
