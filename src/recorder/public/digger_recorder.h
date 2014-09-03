@@ -53,6 +53,19 @@ extern "C"
     } drLevels;
     
     /**
+     *
+     */
+    typedef struct drDevInfo
+    {
+        /** 0 - 1, 0 empty, 1 full. */
+        float recordFIFOLevel;
+        /** 0 - 1, 0 empty, 1 full. */
+        float notificationFIFOLevel;
+        /** 0 - 1, 0 empty, 1 full. */
+        float controlEventFIFOLevel;
+    } drDevInfo;
+    
+    /**
      * A notification passed to the main (i.e UI) thread.
      */
     typedef struct drNotification
@@ -110,6 +123,11 @@ extern "C"
      *
      */
     drError drResumeRecording();
+    
+    /**
+     *
+     */
+    drError drGetDevInfo(drDevInfo* devInfo);
     
     
 #ifdef __cplusplus
