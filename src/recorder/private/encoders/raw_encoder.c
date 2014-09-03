@@ -28,6 +28,7 @@ void drRawEncoder_finish(void* rawEncoder)
     printf("drRawEncoder_finish\n");
     drRawEncoder* re = (drRawEncoder*)rawEncoder;
     fclose(re->file);
+    re->file = 0;
 }
 
 void drRawEncoder_cancel(void* rawEncoder)
@@ -35,4 +36,5 @@ void drRawEncoder_cancel(void* rawEncoder)
     printf("drRawEncoder_cancel\n");
     drRawEncoder* re = (drRawEncoder*)rawEncoder;
     fclose(re->file);
+    re->file = 0;
 }

@@ -143,8 +143,7 @@ static void outputCallback(float* inBuffer, int numChannels, int numFrames, void
     
     for (int i = 0; i < numFrames; i++)
     {
-        //inBuffer[numChannels * i] = 0.2f * (-1 + 0.0002f * (rand() % 10000));
-        inBuffer[numChannels * i + 1] = 0.2f * (-1 + 0.0002f * (rand() % 10000));
+        inBuffer[numChannels * i + 1] = 0.0f;//0.2f * (-1 + 0.0002f * (rand() % 10000));
     }
 }
 
