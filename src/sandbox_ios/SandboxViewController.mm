@@ -106,7 +106,12 @@ static void eventCallback(const drNotification* event, void* userData)
     drUpdate(kUpdateInterval);
     drLevels il;
     drGetInputLevels(0, 1, &il);
+    
+    drDevInfo di;
+    drGetDevInfo(&di);
+    
     [self.sandboxView.levelMeterView updateLevels:&il];
+    [self.sandboxView.devInfoView updateInfo:&di];
 }
 
 -(void)onRecStart:(id)sender

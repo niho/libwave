@@ -83,6 +83,13 @@
         [self addUIRow:self.levelMeterView];
     }
     
+    //dev info
+    {
+        [self addUITitleRow:@"Dev info"];
+        self.devInfoView = [[DevInfoView alloc] init];
+        [self addUIRow:self.devInfoView];
+    }
+    
     m_scrollView.contentSize = CGSizeMake(self.frame.size.width, m_currUIRow * kUIRowHeight);
     [self addSubview:m_scrollView];
     

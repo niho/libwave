@@ -1,30 +1,37 @@
 
-#import "DevInfoView.h"
+#import "BufferLevelView.h"
 
-
-@implementation DevInfoView
+@implementation BufferLevelView
 
 -(id)initWithFrame:(CGRect)frame
+                  :(NSString*)title
 {
     self = [super initWithFrame:frame];
     
+    m_label = [[UILabel alloc] init];
+    m_label.textAlignment = NSTextAlignmentCenter;
+    m_label.text = title;
     
+    m_bar = [[UIView alloc] init];
+    
+    [self addSubview:m_label];
+    [self addSubview:m_bar];
     
     return self;
 }
 
--(void)layoutSubviews
+-(void)updateLevel:(float)level
 {
-    [self updateInfo:&m_currentInfo];
+    m_currentLevel = level;
+    
+    m_bar.frame = CGRectMake(0, 0, (int)(self.frame.size.width * m_currentLevel), self.frame.size.height);
+    m_bar.backgroundColor = [UIColor colorWithHue:m_currentLevel saturation:0.8f brightness:0.8f alpha:0.8f];
+    m_label.frame = self.bounds;
 }
 
--(void)updateInfo:(drDevInfo*)info
+-(void)layoutSubviews
 {
-    memcpy(&m_currentInfo, info, sizeof(drDevInfo));
-    
-    const int w = self.frame.size.width;
-    const int h = self.frame.size.height;
-    const int lw = 4;
+    [self updateLevel:m_currentLevel];
 }
 
 @end

@@ -1,12 +1,16 @@
 
 #import <UIKit/UIKit.h>
-#import "digger_recorder.h"
 
-@interface DevInfoView : UIView
+@interface BufferLevelView : UIView
 {
-    drDevInfo m_currentInfo;
+    float m_currentLevel;
+    UILabel* m_label;
+    UIView* m_bar;
 }
 
--(void)updateInfo:(drDevInfo*)info;
+-(id)initWithFrame:(CGRect)frame
+                  :(NSString*)title;
+
+-(void)updateLevel:(float)level;
 
 @end

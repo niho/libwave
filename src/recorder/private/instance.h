@@ -78,6 +78,8 @@ extern "C"
         drState state;
         drAnalyzerSlot inputAnalyzerSlots[MAX_NUM_ANALYZER_SLOTS];
         
+        drDevInfo devInfo;
+        
         float sampleRate;
         kwlDSPUnitHandle inputDSPUnit;
         kwlDSPUnitHandle outputDSPUnit;

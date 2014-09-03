@@ -1,5 +1,6 @@
 
 #import <UIKit/UIKit.h>
+#import "DevInfoView.h"
 #import "LevelMeterView.h"
 
 @class SandboxViewController;
@@ -12,6 +13,7 @@
 
 @property (nonatomic, retain) UILabel* latestNotificationLabel;
 @property (nonatomic, retain) LevelMeterView* levelMeterView;
+@property (nonatomic, retain) DevInfoView* devInfoView;
 
 @property (nonatomic, retain) UIButton* recToggleButton;
 @property (nonatomic, retain) UIButton* recPauseButton;

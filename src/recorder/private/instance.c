@@ -235,6 +235,17 @@ void drInstance_deinit(drInstance* instance)
 
 void drInstance_update(drInstance* instance, float timeStep)
 {
+    //update dev info before consuming any events
+    instance->devInfo.controlEventFIFOLevel = drLockFreeFIFO_getNumElements(&instance->controlEventFIFO) /
+    ((float)instance->controlEventFIFO.capacity);
+    
+    instance->devInfo.notificationFIFOLevel = drLockFreeFIFO_getNumElements(&instance->notificationFIFO) /
+    ((float)instance->notificationFIFO.capacity);
+    
+    instance->devInfo.recordFIFOLevel = drLockFreeFIFO_getNumElements(&instance->inputAudioDataQueue) /
+    ((float)instance->inputAudioDataQueue.capacity);
+    
+    
     //update kowalski, invoking thread communication callbacks
     assert(drInstance_isOnMainThread(instance));
     kwlUpdate(timeStep);

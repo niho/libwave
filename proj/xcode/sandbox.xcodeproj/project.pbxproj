@@ -13,6 +13,7 @@
 		C12E1F0319B61523004532A8 /* libkowalski_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C12E1F0219B61523004532A8 /* libkowalski_ios.a */; };
 		C12E1F5B19B63410004532A8 /* DevInfoView.mm in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F5A19B63410004532A8 /* DevInfoView.mm */; };
 		C12E1F5C19B63410004532A8 /* DevInfoView.mm in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F5A19B63410004532A8 /* DevInfoView.mm */; };
+		C12E1F7E19B709D7004532A8 /* BufferLevelView.mm in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F7D19B709D7004532A8 /* BufferLevelView.mm */; };
 		C1F57A3519B4A36D000C6BCF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F57A3419B4A36D000C6BCF /* Foundation.framework */; };
 		C1F57A3719B4A36D000C6BCF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F57A3619B4A36D000C6BCF /* CoreGraphics.framework */; };
 		C1F57A3919B4A36D000C6BCF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F57A3819B4A36D000C6BCF /* UIKit.framework */; };
@@ -35,6 +36,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		C12E1F8019B709D7004532A8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C1F57A7119B4A40C000C6BCF /* digger_recorder.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C12E1F6819B6FE8B004532A8;
+			remoteInfo = unittests_osx;
+		};
 		C1F57A7619B4A40C000C6BCF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C1F57A7119B4A40C000C6BCF /* digger_recorder.xcodeproj */;
@@ -74,6 +82,8 @@
 		C12E1F0219B61523004532A8 /* libkowalski_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libkowalski_ios.a; path = "../../external/kowalski/projects/xcode/build/Debug-iphoneos/libkowalski_ios.a"; sourceTree = "<group>"; };
 		C12E1F5919B63410004532A8 /* DevInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DevInfoView.h; sourceTree = "<group>"; };
 		C12E1F5A19B63410004532A8 /* DevInfoView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DevInfoView.mm; sourceTree = "<group>"; };
+		C12E1F7C19B709D7004532A8 /* BufferLevelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BufferLevelView.h; sourceTree = "<group>"; };
+		C12E1F7D19B709D7004532A8 /* BufferLevelView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BufferLevelView.mm; sourceTree = "<group>"; };
 		C1F57A3119B4A36D000C6BCF /* sandbox_ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sandbox_ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1F57A3419B4A36D000C6BCF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C1F57A3619B4A36D000C6BCF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -192,6 +202,8 @@
 			children = (
 				C1F57A6319B4A38A000C6BCF /* AppDelegate.h */,
 				C1F57A6419B4A38A000C6BCF /* AppDelegate.mm */,
+				C12E1F7C19B709D7004532A8 /* BufferLevelView.h */,
+				C12E1F7D19B709D7004532A8 /* BufferLevelView.mm */,
 				C12E1F5919B63410004532A8 /* DevInfoView.h */,
 				C12E1F5A19B63410004532A8 /* DevInfoView.mm */,
 				C118B3FF19B4B5D400005678 /* LevelMeterView.h */,
@@ -213,6 +225,7 @@
 			children = (
 				C1F57A7719B4A40C000C6BCF /* libdigger_recorder_ios.a */,
 				C1F57B0019B4A88A000C6BCF /* libdigger_recorder_osx.a */,
+				C12E1F8119B709D7004532A8 /* unittests_osx */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -315,6 +328,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		C12E1F8119B709D7004532A8 /* unittests_osx */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = unittests_osx;
+			remoteRef = C12E1F8019B709D7004532A8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		C1F57A7719B4A40C000C6BCF /* libdigger_recorder_ios.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -358,6 +378,7 @@
 			files = (
 				C1F57A6F19B4A38A000C6BCF /* SandboxView.mm in Sources */,
 				C1F57A6E19B4A38A000C6BCF /* main.mm in Sources */,
+				C12E1F7E19B709D7004532A8 /* BufferLevelView.mm in Sources */,
 				C118B40119B4B5D400005678 /* LevelMeterView.mm in Sources */,
 				C1F57A7019B4A38A000C6BCF /* SandboxViewController.mm in Sources */,
 				C1F57A6C19B4A38A000C6BCF /* AppDelegate.mm in Sources */,

@@ -167,15 +167,7 @@ drError drGetDevInfo(drDevInfo* devInfo)
         return DR_NOT_INITIALIZED;
     }
     
-    //TODO: use capacity constants
-    devInfo->controlEventFIFOLevel = drLockFreeFIFO_getNumElements(&instance->controlEventFIFO) /
-                                     ((float)instance->controlEventFIFO.capacity);
-    
-    devInfo->notificationFIFOLevel = drLockFreeFIFO_getNumElements(&instance->notificationFIFO) /
-    ((float)instance->notificationFIFO.capacity);
-    
-    devInfo->recordFIFOLevel = drLockFreeFIFO_getNumElements(&instance->inputAudioDataQueue) /
-    ((float)instance->inputAudioDataQueue.capacity);
+    memcpy(devInfo, &instance->devInfo, sizeof(drDevInfo));
     
     return DR_NO_ERROR;
 }
