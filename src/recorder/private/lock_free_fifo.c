@@ -9,10 +9,9 @@
 void drLockFreeFIFO_init(drLockFreeFIFO* fifo, int capacity, int elementSize)
 {
     memset(fifo, 0, sizeof(drLockFreeFIFO));
-    fifo->capacity = capacity
-    ;
+    fifo->capacity = capacity + 1;
     fifo->elementSize = elementSize;
-    fifo->elements = DR_MALLOC(capacity * elementSize, "FIFO elements");
+    fifo->elements = DR_MALLOC(fifo->capacity * elementSize, "FIFO elements");
 }
 
 void drLockFreeFIFO_deinit(drLockFreeFIFO* fifo)
@@ -56,7 +55,7 @@ int drLockFreeFIFO_push(drLockFreeFIFO* fifo, const void* element)
     const int nextTail = increment(currentTail, fifo->capacity);
     if(nextTail != drAtomicLoad(&fifo->head))
     {
-        memcpy(&fifo->elements[currentTail * fifo->elementSize], element, fifo->elementSize);
+        memcpy(&(((unsigned char*)fifo->elements)[currentTail * fifo->elementSize]), element, fifo->elementSize);
         drAtomicStore(nextTail, &fifo->tail);
         return 1;
     }

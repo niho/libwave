@@ -163,7 +163,7 @@ void drInstance_init(drInstance* instance, drNotificationCallback notificationCa
     instance->notificationCallback = notificationCallback;
     instance->notificationCallbackData = notificationCallbackUserData;
     
-    drInstance_createEncoder(instance);
+    drCreateEncoder(&instance->recordingSession.encoder);
     
     drLockFreeFIFO_init(&instance->inputAudioDataQueue, kRecordFIFOCapacity, sizeof(drRecordedChunk));
     
@@ -292,16 +292,6 @@ void drInstance_update(drInstance* instance, float timeStep)
             drInstance_finishRecording(instance);
         }
     }
-}
-
-void drInstance_createEncoder(drInstance* instance)
-{
-    drRawEncoder* rawEncoder = malloc(sizeof(drRawEncoder));
-    instance->recordingSession.encoder.encoderData = rawEncoder;
-    instance->recordingSession.encoder.cancelCallback = drRawEncoder_cancel;
-    instance->recordingSession.encoder.finishCallback = drRawEncoder_finish;
-    instance->recordingSession.encoder.initCallback = drRawEncoder_init;
-    instance->recordingSession.encoder.writeCallback = drRawEncoder_write;
 }
 
 int drInstance_isOnMainThread(drInstance* instance)

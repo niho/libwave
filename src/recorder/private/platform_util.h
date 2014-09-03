@@ -3,6 +3,8 @@
 
 /*! \file */
 
+#include "encoder.h"
+
 #ifdef __cplusplus
 extern "C"
 {
@@ -12,6 +14,11 @@ extern "C"
      * Returns 0 on success, 1 otherwise.
      */
     int drGetWritableFilePath(char* buffer, int bufferSize);
+    
+    /**
+     *
+     */
+    void drCreateEncoder(drEncoder* encoder);
     
 #ifdef __cplusplus
 }

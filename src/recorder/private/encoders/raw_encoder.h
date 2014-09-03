@@ -1,7 +1,7 @@
 #ifndef DR_RAW_ENCODER_H
 #define DR_RAW_ENCODER_H
 
-#include <stdlib.h>
+#include <stdio.h>
 
 /*! \file */
 
