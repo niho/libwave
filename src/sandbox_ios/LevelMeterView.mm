@@ -64,7 +64,6 @@
             m_clipIndicator.alpha = 0.0f;
         }];
     }
-    
 }
 
 @end

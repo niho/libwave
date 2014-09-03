@@ -26,6 +26,7 @@ extern "C"
         int numChannels;
         int numFrames;
         float samples[MAX_RECORDED_CHUNK_SIZE];
+        int lastChunk;
     } drRecordedChunk;
     
     /**
@@ -52,7 +53,7 @@ extern "C"
     /**
      * Possible recorder instance states.
      */
-    typedef enum drState
+    typedef enum drAudioThreadState
     {
         DR_STATE_IDLE = 0,
         DR_STATE_RECORDING,
@@ -75,7 +76,9 @@ extern "C"
      */
     typedef struct drInstance
     {
-        drState state;
+        drState stateAudioThread;
+        drState stateMainThread;
+        
         drAnalyzerSlot inputAnalyzerSlots[MAX_NUM_ANALYZER_SLOTS];
         
         drDevInfo devInfo;

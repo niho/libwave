@@ -86,7 +86,7 @@
     //update interval button
     {
         [self addUITitleRow:@"Poll frequency"];
-        self.updateIntervalButton = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"100%", @"50%", @"25%", @"10%", nil]];
+        self.updateIntervalButton = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"100%", @"50%", @"25%", @"10%", @"0%", nil]];
         self.updateIntervalButton.selectedSegmentIndex = 0;
         [self.updateIntervalButton addTarget:vc action:@selector(onUpdateIntervalChanged:) forControlEvents:UIControlEventValueChanged];
         [self addUIRow:self.updateIntervalButton];

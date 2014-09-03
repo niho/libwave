@@ -449,6 +449,8 @@
 		C12E1F7919B705E3004532A8 /* raw_encoder.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F7719B705E3004532A8 /* raw_encoder.c */; };
 		C12E1F7A19B705E3004532A8 /* raw_encoder.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F7719B705E3004532A8 /* raw_encoder.c */; };
 		C12E1F7B19B705E3004532A8 /* raw_encoder.h in Headers */ = {isa = PBXBuildFile; fileRef = C12E1F7819B705E3004532A8 /* raw_encoder.h */; };
+		C12E1F8319B74206004532A8 /* mem.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F8219B74206004532A8 /* mem.c */; };
+		C12E1F8419B74206004532A8 /* mem.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F8219B74206004532A8 /* mem.c */; };
 		C1F579E019B4A262000C6BCF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F579DF19B4A262000C6BCF /* Foundation.framework */; };
 		C1F57A1019B4A282000C6BCF /* digger_recorder.c in Sources */ = {isa = PBXBuildFile; fileRef = C1F57A0519B4A282000C6BCF /* digger_recorder.c */; };
 		C1F57A1119B4A282000C6BCF /* instance.c in Sources */ = {isa = PBXBuildFile; fileRef = C1F57A0619B4A282000C6BCF /* instance.c */; };
@@ -814,6 +816,7 @@
 		C12E1F6819B6FE8B004532A8 /* unittests_osx */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = unittests_osx; sourceTree = BUILT_PRODUCTS_DIR; };
 		C12E1F7719B705E3004532A8 /* raw_encoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = raw_encoder.c; sourceTree = "<group>"; };
 		C12E1F7819B705E3004532A8 /* raw_encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = raw_encoder.h; sourceTree = "<group>"; };
+		C12E1F8219B74206004532A8 /* mem.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mem.c; sourceTree = "<group>"; };
 		C1F579DC19B4A262000C6BCF /* libdigger_recorder_ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libdigger_recorder_ios.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1F579DF19B4A262000C6BCF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C1F579ED19B4A262000C6BCF /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -1310,6 +1313,7 @@
 				C1F57A0719B4A282000C6BCF /* instance.h */,
 				C12E1F4B19B62635004532A8 /* lock_free_fifo.c */,
 				C12E1F4C19B62635004532A8 /* lock_free_fifo.h */,
+				C12E1F8219B74206004532A8 /* mem.c */,
 				C12E1A8C19B5B8CD004532A8 /* mem.h */,
 				C12E1F3F19B62485004532A8 /* recording_session.h */,
 			);
@@ -1651,6 +1655,7 @@
 				C12E1EAA19B6132B004532A8 /* resampler_private_down_FIR.c in Sources */,
 				C12E1EE719B6132B004532A8 /* mlp_data.c in Sources */,
 				C12E1DF519B6132B004532A8 /* autocorr_FIX.c in Sources */,
+				C12E1F8419B74206004532A8 /* mem.c in Sources */,
 				C12E1F4E19B62635004532A8 /* lock_free_fifo.c in Sources */,
 				C12E1F0A19B61817004532A8 /* opus_encoder.c in Sources */,
 				C12E1DF319B6132B004532A8 /* apply_sine_window_FIX.c in Sources */,
@@ -1848,6 +1853,7 @@
 				C12E1EA919B6132B004532A8 /* resampler_private_down_FIR.c in Sources */,
 				C12E1EE619B6132B004532A8 /* mlp_data.c in Sources */,
 				C12E1DF419B6132B004532A8 /* autocorr_FIX.c in Sources */,
+				C12E1F8319B74206004532A8 /* mem.c in Sources */,
 				C12E1F4D19B62635004532A8 /* lock_free_fifo.c in Sources */,
 				C12E1F0919B61817004532A8 /* opus_encoder.c in Sources */,
 				C12E1DF219B6132B004532A8 /* apply_sine_window_FIX.c in Sources */,

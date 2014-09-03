@@ -147,7 +147,7 @@ static void eventCallback(const drNotification* event, void* userData)
 
 -(void)onUpdateIntervalChanged:(UISegmentedControl*)c
 {
-    int skip[4] = {1, 2, 4, 10};
+    int skip[5] = {1, 2, 4, 10, 10000000};
     m_updateStride = skip[c.selectedSegmentIndex];
     m_updateCounter = 0;
 }

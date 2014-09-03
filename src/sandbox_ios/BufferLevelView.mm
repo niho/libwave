@@ -14,8 +14,8 @@
     
     m_bar = [[UIView alloc] init];
     
-    [self addSubview:m_label];
     [self addSubview:m_bar];
+    [self addSubview:m_label];
     
     return self;
 }
@@ -25,7 +25,7 @@
     m_currentLevel = level;
     
     m_bar.frame = CGRectMake(0, 0, (int)(self.frame.size.width * m_currentLevel), self.frame.size.height);
-    m_bar.backgroundColor = [UIColor colorWithHue:m_currentLevel saturation:0.8f brightness:0.8f alpha:0.8f];
+    m_bar.backgroundColor = [UIColor colorWithRed:2 * m_currentLevel green:2.0f - 2 * m_currentLevel blue:0.0f alpha:0.5f];
     m_label.frame = self.bounds;
 }
 

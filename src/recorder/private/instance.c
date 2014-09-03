@@ -12,7 +12,7 @@
 #define kControlEventFIFOCapacity (50)
 #define kNotificationFIFOCapacity (50)
 #define kEventQueueCapactity (50)
-#define kRecordFIFOCapacity (50)
+#define kRecordFIFOCapacity (500)
 
 /**
  * Gets called from the main thread.
@@ -89,7 +89,7 @@ static void inputCallback(float* inBuffer, int numChannels, int numFrames, void*
     }
     
     //record, if requested
-    if (in->state == DR_STATE_RECORDING)
+    if (in->stateAudioThread == DR_STATE_RECORDING)
     {
         drRecordedChunk c;
         
@@ -323,57 +323,57 @@ void drInstance_onAudioThreadControlEvent(drInstance* instance, const drControlE
     {
         case DR_START_RECORDING:
         {
-            if (instance->state == DR_STATE_IDLE)
+            if (instance->stateAudioThread == DR_STATE_IDLE)
             {
                 //recording requested and we're currently not recording.
                 //start recording.
-                instance->state = DR_STATE_RECORDING;
+                instance->stateAudioThread = DR_STATE_RECORDING;
                 drInstance_enqueueNotificationOfType(instance, DR_RECORDING_STARTED);
             }
             break;
         }
         case DR_PAUSE_RECORDING:
         {
-            if (instance->state == DR_STATE_RECORDING)
+            if (instance->stateAudioThread == DR_STATE_RECORDING)
             {
                 //recording pause requested and we're currently recording.
                 //pause recording.
-                instance->state = DR_STATE_RECORDING_PAUSED;
+                instance->stateAudioThread = DR_STATE_RECORDING_PAUSED;
                 drInstance_enqueueNotificationOfType(instance, DR_RECORDING_PAUSED);
             }
             break;
         }
         case DR_RESUME_RECORDING:
         {
-            if (instance->state == DR_STATE_RECORDING_PAUSED)
+            if (instance->stateAudioThread == DR_STATE_RECORDING_PAUSED)
             {
                 //recording resume requested and we're currently paused.
                 //resume recording.
-                instance->state = DR_STATE_RECORDING;
+                instance->stateAudioThread = DR_STATE_RECORDING;
                 drInstance_enqueueNotificationOfType(instance, DR_RECORDING_RESUMED);
             }
             break;
         }
         case DR_FINISH_RECORDING:
         {
-            if (instance->state == DR_STATE_RECORDING ||
-                instance->state == DR_STATE_RECORDING_PAUSED)
+            if (instance->stateAudioThread == DR_STATE_RECORDING ||
+                instance->stateAudioThread == DR_STATE_RECORDING_PAUSED)
             {
                 //finish recording requested and we're currently recording.
                 //finish up.
-                instance->state = DR_STATE_IDLE;
+                instance->stateAudioThread = DR_STATE_IDLE;
                 drInstance_enqueueNotificationOfType(instance, DR_RECORDING_FINISHED);
             }
             break;
         }
         case DR_CANCEL_RECORDING:
         {
-            if (instance->state == DR_STATE_RECORDING ||
-                instance->state == DR_STATE_RECORDING_PAUSED)
+            if (instance->stateAudioThread == DR_STATE_RECORDING ||
+                instance->stateAudioThread == DR_STATE_RECORDING_PAUSED)
             {
                 //cancel recording requested and we're currently recording.
                 //cancel.
-                instance->state = DR_STATE_IDLE;
+                instance->stateAudioThread = DR_STATE_IDLE;
                 drInstance_enqueueNotificationOfType(instance, DR_RECORDING_CANCELED);
             }
             break;
@@ -388,6 +388,43 @@ void drInstance_onAudioThreadControlEvent(drInstance* instance, const drControlE
 void drInstance_onMainThreadNotification(drInstance* instance, const drNotification* notification)
 {
     assert(drInstance_isOnMainThread(instance));
+    
+    switch (notification->type)
+    {
+        case DR_DID_START_AUDIO_STREAM:
+        {
+            break;
+        }
+        case DR_RECORDING_CANCELED:
+        {
+            instance->stateMainThread = DR_STATE_IDLE;
+            break;
+        }
+        case DR_RECORDING_FINISHED:
+        {
+            instance->stateMainThread = DR_STATE_IDLE;
+            break;
+        }
+        case DR_RECORDING_PAUSED:
+        {
+            instance->stateMainThread = DR_STATE_RECORDING_PAUSED;
+            break;
+        }
+        case DR_RECORDING_RESUMED:
+        {
+            instance->stateMainThread = DR_STATE_RECORDING;
+            break;
+        }
+        case DR_RECORDING_STARTED:
+        {
+            instance->stateMainThread = DR_STATE_RECORDING;
+            break;
+        }
+        default:
+        {
+            break;
+        }
+    }
 }
 
 static float lin2LogLevel(float lin)
