@@ -72,13 +72,18 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="globals_defs.html"><span>Macros</span></a></li>
     </ul>
   </div>
+  <div id="navrow4" class="tabs3">
+    <ul class="tablist">
+      <li><a href="#index_d"><span>d</span></a></li>
+    </ul>
+  </div>
 </div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -88,12 +93,23 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 
 <div class="contents">
-<div class="textblock">Here is a list of all documented functions, variables, defines, enums, and typedefs with links to the documentation:</div><ul>
+<div class="textblock">Here is a list of all documented functions, variables, defines, enums, and typedefs with links to the documentation:</div>
+
+<h3><a class="anchor" id="index_d"></a>- d -</h3><ul>
 <li>DR_FREE
 : <a class="el" href="mem_8h.html#abf47b1ae70ada80392bf56d6669af530">mem.h</a>
 </li>
 <li>DR_MALLOC
 : <a class="el" href="mem_8h.html#a7929988ef95158d3331d7f1d13411e91">mem.h</a>
+</li>
+<li>drAnalyzerSlot
+: <a class="el" href="instance_8h.html#a1c97b7fa98eaa8f493257731b9da84d7">instance.h</a>
+</li>
+<li>drControlEvent
+: <a class="el" href="instance_8h.html#a58c5f0bf03fa6ac0183ec5dea22150e6">instance.h</a>
+</li>
+<li>drControlEventType
+: <a class="el" href="instance_8h.html#a0e0cf566b0a0b37e8ef4581497cad3ec">instance.h</a>
 </li>
 <li>drDeinitialize()
 : <a class="el" href="digger__recorder_8h.html#a2741b7750b8ba1f066d0e03165753edd">digger_recorder.h</a>
@@ -125,29 +141,29 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>drInstance_isOnMainThread()
 : <a class="el" href="instance_8h.html#ad7cf93f2ab72c808b80e495b661f851d">instance.h</a>
 </li>
-<li>drMessageQueue
-: <a class="el" href="messagequeue_8h.html#ab788495dafb1dc5d883b4ca4865fc6c2">messagequeue.h</a>
+<li>drInstance_onAudioThreadControlEvent()
+: <a class="el" href="instance_8h.html#a868e4e6c98330227cc4a156ce8eb9018">instance.h</a>
 </li>
-<li>drMessageQueue_addMessage()
-: <a class="el" href="messagequeue_8h.html#a6a4c282caf50735b39131b7a5b1bce1c">messagequeue.h</a>
+<li>drInstance_onMainThreadNotification()
+: <a class="el" href="instance_8h.html#a2e8326f61afeb7258aa1733f142d26cf">instance.h</a>
 </li>
-<li>drMessageQueue_clear()
-: <a class="el" href="messagequeue_8h.html#a92e7e77ede11dea7a0a4f66b9845799e">messagequeue.h</a>
+<li>drLevelMeter
+: <a class="el" href="level__meter_8h.html#a4b3fdb49d34618c648e98cdcce61fbf8">level_meter.h</a>
 </li>
-<li>drMessageQueue_delete()
-: <a class="el" href="messagequeue_8h.html#a7e30db7dac82e75b01ec6e9d8557219c">messagequeue.h</a>
+<li>drLevelMeter_deinit()
+: <a class="el" href="level__meter_8h.html#ab2d339b4e5d6933d45f1583848f1f9d6">level_meter.h</a>
 </li>
-<li>drMessageQueue_getMessage()
-: <a class="el" href="messagequeue_8h.html#ac93742d75a791d0638c977d823deb889">messagequeue.h</a>
+<li>drLevelMeter_processBuffer()
+: <a class="el" href="level__meter_8h.html#a4ea8aadfa5b876f592d3202db0f23120">level_meter.h</a>
 </li>
-<li>drMessageQueue_getNumMessages()
-: <a class="el" href="messagequeue_8h.html#a3b1b6918a79a676f66bc41372757a575">messagequeue.h</a>
+<li>drLockFreeFIFO
+: <a class="el" href="lock__free__fifo_8h.html#ab4a844344f033ba859be83a1a653a7f8">lock_free_fifo.h</a>
 </li>
-<li>drMessageQueue_moveMessages()
-: <a class="el" href="messagequeue_8h.html#a17bba2b63bb80ec61bafb4efadea2d28">messagequeue.h</a>
+<li>drLockFreeFIFO_pop()
+: <a class="el" href="lock__free__fifo_8h.html#acddeff3814ca5b70943e12f9a05746bb">lock_free_fifo.h</a>
 </li>
-<li>drMessageQueue_new()
-: <a class="el" href="messagequeue_8h.html#a362678d5d838a66a31bea3730167cc12">messagequeue.h</a>
+<li>drLockFreeFIFO_push()
+: <a class="el" href="lock__free__fifo_8h.html#a13df84b89448e1f90394c43de9f87cd1">lock_free_fifo.h</a>
 </li>
 <li>drNotification
 : <a class="el" href="digger__recorder_8h.html#a28ae04d4723cceb9165444d54947fdaa">digger_recorder.h</a>
@@ -161,6 +177,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>drNotificationTypeToString()
 : <a class="el" href="digger__recorder_8h.html#ab5e8a86983f4956c21ede61dbdcd0f4f">digger_recorder.h</a>
 </li>
+<li>drState
+: <a class="el" href="instance_8h.html#a57523b8aea84abfd4cef564d95885a10">instance.h</a>
+</li>
 <li>drUpdate()
 : <a class="el" href="digger__recorder_8h.html#a58dfcfa12e2fdbfbd8cc8894e7db5842">digger_recorder.h</a>
 </li>
@@ -168,7 +187,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Sep 2 2014 14:48:26 for Digger Recorder Private API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Sep 3 2014 11:05:50 for Digger Recorder Private API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>

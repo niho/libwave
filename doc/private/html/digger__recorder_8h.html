@@ -68,7 +68,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -99,6 +99,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdr_levels.html">drLevels</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdr_dev_info.html">drDevInfo</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdr_notification.html">drNotification</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -111,6 +113,9 @@ Typedefs</h2></td></tr>
 <tr class="memitem:a9e2eee6882b130dab5c9d443e394fe14"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9e2eee6882b130dab5c9d443e394fe14"></a>
 typedef struct <a class="el" href="structdr_levels.html">drLevels</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drLevels</b></td></tr>
 <tr class="separator:a9e2eee6882b130dab5c9d443e394fe14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3da50bb80430fc1b01adb1da2a5ae77"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac3da50bb80430fc1b01adb1da2a5ae77"></a>
+typedef struct <a class="el" href="structdr_dev_info.html">drDevInfo</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drDevInfo</b></td></tr>
+<tr class="separator:ac3da50bb80430fc1b01adb1da2a5ae77"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a28ae04d4723cceb9165444d54947fdaa"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structdr_notification.html">drNotification</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="digger__recorder_8h.html#a28ae04d4723cceb9165444d54947fdaa">drNotification</a></td></tr>
 <tr class="separator:a28ae04d4723cceb9165444d54947fdaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a581c20bdc1055562f0ee04af0f5cd434"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="digger__recorder_8h.html#a581c20bdc1055562f0ee04af0f5cd434">drNotificationCallback</a> )(const <a class="el" href="structdr_notification.html">drNotification</a> *event, void *userData)</td></tr>
@@ -163,6 +168,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a1993d93c090be674c585eb897229b247"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1993d93c090be674c585eb897229b247"></a>
 <a class="el" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drResumeRecording</b> ()</td></tr>
 <tr class="separator:a1993d93c090be674c585eb897229b247"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2601bb93f01d115813ca9fa29fe757d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa2601bb93f01d115813ca9fa29fe757d"></a>
+<a class="el" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drGetDevInfo</b> (<a class="el" href="structdr_dev_info.html">drDevInfo</a> *devInfo)</td></tr>
+<tr class="separator:aa2601bb93f01d115813ca9fa29fe757d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Public Digger Recorder API </p>
@@ -215,7 +223,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Valid event types. </p>
+<p>Valid notification types. </p>
 
 </div>
 </div>
@@ -242,7 +250,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Valid event types. </p>
+<p>Valid notification types. </p>
 
 </div>
 </div>
@@ -327,7 +335,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Sep 2 2014 14:48:26 for Digger Recorder Private API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Sep 3 2014 11:05:50 for Digger Recorder Private API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>

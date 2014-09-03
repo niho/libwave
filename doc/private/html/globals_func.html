@@ -78,7 +78,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -113,26 +113,23 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>drInstance_isOnMainThread()
 : <a class="el" href="instance_8h.html#ad7cf93f2ab72c808b80e495b661f851d">instance.h</a>
 </li>
-<li>drMessageQueue_addMessage()
-: <a class="el" href="messagequeue_8h.html#a6a4c282caf50735b39131b7a5b1bce1c">messagequeue.h</a>
+<li>drInstance_onAudioThreadControlEvent()
+: <a class="el" href="instance_8h.html#a868e4e6c98330227cc4a156ce8eb9018">instance.h</a>
 </li>
-<li>drMessageQueue_clear()
-: <a class="el" href="messagequeue_8h.html#a92e7e77ede11dea7a0a4f66b9845799e">messagequeue.h</a>
+<li>drInstance_onMainThreadNotification()
+: <a class="el" href="instance_8h.html#a2e8326f61afeb7258aa1733f142d26cf">instance.h</a>
 </li>
-<li>drMessageQueue_delete()
-: <a class="el" href="messagequeue_8h.html#a7e30db7dac82e75b01ec6e9d8557219c">messagequeue.h</a>
+<li>drLevelMeter_deinit()
+: <a class="el" href="level__meter_8h.html#ab2d339b4e5d6933d45f1583848f1f9d6">level_meter.h</a>
 </li>
-<li>drMessageQueue_getMessage()
-: <a class="el" href="messagequeue_8h.html#ac93742d75a791d0638c977d823deb889">messagequeue.h</a>
+<li>drLevelMeter_processBuffer()
+: <a class="el" href="level__meter_8h.html#a4ea8aadfa5b876f592d3202db0f23120">level_meter.h</a>
 </li>
-<li>drMessageQueue_getNumMessages()
-: <a class="el" href="messagequeue_8h.html#a3b1b6918a79a676f66bc41372757a575">messagequeue.h</a>
+<li>drLockFreeFIFO_pop()
+: <a class="el" href="lock__free__fifo_8h.html#acddeff3814ca5b70943e12f9a05746bb">lock_free_fifo.h</a>
 </li>
-<li>drMessageQueue_moveMessages()
-: <a class="el" href="messagequeue_8h.html#a17bba2b63bb80ec61bafb4efadea2d28">messagequeue.h</a>
-</li>
-<li>drMessageQueue_new()
-: <a class="el" href="messagequeue_8h.html#a362678d5d838a66a31bea3730167cc12">messagequeue.h</a>
+<li>drLockFreeFIFO_push()
+: <a class="el" href="lock__free__fifo_8h.html#a13df84b89448e1f90394c43de9f87cd1">lock_free_fifo.h</a>
 </li>
 <li>drNotificationTypeToString()
 : <a class="el" href="digger__recorder_8h.html#ab5e8a86983f4956c21ede61dbdcd0f4f">digger_recorder.h</a>
@@ -144,7 +141,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Sep 2 2014 14:48:26 for Digger Recorder Private API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Sep 3 2014 11:05:50 for Digger Recorder Private API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>

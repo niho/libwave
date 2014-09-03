@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.4"/>
-<title>Digger Recorder Private API: src/recorder/private/level_meter.h File Reference</title>
+<title>Digger Recorder Private API: src/recorder/private/analyzers/level_meter.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -68,7 +68,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -79,7 +79,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_6e990cdc42a55d5c58152f450fcd8ecb.html">recorder</a></li><li class="navelem"><a class="el" href="dir_412555747a970a07d21c38a6916e742f.html">private</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_6e990cdc42a55d5c58152f450fcd8ecb.html">recorder</a></li><li class="navelem"><a class="el" href="dir_412555747a970a07d21c38a6916e742f.html">private</a></li><li class="navelem"><a class="el" href="dir_02ff5511f2f0fffd1752f945fe2544bf.html">analyzers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -101,23 +101,94 @@ Data Structures</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a4b3fdb49d34618c648e98cdcce61fbf8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4b3fdb49d34618c648e98cdcce61fbf8"></a>
-typedef struct <a class="el" href="structdr_level_meter.html">drLevelMeter</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drLevelMeter</b></td></tr>
+<tr class="memitem:a4b3fdb49d34618c648e98cdcce61fbf8"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structdr_level_meter.html">drLevelMeter</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="level__meter_8h.html#a4b3fdb49d34618c648e98cdcce61fbf8">drLevelMeter</a></td></tr>
 <tr class="separator:a4b3fdb49d34618c648e98cdcce61fbf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a19fdc5669d58f5bfb34cb7699b49a4ad"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a19fdc5669d58f5bfb34cb7699b49a4ad"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>drLevelMeter_init</b> (<a class="el" href="structdr_level_meter.html">drLevelMeter</a> *meter)</td></tr>
-<tr class="separator:a19fdc5669d58f5bfb34cb7699b49a4ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9de8a30ddb209f4bf8cd297d8a83897f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9de8a30ddb209f4bf8cd297d8a83897f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>drLevelMeter_processBuffer</b> (<a class="el" href="structdr_level_meter.html">drLevelMeter</a> *meter, const float *buffer, int numFrames, int offset, int stride)</td></tr>
-<tr class="separator:a9de8a30ddb209f4bf8cd297d8a83897f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ed8424620b6e4dbd4719a611fec0574"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7ed8424620b6e4dbd4719a611fec0574"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>drLevelMeter_init</b> (<a class="el" href="structdr_level_meter.html">drLevelMeter</a> *meter, int channel, float fs, float attackTime, float decayTime, float rmsWindowSizeInSeconds)</td></tr>
+<tr class="separator:a7ed8424620b6e4dbd4719a611fec0574"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ea8aadfa5b876f592d3202db0f23120"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="level__meter_8h.html#a4ea8aadfa5b876f592d3202db0f23120">drLevelMeter_processBuffer</a> (void *levelMeter, float *inBuffer, int numChannels, int numFrames)</td></tr>
+<tr class="separator:a4ea8aadfa5b876f592d3202db0f23120"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2d339b4e5d6933d45f1583848f1f9d6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="level__meter_8h.html#ab2d339b4e5d6933d45f1583848f1f9d6">drLevelMeter_deinit</a> (void *levelMeter)</td></tr>
+<tr class="separator:ab2d339b4e5d6933d45f1583848f1f9d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a class="anchor" id="a4b3fdb49d34618c648e98cdcce61fbf8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="structdr_level_meter.html">drLevelMeter</a>  <a class="el" href="structdr_level_meter.html">drLevelMeter</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The state of a single channel level meter. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="ab2d339b4e5d6933d45f1583848f1f9d6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void drLevelMeter_deinit </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>levelMeter</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Cleanup callback. </p>
+
+</div>
+</div>
+<a class="anchor" id="a4ea8aadfa5b876f592d3202db0f23120"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void drLevelMeter_processBuffer </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>levelMeter</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>inBuffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>numChannels</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>numFrames</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Buffer processing callback. </p>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 1 2014 16:16:49 for Digger Recorder Private API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Sep 3 2014 11:05:50 for Digger Recorder Private API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>

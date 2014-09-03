@@ -8,6 +8,7 @@ GENERATE_HTML     = YES
 GENERATE_HTMLHELP = NO
 GENERATE_RTF      = NO
 GENERATE_XML      = NO
+RECURSIVE         = YES
 INPUT             = src/recorder/public src/recorder/private
 FILE_PATTERNS     = *.h *.c
 USE_MDFILE_AS_MAINPAGE = src/recorder/private/README.md

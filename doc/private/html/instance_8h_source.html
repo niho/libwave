@@ -68,7 +68,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -92,10 +92,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;kowalski.h&quot;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;tinycthread.h&quot;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="messagequeue_8h.html">messagequeue.h</a>&quot;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="digger__recorder_8h.html">digger_recorder.h</a>&quot;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;level_meter.h&quot;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="analyzer_8h.html">analyzer.h</a>&quot;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="digger__recorder_8h.html">digger_recorder.h</a>&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="level__meter_8h.html">level_meter.h</a>&quot;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="analyzer_8h.html">analyzer.h</a>&quot;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="lock__free__fifo_8h.html">lock_free_fifo.h</a>&quot;</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor"></span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span></div>
@@ -106,121 +106,142 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define MAX_NUM_INPUT_CHANNELS 1</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor"></span><span class="preprocessor">    #define MAX_NUM_OUTPUT_CHANNELS 2</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor"></span>    </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">typedef</span> <span class="keyword">enum</span> drControlEventType</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    {</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        DR_START_RECORDING = 0,</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        DR_PAUSE_RECORDING,</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        DR_RESUME_RECORDING,</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        DR_CANCEL_RECORDING,</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        DR_FINISH_RECORDING,</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    } drControlEventType;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">    #define MAX_RECORDED_CHUNK_SIZE 255</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor"></span>    </div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="structdr_recorded_chunk.html">   24</a></span>&#160;    <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structdr_recorded_chunk.html">drRecordedChunk</a></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    {</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <span class="keywordtype">int</span> numChannels;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keywordtype">int</span> numFrames;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="keywordtype">float</span> samples[MAX_RECORDED_CHUNK_SIZE];</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    } <a class="code" href="structdr_recorded_chunk.html">drRecordedChunk</a>;</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    </div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="structdr_control_event.html">   31</a></span>&#160;    <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structdr_control_event.html">drControlEvent</a></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    {</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        drControlEventType type;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    } <a class="code" href="structdr_control_event.html">drControlEvent</a>;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    </div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="structdr_analyzer_slot.html">   36</a></span>&#160;    <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structdr_analyzer_slot.html">drAnalyzerSlot</a></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    {</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keywordtype">void</span>* analyzerData;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        drAnalyzerAudioCallback audioCallback;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        drAnalyzerDeinitCallback deinitCallback;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    } <a class="code" href="structdr_analyzer_slot.html">drAnalyzerSlot</a>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="instance_8h.html#a0e0cf566b0a0b37e8ef4581497cad3ec">   34</a></span>&#160;    <span class="keyword">typedef</span> <span class="keyword">enum</span> <a class="code" href="instance_8h.html#a0e0cf566b0a0b37e8ef4581497cad3ec">drControlEventType</a></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    {</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        DR_START_RECORDING = 0,</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        DR_PAUSE_RECORDING,</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        DR_RESUME_RECORDING,</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        DR_CANCEL_RECORDING,</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        DR_FINISH_RECORDING,</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    } <a class="code" href="instance_8h.html#a0e0cf566b0a0b37e8ef4581497cad3ec">drControlEventType</a>;</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">typedef</span> <span class="keyword">enum</span> drState</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    {</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        DR_STATE_IDLE = 0,</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        DR_STATE_RECORDING,</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        DR_STATE_RECORDING_PAUSED</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    } drState;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    </div>
-<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="structdr_instance.html">   54</a></span>&#160;    <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structdr_instance.html">drInstance</a></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    {</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        drState state;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <a class="code" href="structdr_analyzer_slot.html">drAnalyzerSlot</a> inputAnalyzerSlots[MAX_NUM_ANALYZER_SLOTS];</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordtype">float</span> sampleRate;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        kwlDSPUnitHandle inputDSPUnit;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        kwlDSPUnitHandle outputDSPUnit;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordtype">int</span> firstSampleHasPlayed;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="comment">//used to verify that functions are being called from the right threads</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        thrd_t mainThread;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        mtx_t communicationQueueLock;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <a class="code" href="structdr_message_queue.html">drMessageQueue</a>* outgoingEventQueueShared;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <a class="code" href="structdr_message_queue.html">drMessageQueue</a>* outgoingEventQueueMain;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <a class="code" href="structdr_message_queue.html">drMessageQueue</a>* outgoingEventQueueAudio;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <a class="code" href="structdr_message_queue.html">drMessageQueue</a>* controlEventQueueShared;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <a class="code" href="structdr_message_queue.html">drMessageQueue</a>* controlEventQueueMain;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <a class="code" href="structdr_message_queue.html">drMessageQueue</a>* controlEventQueueAudio;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <a class="code" href="digger__recorder_8h.html#a581c20bdc1055562f0ee04af0f5cd434">drNotificationCallback</a> notificationCallback;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keywordtype">void</span>* notificationCallbackData;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <span class="comment">//Audio analyzers</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        drLevelMeter inputLevelMeters[MAX_NUM_INPUT_CHANNELS];</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        drLevelMeter outputLevelMeters[MAX_NUM_OUTPUT_CHANNELS];</div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="structdr_control_event.html">   47</a></span>&#160;    <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structdr_control_event.html">drControlEvent</a></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    {</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <a class="code" href="instance_8h.html#a0e0cf566b0a0b37e8ef4581497cad3ec">drControlEventType</a> type;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    } <a class="code" href="instance_8h.html#a58c5f0bf03fa6ac0183ec5dea22150e6">drControlEvent</a>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    </div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="instance_8h.html#a4f45eca88ffe9971bee40ab85b13a148">   55</a></span>&#160;    <span class="keyword">typedef</span> <span class="keyword">enum</span> <a class="code" href="instance_8h.html#a4f45eca88ffe9971bee40ab85b13a148">drState</a></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    {</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        DR_STATE_IDLE = 0,</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        DR_STATE_RECORDING,</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        DR_STATE_RECORDING_PAUSED</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    } <a class="code" href="instance_8h.html#a4f45eca88ffe9971bee40ab85b13a148">drState</a>;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    </div>
+<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="structdr_analyzer_slot.html">   66</a></span>&#160;    <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structdr_analyzer_slot.html">drAnalyzerSlot</a></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    {</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keywordtype">void</span>* analyzerData;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        drAnalyzerAudioCallback audioCallback;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        drAnalyzerDeinitCallback deinitCallback;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    } <a class="code" href="instance_8h.html#a1c97b7fa98eaa8f493257731b9da84d7">drAnalyzerSlot</a>;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    </div>
+<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="structdr_instance.html">   76</a></span>&#160;    <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structdr_instance.html">drInstance</a></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    {</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <a class="code" href="instance_8h.html#a4f45eca88ffe9971bee40ab85b13a148">drState</a> state;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <a class="code" href="structdr_analyzer_slot.html">drAnalyzerSlot</a> inputAnalyzerSlots[MAX_NUM_ANALYZER_SLOTS];</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <a class="code" href="structdr_dev_info.html">drDevInfo</a> devInfo;</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    } <a class="code" href="instance_8h.html#af38ade5d20fc4cd124aa8e77d05da814">drInstance</a>;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordtype">void</span> drInstance_init(<a class="code" href="structdr_instance.html">drInstance</a>* instance, <a class="code" href="digger__recorder_8h.html#a581c20bdc1055562f0ee04af0f5cd434">drNotificationCallback</a> notificationCallback, <span class="keywordtype">void</span>* notificationCallbackUserData);</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordtype">void</span> drInstance_deinit(<a class="code" href="structdr_instance.html">drInstance</a>* instance);</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordtype">void</span> drInstance_update(<a class="code" href="structdr_instance.html">drInstance</a>* instance, <span class="keywordtype">float</span> timeStep);</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="instance_8h.html#ad7cf93f2ab72c808b80e495b661f851d">drInstance_isOnMainThread</a>(<a class="code" href="structdr_instance.html">drInstance</a>* instance);</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    </div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordtype">void</span> drInstance_getInputLevels(<a class="code" href="structdr_instance.html">drInstance</a>* instance, <span class="keywordtype">int</span> channel, <span class="keywordtype">int</span> logLevels, <a class="code" href="structdr_levels.html">drLevels</a>* result);</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keywordtype">void</span> drInstance_onAudioThreadControlEvent(<a class="code" href="structdr_instance.html">drInstance</a>* instance, <span class="keyword">const</span> <a class="code" href="structdr_control_event.html">drControlEvent</a>* event);</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keywordtype">void</span> drInstance_onMainThreadNotification(<a class="code" href="structdr_instance.html">drInstance</a>* instance, <span class="keyword">const</span> <a class="code" href="structdr_notification.html">drNotification</a>* notification);</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    </div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="instance_8h.html#aecddc614f402ba00c2a8904ce544cfd9">drInstance_addInputAnalyzer</a>(<a class="code" href="structdr_instance.html">drInstance</a>* instance,</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                                    <span class="keywordtype">void</span>* analyzerData,</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                                    drAnalyzerAudioCallback audioCallback,</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                                    drAnalyzerDeinitCallback deinitCallback);</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    </div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="instance_8h.html#a952f566c91e479b7b5175e5183e3bd92">drInstance_enqueueNotification</a>(<a class="code" href="structdr_instance.html">drInstance</a>* instance, <span class="keyword">const</span> <a class="code" href="structdr_notification.html">drNotification</a>* notification);</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    </div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="instance_8h.html#a6ae1f9767b70c750f6eeb32a7d1014c8">drInstance_enqueueNotificationOfType</a>(<a class="code" href="structdr_instance.html">drInstance</a>* instance, <a class="code" href="digger__recorder_8h.html#aec428a6e7cda7dcbcf08964c34a21861">drNotificationType</a> type);</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    </div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="instance_8h.html#af630066616f0ecccb150b87d784f8d59">drInstance_enqueueControlEvent</a>(<a class="code" href="structdr_instance.html">drInstance</a>* instance, <span class="keyword">const</span> <a class="code" href="structdr_control_event.html">drControlEvent</a>* event);</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    </div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="instance_8h.html#aa017a1f360ae6146302a5881bf795e64">drInstance_enqueueControlEventOfType</a>(<a class="code" href="structdr_instance.html">drInstance</a>* instance, drControlEventType type);</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    </div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;<span class="preprocessor"></span>}</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* __cplusplus */</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* DR_INSTANCE_H */</span><span class="preprocessor"></span></div>
-<div class="ttc" id="structdr_instance_html"><div class="ttname"><a href="structdr_instance.html">drInstance</a></div><div class="ttdef"><b>Definition:</b> instance.h:54</div></div>
-<div class="ttc" id="digger__recorder_8h_html_a581c20bdc1055562f0ee04af0f5cd434"><div class="ttname"><a href="digger__recorder_8h.html#a581c20bdc1055562f0ee04af0f5cd434">drNotificationCallback</a></div><div class="ttdeci">void(* drNotificationCallback)(const drNotification *event, void *userData)</div><div class="ttdef"><b>Definition:</b> digger_recorder.h:67</div></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keywordtype">float</span> sampleRate;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        kwlDSPUnitHandle inputDSPUnit;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        kwlDSPUnitHandle outputDSPUnit;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keywordtype">int</span> firstSampleHasPlayed;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        </div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <span class="comment">//used to verify that functions are being called from the right threads</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        thrd_t mainThread;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        mtx_t communicationQueueLock;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <a class="code" href="structdr_lock_free_f_i_f_o.html">drLockFreeFIFO</a> notificationFIFO;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <a class="code" href="structdr_lock_free_f_i_f_o.html">drLockFreeFIFO</a> controlEventFIFO;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        <a class="code" href="digger__recorder_8h.html#a581c20bdc1055562f0ee04af0f5cd434">drNotificationCallback</a> notificationCallback;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="keywordtype">void</span>* notificationCallbackData;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="comment">//Level meters, only accessed from the audio thread</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <a class="code" href="structdr_level_meter.html">drLevelMeter</a> inputLevelMeters[MAX_NUM_INPUT_CHANNELS];</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        <span class="comment">//Measured levels, copied from audio to main via shared memory</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <a class="code" href="structdr_levels.html">drLevels</a> inputLevelsAudio[MAX_NUM_INPUT_CHANNELS];</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <a class="code" href="structdr_levels.html">drLevels</a> inputLevelsShared[MAX_NUM_INPUT_CHANNELS];</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <a class="code" href="structdr_levels.html">drLevels</a> inputLevelsMain[MAX_NUM_INPUT_CHANNELS];</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        </div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <a class="code" href="structdr_lock_free_f_i_f_o.html">drLockFreeFIFO</a> inputAudioDataQueue;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        </div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    } <a class="code" href="instance_8h.html#af38ade5d20fc4cd124aa8e77d05da814">drInstance</a>;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keywordtype">void</span> drInstance_init(<a class="code" href="structdr_instance.html">drInstance</a>* instance, <a class="code" href="digger__recorder_8h.html#a581c20bdc1055562f0ee04af0f5cd434">drNotificationCallback</a> notificationCallback, <span class="keywordtype">void</span>* notificationCallbackUserData);</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    </div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keywordtype">void</span> drInstance_deinit(<a class="code" href="structdr_instance.html">drInstance</a>* instance);</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    </div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keywordtype">void</span> drInstance_update(<a class="code" href="structdr_instance.html">drInstance</a>* instance, <span class="keywordtype">float</span> timeStep);</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    </div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="instance_8h.html#ad7cf93f2ab72c808b80e495b661f851d">drInstance_isOnMainThread</a>(<a class="code" href="structdr_instance.html">drInstance</a>* instance);</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    </div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <span class="keywordtype">void</span> drInstance_getInputLevels(<a class="code" href="structdr_instance.html">drInstance</a>* instance, <span class="keywordtype">int</span> channel, <span class="keywordtype">int</span> logLevels, <a class="code" href="structdr_levels.html">drLevels</a>* result);</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    </div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="instance_8h.html#a868e4e6c98330227cc4a156ce8eb9018">drInstance_onAudioThreadControlEvent</a>(<a class="code" href="structdr_instance.html">drInstance</a>* instance, <span class="keyword">const</span> <a class="code" href="structdr_control_event.html">drControlEvent</a>* event);</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    </div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="instance_8h.html#a2e8326f61afeb7258aa1733f142d26cf">drInstance_onMainThreadNotification</a>(<a class="code" href="structdr_instance.html">drInstance</a>* instance, <span class="keyword">const</span> <a class="code" href="structdr_notification.html">drNotification</a>* notification);</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    </div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="instance_8h.html#aecddc614f402ba00c2a8904ce544cfd9">drInstance_addInputAnalyzer</a>(<a class="code" href="structdr_instance.html">drInstance</a>* instance,</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;                                    <span class="keywordtype">void</span>* analyzerData,</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;                                    drAnalyzerAudioCallback audioCallback,</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;                                    drAnalyzerDeinitCallback deinitCallback);</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    </div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="instance_8h.html#a952f566c91e479b7b5175e5183e3bd92">drInstance_enqueueNotification</a>(<a class="code" href="structdr_instance.html">drInstance</a>* instance, <span class="keyword">const</span> <a class="code" href="structdr_notification.html">drNotification</a>* notification);</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    </div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="instance_8h.html#a6ae1f9767b70c750f6eeb32a7d1014c8">drInstance_enqueueNotificationOfType</a>(<a class="code" href="structdr_instance.html">drInstance</a>* instance, <a class="code" href="digger__recorder_8h.html#aec428a6e7cda7dcbcf08964c34a21861">drNotificationType</a> type);</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    </div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="instance_8h.html#af630066616f0ecccb150b87d784f8d59">drInstance_enqueueControlEvent</a>(<a class="code" href="structdr_instance.html">drInstance</a>* instance, <span class="keyword">const</span> <a class="code" href="structdr_control_event.html">drControlEvent</a>* event);</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    </div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="instance_8h.html#aa017a1f360ae6146302a5881bf795e64">drInstance_enqueueControlEventOfType</a>(<a class="code" href="structdr_instance.html">drInstance</a>* instance, <a class="code" href="instance_8h.html#a0e0cf566b0a0b37e8ef4581497cad3ec">drControlEventType</a> type);</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    </div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;<span class="preprocessor"></span>}</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* __cplusplus */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* DR_INSTANCE_H */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="structdr_instance_html"><div class="ttname"><a href="structdr_instance.html">drInstance</a></div><div class="ttdef"><b>Definition:</b> instance.h:76</div></div>
+<div class="ttc" id="digger__recorder_8h_html_a581c20bdc1055562f0ee04af0f5cd434"><div class="ttname"><a href="digger__recorder_8h.html#a581c20bdc1055562f0ee04af0f5cd434">drNotificationCallback</a></div><div class="ttdeci">void(* drNotificationCallback)(const drNotification *event, void *userData)</div><div class="ttdef"><b>Definition:</b> digger_recorder.h:79</div></div>
 <div class="ttc" id="digger__recorder_8h_html"><div class="ttname"><a href="digger__recorder_8h.html">digger_recorder.h</a></div></div>
-<div class="ttc" id="instance_8h_html_aa017a1f360ae6146302a5881bf795e64"><div class="ttname"><a href="instance_8h.html#aa017a1f360ae6146302a5881bf795e64">drInstance_enqueueControlEventOfType</a></div><div class="ttdeci">void drInstance_enqueueControlEventOfType(drInstance *instance, drControlEventType type)</div><div class="ttdef"><b>Definition:</b> instance.c:273</div></div>
+<div class="ttc" id="structdr_level_meter_html"><div class="ttname"><a href="structdr_level_meter.html">drLevelMeter</a></div><div class="ttdef"><b>Definition:</b> level_meter.h:14</div></div>
+<div class="ttc" id="instance_8h_html_aa017a1f360ae6146302a5881bf795e64"><div class="ttname"><a href="instance_8h.html#aa017a1f360ae6146302a5881bf795e64">drInstance_enqueueControlEventOfType</a></div><div class="ttdeci">void drInstance_enqueueControlEventOfType(drInstance *instance, drControlEventType type)</div><div class="ttdef"><b>Definition:</b> instance.c:308</div></div>
+<div class="ttc" id="structdr_recorded_chunk_html"><div class="ttname"><a href="structdr_recorded_chunk.html">drRecordedChunk</a></div><div class="ttdef"><b>Definition:</b> instance.h:24</div></div>
 <div class="ttc" id="analyzer_8h_html"><div class="ttname"><a href="analyzer_8h.html">analyzer.h</a></div></div>
-<div class="ttc" id="messagequeue_8h_html"><div class="ttname"><a href="messagequeue_8h.html">messagequeue.h</a></div></div>
-<div class="ttc" id="structdr_notification_html"><div class="ttname"><a href="structdr_notification.html">drNotification</a></div><div class="ttdef"><b>Definition:</b> digger_recorder.h:59</div></div>
-<div class="ttc" id="instance_8h_html_aecddc614f402ba00c2a8904ce544cfd9"><div class="ttname"><a href="instance_8h.html#aecddc614f402ba00c2a8904ce544cfd9">drInstance_addInputAnalyzer</a></div><div class="ttdeci">int drInstance_addInputAnalyzer(drInstance *instance, void *analyzerData, drAnalyzerAudioCallback audioCallback, drAnalyzerDeinitCallback deinitCallback)</div><div class="ttdef"><b>Definition:</b> instance.c:231</div></div>
+<div class="ttc" id="instance_8h_html_a2e8326f61afeb7258aa1733f142d26cf"><div class="ttname"><a href="instance_8h.html#a2e8326f61afeb7258aa1733f142d26cf">drInstance_onMainThreadNotification</a></div><div class="ttdeci">void drInstance_onMainThreadNotification(drInstance *instance, const drNotification *notification)</div><div class="ttdef"><b>Definition:</b> instance.c:386</div></div>
+<div class="ttc" id="instance_8h_html_a868e4e6c98330227cc4a156ce8eb9018"><div class="ttname"><a href="instance_8h.html#a868e4e6c98330227cc4a156ce8eb9018">drInstance_onAudioThreadControlEvent</a></div><div class="ttdeci">void drInstance_onAudioThreadControlEvent(drInstance *instance, const drControlEvent *event)</div><div class="ttdef"><b>Definition:</b> instance.c:316</div></div>
+<div class="ttc" id="structdr_notification_html"><div class="ttname"><a href="structdr_notification.html">drNotification</a></div><div class="ttdef"><b>Definition:</b> digger_recorder.h:71</div></div>
+<div class="ttc" id="instance_8h_html_aecddc614f402ba00c2a8904ce544cfd9"><div class="ttname"><a href="instance_8h.html#aecddc614f402ba00c2a8904ce544cfd9">drInstance_addInputAnalyzer</a></div><div class="ttdeci">int drInstance_addInputAnalyzer(drInstance *instance, void *analyzerData, drAnalyzerAudioCallback audioCallback, drAnalyzerDeinitCallback deinitCallback)</div><div class="ttdef"><b>Definition:</b> instance.c:266</div></div>
 <div class="ttc" id="instance_8h_html_af38ade5d20fc4cd124aa8e77d05da814"><div class="ttname"><a href="instance_8h.html#af38ade5d20fc4cd124aa8e77d05da814">drInstance</a></div><div class="ttdeci">struct drInstance drInstance</div></div>
+<div class="ttc" id="instance_8h_html_a1c97b7fa98eaa8f493257731b9da84d7"><div class="ttname"><a href="instance_8h.html#a1c97b7fa98eaa8f493257731b9da84d7">drAnalyzerSlot</a></div><div class="ttdeci">struct drAnalyzerSlot drAnalyzerSlot</div></div>
+<div class="ttc" id="structdr_lock_free_f_i_f_o_html"><div class="ttname"><a href="structdr_lock_free_f_i_f_o.html">drLockFreeFIFO</a></div><div class="ttdef"><b>Definition:</b> lock_free_fifo.h:14</div></div>
 <div class="ttc" id="digger__recorder_8h_html_aec428a6e7cda7dcbcf08964c34a21861"><div class="ttname"><a href="digger__recorder_8h.html#aec428a6e7cda7dcbcf08964c34a21861">drNotificationType</a></div><div class="ttdeci">drNotificationType</div><div class="ttdef"><b>Definition:</b> digger_recorder.h:26</div></div>
-<div class="ttc" id="structdr_analyzer_slot_html"><div class="ttname"><a href="structdr_analyzer_slot.html">drAnalyzerSlot</a></div><div class="ttdef"><b>Definition:</b> instance.h:36</div></div>
-<div class="ttc" id="instance_8h_html_ad7cf93f2ab72c808b80e495b661f851d"><div class="ttname"><a href="instance_8h.html#ad7cf93f2ab72c808b80e495b661f851d">drInstance_isOnMainThread</a></div><div class="ttdeci">int drInstance_isOnMainThread(drInstance *instance)</div><div class="ttdef"><b>Definition:</b> instance.c:225</div></div>
-<div class="ttc" id="instance_8h_html_a952f566c91e479b7b5175e5183e3bd92"><div class="ttname"><a href="instance_8h.html#a952f566c91e479b7b5175e5183e3bd92">drInstance_enqueueNotification</a></div><div class="ttdeci">void drInstance_enqueueNotification(drInstance *instance, const drNotification *notification)</div><div class="ttdef"><b>Definition:</b> instance.c:253</div></div>
-<div class="ttc" id="instance_8h_html_a6ae1f9767b70c750f6eeb32a7d1014c8"><div class="ttname"><a href="instance_8h.html#a6ae1f9767b70c750f6eeb32a7d1014c8">drInstance_enqueueNotificationOfType</a></div><div class="ttdeci">void drInstance_enqueueNotificationOfType(drInstance *instance, drNotificationType type)</div><div class="ttdef"><b>Definition:</b> instance.c:259</div></div>
-<div class="ttc" id="structdr_control_event_html"><div class="ttname"><a href="structdr_control_event.html">drControlEvent</a></div><div class="ttdef"><b>Definition:</b> instance.h:31</div></div>
-<div class="ttc" id="structdr_message_queue_html"><div class="ttname"><a href="structdr_message_queue.html">drMessageQueue</a></div><div class="ttdef"><b>Definition:</b> messagequeue.h:14</div></div>
+<div class="ttc" id="instance_8h_html_a0e0cf566b0a0b37e8ef4581497cad3ec"><div class="ttname"><a href="instance_8h.html#a0e0cf566b0a0b37e8ef4581497cad3ec">drControlEventType</a></div><div class="ttdeci">drControlEventType</div><div class="ttdef"><b>Definition:</b> instance.h:34</div></div>
+<div class="ttc" id="structdr_analyzer_slot_html"><div class="ttname"><a href="structdr_analyzer_slot.html">drAnalyzerSlot</a></div><div class="ttdef"><b>Definition:</b> instance.h:66</div></div>
+<div class="ttc" id="instance_8h_html_ad7cf93f2ab72c808b80e495b661f851d"><div class="ttname"><a href="instance_8h.html#ad7cf93f2ab72c808b80e495b661f851d">drInstance_isOnMainThread</a></div><div class="ttdeci">int drInstance_isOnMainThread(drInstance *instance)</div><div class="ttdef"><b>Definition:</b> instance.c:260</div></div>
+<div class="ttc" id="instance_8h_html_a58c5f0bf03fa6ac0183ec5dea22150e6"><div class="ttname"><a href="instance_8h.html#a58c5f0bf03fa6ac0183ec5dea22150e6">drControlEvent</a></div><div class="ttdeci">struct drControlEvent drControlEvent</div></div>
+<div class="ttc" id="instance_8h_html_a952f566c91e479b7b5175e5183e3bd92"><div class="ttname"><a href="instance_8h.html#a952f566c91e479b7b5175e5183e3bd92">drInstance_enqueueNotification</a></div><div class="ttdeci">void drInstance_enqueueNotification(drInstance *instance, const drNotification *notification)</div><div class="ttdef"><b>Definition:</b> instance.c:288</div></div>
+<div class="ttc" id="instance_8h_html_a6ae1f9767b70c750f6eeb32a7d1014c8"><div class="ttname"><a href="instance_8h.html#a6ae1f9767b70c750f6eeb32a7d1014c8">drInstance_enqueueNotificationOfType</a></div><div class="ttdeci">void drInstance_enqueueNotificationOfType(drInstance *instance, drNotificationType type)</div><div class="ttdef"><b>Definition:</b> instance.c:294</div></div>
+<div class="ttc" id="lock__free__fifo_8h_html"><div class="ttname"><a href="lock__free__fifo_8h.html">lock_free_fifo.h</a></div></div>
+<div class="ttc" id="structdr_control_event_html"><div class="ttname"><a href="structdr_control_event.html">drControlEvent</a></div><div class="ttdef"><b>Definition:</b> instance.h:47</div></div>
+<div class="ttc" id="structdr_dev_info_html"><div class="ttname"><a href="structdr_dev_info.html">drDevInfo</a></div><div class="ttdef"><b>Definition:</b> digger_recorder.h:58</div></div>
+<div class="ttc" id="instance_8h_html_a4f45eca88ffe9971bee40ab85b13a148"><div class="ttname"><a href="instance_8h.html#a4f45eca88ffe9971bee40ab85b13a148">drState</a></div><div class="ttdeci">drState</div><div class="ttdef"><b>Definition:</b> instance.h:55</div></div>
 <div class="ttc" id="structdr_levels_html"><div class="ttname"><a href="structdr_levels.html">drLevels</a></div><div class="ttdef"><b>Definition:</b> digger_recorder.h:47</div></div>
-<div class="ttc" id="instance_8h_html_af630066616f0ecccb150b87d784f8d59"><div class="ttname"><a href="instance_8h.html#af630066616f0ecccb150b87d784f8d59">drInstance_enqueueControlEvent</a></div><div class="ttdeci">void drInstance_enqueueControlEvent(drInstance *instance, const drControlEvent *event)</div><div class="ttdef"><b>Definition:</b> instance.c:267</div></div>
+<div class="ttc" id="level__meter_8h_html"><div class="ttname"><a href="level__meter_8h.html">level_meter.h</a></div></div>
+<div class="ttc" id="instance_8h_html_af630066616f0ecccb150b87d784f8d59"><div class="ttname"><a href="instance_8h.html#af630066616f0ecccb150b87d784f8d59">drInstance_enqueueControlEvent</a></div><div class="ttdeci">void drInstance_enqueueControlEvent(drInstance *instance, const drControlEvent *event)</div><div class="ttdef"><b>Definition:</b> instance.c:302</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Sep 2 2014 14:48:26 for Digger Recorder Private API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Sep 3 2014 11:05:50 for Digger Recorder Private API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>

@@ -61,6 +61,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="classes.html"><span>Data&#160;Structure&#160;Index</span></a></li>
+      <li><a href="functions.html"><span>Data&#160;Fields</span></a></li>
     </ul>
   </div>
 <!-- window showing the filter options -->
@@ -68,7 +69,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -85,50 +86,79 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">drLevelMeter Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="level__meter_8h_source.html">level_meter.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a98c0ff8c6866de18cf106c61f1ff07b1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a98c0ff8c6866de18cf106c61f1ff07b1"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>peakLog</b></td></tr>
-<tr class="separator:a98c0ff8c6866de18cf106c61f1ff07b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a414eb81578789f2c627f33e54e672279"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a414eb81578789f2c627f33e54e672279"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>peakLin</b></td></tr>
-<tr class="separator:a414eb81578789f2c627f33e54e672279"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7fb68db81454e921834c394acbd40abf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7fb68db81454e921834c394acbd40abf"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>peakEnvelopeLog</b></td></tr>
-<tr class="separator:a7fb68db81454e921834c394acbd40abf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aafbb269560c33f907eb2425db4eb390c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aafbb269560c33f907eb2425db4eb390c"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>peakEnvelopeLin</b></td></tr>
-<tr class="separator:aafbb269560c33f907eb2425db4eb390c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a929a84239567550ff3306e4a364375a6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a929a84239567550ff3306e4a364375a6"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>peakEnvelopeFeedback</b></td></tr>
-<tr class="separator:a929a84239567550ff3306e4a364375a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7603dc28c3ac88aff536b49b0a509a5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad7603dc28c3ac88aff536b49b0a509a5"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>rmsLog</b></td></tr>
-<tr class="separator:ad7603dc28c3ac88aff536b49b0a509a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa266418525531f9c6775899c4e9ce09e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa266418525531f9c6775899c4e9ce09e"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>rmsLin</b></td></tr>
-<tr class="separator:aa266418525531f9c6775899c4e9ce09e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad9b915c8bbab4eef5cbb07c1c10cc90b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad9b915c8bbab4eef5cbb07c1c10cc90b"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>rmsEnvelopeLog</b></td></tr>
-<tr class="separator:ad9b915c8bbab4eef5cbb07c1c10cc90b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a69fc9678b2077106f1ba9b80c7cd789f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a69fc9678b2077106f1ba9b80c7cd789f"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>rmsEnvelopeLin</b></td></tr>
-<tr class="separator:a69fc9678b2077106f1ba9b80c7cd789f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9a7c24bbee23efa644a01d17eaa4553b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9a7c24bbee23efa644a01d17eaa4553b"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>rmsEnvelopeFeedback</b></td></tr>
-<tr class="separator:a9a7c24bbee23efa644a01d17eaa4553b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d2899e9080fa787ec8c1ab91c5d2376"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdr_level_meter.html#a3d2899e9080fa787ec8c1ab91c5d2376">channel</a></td></tr>
+<tr class="separator:a3d2899e9080fa787ec8c1ab91c5d2376"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98c77558d95ef0db2716463903fa0314"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a98c77558d95ef0db2716463903fa0314"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>rmsWindowPos</b></td></tr>
+<tr class="separator:a98c77558d95ef0db2716463903fa0314"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5dfb255f3e02fbe2eef225d3a7e37509"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5dfb255f3e02fbe2eef225d3a7e37509"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>rmsWindowSize</b></td></tr>
+<tr class="separator:a5dfb255f3e02fbe2eef225d3a7e37509"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf2fb91da082ec3855592051a8678fc7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaf2fb91da082ec3855592051a8678fc7"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>runningSquareSum</b></td></tr>
+<tr class="separator:aaf2fb91da082ec3855592051a8678fc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72bb782ac7342f13dcfebb3fd5fce44a"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdr_level_meter.html#a72bb782ac7342f13dcfebb3fd5fce44a">rmsLevel</a></td></tr>
+<tr class="separator:a72bb782ac7342f13dcfebb3fd5fce44a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6baba309dfc3740117c4d44651fdd79c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6baba309dfc3740117c4d44651fdd79c"></a>
+float *&#160;</td><td class="memItemRight" valign="bottom"><b>rmsWindow</b></td></tr>
+<tr class="separator:a6baba309dfc3740117c4d44651fdd79c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd87d01474d9cc3fbb4a1059413c7f97"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acd87d01474d9cc3fbb4a1059413c7f97"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>peak</b></td></tr>
+<tr class="separator:acd87d01474d9cc3fbb4a1059413c7f97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b8604f821538797a6bda18a416fa3ef"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6b8604f821538797a6bda18a416fa3ef"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>peakEnvelope</b></td></tr>
+<tr class="separator:a6b8604f821538797a6bda18a416fa3ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2fa1d4a58a98b354c6470862754387a7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2fa1d4a58a98b354c6470862754387a7"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>peakEnvelopeFeedbackAttack</b></td></tr>
+<tr class="separator:a2fa1d4a58a98b354c6470862754387a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff502bb19ac489befd5125c722d5635e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aff502bb19ac489befd5125c722d5635e"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>peakEnvelopeFeedbackDecay</b></td></tr>
+<tr class="separator:aff502bb19ac489befd5125c722d5635e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae40c58d464e8a8b9c0972e5206abc3ff"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae40c58d464e8a8b9c0972e5206abc3ff"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>clip</b></td></tr>
 <tr class="separator:ae40c58d464e8a8b9c0972e5206abc3ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>The state of a single channel level meter. </p>
+</div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="a3d2899e9080fa787ec8c1ab91c5d2376"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int drLevelMeter::channel</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The index of the channel to process. </p>
+
+</div>
+</div>
+<a class="anchor" id="a72bb782ac7342f13dcfebb3fd5fce44a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float drLevelMeter::rmsLevel</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section see"><dt>See Also</dt><dd><a href="http://www.mathworks.se/help/signal/ref/rms.html">http://www.mathworks.se/help/signal/ref/rms.html</a> </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>src/recorder/private/<a class="el" href="level__meter_8h_source.html">level_meter.h</a></li>
+<li>src/recorder/private/analyzers/<a class="el" href="level__meter_8h_source.html">level_meter.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 1 2014 16:16:49 for Digger Recorder Private API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Sep 3 2014 11:05:50 for Digger Recorder Private API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>

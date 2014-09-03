@@ -68,7 +68,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -102,48 +102,86 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        DR_NOT_INITIALIZED</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    } <a class="code" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>;</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="digger__recorder_8h.html#a4d6cb176617e2b758a13ae98e1c784f8">   26</a></span>&#160;    <span class="keyword">typedef</span> <span class="keyword">enum</span> <a class="code" href="digger__recorder_8h.html#a4d6cb176617e2b758a13ae98e1c784f8">drEventType</a></div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="digger__recorder_8h.html#aec428a6e7cda7dcbcf08964c34a21861">   26</a></span>&#160;    <span class="keyword">typedef</span> <span class="keyword">enum</span> <a class="code" href="digger__recorder_8h.html#aec428a6e7cda7dcbcf08964c34a21861">drNotificationType</a></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    {</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        DR_DID_INITIALIZE = 0,</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        DR_DID_DEINITIALIZE,</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        DR_RECORDING_STARTED,</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        DR_RECORDING_PAUSED,</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        DR_RECORDING_STOPPED,</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        DR_INPUT_CLIPPED</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    } <a class="code" href="digger__recorder_8h.html#a4d6cb176617e2b758a13ae98e1c784f8">drEventType</a>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        DR_DID_START_AUDIO_STREAM = 0,</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        DR_RECORDING_STARTED,</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        DR_RECORDING_PAUSED,</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        DR_RECORDING_RESUMED,</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        DR_RECORDING_FINISHED,</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        DR_RECORDING_CANCELED</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    } <a class="code" href="digger__recorder_8h.html#aec428a6e7cda7dcbcf08964c34a21861">drNotificationType</a>;</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    </div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="structdr_event.html">   41</a></span>&#160;    <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structdr_event.html">drEvent</a></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    {</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <a class="code" href="digger__recorder_8h.html#a4d6cb176617e2b758a13ae98e1c784f8">drEventType</a> type;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    } <a class="code" href="digger__recorder_8h.html#a2b9d96a9e7b10bee72a5d6762259618b">drEvent</a>;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    </div>
-<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="digger__recorder_8h.html#aaa535b1160a47585bb1826f5102cade7">   49</a></span>&#160;    <span class="keyword">typedef</span> void (*<a class="code" href="digger__recorder_8h.html#aaa535b1160a47585bb1826f5102cade7">drEventCallback</a>)(<span class="keywordtype">void</span>* userData, <span class="keyword">const</span> <a class="code" href="structdr_event.html">drEvent</a>* event);</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <a class="code" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a> <a class="code" href="digger__recorder_8h.html#a4592fafe48b670f51d66b7330b39f6f0">drInitialize</a>(<a class="code" href="digger__recorder_8h.html#aaa535b1160a47585bb1826f5102cade7">drEventCallback</a> eventCallback, <span class="keywordtype">void</span>* eventCallbackUserData);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <a class="code" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a> <a class="code" href="digger__recorder_8h.html#a2741b7750b8ba1f066d0e03165753edd">drDeinitialize</a>();</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <a class="code" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a> <a class="code" href="digger__recorder_8h.html#a58dfcfa12e2fdbfbd8cc8894e7db5842">drUpdate</a>(<span class="keywordtype">float</span> timeStep);</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor"></span>}</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* __cplusplus */</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* DR_DIGGER_RECORDER_H */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="digger__recorder_8h.html#ab5e8a86983f4956c21ede61dbdcd0f4f">drNotificationTypeToString</a>(<a class="code" href="digger__recorder_8h.html#aec428a6e7cda7dcbcf08964c34a21861">drNotificationType</a> type);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    </div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="structdr_levels.html">   47</a></span>&#160;    <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structdr_levels.html">drLevels</a></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    {</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordtype">float</span> rmsLevel;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordtype">float</span> peakLevel;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordtype">float</span> peakLevelEnvelope;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordtype">int</span> hasClipped;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    } <a class="code" href="structdr_levels.html">drLevels</a>;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    </div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="structdr_dev_info.html">   58</a></span>&#160;    <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structdr_dev_info.html">drDevInfo</a></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    {</div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="structdr_dev_info.html#ae411c31ec841d87bf9351ea5b91b50b6">   61</a></span>&#160;        <span class="keywordtype">float</span> <a class="code" href="structdr_dev_info.html#ae411c31ec841d87bf9351ea5b91b50b6">recordFIFOLevel</a>;</div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="structdr_dev_info.html#a9bc133ae48d0b27192589f52e56a1d27">   63</a></span>&#160;        <span class="keywordtype">float</span> <a class="code" href="structdr_dev_info.html#a9bc133ae48d0b27192589f52e56a1d27">notificationFIFOLevel</a>;</div>
+<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="structdr_dev_info.html#a2ef0366263cc275d0fc294f3acebc5af">   65</a></span>&#160;        <span class="keywordtype">float</span> <a class="code" href="structdr_dev_info.html#a2ef0366263cc275d0fc294f3acebc5af">controlEventFIFOLevel</a>;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    } <a class="code" href="structdr_dev_info.html">drDevInfo</a>;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    </div>
+<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="structdr_notification.html">   71</a></span>&#160;    <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structdr_notification.html">drNotification</a></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    {</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <a class="code" href="digger__recorder_8h.html#aec428a6e7cda7dcbcf08964c34a21861">drNotificationType</a> type;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    } <a class="code" href="digger__recorder_8h.html#a28ae04d4723cceb9165444d54947fdaa">drNotification</a>;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    </div>
+<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="digger__recorder_8h.html#a581c20bdc1055562f0ee04af0f5cd434">   79</a></span>&#160;    <span class="keyword">typedef</span> void (*<a class="code" href="digger__recorder_8h.html#a581c20bdc1055562f0ee04af0f5cd434">drNotificationCallback</a>)(<span class="keyword">const</span> <a class="code" href="structdr_notification.html">drNotification</a>* event, <span class="keywordtype">void</span>* userData);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <a class="code" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a> <a class="code" href="digger__recorder_8h.html#a185d1c7eda36e20c2ed40a3cfb2850eb">drInitialize</a>(<a class="code" href="digger__recorder_8h.html#a581c20bdc1055562f0ee04af0f5cd434">drNotificationCallback</a> notificationCallback, <span class="keywordtype">void</span>* notificationCallbackUserData);</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <a class="code" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a> <a class="code" href="digger__recorder_8h.html#a2741b7750b8ba1f066d0e03165753edd">drDeinitialize</a>();</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <a class="code" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a> <a class="code" href="digger__recorder_8h.html#a58dfcfa12e2fdbfbd8cc8894e7db5842">drUpdate</a>(<span class="keywordtype">float</span> timeStep);</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    </div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <a class="code" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a> drGetInputLevels(<span class="keywordtype">int</span> channel, <span class="keywordtype">int</span> logLevels, <a class="code" href="structdr_levels.html">drLevels</a>* result);</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    </div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <a class="code" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a> drStartRecording();</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    </div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <a class="code" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a> drCancelRecording();</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    </div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <a class="code" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a> drFinishRecording();</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    </div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <a class="code" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a> drPauseRecording();</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    </div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <a class="code" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a> drResumeRecording();</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    </div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <a class="code" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a> drGetDevInfo(<a class="code" href="structdr_dev_info.html">drDevInfo</a>* devInfo);</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    </div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    </div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="preprocessor"></span>}</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* __cplusplus */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* DR_DIGGER_RECORDER_H */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="digger__recorder_8h_html_a581c20bdc1055562f0ee04af0f5cd434"><div class="ttname"><a href="digger__recorder_8h.html#a581c20bdc1055562f0ee04af0f5cd434">drNotificationCallback</a></div><div class="ttdeci">void(* drNotificationCallback)(const drNotification *event, void *userData)</div><div class="ttdef"><b>Definition:</b> digger_recorder.h:79</div></div>
+<div class="ttc" id="digger__recorder_8h_html_a185d1c7eda36e20c2ed40a3cfb2850eb"><div class="ttname"><a href="digger__recorder_8h.html#a185d1c7eda36e20c2ed40a3cfb2850eb">drInitialize</a></div><div class="ttdeci">drError drInitialize(drNotificationCallback notificationCallback, void *notificationCallbackUserData)</div></div>
+<div class="ttc" id="digger__recorder_8h_html_a28ae04d4723cceb9165444d54947fdaa"><div class="ttname"><a href="digger__recorder_8h.html#a28ae04d4723cceb9165444d54947fdaa">drNotification</a></div><div class="ttdeci">struct drNotification drNotification</div></div>
 <div class="ttc" id="digger__recorder_8h_html_a2741b7750b8ba1f066d0e03165753edd"><div class="ttname"><a href="digger__recorder_8h.html#a2741b7750b8ba1f066d0e03165753edd">drDeinitialize</a></div><div class="ttdeci">drError drDeinitialize()</div></div>
-<div class="ttc" id="digger__recorder_8h_html_a4592fafe48b670f51d66b7330b39f6f0"><div class="ttname"><a href="digger__recorder_8h.html#a4592fafe48b670f51d66b7330b39f6f0">drInitialize</a></div><div class="ttdeci">drError drInitialize(drEventCallback eventCallback, void *eventCallbackUserData)</div></div>
+<div class="ttc" id="structdr_dev_info_html_a2ef0366263cc275d0fc294f3acebc5af"><div class="ttname"><a href="structdr_dev_info.html#a2ef0366263cc275d0fc294f3acebc5af">drDevInfo::controlEventFIFOLevel</a></div><div class="ttdeci">float controlEventFIFOLevel</div><div class="ttdef"><b>Definition:</b> digger_recorder.h:65</div></div>
+<div class="ttc" id="structdr_notification_html"><div class="ttname"><a href="structdr_notification.html">drNotification</a></div><div class="ttdef"><b>Definition:</b> digger_recorder.h:71</div></div>
 <div class="ttc" id="digger__recorder_8h_html_a58dfcfa12e2fdbfbd8cc8894e7db5842"><div class="ttname"><a href="digger__recorder_8h.html#a58dfcfa12e2fdbfbd8cc8894e7db5842">drUpdate</a></div><div class="ttdeci">drError drUpdate(float timeStep)</div></div>
-<div class="ttc" id="digger__recorder_8h_html_a2b9d96a9e7b10bee72a5d6762259618b"><div class="ttname"><a href="digger__recorder_8h.html#a2b9d96a9e7b10bee72a5d6762259618b">drEvent</a></div><div class="ttdeci">struct drEvent drEvent</div></div>
-<div class="ttc" id="structdr_event_html"><div class="ttname"><a href="structdr_event.html">drEvent</a></div><div class="ttdef"><b>Definition:</b> digger_recorder.h:41</div></div>
+<div class="ttc" id="digger__recorder_8h_html_aec428a6e7cda7dcbcf08964c34a21861"><div class="ttname"><a href="digger__recorder_8h.html#aec428a6e7cda7dcbcf08964c34a21861">drNotificationType</a></div><div class="ttdeci">drNotificationType</div><div class="ttdef"><b>Definition:</b> digger_recorder.h:26</div></div>
+<div class="ttc" id="digger__recorder_8h_html_ab5e8a86983f4956c21ede61dbdcd0f4f"><div class="ttname"><a href="digger__recorder_8h.html#ab5e8a86983f4956c21ede61dbdcd0f4f">drNotificationTypeToString</a></div><div class="ttdeci">const char * drNotificationTypeToString(drNotificationType type)</div></div>
 <div class="ttc" id="digger__recorder_8h_html_ad51fe2bf01827fafcca3b93cbe6091e1"><div class="ttname"><a href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a></div><div class="ttdeci">drError</div><div class="ttdef"><b>Definition:</b> digger_recorder.h:16</div></div>
-<div class="ttc" id="digger__recorder_8h_html_aaa535b1160a47585bb1826f5102cade7"><div class="ttname"><a href="digger__recorder_8h.html#aaa535b1160a47585bb1826f5102cade7">drEventCallback</a></div><div class="ttdeci">void(* drEventCallback)(void *userData, const drEvent *event)</div><div class="ttdef"><b>Definition:</b> digger_recorder.h:49</div></div>
-<div class="ttc" id="digger__recorder_8h_html_a4d6cb176617e2b758a13ae98e1c784f8"><div class="ttname"><a href="digger__recorder_8h.html#a4d6cb176617e2b758a13ae98e1c784f8">drEventType</a></div><div class="ttdeci">drEventType</div><div class="ttdef"><b>Definition:</b> digger_recorder.h:26</div></div>
+<div class="ttc" id="structdr_dev_info_html_a9bc133ae48d0b27192589f52e56a1d27"><div class="ttname"><a href="structdr_dev_info.html#a9bc133ae48d0b27192589f52e56a1d27">drDevInfo::notificationFIFOLevel</a></div><div class="ttdeci">float notificationFIFOLevel</div><div class="ttdef"><b>Definition:</b> digger_recorder.h:63</div></div>
+<div class="ttc" id="structdr_dev_info_html"><div class="ttname"><a href="structdr_dev_info.html">drDevInfo</a></div><div class="ttdef"><b>Definition:</b> digger_recorder.h:58</div></div>
+<div class="ttc" id="structdr_dev_info_html_ae411c31ec841d87bf9351ea5b91b50b6"><div class="ttname"><a href="structdr_dev_info.html#ae411c31ec841d87bf9351ea5b91b50b6">drDevInfo::recordFIFOLevel</a></div><div class="ttdeci">float recordFIFOLevel</div><div class="ttdef"><b>Definition:</b> digger_recorder.h:61</div></div>
+<div class="ttc" id="structdr_levels_html"><div class="ttname"><a href="structdr_levels.html">drLevels</a></div><div class="ttdef"><b>Definition:</b> digger_recorder.h:47</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 1 2014 14:41:31 for Digger Recorder Public API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Sep 3 2014 11:05:53 for Digger Recorder Public API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>
