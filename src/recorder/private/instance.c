@@ -89,42 +89,51 @@ static void inputCallback(float* inBuffer, int numChannels, int numFrames, void*
     //record, if requested
     if (in->stateAudioThread == DR_STATE_RECORDING)
     {
-        drRecordedChunk c;
-        
-        const int lastBuffer = in->finishRecordingRequested;
-        
-        const int numSamples = numChannels * numFrames;
-        int sampleIdx = 0;
-        const int chunkSize = MAX_RECORDED_CHUNK_SIZE;
-        const int numChunks = ceil(numSamples / (float)chunkSize);
-        int chunkIdx = 0;
-        while (sampleIdx < numSamples)
+        if (in->cancelRecordingRequested)
         {
-            int samplesLeft = numSamples - sampleIdx;
-            if (samplesLeft > chunkSize)
+            in->cancelRecordingRequested = 0;
+            in->stateAudioThread = DR_STATE_IDLE;
+            drInstance_enqueueNotificationOfType(in, DR_RECORDING_CANCELED);
+        }
+        else
+        {
+            drRecordedChunk c;
+            const int lastBuffer = in->finishRecordingRequested;
+            
+            const int numSamples = numChannels * numFrames;
+            int sampleIdx = 0;
+            const int chunkSize = MAX_RECORDED_CHUNK_SIZE;
+            const int numChunks = ceil(numSamples / (float)chunkSize);
+            int chunkIdx = 0;
+            while (sampleIdx < numSamples)
             {
-                samplesLeft = chunkSize;
+                int samplesLeft = numSamples - sampleIdx;
+                if (samplesLeft > chunkSize)
+                {
+                    samplesLeft = chunkSize;
+                }
+                
+                //TODO: this is a double memcpy....
+                c.numFrames = samplesLeft;
+                c.numChannels = numChannels;
+                c.lastChunk = 0;
+                if (lastBuffer && chunkIdx == numChunks - 1)
+                {
+                    c.lastChunk = 1;
+                }
+                memcpy(c.samples, &inBuffer[sampleIdx], samplesLeft * sizeof(float));
+                //printf("sending %d frames of recorded %d channel audio to the main thread\n", samplesLeft, numChannels);
+                drLockFreeFIFO_push(&in->inputAudioDataQueue, &c);
+                sampleIdx += samplesLeft;
+                chunkIdx++;
             }
             
-            //TODO: this is a double memcpy....
-            c.numFrames = samplesLeft;
-            c.numChannels = numChannels;
-            c.lastChunk = 0;
-            if (lastBuffer && chunkIdx == numChunks - 1)
+            if (in->finishRecordingRequested)
             {
-                c.lastChunk = 1;
+                in->finishRecordingRequested = 0;
+                in->stateAudioThread = DR_STATE_IDLE;
+                drInstance_enqueueNotificationOfType(in, DR_RECORDING_FINISHED);
             }
-            memcpy(c.samples, &inBuffer[sampleIdx], samplesLeft * sizeof(float));
-            //printf("sending %d frames of recorded %d channel audio to the main thread\n", samplesLeft, numChannels);
-            drLockFreeFIFO_push(&in->inputAudioDataQueue, &c);
-            sampleIdx += samplesLeft;
-            chunkIdx++;
-        }
-        
-        if (in->finishRecordingRequested)
-        {
-            in->stateAudioThread = DR_STATE_IDLE;
-            drInstance_enqueueNotificationOfType(in, DR_RECORDING_FINISHED);
         }
     }
 }
@@ -350,6 +359,13 @@ void drInstance_cancelRecording(drInstance* instance)
     assert(drInstance_isOnMainThread(instance));
     printf("drInstance_cancelRecording\n");
     
+    //clear any queued up audio chunks
+    while (!drLockFreeFIFO_isEmpty(&instance->inputAudioDataQueue))
+    {
+        drRecordedChunk c;
+        drLockFreeFIFO_pop(&instance->inputAudioDataQueue, &c);
+    }
+    
     instance->recordingSession.encoder.cancelCallback(instance->recordingSession.encoder.encoderData);
     
     instance->recordingSession.numRecordedFrames = 0;
@@ -441,8 +457,7 @@ void drInstance_onAudioThreadControlEvent(drInstance* instance, const drControlE
             {
                 //cancel recording requested and we're currently recording.
                 //cancel.
-                instance->stateAudioThread = DR_STATE_IDLE;
-                drInstance_enqueueNotificationOfType(instance, DR_RECORDING_CANCELED);
+                instance->cancelRecordingRequested = 1;
             }
             break;
         }

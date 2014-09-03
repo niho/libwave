@@ -92,6 +92,7 @@ extern "C"
         kwlDSPUnitHandle outputDSPUnit;
         int firstSampleHasPlayed;
         int finishRecordingRequested;
+        int cancelRecordingRequested;
         
         //used to verify that functions are being called from the right threads
         thrd_t mainThread;
