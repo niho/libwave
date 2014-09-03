@@ -12,6 +12,7 @@ static void eventCallback(const drNotification* event, void* userData)
 -(id)init
 {
     self = [super init];
+    m_updateStride = 1;
     self.sandboxView = [[SandboxView alloc] initWithFrame:[UIScreen mainScreen].bounds
                                                          :self];
     self.view = self.sandboxView;
@@ -103,15 +104,20 @@ static void eventCallback(const drNotification* event, void* userData)
 
 -(void)updateTick
 {
-    drUpdate(kUpdateInterval);
-    drLevels il;
-    drGetInputLevels(0, 1, &il);
+    if (m_updateCounter == 0)
+    {
+        drUpdate(kUpdateInterval);
+        drLevels il;
+        drGetInputLevels(0, 1, &il);
+        
+        drDevInfo di;
+        drGetDevInfo(&di);
+        
+        [self.sandboxView.levelMeterView updateLevels:&il];
+        [self.sandboxView.devInfoView updateInfo:&di];
+    }
     
-    drDevInfo di;
-    drGetDevInfo(&di);
-    
-    [self.sandboxView.levelMeterView updateLevels:&il];
-    [self.sandboxView.devInfoView updateInfo:&di];
+    m_updateCounter = (m_updateCounter + 1) % m_updateStride;
 }
 
 -(void)onRecStart:(id)sender
@@ -137,6 +143,13 @@ static void eventCallback(const drNotification* event, void* userData)
 -(void)onRecResume:(id)sender
 {
     drResumeRecording();
+}
+
+-(void)onUpdateIntervalChanged:(UISegmentedControl*)c
+{
+    int skip[4] = {1, 2, 4, 10};
+    m_updateStride = skip[c.selectedSegmentIndex];
+    m_updateCounter = 0;
 }
 
 @end

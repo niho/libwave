@@ -8,7 +8,10 @@
 #define kUpdateInterval (0.025f)
 
 @interface SandboxViewController : UIViewController
-
+{
+    int m_updateStride;
+    int m_updateCounter;
+}
 @property (nonatomic, retain) SandboxView* sandboxView;
 
 -(void)onNotification:(const drNotification*)event;
@@ -24,5 +27,7 @@
 -(void)onRecPause:(id)sender;
 
 -(void)onRecResume:(id)sender;
+
+-(void)onUpdateIntervalChanged:(UISegmentedControl*)c;
 
 @end

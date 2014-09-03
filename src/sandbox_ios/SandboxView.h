@@ -19,6 +19,8 @@
 @property (nonatomic, retain) UIButton* recPauseButton;
 @property (nonatomic, retain) UIButton* recCancelButton;
 
+@property (nonatomic, retain) UISegmentedControl* updateIntervalButton;
+
 -(id)initWithFrame:(CGRect)frame
                   :(SandboxViewController*)vc;
 
