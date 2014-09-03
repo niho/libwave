@@ -5,6 +5,7 @@
 #include "assert.h"
 
 #include "opus.h"
+#include "mem.h"
 
 #include "instance.h"
 #include "digger_recorder.h"
@@ -250,6 +251,8 @@ void drInstance_deinit(drInstance* instance)
             instance->inputAnalyzerSlots[i].deinitCallback(instance->inputAnalyzerSlots[i].analyzerData);
         }
     }
+    
+    DR_FREE(instance->recordingSession.encoder.encoderData);
     
     drLockFreeFIFO_deinit(&instance->inputAudioDataQueue);
     

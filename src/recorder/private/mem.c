@@ -53,8 +53,8 @@ void* drMalloc(size_t size, const char* tag)
     record->tag = tag;
     numLiveBytes += size;
     
-    //printf("allocated pointer %ld bytes at %p (%s), live bytes %ld\n",
-    //       record->size, record->ptr, tag, numLiveBytes);
+    printf("allocated pointer %ld bytes at %p (%s), live bytes %ld\n",
+           record->size, record->ptr, tag, numLiveBytes);
     
     return record->ptr;
 #else
@@ -90,7 +90,7 @@ void drFree(void* ptr)
     numLiveBytes -= record->size;
     free(record->ptr);
     
-    //printf("freed pointer %p, live bytes %ld\n", record->ptr, numLiveBytes);
+    printf("freed pointer %p, live bytes %ld\n", record->ptr, numLiveBytes);
     
     memset(record, 0, sizeof(drAllocationRecord));
     
