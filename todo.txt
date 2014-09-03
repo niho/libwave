@@ -5,3 +5,5 @@
 [ ] iOS input level adjust?
 [ ] avoid mutexes
 [ ] actually record chunks of MAX_RECORDED_CHUNK_SIZE instead of current buffer size
+[ ] check the actual number of input channels + fs before using
+[ ] make encoder callbacks return error codes

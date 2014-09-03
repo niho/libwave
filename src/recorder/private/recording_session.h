@@ -3,6 +3,8 @@
 
 /*! \file */
 
+#include "encoder.h"
+
 #ifdef __cplusplus
 extern "C"
 {
@@ -10,6 +12,7 @@ extern "C"
   
     typedef struct drRecordingSession
     {
+        drEncoder encoder;
         char targetFilePath;
         int numRecordedFrames;
         

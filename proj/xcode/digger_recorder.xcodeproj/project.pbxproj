@@ -454,6 +454,10 @@
 		C12E1F8619B74B25004532A8 /* notification.h in Headers */ = {isa = PBXBuildFile; fileRef = C12E1F8519B74B25004532A8 /* notification.h */; };
 		C12E1F8819B74B65004532A8 /* error_codes.h in Headers */ = {isa = PBXBuildFile; fileRef = C12E1F8719B74B65004532A8 /* error_codes.h */; };
 		C12E1F8919B74C0E004532A8 /* mem.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F8219B74206004532A8 /* mem.c */; };
+		C12E1F8B19B7534A004532A8 /* encoder.h in Headers */ = {isa = PBXBuildFile; fileRef = C12E1F8A19B7534A004532A8 /* encoder.h */; };
+		C12E1F8E19B7583C004532A8 /* platform_util_ios.m in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F8C19B7583C004532A8 /* platform_util_ios.m */; };
+		C12E1F8F19B7583C004532A8 /* platform_util_ios.m in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F8C19B7583C004532A8 /* platform_util_ios.m */; };
+		C12E1F9019B7583C004532A8 /* platform_util.h in Headers */ = {isa = PBXBuildFile; fileRef = C12E1F8D19B7583C004532A8 /* platform_util.h */; };
 		C1F579E019B4A262000C6BCF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F579DF19B4A262000C6BCF /* Foundation.framework */; };
 		C1F57A1019B4A282000C6BCF /* digger_recorder.c in Sources */ = {isa = PBXBuildFile; fileRef = C1F57A0519B4A282000C6BCF /* digger_recorder.c */; };
 		C1F57A1119B4A282000C6BCF /* instance.c in Sources */ = {isa = PBXBuildFile; fileRef = C1F57A0619B4A282000C6BCF /* instance.c */; };
@@ -822,6 +826,9 @@
 		C12E1F8219B74206004532A8 /* mem.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mem.c; sourceTree = "<group>"; };
 		C12E1F8519B74B25004532A8 /* notification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = notification.h; sourceTree = "<group>"; };
 		C12E1F8719B74B65004532A8 /* error_codes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = error_codes.h; sourceTree = "<group>"; };
+		C12E1F8A19B7534A004532A8 /* encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = encoder.h; sourceTree = "<group>"; };
+		C12E1F8C19B7583C004532A8 /* platform_util_ios.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = platform_util_ios.m; sourceTree = "<group>"; };
+		C12E1F8D19B7583C004532A8 /* platform_util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform_util.h; sourceTree = "<group>"; };
 		C1F579DC19B4A262000C6BCF /* libdigger_recorder_ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libdigger_recorder_ios.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1F579DF19B4A262000C6BCF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C1F579ED19B4A262000C6BCF /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -1314,12 +1321,15 @@
 				C12E1F4119B62595004532A8 /* atomic_darwin.c */,
 				C12E1F4219B62595004532A8 /* atomic.h */,
 				C1F57A0519B4A282000C6BCF /* digger_recorder.c */,
+				C12E1F8A19B7534A004532A8 /* encoder.h */,
 				C1F57A0619B4A282000C6BCF /* instance.c */,
 				C1F57A0719B4A282000C6BCF /* instance.h */,
 				C12E1F4B19B62635004532A8 /* lock_free_fifo.c */,
 				C12E1F4C19B62635004532A8 /* lock_free_fifo.h */,
 				C12E1F8219B74206004532A8 /* mem.c */,
 				C12E1A8C19B5B8CD004532A8 /* mem.h */,
+				C12E1F8C19B7583C004532A8 /* platform_util_ios.m */,
+				C12E1F8D19B7583C004532A8 /* platform_util.h */,
 				C12E1F3F19B62485004532A8 /* recording_session.h */,
 			);
 			path = private;
@@ -1420,6 +1430,7 @@
 				C12E1D9819B6132B004532A8 /* pitch.h in Headers */,
 				C12E1D8119B6132B004532A8 /* fixed_generic.h in Headers */,
 				C12E1D9E19B6132B004532A8 /* rate.h in Headers */,
+				C12E1F9019B7583C004532A8 /* platform_util.h in Headers */,
 				C12E1F8619B74B25004532A8 /* notification.h in Headers */,
 				C12E1D8819B6132B004532A8 /* laplace.h in Headers */,
 				C12E1EB119B6132B004532A8 /* resampler_rom.h in Headers */,
@@ -1433,6 +1444,7 @@
 				C12E1D9219B6132B004532A8 /* modes.h in Headers */,
 				C12E1E6219B6132B004532A8 /* structs_FLP.h in Headers */,
 				C12E1E8019B6132B004532A8 /* macros.h in Headers */,
+				C12E1F8B19B7534A004532A8 /* encoder.h in Headers */,
 				C12E1DC119B6132B004532A8 /* macros_armv5e.h in Headers */,
 				C12E1D7E19B6132B004532A8 /* fixed_c5x.h in Headers */,
 				C12E1E6F19B6132B004532A8 /* Inlines.h in Headers */,
@@ -1653,6 +1665,7 @@
 				C12E1E3119B6132B004532A8 /* encode_frame_FLP.c in Sources */,
 				C12E1E4719B6132B004532A8 /* LTP_analysis_filter_FLP.c in Sources */,
 				C12E1E1E19B6132B004532A8 /* schur_FIX.c in Sources */,
+				C12E1F8F19B7583C004532A8 /* platform_util_ios.m in Sources */,
 				C12E1E2D19B6132B004532A8 /* bwexpander_FLP.c in Sources */,
 				C12E1ECD19B6132B004532A8 /* tables_gain.c in Sources */,
 				C12E1D6819B6132B004532A8 /* celt_encoder.c in Sources */,
@@ -1852,6 +1865,7 @@
 				C12E1E3019B6132B004532A8 /* encode_frame_FLP.c in Sources */,
 				C12E1E4619B6132B004532A8 /* LTP_analysis_filter_FLP.c in Sources */,
 				C12E1E1D19B6132B004532A8 /* schur_FIX.c in Sources */,
+				C12E1F8E19B7583C004532A8 /* platform_util_ios.m in Sources */,
 				C12E1E2C19B6132B004532A8 /* bwexpander_FLP.c in Sources */,
 				C12E1ECC19B6132B004532A8 /* tables_gain.c in Sources */,
 				C12E1D6719B6132B004532A8 /* celt_encoder.c in Sources */,

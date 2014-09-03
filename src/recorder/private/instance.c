@@ -8,6 +8,8 @@
 
 #include "instance.h"
 #include "digger_recorder.h"
+#include "raw_encoder.h"
+#include "platform_util.h"
 
 
 /**
@@ -161,6 +163,8 @@ void drInstance_init(drInstance* instance, drNotificationCallback notificationCa
     instance->notificationCallback = notificationCallback;
     instance->notificationCallbackData = notificationCallbackUserData;
     
+    drInstance_createEncoder(instance);
+    
     drLockFreeFIFO_init(&instance->inputAudioDataQueue, kRecordFIFOCapacity, sizeof(drRecordedChunk));
     
     //create notification and control event queues
@@ -276,12 +280,28 @@ void drInstance_update(drInstance* instance, float timeStep)
     {
         //printf("%d frames of recorded %d channel audio arrived on the main thread\n", c.numFrames, c.numChannels);
         instance->recordingSession.numRecordedFrames += c.numFrames;
+        
+        instance->recordingSession.encoder.writeCallback(instance->recordingSession.encoder.encoderData,
+                                                         c.numChannels,
+                                                         c.numFrames,
+                                                         c.samples);
+        
         //printf("recorded %d frames on the main thread\n", instance->recordingSession.numRecordedFrames);
         if (c.lastChunk)
         {
             drInstance_finishRecording(instance);
         }
     }
+}
+
+void drInstance_createEncoder(drInstance* instance)
+{
+    drRawEncoder* rawEncoder = malloc(sizeof(drRawEncoder));
+    instance->recordingSession.encoder.encoderData = rawEncoder;
+    instance->recordingSession.encoder.cancelCallback = drRawEncoder_cancel;
+    instance->recordingSession.encoder.finishCallback = drRawEncoder_finish;
+    instance->recordingSession.encoder.initCallback = drRawEncoder_init;
+    instance->recordingSession.encoder.writeCallback = drRawEncoder_write;
 }
 
 int drInstance_isOnMainThread(drInstance* instance)
@@ -315,6 +335,14 @@ int drInstance_addInputAnalyzer(drInstance* instance,
 void drInstance_initiateRecording(drInstance* instance)
 {
     assert(drInstance_isOnMainThread(instance));
+    
+    char filePath[1024];
+    drGetWritableFilePath(filePath, 1024);
+    
+    instance->recordingSession.encoder.initCallback(instance->recordingSession.encoder.encoderData,
+                                                    filePath,
+                                                    44100, //TODO
+                                                    1); //TODO
     printf("drInstance_initiateRecording\n");
 }
 
@@ -323,6 +351,8 @@ void drInstance_finishRecording(drInstance* instance)
     assert(drInstance_isOnMainThread(instance));
     printf("drInstance_finishRecording\n");
     
+    instance->recordingSession.encoder.finishCallback(instance->recordingSession.encoder.encoderData);
+
     instance->recordingSession.numRecordedFrames = 0;
 }
 
@@ -330,6 +360,8 @@ void drInstance_cancelRecording(drInstance* instance)
 {
     assert(drInstance_isOnMainThread(instance));
     printf("drInstance_cancelRecording\n");
+    
+    instance->recordingSession.encoder.cancelCallback(instance->recordingSession.encoder.encoderData);
     
     instance->recordingSession.numRecordedFrames = 0;
     

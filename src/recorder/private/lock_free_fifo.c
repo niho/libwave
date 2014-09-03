@@ -9,7 +9,8 @@
 void drLockFreeFIFO_init(drLockFreeFIFO* fifo, int capacity, int elementSize)
 {
     memset(fifo, 0, sizeof(drLockFreeFIFO));
-    fifo->capacity = capacity + 1;
+    fifo->capacity = capacity
+    ;
     fifo->elementSize = elementSize;
     fifo->elements = DR_MALLOC(capacity * elementSize, "FIFO elements");
 }

@@ -120,7 +120,9 @@ extern "C"
     /**
      *
      */
-    void drInstance_init(drInstance* instance, drNotificationCallback notificationCallback, void* notificationCallbackUserData);
+    void drInstance_init(drInstance* instance,
+                         drNotificationCallback notificationCallback,
+                         void* notificationCallbackUserData);
     
     /**
      *
@@ -131,6 +133,11 @@ extern "C"
      *
      */
     void drInstance_update(drInstance* instance, float timeStep);
+    
+    /**
+     *
+     */
+    void drInstance_createEncoder(drInstance* instance);
     
     /**
      * Returns a non-zero value if called from the same thread that called drInstance_init.
