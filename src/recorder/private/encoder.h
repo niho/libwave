@@ -3,18 +3,20 @@
 
 /*! \file */
 
+#include "error_codes.h"
+
 #ifdef __cplusplus
 extern "C"
 {
 #endif /* __cplusplus */
   
-    typedef void (*drEncoderInitCallback)(void* encoderData, const char* filePath, float fs, float numChannels);
+    typedef drError (*drEncoderInitCallback)(void* encoderData, const char* filePath, float fs, float numChannels);
     
-    typedef void (*drEncoderWriteCallback)(void* encoderData, int numChannels, int numFrames, float* buffer);
+    typedef drError (*drEncoderWriteCallback)(void* encoderData, int numChannels, int numFrames, float* buffer);
     
-    typedef void (*drEncoderFinishCallback)(void* encoderData);
+    typedef drError (*drEncoderFinishCallback)(void* encoderData);
     
-    typedef void (*drEncoderCancelCallback)(void* encoderData);
+    typedef drError (*drEncoderCancelCallback)(void* encoderData);
     
     typedef struct drEncoder
     {

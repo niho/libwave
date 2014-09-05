@@ -3,38 +3,58 @@
 #include <stdio.h>
 #include <math.h>
 #include "assert.h"
+#include "error_codes.h"
 
 #include "raw_encoder.h"
 
-void drRawEncoder_init(void* rawEncoder, const char* filePath, float fs, float numChannels)
+drError drRawEncoder_init(void* rawEncoder, const char* filePath, float fs, float numChannels)
 {
-    printf("drRawEncoder_init, file path is %s\n", filePath);
     drRawEncoder* re = (drRawEncoder*)rawEncoder;
     assert(re->file == 0);
     re->file = fopen(filePath, "wb");
-    assert(re->file);
+    if (re->file == 0)
+    {
+        return DR_FAILED_TO_OPEN_ENCODER_TARGET_FILE;
+    }
+    
+    return DR_NO_ERROR;
 }
 
-void drRawEncoder_write(void* rawEncoder, int numChannels, int numFrames, float* buffer)
+drError drRawEncoder_write(void* rawEncoder, int numChannels, int numFrames, float* buffer)
 {
-    printf("drRawEncoder_write\n");
     drRawEncoder* re = (drRawEncoder*)rawEncoder;
     int bytesWritten = fwrite(buffer, sizeof(float), numFrames * numChannels, re->file);
-    assert(numFrames * numChannels == bytesWritten);
+    if (numFrames * numChannels != bytesWritten)
+    {
+        return DR_FAILED_TO_WRITE_ENCODED_AUDIO_DATA;
+    }
+    
+    return DR_NO_ERROR;
 }
 
-void drRawEncoder_finish(void* rawEncoder)
+drError drRawEncoder_finish(void* rawEncoder)
 {
-    printf("drRawEncoder_finish\n");
     drRawEncoder* re = (drRawEncoder*)rawEncoder;
-    fclose(re->file);
+    if (fclose(re->file) != 0)
+    {
+        return DR_FAILED_TO_CLOSE_ENCODER_TARGET_FILE;
+    }
+    
     re->file = 0;
+    
+    return DR_NO_ERROR;
 }
 
-void drRawEncoder_cancel(void* rawEncoder)
+drError drRawEncoder_cancel(void* rawEncoder)
 {
-    printf("drRawEncoder_cancel\n");
     drRawEncoder* re = (drRawEncoder*)rawEncoder;
-    fclose(re->file);
+    
+    if (fclose(re->file) != 0)
+    {
+        return DR_FAILED_TO_CLOSE_ENCODER_TARGET_FILE;
+    }
+    
     re->file = 0;
+    
+    return DR_NO_ERROR;
 }

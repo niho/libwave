@@ -13,11 +13,21 @@ extern "C"
      */
     typedef struct drSettings
     {
+        int errorFIFOCapacity;
         int controlEventFIFOCapacity;
         int notificationFIFOCapacity;
         int recordFIFOCapacity;
+        int desiredSampleRate;
+        int desiredBufferSizeInFrames;
+        /** In seconds. */
+        float levelMeterAttackTime;
+        /** In seconds. */
+        float levelMeterReleaseTime;
     } drSettings;
     
+    /**
+     * @param settings
+     */
     void drSettings_setDefaults(drSettings* settings);
     
 #ifdef __cplusplus

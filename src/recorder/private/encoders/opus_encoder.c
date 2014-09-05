@@ -13,7 +13,7 @@
 //https://review.webrtc.org/10489004/
 //http://holdenc.altervista.org/parole/
 
-void drOpusEncoder_init(void* opusEncoder, const char* filePath, float fs, float numChannels)
+drError drOpusEncoder_init(void* opusEncoder, const char* filePath, float fs, float numChannels)
 {
     assert(numChannels <= 2);
     
@@ -26,7 +26,8 @@ void drOpusEncoder_init(void* opusEncoder, const char* filePath, float fs, float
     if (err < 0)
     {
         fprintf(stderr, "failed to create an encoder: %s\n", opus_strerror(err));
-        assert(err >= 0 && "failed to create opus encoder");
+        //assert(err >= 0 && "failed to create opus encoder");
+        return DR_FAILED_TO_INITIALIZE_ENCODER;
     }
     
     err = opus_encoder_ctl(encoder->encoder, OPUS_SET_BITRATE(BITRATE));
@@ -34,10 +35,15 @@ void drOpusEncoder_init(void* opusEncoder, const char* filePath, float fs, float
     
     assert(encoder->file == 0);
     encoder->file = fopen(filePath, "w");
-    assert(encoder->file && "failed to open opus output file");
+    if (encoder->file == 0)
+    {
+        return DR_FAILED_TO_OPEN_ENCODER_TARGET_FILE;
+    }
+    
+    return DR_NO_ERROR;
 }
 
-void drOpusEncoder_write(void* opusEncoder, int numChannels, int numFrames, float* buffer)
+drError drOpusEncoder_write(void* opusEncoder, int numChannels, int numFrames, float* buffer)
 {
     drOpusEncoder* encoder = (drOpusEncoder*)opusEncoder;
     
@@ -61,32 +67,52 @@ void drOpusEncoder_write(void* opusEncoder, int numChannels, int numFrames, floa
                 if (encodedPacketSize < 0)
                 {
                     fprintf(stderr, "encode failed: %s\n", opus_strerror(encodedPacketSize));
-                    assert(0);
+                    return DR_FAILED_TO_ENCODE_AUDIO_DATA;
                 }
                 else
                 {
                     printf("encoded opus packet of size %d\n", encodedPacketSize);
-                    fwrite(encoder->scratchOutputBuffer, 1, encodedPacketSize, encoder->file);
+                    int n = fwrite(encoder->scratchOutputBuffer, 1, encodedPacketSize, encoder->file);
+                    if (n != encodedPacketSize)
+                    {
+                        return DR_FAILED_TO_WRITE_ENCODED_AUDIO_DATA;
+                    }
                 }
             }
         }
     }
+    
+    return DR_NO_ERROR;
 }
 
-void drOpusEncoder_finish(void* opusEncoder)
+drError drOpusEncoder_finish(void* opusEncoder)
 {
     drOpusEncoder* encoder = (drOpusEncoder*)opusEncoder;
-    fclose(encoder->file);
-    encoder->file = 0;
     opus_encoder_destroy(encoder->encoder);
     encoder->encoder = 0;
+    
+    if (fclose(encoder->file) != 0)
+    {
+        return DR_FAILED_TO_CLOSE_ENCODER_TARGET_FILE;
+    }
+    
+    encoder->file = 0;
+    
+    return DR_NO_ERROR;
 }
 
-void drOpusEncoder_cancel(void* opusEncoder)
+drError drOpusEncoder_cancel(void* opusEncoder)
 {
     drOpusEncoder* encoder = (drOpusEncoder*)opusEncoder;
-    fclose(encoder->file);
-    encoder->file = 0;
     opus_encoder_destroy(encoder->encoder);
     encoder->encoder = 0;
+    
+    if (fclose(encoder->file) != 0)
+    {
+        return DR_FAILED_TO_CLOSE_ENCODER_TARGET_FILE;
+    }
+    
+    encoder->file = 0;
+    
+    return DR_NO_ERROR;
 }

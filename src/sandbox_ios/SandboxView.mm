@@ -41,6 +41,15 @@
         [self addUIRow:self.latestNotificationLabel];
     }
     
+    //latest error
+    {
+        [self addUITitleRow:@"Latest error"];
+        self.latestErrorLabel = [[UILabel alloc] init];
+        self.latestErrorLabel.textAlignment = NSTextAlignmentCenter;
+        self.latestErrorLabel.alpha = 0.5f;
+        [self addUIRow:self.latestErrorLabel];
+    }
+    
     //rec buttons
     {
         [self addUITitleRow:@"Recording controls"];

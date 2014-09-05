@@ -7,6 +7,13 @@ static void eventCallback(const drNotification* event, void* userData)
     [vc onNotification:event];
 }
 
+static void errorCallback(drError error, void* userData)
+{
+    SandboxViewController* vc = (__bridge SandboxViewController*)userData;
+    [vc onError:error];
+}
+
+
 @implementation SandboxViewController
 
 -(id)init
@@ -26,6 +33,11 @@ static void eventCallback(const drNotification* event, void* userData)
                                                  repeats:YES];
     
     return self;
+}
+
+-(void)onError:(drError)error
+{
+    self.sandboxView.latestErrorLabel.text = [NSString stringWithUTF8String:drErrorToString(error)];
 }
 
 -(void)onNotification:(const drNotification*)notification
@@ -154,7 +166,10 @@ static void eventCallback(const drNotification* event, void* userData)
 
 -(void)onInit:(id)sender
 {
-    drInitialize(eventCallback, (__bridge void*)(self), NULL);
+    drInitialize(eventCallback,
+                 errorCallback,
+                 (__bridge void*)(self),
+                 NULL);
 }
 
 -(void)onDeinit:(id)sender

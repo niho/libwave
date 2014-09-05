@@ -14,6 +14,8 @@
 }
 @property (nonatomic, retain) SandboxView* sandboxView;
 
+-(void)onError:(drError)error;
+
 -(void)onNotification:(const drNotification*)event;
 
 -(void)updateTick;

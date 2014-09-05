@@ -11,6 +11,7 @@
     int m_currUIRow;
 }
 
+@property (nonatomic, retain) UILabel* latestErrorLabel;
 @property (nonatomic, retain) UILabel* latestNotificationLabel;
 @property (nonatomic, retain) LevelMeterView* levelMeterView;
 @property (nonatomic, retain) DevInfoView* devInfoView;

@@ -88,7 +88,6 @@ extern "C"
         
         drDevInfo devInfo;
         
-        float sampleRate;
         kwlDSPUnitHandle inputDSPUnit;
         kwlDSPUnitHandle outputDSPUnit;
         int firstSampleHasPlayed;
@@ -101,9 +100,11 @@ extern "C"
         mtx_t communicationQueueLock;
         drLockFreeFIFO notificationFIFO;
         drLockFreeFIFO controlEventFIFO;
+        drLockFreeFIFO errorFIFO;
         
         drNotificationCallback notificationCallback;
-        void* notificationCallbackData;
+        drErrorCallback errorCallback;
+        void* callbackUserData;
         
         //Level meters, only accessed from the audio thread
         drLevelMeter inputLevelMeters[MAX_NUM_INPUT_CHANNELS];
@@ -124,7 +125,7 @@ extern "C"
      */
     void drInstance_init(drInstance* instance,
                          drNotificationCallback notificationCallback,
-                         void* notificationCallbackUserData,
+                         void* callbackUserData,
                          drSettings* settings);
     
     /**
@@ -179,6 +180,21 @@ extern "C"
      *
      */
     void drInstance_cancelRecording(drInstance* instance);
+    
+    /**
+     *
+     */
+    void drInstance_invokeErrorCallback(drInstance* instance, drError errorCode);
+    
+    /**
+     *
+     */
+    void drInstance_invokeNotificationCallback(drInstance* instance, const drNotification* notification);
+    
+    /**
+     * Must be called <strong>only from the audio thread</strong>!
+     */
+    void drInstance_enqueueError(drInstance* instance, drError error);
     
     /**
      * Must be called <strong>only from the audio thread</strong>!

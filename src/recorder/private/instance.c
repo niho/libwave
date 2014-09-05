@@ -28,15 +28,18 @@ static void mainThreadUpdateCallback(void* data)
     
     mtx_unlock(&in->communicationQueueLock);
     
-    //invoke the event callback for any incoming events on the main thread
-    if (in->notificationCallback)
+    //invoke the error callback for any incoming errors on the main thread
+    drError e;
+    while (drLockFreeFIFO_pop(&in->errorFIFO, &e))
     {
-        drNotification n;
-        while (drLockFreeFIFO_pop(&in->notificationFIFO, &n))
-        {
-            drInstance_onMainThreadNotification(in, &n);
-            in->notificationCallback(&n, in->notificationCallbackData);
-        }
+        drInstance_invokeErrorCallback(in, e);
+    }
+    
+    //invoke the event callback for any incoming events on the main thread
+    drNotification n;
+    while (drLockFreeFIFO_pop(&in->notificationFIFO, &n))
+    {
+        drInstance_onMainThreadNotification(in, &n);
     }
 }
 
@@ -159,7 +162,7 @@ static void outputCallback(float* inBuffer, int numChannels, int numFrames, void
 
 void drInstance_init(drInstance* instance,
                      drNotificationCallback notificationCallback,
-                     void* notificationCallbackUserData,
+                     void* callbackUserData,
                      drSettings* settings)
 {
     memset(instance, 0, sizeof(drInstance));
@@ -183,7 +186,7 @@ void drInstance_init(drInstance* instance,
     
     //hook up notification callback
     instance->notificationCallback = notificationCallback;
-    instance->notificationCallbackData = notificationCallbackUserData;
+    instance->callbackUserData = callbackUserData;
     
     drCreateEncoder(&instance->recordingSession.encoder);
     
@@ -191,7 +194,7 @@ void drInstance_init(drInstance* instance,
                         instance->settings.recordFIFOCapacity,
                         sizeof(drRecordedChunk));
     
-    //create notification and control event queues
+    //create error, notification and control event queues
     drLockFreeFIFO_init(&instance->notificationFIFO,
                         instance->settings.notificationFIFOCapacity,
                         sizeof(drNotification));
@@ -199,6 +202,10 @@ void drInstance_init(drInstance* instance,
     drLockFreeFIFO_init(&instance->controlEventFIFO,
                         instance->settings.controlEventFIFOCapacity,
                         sizeof(drControlEvent));
+    
+    drLockFreeFIFO_init(&instance->errorFIFO,
+                        instance->settings.errorFIFOCapacity,
+                        sizeof(drError));
     
     mtx_init(&instance->communicationQueueLock, mtx_plain);
     
@@ -215,10 +222,9 @@ void drInstance_init(drInstance* instance,
                                                      NULL);
     
     //TODO: pass these as arguments
-    const int sampleRate = 44100;
+
     const int numOutChannels = 2;
     const int numInputChannels = 1;
-    const int bufferSize = 512;
     
     //create audio analyzers
     assert(numInputChannels <= MAX_NUM_INPUT_CHANNELS);
@@ -226,9 +232,9 @@ void drInstance_init(drInstance* instance,
     {
         drLevelMeter_init(&instance->inputLevelMeters[i],
                           i,
-                          sampleRate,
-                          0.0001f,
-                          2.0f,
+                          settings->desiredSampleRate,
+                          settings->levelMeterAttackTime,
+                          settings->levelMeterReleaseTime,
                           0.5f);
         drInstance_addInputAnalyzer(instance,
                                     &instance->inputLevelMeters[i],
@@ -237,9 +243,10 @@ void drInstance_init(drInstance* instance,
     }
     
     
-    instance->sampleRate = sampleRate;
-    
-    kwlInitialize(sampleRate, numOutChannels, numInputChannels, bufferSize);
+    kwlInitialize(settings->desiredSampleRate,
+                  numOutChannels,
+                  numInputChannels,
+                  settings->desiredBufferSizeInFrames);
     kwlError initResult = kwlGetError();
     assert(initResult == KWL_NO_ERROR);
     
@@ -255,12 +262,9 @@ void drInstance_deinit(drInstance* instance)
     kwlError deinitResult = kwlGetError();
     assert(deinitResult == KWL_NO_ERROR);
     
-    if (instance->notificationCallback)
-    {
-        drNotification n;
-        n.type = DR_DID_SHUT_DOWN;
-        instance->notificationCallback(&n, instance->notificationCallbackData);
-    }
+    drNotification n;
+    n.type = DR_DID_SHUT_DOWN;
+    drInstance_invokeNotificationCallback(instance, &n);
     
     //clean up analyzers
     for (int i = 0; i < MAX_NUM_ANALYZER_SLOTS; i++)
@@ -392,7 +396,30 @@ void drInstance_cancelRecording(drInstance* instance)
     instance->recordingSession.encoder.cancelCallback(instance->recordingSession.encoder.encoderData);
     
     instance->recordingSession.numRecordedFrames = 0;
+}
+
+void drInstance_invokeErrorCallback(drInstance* instance, drError errorCode)
+{
+    assert(drInstance_isOnMainThread(instance));
     
+    if (instance->errorCallback)
+    {
+        instance->errorCallback(errorCode, instance->callbackUserData);
+    }
+}
+
+void drInstance_invokeNotificationCallback(drInstance* instance, const drNotification* notification)
+{
+    if (instance->notificationCallback)
+    {
+        instance->notificationCallback(notification, instance->callbackUserData);
+    }
+}
+
+void drInstance_enqueueError(drInstance* instance, drError error)
+{
+    assert(!drInstance_isOnMainThread(instance));
+    drLockFreeFIFO_push(&instance->errorFIFO, &error);
 }
 
 void drInstance_enqueueNotification(drInstance* instance, const drNotification* notification)
@@ -536,6 +563,8 @@ void drInstance_onMainThreadNotification(drInstance* instance, const drNotificat
             break;
         }
     }
+    
+    drInstance_invokeNotificationCallback(instance, notification);
 }
 
 static float lin2LogLevel(float lin)

@@ -4,6 +4,7 @@
 /*! \file */
 
 #include "opus.h"
+#include "error_codes.h"
 
 #ifdef __cplusplus
 extern "C"
@@ -25,13 +26,13 @@ extern "C"
 
     } drOpusEncoder;
     
-    void drOpusEncoder_init(void* opusEncoder, const char* filePath, float fs, float numChannels);
+    drError drOpusEncoder_init(void* opusEncoder, const char* filePath, float fs, float numChannels);
     
-    void drOpusEncoder_write(void* opusEncoder, int numChannels, int numFrames, float* buffer);
+    drError drOpusEncoder_write(void* opusEncoder, int numChannels, int numFrames, float* buffer);
     
-    void drOpusEncoder_finish(void* opusEncoder);
+    drError drOpusEncoder_finish(void* opusEncoder);
     
-    void drOpusEncoder_cancel(void* opusEncoder);
+    drError drOpusEncoder_cancel(void* opusEncoder);
     
 #ifdef __cplusplus
 }

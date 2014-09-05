@@ -15,13 +15,13 @@ extern "C"
         FILE* file;   
     } drRawEncoder;
     
-    void drRawEncoder_init(void* rawEncoder, const char* filePath, float fs, float numChannels);
+    drError drRawEncoder_init(void* rawEncoder, const char* filePath, float fs, float numChannels);
     
-    void drRawEncoder_write(void* rawEncoder, int numChannels, int numFrames, float* buffer);
+    drError drRawEncoder_write(void* rawEncoder, int numChannels, int numFrames, float* buffer);
     
-    void drRawEncoder_finish(void* rawEncoder);
+    drError drRawEncoder_finish(void* rawEncoder);
     
-    void drRawEncoder_cancel(void* rawEncoder);
+    drError drRawEncoder_cancel(void* rawEncoder);
     
 #ifdef __cplusplus
 }

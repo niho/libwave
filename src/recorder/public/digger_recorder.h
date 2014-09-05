@@ -40,6 +40,11 @@ extern "C"
     
     
     /**
+     * A callback to invoke when errors occur.
+     */
+    typedef void (*drErrorCallback)(drError errorCode, void* userData);
+    
+    /**
      * A callback to invoke for each incoming notification.
      */
     typedef void (*drNotificationCallback)(const drNotification* event, void* userData);
@@ -47,11 +52,13 @@ extern "C"
     /**
      * Initializes the recorder.
      * @param notificationCallback
-     * @param notificationCallbackUserData
+     * @param errorCallback
+     * @param callbackUserData
      * @param settings If NULL, default settings will be used.
      */
     drError drInitialize(drNotificationCallback notificationCallback,
-                         void* notificationCallbackUserData,
+                         drErrorCallback errorCallback,
+                         void* callbackUserData,
                          drSettings* settings);
     
     /**
