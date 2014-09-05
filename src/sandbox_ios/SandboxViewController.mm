@@ -13,6 +13,15 @@ static void errorCallback(drError error, void* userData)
     [vc onError:error];
 }
 
+static const char* writableFilePathCallback()
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    
+    NSString* fileName = [NSString stringWithFormat:@"audio-recording-%d", arc4random()];
+    return [[documentsDirectory stringByAppendingPathComponent:fileName] UTF8String];
+}
+
 
 @implementation SandboxViewController
 
@@ -197,9 +206,15 @@ static void errorCallback(drError error, void* userData)
 
 -(void)onInit:(id)sender
 {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString* settingsFilePath = [documentsDirectory stringByAppendingPathComponent:@"drsettings.json"];
+    
     drInitialize(eventCallback,
                  errorCallback,
+                 writableFilePathCallback,
                  (__bridge void*)(self),
+                 [settingsFilePath UTF8String],
                  NULL);
 }
 

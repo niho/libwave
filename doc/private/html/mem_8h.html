@@ -84,20 +84,31 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#define-members">Macros</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">mem.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-
+<div class="textblock"><code>#include &lt;stdlib.h&gt;</code><br/>
+</div>
 <p><a href="mem_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a7929988ef95158d3331d7f1d13411e91"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mem_8h.html#a7929988ef95158d3331d7f1d13411e91">DR_MALLOC</a>(size, tag)&#160;&#160;&#160;(malloc(size))</td></tr>
+<tr class="memitem:a7929988ef95158d3331d7f1d13411e91"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mem_8h.html#a7929988ef95158d3331d7f1d13411e91">DR_MALLOC</a>(size, tag)&#160;&#160;&#160;(drMalloc(size, tag))</td></tr>
 <tr class="separator:a7929988ef95158d3331d7f1d13411e91"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf47b1ae70ada80392bf56d6669af530"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mem_8h.html#abf47b1ae70ada80392bf56d6669af530">DR_FREE</a>(ptr)&#160;&#160;&#160;(free(ptr))</td></tr>
+<tr class="memitem:abf47b1ae70ada80392bf56d6669af530"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mem_8h.html#abf47b1ae70ada80392bf56d6669af530">DR_FREE</a>(ptr)&#160;&#160;&#160;(drFree(ptr))</td></tr>
 <tr class="separator:abf47b1ae70ada80392bf56d6669af530"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ab7ff980de5e6266cac843e3271be2360"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab7ff980de5e6266cac843e3271be2360"></a>
+void *&#160;</td><td class="memItemRight" valign="bottom"><b>drMalloc</b> (size_t size, const char *tag)</td></tr>
+<tr class="separator:ab7ff980de5e6266cac843e3271be2360"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad828179c01128ec94bfc0c49649a2413"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad828179c01128ec94bfc0c49649a2413"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>drFree</b> (void *ptr)</td></tr>
+<tr class="separator:ad828179c01128ec94bfc0c49649a2413"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Memory management macros to make it easier to debug memory usage. </p>
@@ -111,7 +122,7 @@ Macros</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">ptr</td><td>)</td>
-          <td>&#160;&#160;&#160;(free(ptr))</td>
+          <td>&#160;&#160;&#160;(drFree(ptr))</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -138,7 +149,7 @@ Macros</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;(malloc(size))</td>
+          <td></td><td>&#160;&#160;&#160;(drMalloc(size, tag))</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -149,7 +160,7 @@ Macros</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Sep 3 2014 11:05:50 for Digger Recorder Private API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Sep 5 2014 16:57:17 for Digger Recorder Private API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>

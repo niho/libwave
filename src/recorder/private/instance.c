@@ -167,7 +167,9 @@ static void outputCallback(float* inBuffer, int numChannels, int numFrames, void
 void drInstance_init(drInstance* instance,
                      drNotificationCallback notificationCallback,
                      drErrorCallback errorCallback,
+                     drWritableAudioFilePathCallback writableFilePathCallback,
                      void* callbackUserData,
+                     const char* settingsFilePath,
                      drSettings* settings)
 {
     memset(instance, 0, sizeof(drInstance));
@@ -190,6 +192,7 @@ void drInstance_init(drInstance* instance,
     instance->mainThread = thrd_current();
     
     //hook up notification callback
+    instance->writableFilePathCallback = writableFilePathCallback;
     instance->notificationCallback = notificationCallback;
     instance->errorCallback = errorCallback;
     instance->callbackUserData = callbackUserData;
@@ -378,11 +381,9 @@ void drInstance_initiateRecording(drInstance* instance)
 {
     assert(drInstance_isOnMainThread(instance));
     
-    char filePath[1024];
-    drGetWritableFilePath(filePath, 1024);
     
     instance->recordingSession.encoder.initCallback(instance->recordingSession.encoder.encoderData,
-                                                    filePath,
+                                                    instance->writableFilePathCallback(),
                                                     44100, //TODO
                                                     1); //TODO
     printf("drInstance_initiateRecording\n");

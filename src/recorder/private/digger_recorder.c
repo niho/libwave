@@ -55,7 +55,9 @@ static drInstance* instance = NULL;
 
 drError drInitialize(drNotificationCallback notificationCallback,
                      drErrorCallback errorCallback,
+                     drWritableAudioFilePathCallback writableFilePathCallback,
                      void* callbackUserData,
+                     const char* settingsFilePath,
                      drSettings* settings)
 {
     if (instance)
@@ -67,7 +69,9 @@ drError drInitialize(drNotificationCallback notificationCallback,
     drInstance_init(instance, 
                     notificationCallback,
                     errorCallback,
+                    writableFilePathCallback,
                     callbackUserData,
+                    settingsFilePath,
                     settings);
     
     return DR_NO_ERROR;

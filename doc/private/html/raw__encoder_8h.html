@@ -85,12 +85,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">raw_encoder.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-
+<div class="textblock"><code>#include &lt;stdio.h&gt;</code><br/>
+</div>
 <p><a href="raw__encoder_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
@@ -103,11 +105,26 @@ Typedefs</h2></td></tr>
 <tr class="memitem:a04c93c06316ebfa0d8dea9b697612fa0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a04c93c06316ebfa0d8dea9b697612fa0"></a>
 typedef struct <a class="el" href="structdr_raw_encoder.html">drRawEncoder</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drRawEncoder</b></td></tr>
 <tr class="separator:a04c93c06316ebfa0d8dea9b697612fa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:aa0808a8f1c8297357dce0be587d194e6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa0808a8f1c8297357dce0be587d194e6"></a>
+<a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drRawEncoder_init</b> (void *rawEncoder, const char *filePath, float fs, float numChannels)</td></tr>
+<tr class="separator:aa0808a8f1c8297357dce0be587d194e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56dc91dad87973335def05689404f317"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a56dc91dad87973335def05689404f317"></a>
+<a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drRawEncoder_write</b> (void *rawEncoder, int numChannels, int numFrames, float *buffer)</td></tr>
+<tr class="separator:a56dc91dad87973335def05689404f317"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9fd4688318e5c349e18759c59ef67d8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae9fd4688318e5c349e18759c59ef67d8"></a>
+<a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drRawEncoder_finish</b> (void *rawEncoder)</td></tr>
+<tr class="separator:ae9fd4688318e5c349e18759c59ef67d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae866d8539a00215657f8cc8bdc627a0b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae866d8539a00215657f8cc8bdc627a0b"></a>
+<a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drRawEncoder_cancel</b> (void *rawEncoder)</td></tr>
+<tr class="separator:ae866d8539a00215657f8cc8bdc627a0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Sep 3 2014 11:05:50 for Digger Recorder Private API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Sep 5 2014 16:57:17 for Digger Recorder Private API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>

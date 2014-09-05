@@ -91,18 +91,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:aa028991dd624a1a88b063ea82289ba0b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa028991dd624a1a88b063ea82289ba0b"></a>
-<a class="el" href="instance_8h.html#a4f45eca88ffe9971bee40ab85b13a148">drState</a>&#160;</td><td class="memItemRight" valign="bottom"><b>state</b></td></tr>
-<tr class="separator:aa028991dd624a1a88b063ea82289ba0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5703e0f118e8b49de08801c2afdeafcf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5703e0f118e8b49de08801c2afdeafcf"></a>
+<a class="el" href="structdr_settings.html">drSettings</a>&#160;</td><td class="memItemRight" valign="bottom"><b>settings</b></td></tr>
+<tr class="separator:a5703e0f118e8b49de08801c2afdeafcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae16ac0c281c4838c1a0ef04fcb19d914"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae16ac0c281c4838c1a0ef04fcb19d914"></a>
+<a class="el" href="instance_8h.html#a39853c209fab28b5104e8223253ffdae">drState</a>&#160;</td><td class="memItemRight" valign="bottom"><b>stateAudioThread</b></td></tr>
+<tr class="separator:ae16ac0c281c4838c1a0ef04fcb19d914"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02e26f5b80d22d05911e98e73613aea6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a02e26f5b80d22d05911e98e73613aea6"></a>
+<a class="el" href="instance_8h.html#a39853c209fab28b5104e8223253ffdae">drState</a>&#160;</td><td class="memItemRight" valign="bottom"><b>stateMainThread</b></td></tr>
+<tr class="separator:a02e26f5b80d22d05911e98e73613aea6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aebbe88256b939aeb5680e7c2efc15e2c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aebbe88256b939aeb5680e7c2efc15e2c"></a>
 <a class="el" href="structdr_analyzer_slot.html">drAnalyzerSlot</a>&#160;</td><td class="memItemRight" valign="bottom"><b>inputAnalyzerSlots</b> [MAX_NUM_ANALYZER_SLOTS]</td></tr>
 <tr class="separator:aebbe88256b939aeb5680e7c2efc15e2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aacb4f7e8a993eb2394c8e424cce74572"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aacb4f7e8a993eb2394c8e424cce74572"></a>
 <a class="el" href="structdr_dev_info.html">drDevInfo</a>&#160;</td><td class="memItemRight" valign="bottom"><b>devInfo</b></td></tr>
 <tr class="separator:aacb4f7e8a993eb2394c8e424cce74572"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab9dd87da8c1f6740b3064f6e935d0bee"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab9dd87da8c1f6740b3064f6e935d0bee"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>sampleRate</b></td></tr>
-<tr class="separator:ab9dd87da8c1f6740b3064f6e935d0bee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a841d080cb92350039e8ddf9b0480a26c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a841d080cb92350039e8ddf9b0480a26c"></a>
 kwlDSPUnitHandle&#160;</td><td class="memItemRight" valign="bottom"><b>inputDSPUnit</b></td></tr>
 <tr class="separator:a841d080cb92350039e8ddf9b0480a26c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -112,6 +115,12 @@ kwlDSPUnitHandle&#160;</td><td class="memItemRight" valign="bottom"><b>outputDSP
 <tr class="memitem:ae7cd5b4c5e8faaffcd91e501bc94dfbf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae7cd5b4c5e8faaffcd91e501bc94dfbf"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>firstSampleHasPlayed</b></td></tr>
 <tr class="separator:ae7cd5b4c5e8faaffcd91e501bc94dfbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32a182ef819ac3f4c82b36a4f644fa40"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a32a182ef819ac3f4c82b36a4f644fa40"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>finishRecordingRequested</b></td></tr>
+<tr class="separator:a32a182ef819ac3f4c82b36a4f644fa40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8f799523c7b5087adb4d6409933394b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab8f799523c7b5087adb4d6409933394b"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>cancelRecordingRequested</b></td></tr>
+<tr class="separator:ab8f799523c7b5087adb4d6409933394b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa1558a56efe5fddcc24d3a3e5582a9df"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa1558a56efe5fddcc24d3a3e5582a9df"></a>
 thrd_t&#160;</td><td class="memItemRight" valign="bottom"><b>mainThread</b></td></tr>
 <tr class="separator:aa1558a56efe5fddcc24d3a3e5582a9df"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -124,12 +133,18 @@ mtx_t&#160;</td><td class="memItemRight" valign="bottom"><b>communicationQueueLo
 <tr class="memitem:ae7ef4f89505e2c7c2df74fb53d97b2d3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae7ef4f89505e2c7c2df74fb53d97b2d3"></a>
 <a class="el" href="structdr_lock_free_f_i_f_o.html">drLockFreeFIFO</a>&#160;</td><td class="memItemRight" valign="bottom"><b>controlEventFIFO</b></td></tr>
 <tr class="separator:ae7ef4f89505e2c7c2df74fb53d97b2d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaeb4c4fd2c08a1fad211838fe32c1c5c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaeb4c4fd2c08a1fad211838fe32c1c5c"></a>
+<a class="el" href="structdr_lock_free_f_i_f_o.html">drLockFreeFIFO</a>&#160;</td><td class="memItemRight" valign="bottom"><b>errorFIFO</b></td></tr>
+<tr class="separator:aaeb4c4fd2c08a1fad211838fe32c1c5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5dff1a5fb59063a1d56bc5d2d0327ade"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5dff1a5fb59063a1d56bc5d2d0327ade"></a>
 <a class="el" href="digger__recorder_8h.html#a581c20bdc1055562f0ee04af0f5cd434">drNotificationCallback</a>&#160;</td><td class="memItemRight" valign="bottom"><b>notificationCallback</b></td></tr>
 <tr class="separator:a5dff1a5fb59063a1d56bc5d2d0327ade"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac07090c18cccd903bc7c1f440b2c2c0f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac07090c18cccd903bc7c1f440b2c2c0f"></a>
-void *&#160;</td><td class="memItemRight" valign="bottom"><b>notificationCallbackData</b></td></tr>
-<tr class="separator:ac07090c18cccd903bc7c1f440b2c2c0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaeaeb1a73adab551f509d3a34d571456"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaeaeb1a73adab551f509d3a34d571456"></a>
+<a class="el" href="digger__recorder_8h.html#aa0db6997ec4c50ee472f7075c318d3bf">drErrorCallback</a>&#160;</td><td class="memItemRight" valign="bottom"><b>errorCallback</b></td></tr>
+<tr class="separator:aaeaeb1a73adab551f509d3a34d571456"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ff89624d99a651ef222ee1e8b0d83bf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7ff89624d99a651ef222ee1e8b0d83bf"></a>
+void *&#160;</td><td class="memItemRight" valign="bottom"><b>callbackUserData</b></td></tr>
+<tr class="separator:a7ff89624d99a651ef222ee1e8b0d83bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab37650ecb352adf5488d40fc782c0217"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab37650ecb352adf5488d40fc782c0217"></a>
 <a class="el" href="structdr_level_meter.html">drLevelMeter</a>&#160;</td><td class="memItemRight" valign="bottom"><b>inputLevelMeters</b> [MAX_NUM_INPUT_CHANNELS]</td></tr>
 <tr class="separator:ab37650ecb352adf5488d40fc782c0217"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -145,6 +160,9 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><b>notificationCallbac
 <tr class="memitem:a2b8ac3823cbcfade1e5c1aca6f8d686e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2b8ac3823cbcfade1e5c1aca6f8d686e"></a>
 <a class="el" href="structdr_lock_free_f_i_f_o.html">drLockFreeFIFO</a>&#160;</td><td class="memItemRight" valign="bottom"><b>inputAudioDataQueue</b></td></tr>
 <tr class="separator:a2b8ac3823cbcfade1e5c1aca6f8d686e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aecd3dc4a1e2663c2fe06f04f3eedb881"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aecd3dc4a1e2663c2fe06f04f3eedb881"></a>
+<a class="el" href="structdr_recording_session.html">drRecordingSession</a>&#160;</td><td class="memItemRight" valign="bottom"><b>recordingSession</b></td></tr>
+<tr class="separator:aecd3dc4a1e2663c2fe06f04f3eedb881"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A Digger recorder instance. </p>
@@ -154,7 +172,7 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><b>notificationCallbac
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Sep 3 2014 11:05:50 for Digger Recorder Private API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Sep 5 2014 16:57:17 for Digger Recorder Private API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>

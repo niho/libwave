@@ -86,13 +86,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
-<a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">digger_recorder.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-
+<div class="textblock"><code>#include &quot;<a class="el" href="error__codes_8h_source.html">error_codes.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="notification_8h_source.html">notification.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="settings_8h_source.html">settings.h</a>&quot;</code><br/>
+</div>
 <p><a href="digger__recorder_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
@@ -101,103 +103,87 @@ Data Structures</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdr_dev_info.html">drDevInfo</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdr_notification.html">drNotification</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a7e5fa3554a083bde109f9a09b3715dc9"><td class="memItemLeft" align="right" valign="top">typedef enum <a class="el" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="digger__recorder_8h.html#a7e5fa3554a083bde109f9a09b3715dc9">drError</a></td></tr>
-<tr class="separator:a7e5fa3554a083bde109f9a09b3715dc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab9973d109ff125cfed8ac5742cdfbf54"><td class="memItemLeft" align="right" valign="top">typedef enum <a class="el" href="digger__recorder_8h.html#aec428a6e7cda7dcbcf08964c34a21861">drNotificationType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="digger__recorder_8h.html#ab9973d109ff125cfed8ac5742cdfbf54">drNotificationType</a></td></tr>
-<tr class="separator:ab9973d109ff125cfed8ac5742cdfbf54"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e2eee6882b130dab5c9d443e394fe14"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9e2eee6882b130dab5c9d443e394fe14"></a>
-typedef struct <a class="el" href="structdr_levels.html">drLevels</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drLevels</b></td></tr>
+<tr class="memitem:a9e2eee6882b130dab5c9d443e394fe14"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structdr_levels.html">drLevels</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="digger__recorder_8h.html#a9e2eee6882b130dab5c9d443e394fe14">drLevels</a></td></tr>
 <tr class="separator:a9e2eee6882b130dab5c9d443e394fe14"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac3da50bb80430fc1b01adb1da2a5ae77"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac3da50bb80430fc1b01adb1da2a5ae77"></a>
-typedef struct <a class="el" href="structdr_dev_info.html">drDevInfo</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drDevInfo</b></td></tr>
+<tr class="memitem:ac3da50bb80430fc1b01adb1da2a5ae77"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structdr_dev_info.html">drDevInfo</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="digger__recorder_8h.html#ac3da50bb80430fc1b01adb1da2a5ae77">drDevInfo</a></td></tr>
 <tr class="separator:ac3da50bb80430fc1b01adb1da2a5ae77"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28ae04d4723cceb9165444d54947fdaa"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structdr_notification.html">drNotification</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="digger__recorder_8h.html#a28ae04d4723cceb9165444d54947fdaa">drNotification</a></td></tr>
-<tr class="separator:a28ae04d4723cceb9165444d54947fdaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0db6997ec4c50ee472f7075c318d3bf"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="digger__recorder_8h.html#aa0db6997ec4c50ee472f7075c318d3bf">drErrorCallback</a> )(<a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a> errorCode, void *userData)</td></tr>
+<tr class="separator:aa0db6997ec4c50ee472f7075c318d3bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a581c20bdc1055562f0ee04af0f5cd434"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="digger__recorder_8h.html#a581c20bdc1055562f0ee04af0f5cd434">drNotificationCallback</a> )(const <a class="el" href="structdr_notification.html">drNotification</a> *event, void *userData)</td></tr>
 <tr class="separator:a581c20bdc1055562f0ee04af0f5cd434"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:ad51fe2bf01827fafcca3b93cbe6091e1"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a> { <b>DR_NO_ERROR</b> = 0, 
-<b>DR_ALREADY_INITIALIZED</b>, 
-<b>DR_NOT_INITIALIZED</b>
- }</td></tr>
-<tr class="separator:ad51fe2bf01827fafcca3b93cbe6091e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aec428a6e7cda7dcbcf08964c34a21861"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="digger__recorder_8h.html#aec428a6e7cda7dcbcf08964c34a21861">drNotificationType</a> { <br/>
-&#160;&#160;<b>DR_DID_START_AUDIO_STREAM</b> = 0, 
-<b>DR_RECORDING_STARTED</b>, 
-<b>DR_RECORDING_PAUSED</b>, 
-<b>DR_RECORDING_RESUMED</b>, 
-<br/>
-&#160;&#160;<b>DR_RECORDING_FINISHED</b>, 
-<b>DR_RECORDING_CANCELED</b>
-<br/>
- }</td></tr>
-<tr class="separator:aec428a6e7cda7dcbcf08964c34a21861"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ab5e8a86983f4956c21ede61dbdcd0f4f"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="digger__recorder_8h.html#ab5e8a86983f4956c21ede61dbdcd0f4f">drNotificationTypeToString</a> (<a class="el" href="digger__recorder_8h.html#aec428a6e7cda7dcbcf08964c34a21861">drNotificationType</a> type)</td></tr>
-<tr class="separator:ab5e8a86983f4956c21ede61dbdcd0f4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a185d1c7eda36e20c2ed40a3cfb2850eb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="digger__recorder_8h.html#a185d1c7eda36e20c2ed40a3cfb2850eb">drInitialize</a> (<a class="el" href="digger__recorder_8h.html#a581c20bdc1055562f0ee04af0f5cd434">drNotificationCallback</a> notificationCallback, void *notificationCallbackUserData)</td></tr>
-<tr class="separator:a185d1c7eda36e20c2ed40a3cfb2850eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2741b7750b8ba1f066d0e03165753edd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="digger__recorder_8h.html#a2741b7750b8ba1f066d0e03165753edd">drDeinitialize</a> ()</td></tr>
+<tr class="memitem:a13d43b3e29f447ef2ff14d6b8394b280"><td class="memItemLeft" align="right" valign="top"><a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="digger__recorder_8h.html#a13d43b3e29f447ef2ff14d6b8394b280">drInitialize</a> (<a class="el" href="digger__recorder_8h.html#a581c20bdc1055562f0ee04af0f5cd434">drNotificationCallback</a> notificationCallback, <a class="el" href="digger__recorder_8h.html#aa0db6997ec4c50ee472f7075c318d3bf">drErrorCallback</a> errorCallback, void *callbackUserData, <a class="el" href="structdr_settings.html">drSettings</a> *settings)</td></tr>
+<tr class="separator:a13d43b3e29f447ef2ff14d6b8394b280"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2741b7750b8ba1f066d0e03165753edd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="digger__recorder_8h.html#a2741b7750b8ba1f066d0e03165753edd">drDeinitialize</a> ()</td></tr>
 <tr class="separator:a2741b7750b8ba1f066d0e03165753edd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a58dfcfa12e2fdbfbd8cc8894e7db5842"><td class="memItemLeft" align="right" valign="top"><a class="el" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="digger__recorder_8h.html#a58dfcfa12e2fdbfbd8cc8894e7db5842">drUpdate</a> (float timeStep)</td></tr>
+<tr class="memitem:a58dfcfa12e2fdbfbd8cc8894e7db5842"><td class="memItemLeft" align="right" valign="top"><a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="digger__recorder_8h.html#a58dfcfa12e2fdbfbd8cc8894e7db5842">drUpdate</a> (float timeStep)</td></tr>
 <tr class="separator:a58dfcfa12e2fdbfbd8cc8894e7db5842"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a03f9a275675bc4f1b4c5d585ad00ab66"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a03f9a275675bc4f1b4c5d585ad00ab66"></a>
-<a class="el" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drGetInputLevels</b> (int channel, int logLevels, <a class="el" href="structdr_levels.html">drLevels</a> *result)</td></tr>
+<a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drGetInputLevels</b> (int channel, int logLevels, <a class="el" href="structdr_levels.html">drLevels</a> *result)</td></tr>
 <tr class="separator:a03f9a275675bc4f1b4c5d585ad00ab66"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a4472bdd876f02ce654e8fe66453bbf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9a4472bdd876f02ce654e8fe66453bbf"></a>
-<a class="el" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drStartRecording</b> ()</td></tr>
+<a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drStartRecording</b> ()</td></tr>
 <tr class="separator:a9a4472bdd876f02ce654e8fe66453bbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1ccec3151c38c309e7aeabbc7976af97"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1ccec3151c38c309e7aeabbc7976af97"></a>
-<a class="el" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drCancelRecording</b> ()</td></tr>
+<a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drCancelRecording</b> ()</td></tr>
 <tr class="separator:a1ccec3151c38c309e7aeabbc7976af97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3cf8a2ac24620f62aff63ffb7a580e35"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3cf8a2ac24620f62aff63ffb7a580e35"></a>
-<a class="el" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drFinishRecording</b> ()</td></tr>
+<a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drFinishRecording</b> ()</td></tr>
 <tr class="separator:a3cf8a2ac24620f62aff63ffb7a580e35"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a152f4a1e8585f210a7a7b41f0b4c7496"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a152f4a1e8585f210a7a7b41f0b4c7496"></a>
-<a class="el" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drPauseRecording</b> ()</td></tr>
+<a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drPauseRecording</b> ()</td></tr>
 <tr class="separator:a152f4a1e8585f210a7a7b41f0b4c7496"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1993d93c090be674c585eb897229b247"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1993d93c090be674c585eb897229b247"></a>
-<a class="el" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drResumeRecording</b> ()</td></tr>
+<a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drResumeRecording</b> ()</td></tr>
 <tr class="separator:a1993d93c090be674c585eb897229b247"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa2601bb93f01d115813ca9fa29fe757d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa2601bb93f01d115813ca9fa29fe757d"></a>
-<a class="el" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drGetDevInfo</b> (<a class="el" href="structdr_dev_info.html">drDevInfo</a> *devInfo)</td></tr>
+<a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drGetDevInfo</b> (<a class="el" href="structdr_dev_info.html">drDevInfo</a> *devInfo)</td></tr>
 <tr class="separator:aa2601bb93f01d115813ca9fa29fe757d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Public Digger Recorder API </p>
 </div><h2 class="groupheader">Typedef Documentation</h2>
-<a class="anchor" id="a7e5fa3554a083bde109f9a09b3715dc9"></a>
+<a class="anchor" id="ac3da50bb80430fc1b01adb1da2a5ae77"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef enum <a class="el" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>  <a class="el" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a></td>
+          <td class="memname">typedef struct <a class="el" href="structdr_dev_info.html">drDevInfo</a>  <a class="el" href="structdr_dev_info.html">drDevInfo</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Error codes. </p>
+<p>Information useful when debugging and monitoring. </p>
 
 </div>
 </div>
-<a class="anchor" id="a28ae04d4723cceb9165444d54947fdaa"></a>
+<a class="anchor" id="aa0db6997ec4c50ee472f7075c318d3bf"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef struct <a class="el" href="structdr_notification.html">drNotification</a>  <a class="el" href="structdr_notification.html">drNotification</a></td>
+          <td class="memname">typedef void(* drErrorCallback)(<a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a> errorCode, void *userData)</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>A notification passed to the main (i.e UI) thread. </p>
+<p>A callback to invoke when errors occur. </p>
+
+</div>
+</div>
+<a class="anchor" id="a9e2eee6882b130dab5c9d443e394fe14"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="structdr_levels.html">drLevels</a>  <a class="el" href="structdr_levels.html">drLevels</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Information about audio levels for a single channel. </p>
 
 </div>
 </div>
@@ -210,47 +196,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>A callback to invoke for each incoming event. </p>
-
-</div>
-</div>
-<a class="anchor" id="ab9973d109ff125cfed8ac5742cdfbf54"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef enum <a class="el" href="digger__recorder_8h.html#aec428a6e7cda7dcbcf08964c34a21861">drNotificationType</a>  <a class="el" href="digger__recorder_8h.html#aec428a6e7cda7dcbcf08964c34a21861">drNotificationType</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Valid notification types. </p>
-
-</div>
-</div>
-<h2 class="groupheader">Enumeration Type Documentation</h2>
-<a class="anchor" id="ad51fe2bf01827fafcca3b93cbe6091e1"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Error codes. </p>
-
-</div>
-</div>
-<a class="anchor" id="aec428a6e7cda7dcbcf08964c34a21861"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="digger__recorder_8h.html#aec428a6e7cda7dcbcf08964c34a21861">drNotificationType</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Valid notification types. </p>
+<p>A callback to invoke for each incoming notification. </p>
 
 </div>
 </div>
@@ -260,7 +206,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a> drDeinitialize </td>
+          <td class="memname"><a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a> drDeinitialize </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -271,12 +217,12 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a185d1c7eda36e20c2ed40a3cfb2850eb"></a>
+<a class="anchor" id="a13d43b3e29f447ef2ff14d6b8394b280"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a> drInitialize </td>
+          <td class="memname"><a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a> drInitialize </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="digger__recorder_8h.html#a581c20bdc1055562f0ee04af0f5cd434">drNotificationCallback</a>&#160;</td>
           <td class="paramname"><em>notificationCallback</em>, </td>
@@ -284,8 +230,20 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="digger__recorder_8h.html#aa0db6997ec4c50ee472f7075c318d3bf">drErrorCallback</a>&#160;</td>
+          <td class="paramname"><em>errorCallback</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>notificationCallbackUserData</em>&#160;</td>
+          <td class="paramname"><em>callbackUserData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structdr_settings.html">drSettings</a> *&#160;</td>
+          <td class="paramname"><em>settings</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -295,23 +253,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Initializes the recorder. </p>
-
-</div>
-</div>
-<a class="anchor" id="ab5e8a86983f4956c21ede61dbdcd0f4f"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const char* drNotificationTypeToString </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="digger__recorder_8h.html#aec428a6e7cda7dcbcf08964c34a21861">drNotificationType</a>&#160;</td>
-          <td class="paramname"><em>type</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Helper function that returns a human readable description of a notification type. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">notificationCallback</td><td></td></tr>
+    <tr><td class="paramname">errorCallback</td><td></td></tr>
+    <tr><td class="paramname">callbackUserData</td><td></td></tr>
+    <tr><td class="paramname">settings</td><td>If NULL, default settings will be used. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -320,7 +270,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="digger__recorder_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a> drUpdate </td>
+          <td class="memname"><a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a> drUpdate </td>
           <td>(</td>
           <td class="paramtype">float&#160;</td>
           <td class="paramname"><em>timeStep</em></td><td>)</td>
@@ -335,7 +285,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Sep 3 2014 11:05:50 for Digger Recorder Private API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Sep 5 2014 16:57:17 for Digger Recorder Private API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>

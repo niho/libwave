@@ -85,29 +85,60 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">opus_encoder.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-
+<div class="textblock"><code>#include &quot;opus.h&quot;</code><br/>
+<code>#include &quot;<a class="el" href="error__codes_8h_source.html">error_codes.h</a>&quot;</code><br/>
+</div>
 <p><a href="opus__encoder_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdr_encoder.html">drEncoder</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdr_opus_encoder.html">drOpusEncoder</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a17468d10f0c67a4ee7b38aab09d9e096"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a17468d10f0c67a4ee7b38aab09d9e096"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>BITRATE</b>&#160;&#160;&#160;64000</td></tr>
+<tr class="separator:a17468d10f0c67a4ee7b38aab09d9e096"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9b1b2ba12857a4bf11289dac8c5462d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af9b1b2ba12857a4bf11289dac8c5462d"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>FRAME_SIZE</b>&#160;&#160;&#160;960</td></tr>
+<tr class="separator:af9b1b2ba12857a4bf11289dac8c5462d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a879456c3b8e2853f7044d764e9c180d4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a879456c3b8e2853f7044d764e9c180d4"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MAX_PACKET_SIZE</b>&#160;&#160;&#160;(3*1276)</td></tr>
+<tr class="separator:a879456c3b8e2853f7044d764e9c180d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:aa9a6afa4ccb10ce06241aba1f0003c98"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa9a6afa4ccb10ce06241aba1f0003c98"></a>
-typedef struct <a class="el" href="structdr_encoder.html">drEncoder</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drEncoder</b></td></tr>
-<tr class="separator:aa9a6afa4ccb10ce06241aba1f0003c98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae420903843b73e74f8822a84861cf464"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae420903843b73e74f8822a84861cf464"></a>
+typedef struct <a class="el" href="structdr_opus_encoder.html">drOpusEncoder</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drOpusEncoder</b></td></tr>
+<tr class="separator:ae420903843b73e74f8822a84861cf464"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:aafa31cf2ccffcc85cefe1a7e82459799"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aafa31cf2ccffcc85cefe1a7e82459799"></a>
+<a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drOpusEncoder_init</b> (void *opusEncoder, const char *filePath, float fs, float numChannels)</td></tr>
+<tr class="separator:aafa31cf2ccffcc85cefe1a7e82459799"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adac5882de654e532b4ed9ac9b8234923"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adac5882de654e532b4ed9ac9b8234923"></a>
+<a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drOpusEncoder_write</b> (void *opusEncoder, int numChannels, int numFrames, float *buffer)</td></tr>
+<tr class="separator:adac5882de654e532b4ed9ac9b8234923"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeef87595bddab4b4c4f1a47f5f07efbc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aeef87595bddab4b4c4f1a47f5f07efbc"></a>
+<a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drOpusEncoder_finish</b> (void *opusEncoder)</td></tr>
+<tr class="separator:aeef87595bddab4b4c4f1a47f5f07efbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad126716839adad0d2579e6ec58805eb9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad126716839adad0d2579e6ec58805eb9"></a>
+<a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drOpusEncoder_cancel</b> (void *opusEncoder)</td></tr>
+<tr class="separator:ad126716839adad0d2579e6ec58805eb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Sep 3 2014 11:05:50 for Digger Recorder Private API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Sep 5 2014 16:57:17 for Digger Recorder Private API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>

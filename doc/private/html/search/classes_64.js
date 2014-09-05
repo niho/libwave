@@ -9,7 +9,9 @@ var searchData=
   ['drlevels',['drLevels',['../structdr_levels.html',1,'']]],
   ['drlockfreefifo',['drLockFreeFIFO',['../structdr_lock_free_f_i_f_o.html',1,'']]],
   ['drnotification',['drNotification',['../structdr_notification.html',1,'']]],
+  ['dropusencoder',['drOpusEncoder',['../structdr_opus_encoder.html',1,'']]],
   ['drrawencoder',['drRawEncoder',['../structdr_raw_encoder.html',1,'']]],
   ['drrecordedchunk',['drRecordedChunk',['../structdr_recorded_chunk.html',1,'']]],
-  ['drrecordingsession',['drRecordingSession',['../structdr_recording_session.html',1,'']]]
+  ['drrecordingsession',['drRecordingSession',['../structdr_recording_session.html',1,'']]],
+  ['drsettings',['drSettings',['../structdr_settings.html',1,'']]]
 ];

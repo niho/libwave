@@ -49,7 +49,6 @@ extern "C"
         int errorFIFOUnderrun;
     } drDevInfo;
     
-    
     /**
      * A callback to invoke when errors occur.
      */
@@ -61,6 +60,12 @@ extern "C"
     typedef void (*drNotificationCallback)(const drNotification* event, void* userData);
     
     /**
+     * A callback that gets invoked when the recorder needs to create
+     * an audio file to recod to.
+     */
+    typedef const char* (*drWritableAudioFilePathCallback)(void);
+    
+    /**
      * Initializes the recorder.
      * @param notificationCallback
      * @param errorCallback
@@ -69,7 +74,9 @@ extern "C"
      */
     drError drInitialize(drNotificationCallback notificationCallback,
                          drErrorCallback errorCallback,
+                         drWritableAudioFilePathCallback writableFilePathCallback,
                          void* callbackUserData,
+                         const char* settingsFilePath,
                          drSettings* settings);
     
     /**

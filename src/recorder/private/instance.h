@@ -102,6 +102,8 @@ extern "C"
         drLockFreeFIFO controlEventFIFO;
         drLockFreeFIFO errorFIFO;
         
+        drWritableAudioFilePathCallback writableFilePathCallback;
+        
         drNotificationCallback notificationCallback;
         drErrorCallback errorCallback;
         void* callbackUserData;
@@ -126,7 +128,9 @@ extern "C"
     void drInstance_init(drInstance* instance,
                          drNotificationCallback notificationCallback,
                          drErrorCallback errorCallback,
+                         drWritableAudioFilePathCallback writableFilePathCallback,
                          void* callbackUserData,
+                         const char* settingsFilePath,
                          drSettings* settings);
     
     /**

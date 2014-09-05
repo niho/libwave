@@ -1,10 +1,13 @@
 var searchData=
 [
   ['drdeinitialize',['drDeinitialize',['../digger__recorder_8h.html#a2741b7750b8ba1f066d0e03165753edd',1,'digger_recorder.c']]],
-  ['drinitialize',['drInitialize',['../digger__recorder_8h.html#a185d1c7eda36e20c2ed40a3cfb2850eb',1,'digger_recorder.c']]],
+  ['drerrortostring',['drErrorToString',['../error__codes_8h.html#ae74168d15b3d712ad2e389be109dab2b',1,'error_codes.c']]],
+  ['drgetwritablefilepath',['drGetWritableFilePath',['../platform__util_8h.html#a0c3138e41b01ccbea023fe264b8fee07',1,'platform_util.h']]],
+  ['drinitialize',['drInitialize',['../digger__recorder_8h.html#a13d43b3e29f447ef2ff14d6b8394b280',1,'digger_recorder.c']]],
   ['drinstance_5faddinputanalyzer',['drInstance_addInputAnalyzer',['../instance_8h.html#aecddc614f402ba00c2a8904ce544cfd9',1,'instance.c']]],
   ['drinstance_5fenqueuecontrolevent',['drInstance_enqueueControlEvent',['../instance_8h.html#af630066616f0ecccb150b87d784f8d59',1,'instance.c']]],
   ['drinstance_5fenqueuecontroleventoftype',['drInstance_enqueueControlEventOfType',['../instance_8h.html#aa017a1f360ae6146302a5881bf795e64',1,'instance.c']]],
+  ['drinstance_5fenqueueerror',['drInstance_enqueueError',['../instance_8h.html#a2f9ec09c00ffde627935df2e5e76a875',1,'instance.c']]],
   ['drinstance_5fenqueuenotification',['drInstance_enqueueNotification',['../instance_8h.html#a952f566c91e479b7b5175e5183e3bd92',1,'instance.c']]],
   ['drinstance_5fenqueuenotificationoftype',['drInstance_enqueueNotificationOfType',['../instance_8h.html#a6ae1f9767b70c750f6eeb32a7d1014c8',1,'instance.c']]],
   ['drinstance_5fisonmainthread',['drInstance_isOnMainThread',['../instance_8h.html#ad7cf93f2ab72c808b80e495b661f851d',1,'instance.c']]],
@@ -14,6 +17,7 @@ var searchData=
   ['drlevelmeter_5fprocessbuffer',['drLevelMeter_processBuffer',['../level__meter_8h.html#a4ea8aadfa5b876f592d3202db0f23120',1,'level_meter.c']]],
   ['drlockfreefifo_5fpop',['drLockFreeFIFO_pop',['../lock__free__fifo_8h.html#acddeff3814ca5b70943e12f9a05746bb',1,'lock_free_fifo.c']]],
   ['drlockfreefifo_5fpush',['drLockFreeFIFO_push',['../lock__free__fifo_8h.html#a13df84b89448e1f90394c43de9f87cd1',1,'lock_free_fifo.c']]],
-  ['drnotificationtypetostring',['drNotificationTypeToString',['../digger__recorder_8h.html#ab5e8a86983f4956c21ede61dbdcd0f4f',1,'digger_recorder.c']]],
+  ['drnotificationtypetostring',['drNotificationTypeToString',['../notification_8h.html#ab5e8a86983f4956c21ede61dbdcd0f4f',1,'digger_recorder.c']]],
+  ['drsettings_5fsetdefaults',['drSettings_setDefaults',['../settings_8h.html#a3e98c8a812d81dbc505de07bb4436058',1,'settings.c']]],
   ['drupdate',['drUpdate',['../digger__recorder_8h.html#a58dfcfa12e2fdbfbd8cc8894e7db5842',1,'digger_recorder.c']]]
 ];
