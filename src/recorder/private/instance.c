@@ -32,7 +32,7 @@ static void mainThreadUpdateCallback(void* data)
     drError e;
     while (drLockFreeFIFO_pop(&in->errorFIFO, &e))
     {
-        drInstance_invokeErrorCallback(in, e);
+        drInstance_onMainThreadError(in, e);
     }
     
     //invoke the event callback for any incoming events on the main thread
@@ -127,7 +127,11 @@ static void inputCallback(float* inBuffer, int numChannels, int numFrames, void*
                 }
                 memcpy(c.samples, &inBuffer[sampleIdx], samplesLeft * sizeof(float));
                 //printf("sending %d frames of recorded %d channel audio to the main thread\n", samplesLeft, numChannels);
-                drLockFreeFIFO_push(&in->inputAudioDataQueue, &c);
+                int pushSuccess = drLockFreeFIFO_push(&in->inputAudioDataQueue, &c);
+                if (pushSuccess == 0)
+                {
+                    in->devInfo.recordFIFOUnderrun = 1;
+                }
                 sampleIdx += samplesLeft;
                 chunkIdx++;
             }
@@ -162,6 +166,7 @@ static void outputCallback(float* inBuffer, int numChannels, int numFrames, void
 
 void drInstance_init(drInstance* instance,
                      drNotificationCallback notificationCallback,
+                     drErrorCallback errorCallback,
                      void* callbackUserData,
                      drSettings* settings)
 {
@@ -186,6 +191,7 @@ void drInstance_init(drInstance* instance,
     
     //hook up notification callback
     instance->notificationCallback = notificationCallback;
+    instance->errorCallback = errorCallback;
     instance->callbackUserData = callbackUserData;
     
     drCreateEncoder(&instance->recordingSession.encoder);
@@ -232,9 +238,9 @@ void drInstance_init(drInstance* instance,
     {
         drLevelMeter_init(&instance->inputLevelMeters[i],
                           i,
-                          settings->desiredSampleRate,
-                          settings->levelMeterAttackTime,
-                          settings->levelMeterReleaseTime,
+                          instance->settings.desiredSampleRate,
+                          instance->settings.levelMeterAttackTime,
+                          instance->settings.levelMeterReleaseTime,
                           0.5f);
         drInstance_addInputAnalyzer(instance,
                                     &instance->inputLevelMeters[i],
@@ -242,11 +248,10 @@ void drInstance_init(drInstance* instance,
                                     drLevelMeter_deinit);
     }
     
-    
-    kwlInitialize(settings->desiredSampleRate,
+    kwlInitialize(instance->settings.desiredSampleRate,
                   numOutChannels,
                   numInputChannels,
-                  settings->desiredBufferSizeInFrames);
+                  instance->settings.desiredBufferSizeInFrames);
     kwlError initResult = kwlGetError();
     assert(initResult == KWL_NO_ERROR);
     
@@ -282,8 +287,8 @@ void drInstance_deinit(drInstance* instance)
     
     //release event queues
     drLockFreeFIFO_deinit(&instance->notificationFIFO);
-    
     drLockFreeFIFO_deinit(&instance->controlEventFIFO);
+    drLockFreeFIFO_deinit(&instance->errorFIFO);
     
     mtx_destroy(&instance->communicationQueueLock);
 
@@ -311,20 +316,32 @@ void drInstance_update(drInstance* instance, float timeStep)
     //pump audio data FIFO after the notifiaction FIFO, to make sure
     //a recording started event arrives before the first audio data.
     drRecordedChunk c;
+    int errorOccured = 0;
     while (drLockFreeFIFO_pop(&instance->inputAudioDataQueue, &c))
     {
         //printf("%d frames of recorded %d channel audio arrived on the main thread\n", c.numFrames, c.numChannels);
-        instance->recordingSession.numRecordedFrames += c.numFrames;
-        
-        instance->recordingSession.encoder.writeCallback(instance->recordingSession.encoder.encoderData,
-                                                         c.numChannels,
-                                                         c.numFrames,
-                                                         c.samples);
-        
-        //printf("recorded %d frames on the main thread\n", instance->recordingSession.numRecordedFrames);
-        if (c.lastChunk)
+        if (!errorOccured)
         {
-            drInstance_finishRecording(instance);
+            instance->recordingSession.numRecordedFrames += c.numFrames;
+            
+            drError writeResult = instance->recordingSession.encoder.writeCallback(instance->recordingSession.encoder.encoderData,
+                                                                                   c.numChannels,
+                                                                                   c.numFrames,
+                                                                                   c.samples);
+            
+            if (writeResult != DR_NO_ERROR)
+            {
+                errorOccured = 1;
+                drInstance_enqueueError(instance, writeResult);
+            }
+            else
+            {
+                //printf("recorded %d frames on the main thread\n", instance->recordingSession.numRecordedFrames);
+                if (c.lastChunk)
+                {
+                    drInstance_finishRecording(instance);
+                }
+            }
         }
     }
 }
@@ -419,13 +436,21 @@ void drInstance_invokeNotificationCallback(drInstance* instance, const drNotific
 void drInstance_enqueueError(drInstance* instance, drError error)
 {
     assert(!drInstance_isOnMainThread(instance));
-    drLockFreeFIFO_push(&instance->errorFIFO, &error);
+    int pushSuccess = drLockFreeFIFO_push(&instance->errorFIFO, &error);
+    if (pushSuccess == 0)
+    {
+        instance->devInfo.errorFIFOUnderrun = 1;
+    }
 }
 
 void drInstance_enqueueNotification(drInstance* instance, const drNotification* notification)
 {
     assert(!drInstance_isOnMainThread(instance));
-    drLockFreeFIFO_push(&instance->notificationFIFO, notification);
+    int pushSuccess = drLockFreeFIFO_push(&instance->notificationFIFO, notification);
+    if (pushSuccess == 0)
+    {
+        instance->devInfo.notificationFIFOUnderrun = 1;
+    }
 }
 
 void drInstance_enqueueNotificationOfType(drInstance* instance, drNotificationType type)
@@ -439,7 +464,11 @@ void drInstance_enqueueNotificationOfType(drInstance* instance, drNotificationTy
 void drInstance_enqueueControlEvent(drInstance* instance, const drControlEvent* event)
 {
     assert(drInstance_isOnMainThread(instance));
-    drLockFreeFIFO_push(&instance->controlEventFIFO, (void*)event);
+    int pushSuccess = drLockFreeFIFO_push(&instance->controlEventFIFO, (void*)event);
+    if (pushSuccess == 0)
+    {
+        instance->devInfo.controlEventFIFOUnderrun = 1;
+    }
 }
 
 void drInstance_enqueueControlEventOfType(drInstance* instance, drControlEventType type)
@@ -518,9 +547,28 @@ void drInstance_onAudioThreadControlEvent(drInstance* instance, const drControlE
     }
 }
 
+void drInstance_onMainThreadError(drInstance* instance, drError error)
+{
+    assert(drInstance_isOnMainThread(instance));
+    
+    drInstance_invokeErrorCallback(instance, error);
+    
+    if (error == DR_FAILED_TO_ENCODE_AUDIO_DATA ||
+        error == DR_FAILED_TO_WRITE_ENCODED_AUDIO_DATA)
+    {
+        drError cancelResult = instance->recordingSession.encoder.cancelCallback(instance->recordingSession.encoder.cancelCallback);
+        if (cancelResult != DR_NO_ERROR)
+        {
+            drInstance_invokeErrorCallback(instance, cancelResult);
+        }
+    }
+}
+
 void drInstance_onMainThreadNotification(drInstance* instance, const drNotification* notification)
 {
     assert(drInstance_isOnMainThread(instance));
+    
+    drInstance_invokeNotificationCallback(instance, notification);
     
     switch (notification->type)
     {
@@ -563,8 +611,6 @@ void drInstance_onMainThreadNotification(drInstance* instance, const drNotificat
             break;
         }
     }
-    
-    drInstance_invokeNotificationCallback(instance, notification);
 }
 
 static float lin2LogLevel(float lin)
@@ -588,4 +634,16 @@ void drInstance_getInputLevels(drInstance* instance, int channel, int logLevels,
     result->peakLevel = logLevels ? lin2LogLevel(lSrc->peakLevel) : lSrc->peakLevel;
     result->peakLevelEnvelope = logLevels ? lin2LogLevel(lSrc->peakLevelEnvelope) : lSrc->peakLevelEnvelope;
     result->rmsLevel = logLevels ? lin2LogLevel(lSrc->rmsLevel) : lSrc->rmsLevel;
+}
+
+void drInstance_getDevInfo(drInstance* instance, drDevInfo* devInfo)
+{
+    //copy the info to the caller
+    memcpy(devInfo, &instance->devInfo, sizeof(drDevInfo));
+    
+    //clear any flags
+    instance->devInfo.recordFIFOUnderrun = 0;
+    instance->devInfo.controlEventFIFOUnderrun = 0;
+    instance->devInfo.notificationFIFOUnderrun = 0;
+    instance->devInfo.errorFIFOUnderrun = 0;
 }

@@ -36,6 +36,17 @@ extern "C"
         float notificationFIFOLevel;
         /** 0 - 1, 0 empty, 1 full. */
         float controlEventFIFOLevel;
+        /** 
+         * Gets set to a non-zero value if the audio recording FIFO 
+         * is full.
+         */
+        int recordFIFOUnderrun;
+        /** */
+        int notificationFIFOUnderrun;
+        /** */
+        int controlEventFIFOUnderrun;
+        /** */
+        int errorFIFOUnderrun;
     } drDevInfo;
     
     

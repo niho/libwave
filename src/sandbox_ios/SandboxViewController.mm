@@ -125,6 +125,37 @@ static void errorCallback(drError error, void* userData)
         drDevInfo di;
         drGetDevInfo(&di);
         
+        float a = 0.2f;
+        float dur = 2.0f;
+        if (di.errorFIFOUnderrun)
+        {
+            self.sandboxView.errorFIFOUnderrunLabel.alpha = 1.0f;
+            [UIView animateWithDuration:dur animations:^(void) {
+                self.sandboxView.errorFIFOUnderrunLabel.alpha = a;
+            }];
+        }
+        if (di.recordFIFOUnderrun)
+        {
+            self.sandboxView.recordingFIFOUnderrunLabel.alpha = 1.0f;
+            [UIView animateWithDuration:dur animations:^(void) {
+                self.sandboxView.recordingFIFOUnderrunLabel.alpha = a;
+            }];
+        }
+        if (di.controlEventFIFOUnderrun)
+        {
+            self.sandboxView.controlFIFOUnderrunLabel.alpha = 1.0f;
+            [UIView animateWithDuration:dur animations:^(void) {
+                self.sandboxView.controlFIFOUnderrunLabel.alpha = a;
+            }];
+        }
+        if (di.notificationFIFOUnderrun)
+        {
+            self.sandboxView.notificationFIFOUnderrunLabel.alpha = 1.0f;
+            [UIView animateWithDuration:dur animations:^(void) {
+                self.sandboxView.notificationFIFOUnderrunLabel.alpha = a;
+            }];
+        }
+        
         [self.sandboxView.levelMeterView updateLevels:&il];
         [self.sandboxView.devInfoView updateInfo:&di];
     }

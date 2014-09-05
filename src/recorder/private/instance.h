@@ -125,6 +125,7 @@ extern "C"
      */
     void drInstance_init(drInstance* instance,
                          drNotificationCallback notificationCallback,
+                         drErrorCallback errorCallback,
                          void* callbackUserData,
                          drSettings* settings);
     
@@ -157,6 +158,11 @@ extern "C"
      * Invoked when a notification reaches the main thread. Invoked on the main thread.
      */
     void drInstance_onMainThreadNotification(drInstance* instance, const drNotification* notification);
+    
+    /**
+     *
+     */
+    void drInstance_onMainThreadError(drInstance* instance, drError error);
     
     /**
      * Returns 0 on success, or non-zero if there is no free analyzer slot.
@@ -215,6 +221,11 @@ extern "C"
      * Must be called <strong>only from the main thread</strong>!
      */
     void drInstance_enqueueControlEventOfType(drInstance* instance, drControlEventType type);
+    
+    /**
+     *
+     */
+    void drInstance_getDevInfo(drInstance* instance, drDevInfo* devInfo);
     
 #ifdef __cplusplus
 }

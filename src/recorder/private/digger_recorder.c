@@ -64,7 +64,11 @@ drError drInitialize(drNotificationCallback notificationCallback,
     }
     
     instance = DR_MALLOC(sizeof(drInstance), "Digger recorder instance");
-    drInstance_init(instance, notificationCallback, callbackUserData, settings);
+    drInstance_init(instance, 
+                    notificationCallback,
+                    errorCallback,
+                    callbackUserData,
+                    settings);
     
     return DR_NO_ERROR;
 }
@@ -174,7 +178,7 @@ drError drGetDevInfo(drDevInfo* devInfo)
         return DR_NOT_INITIALIZED;
     }
     
-    memcpy(devInfo, &instance->devInfo, sizeof(drDevInfo));
+    drInstance_getDevInfo(instance, devInfo);
     
     return DR_NO_ERROR;
 }

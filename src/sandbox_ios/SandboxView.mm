@@ -125,6 +125,33 @@
         [self addUITitleRow:@"Dev info"];
         self.devInfoView = [[DevInfoView alloc] init];
         [self addUIRow:self.devInfoView];
+        
+        const float a = 0.2f;
+        
+        self.errorFIFOUnderrunLabel = [[UILabel alloc] init];
+        self.errorFIFOUnderrunLabel.text = @"Err FIFO";
+        self.errorFIFOUnderrunLabel.textColor = [UIColor redColor];
+        self.errorFIFOUnderrunLabel.alpha = a;
+        
+        self.controlFIFOUnderrunLabel = [[UILabel alloc] init];
+        self.controlFIFOUnderrunLabel.text = @"Ctrl FIFO";
+        self.controlFIFOUnderrunLabel.textColor = [UIColor redColor];
+        self.controlFIFOUnderrunLabel.alpha = a;
+        
+        self.notificationFIFOUnderrunLabel = [[UILabel alloc] init];
+        self.notificationFIFOUnderrunLabel.text = @"Not FIFO";
+        self.notificationFIFOUnderrunLabel.textColor = [UIColor redColor];
+        self.notificationFIFOUnderrunLabel.alpha = a;
+        
+        self.recordingFIFOUnderrunLabel = [[UILabel alloc] init];
+        self.recordingFIFOUnderrunLabel.text = @"Rec FIFO";
+        self.recordingFIFOUnderrunLabel.textColor = [UIColor redColor];
+        self.recordingFIFOUnderrunLabel.alpha = a;
+        
+        [self addUIRow:self.controlFIFOUnderrunLabel
+                      :self.notificationFIFOUnderrunLabel
+                      :self.recordingFIFOUnderrunLabel
+                      :self.errorFIFOUnderrunLabel];
     }
     
     m_scrollView.contentSize = CGSizeMake(self.frame.size.width, m_currUIRow * kUIRowHeight);

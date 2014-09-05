@@ -11,6 +11,11 @@
     int m_currUIRow;
 }
 
+@property (nonatomic, retain) UILabel* errorFIFOUnderrunLabel;
+@property (nonatomic, retain) UILabel* controlFIFOUnderrunLabel;
+@property (nonatomic, retain) UILabel* notificationFIFOUnderrunLabel;
+@property (nonatomic, retain) UILabel* recordingFIFOUnderrunLabel;
+
 @property (nonatomic, retain) UILabel* latestErrorLabel;
 @property (nonatomic, retain) UILabel* latestNotificationLabel;
 @property (nonatomic, retain) LevelMeterView* levelMeterView;
