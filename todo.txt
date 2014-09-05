@@ -1,3 +1,6 @@
+[ ] public API for encoder events
+[ ] settings for init
+
 [ ] Associate recording sessions with handles, to make it possible to resume sessions
 [ ] Verify FIFO data integrity when it arrives on the main thread
 [ ] Don't drive the polling from a loop that pauses during scrolls (i.e NSTimer)

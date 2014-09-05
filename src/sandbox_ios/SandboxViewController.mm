@@ -154,7 +154,7 @@ static void eventCallback(const drNotification* event, void* userData)
 
 -(void)onInit:(id)sender
 {
-    drInitialize(eventCallback, (__bridge void*)(self));
+    drInitialize(eventCallback, (__bridge void*)(self), NULL);
 }
 
 -(void)onDeinit:(id)sender

@@ -53,7 +53,9 @@ const char* drNotificationTypeToString(drNotificationType type)
 
 static drInstance* instance = NULL;
 
-drError drInitialize(drNotificationCallback notificationCallback, void* notificationCallbackUserData)
+drError drInitialize(drNotificationCallback notificationCallback,
+                     void* notificationCallbackUserData,
+                     drSettings* settings)
 {
     if (instance)
     {
@@ -61,7 +63,7 @@ drError drInitialize(drNotificationCallback notificationCallback, void* notifica
     }
     
     instance = DR_MALLOC(sizeof(drInstance), "Digger recorder instance");
-    drInstance_init(instance, notificationCallback, notificationCallbackUserData);
+    drInstance_init(instance, notificationCallback, notificationCallbackUserData, settings);
     
     
     return DR_NO_ERROR;

@@ -10,6 +10,7 @@
 #include "analyzer.h"
 #include "lock_free_fifo.h"
 #include "recording_session.h"
+#include "settings.h"
 
 #ifdef __cplusplus
 extern "C"
@@ -20,9 +21,7 @@ extern "C"
     #define MAX_NUM_INPUT_CHANNELS 1
     #define MAX_NUM_OUTPUT_CHANNELS 2
     
-    #define kControlEventFIFOCapacity (50)
-    #define kNotificationFIFOCapacity (50)
-    #define kRecordFIFOCapacity (50)
+    
     #define MAX_RECORDED_CHUNK_SIZE 1024
     
     typedef struct drRecordedChunk
@@ -80,6 +79,8 @@ extern "C"
      */
     typedef struct drInstance
     {
+        drSettings settings;
+        
         drState stateAudioThread;
         drState stateMainThread;
         
@@ -123,7 +124,8 @@ extern "C"
      */
     void drInstance_init(drInstance* instance,
                          drNotificationCallback notificationCallback,
-                         void* notificationCallbackUserData);
+                         void* notificationCallbackUserData,
+                         drSettings* settings);
     
     /**
      *

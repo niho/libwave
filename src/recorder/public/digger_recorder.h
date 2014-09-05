@@ -7,6 +7,7 @@
 
 #include "error_codes.h"
 #include "notification.h"
+#include "settings.h"
 
 #ifdef __cplusplus
 extern "C"
@@ -45,8 +46,13 @@ extern "C"
     
     /**
      * Initializes the recorder.
+     * @param notificationCallback
+     * @param notificationCallbackUserData
+     * @param settings If NULL, default settings will be used.
      */
-    drError drInitialize(drNotificationCallback notificationCallback, void* notificationCallbackUserData);
+    drError drInitialize(drNotificationCallback notificationCallback,
+                         void* notificationCallbackUserData,
+                         drSettings* settings);
     
     /**
      * Shuts down the recorder.

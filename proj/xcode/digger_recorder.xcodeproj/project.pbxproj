@@ -492,6 +492,8 @@
 		C1E07B2419B9BADE00F63CA1 /* utf.h in Headers */ = {isa = PBXBuildFile; fileRef = C1E07B0919B9BADE00F63CA1 /* utf.h */; };
 		C1E07B2519B9BADE00F63CA1 /* value.c in Sources */ = {isa = PBXBuildFile; fileRef = C1E07B0A19B9BADE00F63CA1 /* value.c */; };
 		C1E07B2619B9BADE00F63CA1 /* value.c in Sources */ = {isa = PBXBuildFile; fileRef = C1E07B0A19B9BADE00F63CA1 /* value.c */; };
+		C1E07B2819B9C7E900F63CA1 /* settings.c in Sources */ = {isa = PBXBuildFile; fileRef = C1E07B2719B9C7E900F63CA1 /* settings.c */; };
+		C1E07B2919B9C7E900F63CA1 /* settings.c in Sources */ = {isa = PBXBuildFile; fileRef = C1E07B2719B9C7E900F63CA1 /* settings.c */; };
 		C1F579E019B4A262000C6BCF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F579DF19B4A262000C6BCF /* Foundation.framework */; };
 		C1F57A1019B4A282000C6BCF /* digger_recorder.c in Sources */ = {isa = PBXBuildFile; fileRef = C1F57A0519B4A282000C6BCF /* digger_recorder.c */; };
 		C1F57A1119B4A282000C6BCF /* instance.c in Sources */ = {isa = PBXBuildFile; fileRef = C1F57A0619B4A282000C6BCF /* instance.c */; };
@@ -887,6 +889,8 @@
 		C1E07B0819B9BADE00F63CA1 /* utf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = utf.c; path = ../../external/jansson/src/utf.c; sourceTree = "<group>"; };
 		C1E07B0919B9BADE00F63CA1 /* utf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = utf.h; path = ../../external/jansson/src/utf.h; sourceTree = "<group>"; };
 		C1E07B0A19B9BADE00F63CA1 /* value.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = value.c; path = ../../external/jansson/src/value.c; sourceTree = "<group>"; };
+		C1E07B2719B9C7E900F63CA1 /* settings.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = settings.c; sourceTree = "<group>"; };
+		C1E07B2A19B9C7F000F63CA1 /* settings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = settings.h; sourceTree = "<group>"; };
 		C1F579DC19B4A262000C6BCF /* libdigger_recorder_ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libdigger_recorder_ios.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1F579DF19B4A262000C6BCF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C1F579ED19B4A262000C6BCF /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -1427,6 +1431,7 @@
 				C12E1F8C19B7583C004532A8 /* platform_util_ios.m */,
 				C12E1F8D19B7583C004532A8 /* platform_util.h */,
 				C12E1F3F19B62485004532A8 /* recording_session.h */,
+				C1E07B2719B9C7E900F63CA1 /* settings.c */,
 			);
 			path = private;
 			sourceTree = "<group>";
@@ -1437,6 +1442,7 @@
 				C12E1F8719B74B65004532A8 /* error_codes.h */,
 				C1F57A0E19B4A282000C6BCF /* digger_recorder.h */,
 				C12E1F8519B74B25004532A8 /* notification.h */,
+				C1E07B2A19B9C7F000F63CA1 /* settings.h */,
 			);
 			path = public;
 			sourceTree = "<group>";
@@ -1784,6 +1790,7 @@
 				C12E1EF819B6132B004532A8 /* opus_multistream_decoder.c in Sources */,
 				C12E1ED519B6132B004532A8 /* tables_other.c in Sources */,
 				C12E1EAA19B6132B004532A8 /* resampler_private_down_FIR.c in Sources */,
+				C1E07B2919B9C7E900F63CA1 /* settings.c in Sources */,
 				C12E1EE719B6132B004532A8 /* mlp_data.c in Sources */,
 				C12E1DF519B6132B004532A8 /* autocorr_FIX.c in Sources */,
 				C12E1F8419B74206004532A8 /* mem.c in Sources */,
@@ -1997,6 +2004,7 @@
 				C12E1EF719B6132B004532A8 /* opus_multistream_decoder.c in Sources */,
 				C12E1ED419B6132B004532A8 /* tables_other.c in Sources */,
 				C12E1EA919B6132B004532A8 /* resampler_private_down_FIR.c in Sources */,
+				C1E07B2819B9C7E900F63CA1 /* settings.c in Sources */,
 				C12E1EE619B6132B004532A8 /* mlp_data.c in Sources */,
 				C12E1DF419B6132B004532A8 /* autocorr_FIX.c in Sources */,
 				C12E1F8319B74206004532A8 /* mem.c in Sources */,

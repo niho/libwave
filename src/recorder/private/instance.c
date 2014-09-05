@@ -157,9 +157,22 @@ static void outputCallback(float* inBuffer, int numChannels, int numFrames, void
     }
 }
 
-void drInstance_init(drInstance* instance, drNotificationCallback notificationCallback, void* notificationCallbackUserData)
+void drInstance_init(drInstance* instance,
+                     drNotificationCallback notificationCallback,
+                     void* notificationCallbackUserData,
+                     drSettings* settings)
 {
     memset(instance, 0, sizeof(drInstance));
+    
+    //use custom settings if provided.
+    if (settings)
+    {
+        memcpy(&instance->settings, settings, sizeof(drSettings));
+    }
+    else
+    {
+        drSettings_setDefaults(&instance->settings);
+    }
     
     //printf("opus_get_version_string %s\n", opus_get_version_string());
     
@@ -174,11 +187,18 @@ void drInstance_init(drInstance* instance, drNotificationCallback notificationCa
     
     drCreateEncoder(&instance->recordingSession.encoder);
     
-    drLockFreeFIFO_init(&instance->inputAudioDataQueue, kRecordFIFOCapacity, sizeof(drRecordedChunk));
+    drLockFreeFIFO_init(&instance->inputAudioDataQueue,
+                        instance->settings.recordFIFOCapacity,
+                        sizeof(drRecordedChunk));
     
     //create notification and control event queues
-    drLockFreeFIFO_init(&instance->notificationFIFO, kNotificationFIFOCapacity, sizeof(drNotification));
-    drLockFreeFIFO_init(&instance->controlEventFIFO, kControlEventFIFOCapacity, sizeof(drControlEvent));
+    drLockFreeFIFO_init(&instance->notificationFIFO,
+                        instance->settings.notificationFIFOCapacity,
+                        sizeof(drNotification));
+    
+    drLockFreeFIFO_init(&instance->controlEventFIFO,
+                        instance->settings.controlEventFIFOCapacity,
+                        sizeof(drControlEvent));
     
     mtx_init(&instance->communicationQueueLock, mtx_plain);
     
