@@ -9,16 +9,16 @@
 
 //https://chromium.googlesource.com/chromium/deps/opus/+/3c3902f0ac13428394f14f78f0fab05ef3468d69/doc/trivial_example.c
 
-/*The frame size is hardcoded for this sample code but it doesn't have to be*/
-#define FRAME_SIZE 960
-
-#define BITRATE 64000
-#define MAX_FRAME_SIZE 6*960
-#define MAX_PACKET_SIZE (3*1276)
+//TODO: KOLLA IN http://stackoverflow.com/questions/12516650/opus-audio-codec-encoding-for-iphone
+//https://review.webrtc.org/10489004/
+//http://holdenc.altervista.org/parole/
 
 void drOpusEncoder_init(void* opusEncoder, const char* filePath, float fs, float numChannels)
 {
+    assert(numChannels <= 2);
+    
     drOpusEncoder* encoder = (drOpusEncoder*)opusEncoder;
+    encoder->numAccumulatedInputFrames = 0;
     int err;
     assert(encoder->encoder == 0);
     //TODO: sample rate must match system rate!
@@ -40,7 +40,37 @@ void drOpusEncoder_init(void* opusEncoder, const char* filePath, float fs, float
 void drOpusEncoder_write(void* opusEncoder, int numChannels, int numFrames, float* buffer)
 {
     drOpusEncoder* encoder = (drOpusEncoder*)opusEncoder;
-    //opus_encode_float(encoder->encoder, buffer, num, <#unsigned char *data#>, <#opus_int32 max_data_bytes#>)
+    
+    //accumulate buffer to encode
+    for (int i = 0; i < numFrames; i++)
+    {
+        for (int c = 0; c < numChannels; c++)
+        {
+            int destIdx = encoder->numAccumulatedInputFrames * numChannels + c;
+            int srcIdx = numChannels * i + c;
+            encoder->scratchInputBuffer[destIdx] = buffer[srcIdx];
+            encoder->numAccumulatedInputFrames++;
+            if (encoder->numAccumulatedInputFrames == FRAME_SIZE)
+            {
+                encoder->numAccumulatedInputFrames = 0;
+                int encodedPacketSize = opus_encode_float(encoder->encoder,
+                                                          encoder->scratchInputBuffer,
+                                                          FRAME_SIZE,
+                                                          encoder->scratchOutputBuffer,
+                                                          MAX_PACKET_SIZE);
+                if (encodedPacketSize < 0)
+                {
+                    fprintf(stderr, "encode failed: %s\n", opus_strerror(encodedPacketSize));
+                    assert(0);
+                }
+                else
+                {
+                    printf("encoded opus packet of size %d\n", encodedPacketSize);
+                    fwrite(encoder->scratchOutputBuffer, 1, encodedPacketSize, encoder->file);
+                }
+            }
+        }
+    }
 }
 
 void drOpusEncoder_finish(void* opusEncoder)

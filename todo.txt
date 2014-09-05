@@ -1,9 +1,9 @@
 [ ] Associate recording sessions with handles, to make it possible to resume sessions
 [ ] Verify FIFO data integrity when it arrives on the main thread
 [ ] Don't drive the polling from a loop that pauses during scrolls (i.e NSTimer)
-[ ] Handle FIFO underruns somehow
+[ ] Handle FIFO underruns somehow, generate 
 [ ] iOS input level adjust?
-[ ] avoid mutexes
+[ ] ditch kowalski to avoid mutexes, create thin wrapper around portaudio and remoteio 
 [ ] actually record chunks of MAX_RECORDED_CHUNK_SIZE instead of current buffer size
 [ ] check the actual number of input channels + fs before using
 [ ] make encoder callbacks return error codes

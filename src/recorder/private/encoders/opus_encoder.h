@@ -9,11 +9,19 @@
 extern "C"
 {
 #endif /* __cplusplus */
+
+    //TODO make these tweakable?
+    #define BITRATE 64000
+    #define FRAME_SIZE 960
+    #define MAX_PACKET_SIZE (3*1276)
     
     typedef struct drOpusEncoder
     {
         OpusEncoder* encoder;
         FILE* file;
+        unsigned char scratchOutputBuffer[MAX_PACKET_SIZE];
+        int numAccumulatedInputFrames;
+        float scratchInputBuffer[2 * FRAME_SIZE]; //max 2 channels
 
     } drOpusEncoder;
     

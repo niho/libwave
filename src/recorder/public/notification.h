@@ -21,6 +21,7 @@ extern "C"
         DR_RECORDING_RESUMED,
         DR_RECORDING_FINISHED,
         DR_RECORDING_CANCELED
+
         
     } drNotificationType;
     

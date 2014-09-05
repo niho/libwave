@@ -14,7 +14,7 @@ extern "C"
 #endif /* __cplusplus */
     
     /**
-     *
+     * Information about audio levels for a single channel.
      */
     typedef struct drLevels
     {
@@ -25,7 +25,7 @@ extern "C"
     } drLevels;
     
     /**
-     *
+     * Information useful when debugging and monitoring.
      */
     typedef struct drDevInfo
     {
@@ -36,7 +36,6 @@ extern "C"
         /** 0 - 1, 0 empty, 1 full. */
         float controlEventFIFOLevel;
     } drDevInfo;
-    
     
     
     /**
