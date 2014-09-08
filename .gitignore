@@ -4,4 +4,6 @@ build
 xcuserdata
 *.xcworkspace
 *.o
-external
+external/jansson
+external/opus
+external/tinycthread
