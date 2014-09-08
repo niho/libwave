@@ -5,5 +5,4 @@ xcuserdata
 *.xcworkspace
 *.o
 external/jansson
-external/opus
 external/tinycthread
