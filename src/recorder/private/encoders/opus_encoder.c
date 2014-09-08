@@ -223,9 +223,7 @@ ogg_stream_state ostream_rec_local;
 
 drError drOpusEncoder_init(void* opusEncoder, const char* filePath, float fs, float numChannels)
 {
-    
-    int oggInitResult = ogg_stream_init(&ostream_rec_local, rand());
-    assert(oggInitResult >= 0);
+
     
     
     
@@ -255,6 +253,59 @@ drError drOpusEncoder_init(void* opusEncoder, const char* filePath, float fs, fl
     }
     
     return DR_NO_ERROR;
+}
+
+static void debugWriteOggOpusData(drOpusEncoder* encoder, unsigned char* data, int numBytes)
+{
+    //
+    //
+    /*
+    {
+        FILE *fp_rec_local  = fopen(filePath, "w");
+        int channels = 1;
+        int rate = 48000;
+        ogg_stream_state     ostream_rec_local;
+        ogg_packet          opacket;
+        ogg_packet          *opacket_opus_header[2];
+        uint8_t              opus_enc_packet[4000];
+        opus_int32           opus_enc_packetlen;
+        int ic = 0;
+        
+        opacket_opus_header[0] = make_opus_header0_oggpacket(channels, rate);
+        opacket_opus_header[1] = make_opus_header1_oggpacket("digger recorder");
+        if (!opacket_opus_header[0] || !opacket_opus_header[1])
+            assert(0 && "Error while creating ogg/opus header packets.\n");
+        
+        for (int i = 0; i < 2; i++)
+        {
+            int result = write_ogg_packet(&ostream_rec_local,  opacket_opus_header[i], fp_rec_local,  1);
+            assert(result >= 0);
+        }
+        
+        int oggInitResult = ogg_stream_init(&ostream_rec_local, 1);
+        assert(oggInitResult >= 0);
+        
+        // forge ogg packet
+        opacket.packet     = opus_enc_packet;
+        opacket.bytes      = opus_enc_packetlen;
+        opacket.b_o_s      = 0;
+        opacket.e_o_s      = 0;
+        opacket.granulepos = (ic+1)*960;
+        opacket.packetno   = ic+1;
+        ic++;
+        
+        write_ogg_packet(&ostream_rec_local, &opacket, fp_rec_local, 0);
+        
+        int oggClearResult = ogg_stream_clear(&ostream_rec_local);
+        assert(oggClearResult >= 0);
+        
+        free(opacket_opus_header[0]);
+        free(opacket_opus_header[1]);
+
+    }
+             */
+    //
+    //
 }
 
 drError drOpusEncoder_write(void* opusEncoder, int numChannels, int numFrames, float* buffer)
