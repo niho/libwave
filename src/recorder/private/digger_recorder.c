@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <math.h>
 #include "assert.h"
-#include "kowalski.h"
 
 #include "digger_recorder.h"
 #include "tinycthread.h"

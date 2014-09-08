@@ -6,7 +6,6 @@ if [ ! -d "external" ]; then
 fi
 
 cd external
-git clone https://github.com/stuffmatic/kowalski.git
 git clone https://github.com/tinycthread/tinycthread.git
 git clone https://github.com/akheron/jansson.git
 git clone https://git.xiph.org/opus.git

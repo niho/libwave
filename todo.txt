@@ -1,14 +1,29 @@
 [ ] public API for encoder events
 [X] settings for init
 [ ] resume recording sessions
-[ ] error callback
+[X] error callback
+[ ] encoder write callback needs to return the number of bytes written to file
+[ ] close any encoder files on deinit
+[ ] desired settings vs actual
+[ ] remove platform_util, handle encoder support with ifdefs
+
+
 
 [ ] Associate recording sessions with handles, to make it possible to resume sessions
 [ ] Verify FIFO data integrity when it arrives on the main thread
 [ ] Don't drive the polling from a loop that pauses during scrolls (i.e NSTimer)
 [ ] Handle FIFO underruns somehow, generate 
 [ ] iOS input level adjust?
-[ ] ditch/refactor kowalski to avoid mutexes, create thin wrapper around portaudio and remoteio?
+[X] ditch/refactor kowalski to avoid mutexes, create thin wrapper around portaudio and remoteio?
 [ ] actually record chunks of MAX_RECORDED_CHUNK_SIZE instead of current buffer size
 [ ] check the actual number of input channels + fs before using
-[ ] make encoder callbacks return error codes
+[X] make encoder callbacks return error codes
+
+
+{
+    "recording_sessions":[
+        {
+            "file":"/löl/lölö/löl"
+        }
+    ]
+}

@@ -20,13 +20,8 @@ static void mainThreadUpdateCallback(void* data)
 {
     drInstance* in = (drInstance*)data;
     
-    
-    mtx_lock(&in->communicationQueueLock);
-    
-    //get measured levels
-    memcpy(in->inputLevelsMain, in->inputLevelsShared, sizeof(drLevels) * MAX_NUM_INPUT_CHANNELS);
-    
-    mtx_unlock(&in->communicationQueueLock);
+    //get measured levels. TODO: pass these using a FIFO
+    //memcpy(in->inputLevelsMain, in->inputLevelsShared, sizeof(drLevels) * MAX_NUM_INPUT_CHANNELS);
     
     //invoke the error callback for any incoming errors on the main thread
     drError e;
@@ -64,12 +59,8 @@ static void audioThreadUpdateCallback(void* data)
         ol->hasClipped = m->clip;
     }
     
-    mtx_lock(&in->communicationQueueLock);
-    
-    //copy measured levels to the main thread
+    //copy measured levels to the main thread. TODO: pass these using a FIFO
     memcpy(in->inputLevelsShared, in->inputLevelsAudio, sizeof(drLevels) * MAX_NUM_INPUT_CHANNELS);
-    
-    mtx_unlock(&in->communicationQueueLock);
     
     drControlEvent e;
     while (drLockFreeFIFO_pop(&in->controlEventFIFO, &e))
@@ -78,9 +69,168 @@ static void audioThreadUpdateCallback(void* data)
     }
 }
 
-static void inputCallback(float* inBuffer, int numChannels, int numFrames, void* data)
+drError drInstance_init(drInstance* instance,
+                        drNotificationCallback notificationCallback,
+                        drErrorCallback errorCallback,
+                        drWritableAudioFilePathCallback writableFilePathCallback,
+                        void* callbackUserData,
+                        const char* settingsFilePath,
+                        drSettings* settings)
 {
-    drInstance* in = (drInstance*)data;
+    memset(instance, 0, sizeof(drInstance));
+    
+    //use custom settings if provided.
+    if (settings)
+    {
+        memcpy(&instance->settings, settings, sizeof(drSettings));
+    }
+    else
+    {
+        drSettings_setDefaults(&instance->settings);
+    }
+    
+    //printf("opus_get_version_string %s\n", opus_get_version_string());
+    
+    
+    //remember which thread created the instance to verify that functions get called
+    //from the right threads
+    instance->mainThread = thrd_current();
+    
+    //hook up notification callback
+    instance->writableFilePathCallback = writableFilePathCallback;
+    instance->notificationCallback = notificationCallback;
+    instance->errorCallback = errorCallback;
+    instance->callbackUserData = callbackUserData;
+    
+    drCreateEncoder(&instance->recordingSession.encoder);
+    
+    drLockFreeFIFO_init(&instance->inputAudioDataQueue,
+                        instance->settings.recordFIFOCapacity,
+                        sizeof(drRecordedChunk));
+    
+    //create error, notification and control event queues
+    drLockFreeFIFO_init(&instance->notificationFIFO,
+                        instance->settings.notificationFIFOCapacity,
+                        sizeof(drNotification));
+    
+    drLockFreeFIFO_init(&instance->controlEventFIFO,
+                        instance->settings.controlEventFIFOCapacity,
+                        sizeof(drControlEvent));
+    
+    drLockFreeFIFO_init(&instance->errorFIFO,
+                        instance->settings.errorFIFOCapacity,
+                        sizeof(drError));
+    
+    
+    //TODO: pass these as arguments
+
+    const int numOutChannels = 2;
+    const int numInputChannels = 1;
+    
+    //create audio analyzers
+    assert(numInputChannels <= MAX_NUM_INPUT_CHANNELS);
+    for (int i = 0; i < numInputChannels; i++)
+    {
+        drLevelMeter_init(&instance->inputLevelMeters[i],
+                          i,
+                          instance->settings.desiredSampleRate,
+                          instance->settings.levelMeterAttackTime,
+                          instance->settings.levelMeterReleaseTime,
+                          0.5f);
+        drInstance_addInputAnalyzer(instance,
+                                    &instance->inputLevelMeters[i],
+                                    drLevelMeter_processBuffer,
+                                    drLevelMeter_deinit);
+    }
+    
+    drError initResult = drInstance_hostSpecificInit(instance);
+    return initResult;
+}
+
+drError drInstance_deinit(drInstance* instance)
+{
+    assert(drInstance_isOnMainThread(instance));
+    //stop the audio system
+    drError deinitResult = drInstance_hostSpecificDeinit(instance);
+    
+    drNotification n;
+    n.type = DR_DID_SHUT_DOWN;
+    drInstance_invokeNotificationCallback(instance, &n);
+    
+    //clean up analyzers
+    for (int i = 0; i < MAX_NUM_ANALYZER_SLOTS; i++)
+    {
+        if (instance->inputAnalyzerSlots[i].analyzerData &&
+            instance->inputAnalyzerSlots[i].deinitCallback)
+        {
+            instance->inputAnalyzerSlots[i].deinitCallback(instance->inputAnalyzerSlots[i].analyzerData);
+        }
+    }
+    
+    DR_FREE(instance->recordingSession.encoder.encoderData);
+    
+    drLockFreeFIFO_deinit(&instance->inputAudioDataQueue);
+    
+    //release event queues
+    drLockFreeFIFO_deinit(&instance->notificationFIFO);
+    drLockFreeFIFO_deinit(&instance->controlEventFIFO);
+    drLockFreeFIFO_deinit(&instance->errorFIFO);
+
+    //clear the instance
+    memset(instance, 0, sizeof(drInstance));
+    
+    return deinitResult;
+}
+
+void drInstance_update(drInstance* instance, float timeStep)
+{
+    assert(drInstance_isOnMainThread(instance));
+    
+    //update dev info before consuming any events
+    instance->devInfo.controlEventFIFOLevel = drLockFreeFIFO_getNumElements(&instance->controlEventFIFO) /
+    ((float)instance->controlEventFIFO.capacity);
+    
+    instance->devInfo.notificationFIFOLevel = drLockFreeFIFO_getNumElements(&instance->notificationFIFO) /
+    ((float)instance->notificationFIFO.capacity);
+    
+    instance->devInfo.recordFIFOLevel = drLockFreeFIFO_getNumElements(&instance->inputAudioDataQueue) /
+    ((float)instance->inputAudioDataQueue.capacity);
+    
+    //pump audio data FIFO after the notifiaction FIFO, to make sure
+    //a recording started event arrives before the first audio data.
+    drRecordedChunk c;
+    int errorOccured = 0;
+    while (drLockFreeFIFO_pop(&instance->inputAudioDataQueue, &c))
+    {
+        //printf("%d frames of recorded %d channel audio arrived on the main thread\n", c.numFrames, c.numChannels);
+        if (!errorOccured)
+        {
+            instance->recordingSession.numRecordedFrames += c.numFrames;
+            
+            drError writeResult = instance->recordingSession.encoder.writeCallback(instance->recordingSession.encoder.encoderData,
+                                                                                   c.numChannels,
+                                                                                   c.numFrames,
+                                                                                   c.samples);
+            
+            if (writeResult != DR_NO_ERROR)
+            {
+                errorOccured = 1;
+                drInstance_enqueueError(instance, writeResult);
+            }
+            else
+            {
+                //printf("recorded %d frames on the main thread\n", instance->recordingSession.numRecordedFrames);
+                if (c.lastChunk)
+                {
+                    drInstance_finishRecording(instance);
+                }
+            }
+        }
+    }
+}
+
+void drInstance_audioInputCallback(drInstance* in, float* inBuffer, int numChannels, int numFrames, void* data)
+{
     //pass audio input to analyzers
     for (int i = 0; i < MAX_NUM_ANALYZER_SLOTS; i++)
     {
@@ -146,10 +296,8 @@ static void inputCallback(float* inBuffer, int numChannels, int numFrames, void*
     }
 }
 
-static void outputCallback(float* inBuffer, int numChannels, int numFrames, void* data)
+void drInstance_audioOutputCallback(drInstance* in, float* inBuffer, int numChannels, int numFrames, void* data)
 {
-    drInstance* in = (drInstance*)data;
-    
     if (in->firstSampleHasPlayed == 0)
     {
         drNotification e;
@@ -161,191 +309,6 @@ static void outputCallback(float* inBuffer, int numChannels, int numFrames, void
     for (int i = 0; i < numFrames; i++)
     {
         inBuffer[numChannels * i + 1] = 0.0f;//0.2f * (-1 + 0.0002f * (rand() % 10000));
-    }
-}
-
-void drInstance_init(drInstance* instance,
-                     drNotificationCallback notificationCallback,
-                     drErrorCallback errorCallback,
-                     drWritableAudioFilePathCallback writableFilePathCallback,
-                     void* callbackUserData,
-                     const char* settingsFilePath,
-                     drSettings* settings)
-{
-    memset(instance, 0, sizeof(drInstance));
-    
-    //use custom settings if provided.
-    if (settings)
-    {
-        memcpy(&instance->settings, settings, sizeof(drSettings));
-    }
-    else
-    {
-        drSettings_setDefaults(&instance->settings);
-    }
-    
-    //printf("opus_get_version_string %s\n", opus_get_version_string());
-    
-    
-    //remember which thread created the instance to verify that functions get called
-    //from the right threads
-    instance->mainThread = thrd_current();
-    
-    //hook up notification callback
-    instance->writableFilePathCallback = writableFilePathCallback;
-    instance->notificationCallback = notificationCallback;
-    instance->errorCallback = errorCallback;
-    instance->callbackUserData = callbackUserData;
-    
-    drCreateEncoder(&instance->recordingSession.encoder);
-    
-    drLockFreeFIFO_init(&instance->inputAudioDataQueue,
-                        instance->settings.recordFIFOCapacity,
-                        sizeof(drRecordedChunk));
-    
-    //create error, notification and control event queues
-    drLockFreeFIFO_init(&instance->notificationFIFO,
-                        instance->settings.notificationFIFOCapacity,
-                        sizeof(drNotification));
-    
-    drLockFreeFIFO_init(&instance->controlEventFIFO,
-                        instance->settings.controlEventFIFOCapacity,
-                        sizeof(drControlEvent));
-    
-    drLockFreeFIFO_init(&instance->errorFIFO,
-                        instance->settings.errorFIFOCapacity,
-                        sizeof(drError));
-    
-    mtx_init(&instance->communicationQueueLock, mtx_plain);
-    
-    instance->inputDSPUnit = kwlDSPUnitCreateCustom(instance,
-                                                    inputCallback,
-                                                    NULL,
-                                                    NULL,
-                                                    NULL);
-    
-    instance->outputDSPUnit = kwlDSPUnitCreateCustom(instance,
-                                                     outputCallback,
-                                                     mainThreadUpdateCallback,
-                                                     audioThreadUpdateCallback,
-                                                     NULL);
-    
-    //TODO: pass these as arguments
-
-    const int numOutChannels = 2;
-    const int numInputChannels = 1;
-    
-    //create audio analyzers
-    assert(numInputChannels <= MAX_NUM_INPUT_CHANNELS);
-    for (int i = 0; i < numInputChannels; i++)
-    {
-        drLevelMeter_init(&instance->inputLevelMeters[i],
-                          i,
-                          instance->settings.desiredSampleRate,
-                          instance->settings.levelMeterAttackTime,
-                          instance->settings.levelMeterReleaseTime,
-                          0.5f);
-        drInstance_addInputAnalyzer(instance,
-                                    &instance->inputLevelMeters[i],
-                                    drLevelMeter_processBuffer,
-                                    drLevelMeter_deinit);
-    }
-    
-    kwlInitialize(instance->settings.desiredSampleRate,
-                  numOutChannels,
-                  numInputChannels,
-                  instance->settings.desiredBufferSizeInFrames);
-    kwlError initResult = kwlGetError();
-    assert(initResult == KWL_NO_ERROR);
-    
-    kwlDSPUnitAttachToInput(instance->inputDSPUnit);
-    kwlDSPUnitAttachToOutput(instance->outputDSPUnit);
-}
-
-void drInstance_deinit(drInstance* instance)
-{
-    assert(drInstance_isOnMainThread(instance));
-    //stop the audio system
-    kwlDeinitialize();
-    kwlError deinitResult = kwlGetError();
-    assert(deinitResult == KWL_NO_ERROR);
-    
-    drNotification n;
-    n.type = DR_DID_SHUT_DOWN;
-    drInstance_invokeNotificationCallback(instance, &n);
-    
-    //clean up analyzers
-    for (int i = 0; i < MAX_NUM_ANALYZER_SLOTS; i++)
-    {
-        if (instance->inputAnalyzerSlots[i].analyzerData &&
-            instance->inputAnalyzerSlots[i].deinitCallback)
-        {
-            instance->inputAnalyzerSlots[i].deinitCallback(instance->inputAnalyzerSlots[i].analyzerData);
-        }
-    }
-    
-    DR_FREE(instance->recordingSession.encoder.encoderData);
-    
-    drLockFreeFIFO_deinit(&instance->inputAudioDataQueue);
-    
-    //release event queues
-    drLockFreeFIFO_deinit(&instance->notificationFIFO);
-    drLockFreeFIFO_deinit(&instance->controlEventFIFO);
-    drLockFreeFIFO_deinit(&instance->errorFIFO);
-    
-    mtx_destroy(&instance->communicationQueueLock);
-
-    //clear the instance
-    memset(instance, 0, sizeof(drInstance));
-}
-
-void drInstance_update(drInstance* instance, float timeStep)
-{
-    assert(drInstance_isOnMainThread(instance));
-    
-    //update dev info before consuming any events
-    instance->devInfo.controlEventFIFOLevel = drLockFreeFIFO_getNumElements(&instance->controlEventFIFO) /
-    ((float)instance->controlEventFIFO.capacity);
-    
-    instance->devInfo.notificationFIFOLevel = drLockFreeFIFO_getNumElements(&instance->notificationFIFO) /
-    ((float)instance->notificationFIFO.capacity);
-    
-    instance->devInfo.recordFIFOLevel = drLockFreeFIFO_getNumElements(&instance->inputAudioDataQueue) /
-    ((float)instance->inputAudioDataQueue.capacity);
-    
-    //update kowalski, invoking thread communication callbacks
-    kwlUpdate(timeStep);
-    
-    //pump audio data FIFO after the notifiaction FIFO, to make sure
-    //a recording started event arrives before the first audio data.
-    drRecordedChunk c;
-    int errorOccured = 0;
-    while (drLockFreeFIFO_pop(&instance->inputAudioDataQueue, &c))
-    {
-        //printf("%d frames of recorded %d channel audio arrived on the main thread\n", c.numFrames, c.numChannels);
-        if (!errorOccured)
-        {
-            instance->recordingSession.numRecordedFrames += c.numFrames;
-            
-            drError writeResult = instance->recordingSession.encoder.writeCallback(instance->recordingSession.encoder.encoderData,
-                                                                                   c.numChannels,
-                                                                                   c.numFrames,
-                                                                                   c.samples);
-            
-            if (writeResult != DR_NO_ERROR)
-            {
-                errorOccured = 1;
-                drInstance_enqueueError(instance, writeResult);
-            }
-            else
-            {
-                //printf("recorded %d frames on the main thread\n", instance->recordingSession.numRecordedFrames);
-                if (c.lastChunk)
-                {
-                    drInstance_finishRecording(instance);
-                }
-            }
-        }
     }
 }
 
@@ -381,9 +344,8 @@ void drInstance_initiateRecording(drInstance* instance)
 {
     assert(drInstance_isOnMainThread(instance));
     
-    
     instance->recordingSession.encoder.initCallback(instance->recordingSession.encoder.encoderData,
-                                                    instance->writableFilePathCallback(),
+                                                    instance->writableFilePathCallback(instance->callbackUserData),
                                                     44100, //TODO
                                                     1); //TODO
     printf("drInstance_initiateRecording\n");

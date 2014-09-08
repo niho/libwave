@@ -3,7 +3,6 @@
 
 /*! \file */
 
-#include "kowalski.h"
 #include "tinycthread.h"
 #include "digger_recorder.h"
 #include "level_meter.h"
@@ -88,8 +87,6 @@ extern "C"
         
         drDevInfo devInfo;
         
-        kwlDSPUnitHandle inputDSPUnit;
-        kwlDSPUnitHandle outputDSPUnit;
         int firstSampleHasPlayed;
         int finishRecordingRequested;
         int cancelRecordingRequested;
@@ -97,7 +94,6 @@ extern "C"
         //used to verify that functions are being called from the right threads
         thrd_t mainThread;
         
-        mtx_t communicationQueueLock;
         drLockFreeFIFO notificationFIFO;
         drLockFreeFIFO controlEventFIFO;
         drLockFreeFIFO errorFIFO;
@@ -125,24 +121,40 @@ extern "C"
     /**
      *
      */
-    void drInstance_init(drInstance* instance,
-                         drNotificationCallback notificationCallback,
-                         drErrorCallback errorCallback,
-                         drWritableAudioFilePathCallback writableFilePathCallback,
-                         void* callbackUserData,
-                         const char* settingsFilePath,
-                         drSettings* settings);
+    drError drInstance_init(drInstance* instance,
+                            drNotificationCallback notificationCallback,
+                            drErrorCallback errorCallback,
+                            drWritableAudioFilePathCallback writableFilePathCallback,
+                            void* callbackUserData,
+                            const char* settingsFilePath,
+                            drSettings* settings);
+    
+    /** Implemented for each host. */
+    drError drInstance_hostSpecificInit(drInstance* instance);
     
     /**
      *
      */
-    void drInstance_deinit(drInstance* instance);
+    drError drInstance_deinit(drInstance* instance);
+    
+    /** Implemented for each host.*/
+    drError drInstance_hostSpecificDeinit(drInstance* instance);
     
     /**
      *
      */
     void drInstance_update(drInstance* instance, float timeStep);
-        
+    
+    /**
+     *
+     */
+    void drInstance_audioInputCallback(drInstance* in, float* inBuffer, int numChannels, int numFrames, void* data);
+    
+    /**
+     *
+     */
+    void drInstance_audioOutputCallback(drInstance* in, float* inBuffer, int numChannels, int numFrames, void* data);
+    
     /**
      * Returns a non-zero value if called from the same thread that called drInstance_init.
      */

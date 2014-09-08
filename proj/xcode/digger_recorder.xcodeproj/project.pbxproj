@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C118B3F719B4B2A800005678 /* libkowalski.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F57A1F19B4A2C3000C6BCF /* libkowalski.dylib */; };
 		C118B3F819B4B2BC00005678 /* digger_recorder.c in Sources */ = {isa = PBXBuildFile; fileRef = C1F57A0519B4A282000C6BCF /* digger_recorder.c */; };
 		C118B3F919B4B2BC00005678 /* instance.c in Sources */ = {isa = PBXBuildFile; fileRef = C1F57A0619B4A282000C6BCF /* instance.c */; };
 		C118B3FC19B4B2C000005678 /* tinycthread.c in Sources */ = {isa = PBXBuildFile; fileRef = C1F57A8519B4A475000C6BCF /* tinycthread.c */; };
@@ -414,8 +413,6 @@
 		C12E1EEE19B6132B004532A8 /* opus_compare.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1D4619B6132B004532A8 /* opus_compare.c */; };
 		C12E1EEF19B6132B004532A8 /* opus_decoder.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1D4719B6132B004532A8 /* opus_decoder.c */; };
 		C12E1EF019B6132B004532A8 /* opus_decoder.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1D4719B6132B004532A8 /* opus_decoder.c */; };
-		C12E1EF119B6132B004532A8 /* opus_demo.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1D4819B6132B004532A8 /* opus_demo.c */; };
-		C12E1EF219B6132B004532A8 /* opus_demo.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1D4819B6132B004532A8 /* opus_demo.c */; };
 		C12E1EF319B6132B004532A8 /* opus_encoder.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1D4919B6132B004532A8 /* opus_encoder.c */; };
 		C12E1EF419B6132B004532A8 /* opus_encoder.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1D4919B6132B004532A8 /* opus_encoder.c */; };
 		C12E1EF519B6132B004532A8 /* opus_multistream.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1D4A19B6132B004532A8 /* opus_multistream.c */; };
@@ -460,8 +457,6 @@
 		C12E1F9019B7583C004532A8 /* platform_util.h in Headers */ = {isa = PBXBuildFile; fileRef = C12E1F8D19B7583C004532A8 /* platform_util.h */; };
 		C12E1F9A19B8B47D004532A8 /* bitwise.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F9619B8B47D004532A8 /* bitwise.c */; };
 		C12E1F9B19B8B47D004532A8 /* bitwise.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F9619B8B47D004532A8 /* bitwise.c */; };
-		C12E1F9C19B8B47D004532A8 /* framing.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F9719B8B47D004532A8 /* framing.c */; };
-		C12E1F9D19B8B47D004532A8 /* framing.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F9719B8B47D004532A8 /* framing.c */; };
 		C12E1FA219B8B4E7004532A8 /* ogg.h in Headers */ = {isa = PBXBuildFile; fileRef = C12E1F9E19B8B4E7004532A8 /* ogg.h */; };
 		C12E1FA319B8B4E7004532A8 /* os_types.h in Headers */ = {isa = PBXBuildFile; fileRef = C12E1F9F19B8B4E7004532A8 /* os_types.h */; };
 		C1E07B0B19B9BADE00F63CA1 /* dump.c in Sources */ = {isa = PBXBuildFile; fileRef = C1E07AF719B9BADE00F63CA1 /* dump.c */; };
@@ -496,71 +491,16 @@
 		C1E07B2919B9C7E900F63CA1 /* settings.c in Sources */ = {isa = PBXBuildFile; fileRef = C1E07B2719B9C7E900F63CA1 /* settings.c */; };
 		C1E07B2C19B9F81900F63CA1 /* error_codes.c in Headers */ = {isa = PBXBuildFile; fileRef = C1E07B2B19B9F81900F63CA1 /* error_codes.c */; };
 		C1E07B2D19B9F9E200F63CA1 /* error_codes.c in Sources */ = {isa = PBXBuildFile; fileRef = C1E07B2B19B9F81900F63CA1 /* error_codes.c */; };
+		C1E07B3619BCADF400F63CA1 /* framing.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F9719B8B47D004532A8 /* framing.c */; };
+		C1E07B3719BCADF500F63CA1 /* framing.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F9719B8B47D004532A8 /* framing.c */; };
+		C1E07B3F19BCAF9000F63CA1 /* host_ios.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E07B3B19BCAF8A00F63CA1 /* host_ios.m */; };
+		C1E07B4119BCAF9400F63CA1 /* host_portaudio.c in Sources */ = {isa = PBXBuildFile; fileRef = C1E07B3D19BCAF8A00F63CA1 /* host_portaudio.c */; };
+		C1E07B4219BCAF9700F63CA1 /* host_portaudio.c in Sources */ = {isa = PBXBuildFile; fileRef = C1E07B3D19BCAF8A00F63CA1 /* host_portaudio.c */; };
 		C1F579E019B4A262000C6BCF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F579DF19B4A262000C6BCF /* Foundation.framework */; };
 		C1F57A1019B4A282000C6BCF /* digger_recorder.c in Sources */ = {isa = PBXBuildFile; fileRef = C1F57A0519B4A282000C6BCF /* digger_recorder.c */; };
 		C1F57A1119B4A282000C6BCF /* instance.c in Sources */ = {isa = PBXBuildFile; fileRef = C1F57A0619B4A282000C6BCF /* instance.c */; };
-		C1F57A2C19B4A2D4000C6BCF /* libkowalski_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F57A2319B4A2C3000C6BCF /* libkowalski_ios.a */; };
 		C1F57A8619B4A475000C6BCF /* tinycthread.c in Sources */ = {isa = PBXBuildFile; fileRef = C1F57A8519B4A475000C6BCF /* tinycthread.c */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		C118B3F519B4B29B00005678 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C1F57A1519B4A2C3000C6BCF /* kowalski.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = D2AAC045055464E500DB518D;
-			remoteInfo = kowalski_portaudio;
-		};
-		C1F57A1E19B4A2C3000C6BCF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C1F57A1519B4A2C3000C6BCF /* kowalski.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D2AAC046055464E500DB518D;
-			remoteInfo = kowalski_portaudio;
-		};
-		C1F57A2019B4A2C3000C6BCF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C1F57A1519B4A2C3000C6BCF /* kowalski.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C1B3D57A135B8E880025DD08;
-			remoteInfo = kowalski_sdl;
-		};
-		C1F57A2219B4A2C3000C6BCF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C1F57A1519B4A2C3000C6BCF /* kowalski.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C1DD3C2B1370D12B00D10AA6;
-			remoteInfo = kowalski_ios;
-		};
-		C1F57A2419B4A2C3000C6BCF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C1F57A1519B4A2C3000C6BCF /* kowalski.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C1760F7B1620D6160044204B;
-			remoteInfo = kowalski;
-		};
-		C1F57A2619B4A2C3000C6BCF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C1F57A1519B4A2C3000C6BCF /* kowalski.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C19BB85D1630C1E9000F1BE7;
-			remoteInfo = kowalski_test;
-		};
-		C1F57A2819B4A2C3000C6BCF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C1F57A1519B4A2C3000C6BCF /* kowalski.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C145484D1632CAFE00DE1EA6;
-			remoteInfo = kowalski_tools;
-		};
-		C1F57A2A19B4A2CE000C6BCF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C1F57A1519B4A2C3000C6BCF /* kowalski.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = C1DD3C2A1370D12B00D10AA6;
-			remoteInfo = kowalski_ios;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		C12E1F6619B6FE8B004532A8 /* CopyFiles */ = {
@@ -894,6 +834,14 @@
 		C1E07B2719B9C7E900F63CA1 /* settings.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = settings.c; sourceTree = "<group>"; };
 		C1E07B2A19B9C7F000F63CA1 /* settings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = settings.h; sourceTree = "<group>"; };
 		C1E07B2B19B9F81900F63CA1 /* error_codes.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = error_codes.c; sourceTree = "<group>"; };
+		C1E07B2E19BCA76000F63CA1 /* oggopus.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = oggopus.c; path = "../../../../../../Downloads/parole-010beta4/oggopus.c"; sourceTree = "<group>"; };
+		C1E07B2F19BCA76000F63CA1 /* oggopus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = oggopus.h; path = "../../../../../../Downloads/parole-010beta4/oggopus.h"; sourceTree = "<group>"; };
+		C1E07B3019BCA79C00F63CA1 /* parole.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = parole.c; path = "../../../../../../Downloads/parole-010beta4/parole.c"; sourceTree = "<group>"; };
+		C1E07B3319BCAB1300F63CA1 /* rw.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = rw.c; path = "../../../../../../Downloads/parole-010beta4/rw.c"; sourceTree = "<group>"; };
+		C1E07B3419BCAB1300F63CA1 /* rw.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = rw.h; path = "../../../../../../Downloads/parole-010beta4/rw.h"; sourceTree = "<group>"; };
+		C1E07B3A19BCAF8A00F63CA1 /* host_ios.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = host_ios.h; sourceTree = "<group>"; };
+		C1E07B3B19BCAF8A00F63CA1 /* host_ios.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = host_ios.m; sourceTree = "<group>"; };
+		C1E07B3D19BCAF8A00F63CA1 /* host_portaudio.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = host_portaudio.c; sourceTree = "<group>"; };
 		C1F579DC19B4A262000C6BCF /* libdigger_recorder_ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libdigger_recorder_ios.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1F579DF19B4A262000C6BCF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C1F579ED19B4A262000C6BCF /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -902,7 +850,6 @@
 		C1F57A0619B4A282000C6BCF /* instance.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = instance.c; sourceTree = "<group>"; };
 		C1F57A0719B4A282000C6BCF /* instance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = instance.h; sourceTree = "<group>"; };
 		C1F57A0E19B4A282000C6BCF /* digger_recorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = digger_recorder.h; sourceTree = "<group>"; };
-		C1F57A1519B4A2C3000C6BCF /* kowalski.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = kowalski.xcodeproj; path = ../../external/kowalski/projects/xcode/kowalski.xcodeproj; sourceTree = "<group>"; };
 		C1F57A8519B4A475000C6BCF /* tinycthread.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = tinycthread.c; path = ../../external/tinycthread/source/tinycthread.c; sourceTree = "<group>"; };
 		C1F57AD319B4A842000C6BCF /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		C1F57AD619B4A842000C6BCF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -915,7 +862,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C118B3F719B4B2A800005678 /* libkowalski.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -930,7 +876,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C1F57A2C19B4A2D4000C6BCF /* libkowalski_ios.a in Frameworks */,
 				C1F579E019B4A262000C6BCF /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1313,6 +1258,11 @@
 		C12E1F0619B61817004532A8 /* encoders */ = {
 			isa = PBXGroup;
 			children = (
+				C1E07B3319BCAB1300F63CA1 /* rw.c */,
+				C1E07B3419BCAB1300F63CA1 /* rw.h */,
+				C1E07B3019BCA79C00F63CA1 /* parole.c */,
+				C1E07B2E19BCA76000F63CA1 /* oggopus.c */,
+				C1E07B2F19BCA76000F63CA1 /* oggopus.h */,
 				C12E1F0719B61817004532A8 /* opus_encoder.c */,
 				C12E1F0819B61817004532A8 /* opus_encoder.h */,
 				C12E1F7719B705E3004532A8 /* raw_encoder.c */,
@@ -1348,7 +1298,6 @@
 		C1C7B9EC19B4A1EB00C0ED1D = {
 			isa = PBXGroup;
 			children = (
-				C1F57A1519B4A2C3000C6BCF /* kowalski.xcodeproj */,
 				C1F57A1419B4A288000C6BCF /* src */,
 				C1F579DE19B4A262000C6BCF /* Frameworks */,
 				C1F579DD19B4A262000C6BCF /* Products */,
@@ -1380,6 +1329,32 @@
 				C1E07B0A19B9BADE00F63CA1 /* value.c */,
 			);
 			name = jansson;
+			sourceTree = "<group>";
+		};
+		C1E07B3819BCAF8A00F63CA1 /* hosts */ = {
+			isa = PBXGroup;
+			children = (
+				C1E07B3919BCAF8A00F63CA1 /* ios */,
+				C1E07B3C19BCAF8A00F63CA1 /* portaudio */,
+			);
+			path = hosts;
+			sourceTree = "<group>";
+		};
+		C1E07B3919BCAF8A00F63CA1 /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				C1E07B3A19BCAF8A00F63CA1 /* host_ios.h */,
+				C1E07B3B19BCAF8A00F63CA1 /* host_ios.m */,
+			);
+			path = ios;
+			sourceTree = "<group>";
+		};
+		C1E07B3C19BCAF8A00F63CA1 /* portaudio */ = {
+			isa = PBXGroup;
+			children = (
+				C1E07B3D19BCAF8A00F63CA1 /* host_portaudio.c */,
+			);
+			path = portaudio;
 			sourceTree = "<group>";
 		};
 		C1F579DD19B4A262000C6BCF /* Products */ = {
@@ -1420,6 +1395,7 @@
 			children = (
 				C118B40919B4C9FB00005678 /* analyzers */,
 				C12E1F0619B61817004532A8 /* encoders */,
+				C1E07B3819BCAF8A00F63CA1 /* hosts */,
 				C12E1A8619B5B774004532A8 /* analyzer.h */,
 				C12E1F4119B62595004532A8 /* atomic_darwin.c */,
 				C12E1F4219B62595004532A8 /* atomic.h */,
@@ -1458,19 +1434,6 @@
 				C1F57A0319B4A282000C6BCF /* recorder */,
 			);
 			name = src;
-			sourceTree = "<group>";
-		};
-		C1F57A1619B4A2C3000C6BCF /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				C1F57A1F19B4A2C3000C6BCF /* libkowalski.dylib */,
-				C1F57A2119B4A2C3000C6BCF /* kowalski_sdl.dylib */,
-				C1F57A2319B4A2C3000C6BCF /* libkowalski_ios.a */,
-				C1F57A2519B4A2C3000C6BCF /* kowalski */,
-				C1F57A2719B4A2C3000C6BCF /* kowalski_test.octest */,
-				C1F57A2919B4A2C3000C6BCF /* libkowalski_tools.a */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		C1F57A8419B4A463000C6BCF /* external */ = {
@@ -1615,7 +1578,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				C118B3F619B4B29B00005678 /* PBXTargetDependency */,
 			);
 			name = digger_recorder_osx;
 			productName = digger_recorder_osx;
@@ -1650,7 +1612,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				C1F57A2B19B4A2CE000C6BCF /* PBXTargetDependency */,
 			);
 			name = digger_recorder_ios;
 			productName = digger_recorder_ios;
@@ -1675,12 +1636,6 @@
 			mainGroup = C1C7B9EC19B4A1EB00C0ED1D;
 			productRefGroup = C1F579DD19B4A262000C6BCF /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = C1F57A1619B4A2C3000C6BCF /* Products */;
-					ProjectRef = C1F57A1519B4A2C3000C6BCF /* kowalski.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				C1F579DB19B4A262000C6BCF /* digger_recorder_ios */,
@@ -1689,51 +1644,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		C1F57A1F19B4A2C3000C6BCF /* libkowalski.dylib */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libkowalski.dylib;
-			remoteRef = C1F57A1E19B4A2C3000C6BCF /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C1F57A2119B4A2C3000C6BCF /* kowalski_sdl.dylib */ = {
-			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.dylib";
-			path = kowalski_sdl.dylib;
-			remoteRef = C1F57A2019B4A2C3000C6BCF /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C1F57A2319B4A2C3000C6BCF /* libkowalski_ios.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libkowalski_ios.a;
-			remoteRef = C1F57A2219B4A2C3000C6BCF /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C1F57A2519B4A2C3000C6BCF /* kowalski */ = {
-			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.executable";
-			path = kowalski;
-			remoteRef = C1F57A2419B4A2C3000C6BCF /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C1F57A2719B4A2C3000C6BCF /* kowalski_test.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = kowalski_test.octest;
-			remoteRef = C1F57A2619B4A2C3000C6BCF /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C1F57A2919B4A2C3000C6BCF /* libkowalski_tools.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libkowalski_tools.a;
-			remoteRef = C1F57A2819B4A2C3000C6BCF /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C118B3ED19B4B28E00005678 /* Sources */ = {
@@ -1783,7 +1693,6 @@
 				C12E1E3119B6132B004532A8 /* encode_frame_FLP.c in Sources */,
 				C12E1E4719B6132B004532A8 /* LTP_analysis_filter_FLP.c in Sources */,
 				C12E1E1E19B6132B004532A8 /* schur_FIX.c in Sources */,
-				C12E1F9D19B8B47D004532A8 /* framing.c in Sources */,
 				C12E1F8F19B7583C004532A8 /* platform_util_ios.m in Sources */,
 				C12E1E2D19B6132B004532A8 /* bwexpander_FLP.c in Sources */,
 				C1E07B0E19B9BADE00F63CA1 /* error.c in Sources */,
@@ -1803,6 +1712,7 @@
 				C12E1F0A19B61817004532A8 /* opus_encoder.c in Sources */,
 				C12E1DF319B6132B004532A8 /* apply_sine_window_FIX.c in Sources */,
 				C12E1DE119B6132B004532A8 /* decode_indices.c in Sources */,
+				C1E07B3619BCADF400F63CA1 /* framing.c in Sources */,
 				C12E1DBE19B6132B004532A8 /* ana_filt_bank_1.c in Sources */,
 				C1E07B1A19B9BADE00F63CA1 /* memory.c in Sources */,
 				C12E1E0919B6132B004532A8 /* LTP_analysis_filter_FIX.c in Sources */,
@@ -1864,6 +1774,7 @@
 				C12E1D8D19B6132B004532A8 /* mdct.c in Sources */,
 				C12E1E3B19B6132B004532A8 /* find_pred_coefs_FLP.c in Sources */,
 				C12E1DB319B6132B004532A8 /* vq.c in Sources */,
+				C1E07B4119BCAF9400F63CA1 /* host_portaudio.c in Sources */,
 				C12E1EBB19B6132B004532A8 /* stereo_decode_pred.c in Sources */,
 				C1E07B0C19B9BADE00F63CA1 /* dump.c in Sources */,
 				C12E1E7119B6132B004532A8 /* inner_prod_aligned.c in Sources */,
@@ -1920,7 +1831,6 @@
 				C12E1E3319B6132B004532A8 /* energy_FLP.c in Sources */,
 				C1E07B1E19B9BADE00F63CA1 /* strbuffer.c in Sources */,
 				C1E07B1C19B9BADE00F63CA1 /* pack_unpack.c in Sources */,
-				C12E1EF219B6132B004532A8 /* opus_demo.c in Sources */,
 				C12E1EE419B6132B004532A8 /* mlp.c in Sources */,
 				C12E1E1619B6132B004532A8 /* regularize_correlations_FIX.c in Sources */,
 				C12E1DDD19B6132B004532A8 /* decode_core.c in Sources */,
@@ -1940,6 +1850,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1E07B4219BCAF9700F63CA1 /* host_portaudio.c in Sources */,
 				C12E1F7619B70400004532A8 /* lock_free_fifo.c in Sources */,
 				C12E1F7119B6FEC9004532A8 /* main.c in Sources */,
 				C12E1F8919B74C0E004532A8 /* mem.c in Sources */,
@@ -1998,7 +1909,6 @@
 				C12E1E3019B6132B004532A8 /* encode_frame_FLP.c in Sources */,
 				C12E1E4619B6132B004532A8 /* LTP_analysis_filter_FLP.c in Sources */,
 				C12E1E1D19B6132B004532A8 /* schur_FIX.c in Sources */,
-				C12E1F9C19B8B47D004532A8 /* framing.c in Sources */,
 				C12E1F8E19B7583C004532A8 /* platform_util_ios.m in Sources */,
 				C12E1E2C19B6132B004532A8 /* bwexpander_FLP.c in Sources */,
 				C1E07B0D19B9BADE00F63CA1 /* error.c in Sources */,
@@ -2135,9 +2045,10 @@
 				C12E1E3219B6132B004532A8 /* energy_FLP.c in Sources */,
 				C1E07B1D19B9BADE00F63CA1 /* strbuffer.c in Sources */,
 				C1E07B1B19B9BADE00F63CA1 /* pack_unpack.c in Sources */,
-				C12E1EF119B6132B004532A8 /* opus_demo.c in Sources */,
 				C12E1EE319B6132B004532A8 /* mlp.c in Sources */,
 				C12E1E1519B6132B004532A8 /* regularize_correlations_FIX.c in Sources */,
+				C1E07B3F19BCAF9000F63CA1 /* host_ios.m in Sources */,
+				C1E07B3719BCADF500F63CA1 /* framing.c in Sources */,
 				C12E1DDC19B6132B004532A8 /* decode_core.c in Sources */,
 				C12E1E7619B6132B004532A8 /* log2lin.c in Sources */,
 				C12E1E0619B6132B004532A8 /* k2a_Q16_FIX.c in Sources */,
@@ -2152,19 +2063,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		C118B3F619B4B29B00005678 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = kowalski_portaudio;
-			targetProxy = C118B3F519B4B29B00005678 /* PBXContainerItemProxy */;
-		};
-		C1F57A2B19B4A2CE000C6BCF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = kowalski_ios;
-			targetProxy = C1F57A2A19B4A2CE000C6BCF /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		C118B3F319B4B28E00005678 /* Debug */ = {
@@ -2192,6 +2090,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
+					OPUS_BUILD,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -2229,6 +2128,7 @@
 				EXECUTABLE_PREFIX = lib;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = OPUS_BUILD;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;

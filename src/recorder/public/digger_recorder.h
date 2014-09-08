@@ -37,15 +37,24 @@ extern "C"
         /** 0 - 1, 0 empty, 1 full. */
         float controlEventFIFOLevel;
         /** 
-         * Gets set to a non-zero value if the audio recording FIFO 
-         * is full.
+         * Gets set to a non-zero value if the audio recording FIFO has
+         * had an overrun since the previous call to drGetDevInfo.
          */
         int recordFIFOUnderrun;
-        /** */
+        /**
+         * Gets set to a non-zero value if the notification FIFO has
+         * had an overrun since the previous call to drGetDevInfo.
+         */
         int notificationFIFOUnderrun;
-        /** */
+        /**
+         * Gets set to a non-zero value if the control event FIFO has
+         * had an overrun since the previous call to drGetDevInfo.
+         */
         int controlEventFIFOUnderrun;
-        /** */
+        /**
+         * Gets set to a non-zero value if the error FIFO has
+         * had an overrun since the previous call to drGetDevInfo.
+         */
         int errorFIFOUnderrun;
     } drDevInfo;
     
@@ -61,15 +70,15 @@ extern "C"
     
     /**
      * A callback that gets invoked when the recorder needs to create
-     * an audio file to recod to.
+     * an audio file to record to.
      */
-    typedef const char* (*drWritableAudioFilePathCallback)(void);
+    typedef const char* (*drWritableAudioFilePathCallback)(void* userData);
     
     /**
      * Initializes the recorder.
      * @param notificationCallback
      * @param errorCallback
-     * @param callbackUserData
+     * @param callbackUserData Gets passed as an argument in all callbacks.
      * @param settings If NULL, default settings will be used.
      */
     drError drInitialize(drNotificationCallback notificationCallback,

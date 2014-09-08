@@ -13,8 +13,10 @@ static void errorCallback(drError error, void* userData)
     [vc onError:error];
 }
 
-static const char* writableFilePathCallback()
+static const char* writableFilePathCallback(void* userData)
 {
+    //SandboxViewController* vc = (__bridge SandboxViewController*)userData;
+    
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     
