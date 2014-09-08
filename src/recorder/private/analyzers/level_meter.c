@@ -28,7 +28,7 @@ void drLevelMeter_init(drLevelMeter* meter,
 }
 
 void drLevelMeter_processBuffer(void* levelMeter,
-                                float* inBuffer,
+                                const float* inBuffer,
                                 int numChannels,
                                 int numFrames)
 {

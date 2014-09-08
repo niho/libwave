@@ -15,12 +15,60 @@ AudioBufferList inputBufferList;
 /** The size in bytes of the input sample buffer. */
 int inputBufferByteSize = -1;
 
+//TODO: fix this!
+static drInstance* s_instance = NULL;
+
+#define DR_IOS_TEMP_BUFFER_SIZE_IN_FRAMES 2048
+float inputScratchBuffer[DR_IOS_TEMP_BUFFER_SIZE_IN_FRAMES];
+float outputScratchBuffer[DR_IOS_TEMP_BUFFER_SIZE_IN_FRAMES];
+
+/**
+ * Converts a buffer of floats to a buffer of signed shorts. The floats are assumed
+ * to be in the range [-1, 1].
+ * @param sourceBuffer The buffer containing the values to convert.
+ * @param targetBuffer The buffer to write converted samples to.
+ * @param size The size of the source and target buffers.
+ */
+static inline void drFloatToInt16(float* sourceBuffer, short* targetBuffer, int size)
+{
+    assert(sourceBuffer != NULL);
+    assert(targetBuffer != NULL);
+    
+    int i = 0;
+    while (i < size)
+    {
+        targetBuffer[i] = (short)(32767 * sourceBuffer[i]);
+        i++;
+    }
+}
+
+/**
+ * Converts a buffer of signed short values to a buffer of floats
+ * in the range [-1, 1].
+ * @param sourceBuffer The buffer containing the values to convert.
+ * @param targetBuffer The buffer to write converted samples to.
+ * @param size The size of the source and target buffers.
+ */
+static inline void drInt16ToFloat(short* sourceBuffer, float* targetBuffer, int size)
+{
+    assert(sourceBuffer != NULL);
+    assert(targetBuffer != NULL);
+    
+    int i = 0;
+    while (i < size)
+    {
+        targetBuffer[i] = (float)(sourceBuffer[i] / 32768.0);
+        i++;
+    }
+}
 
 drError drInstance_hostSpecificInit(drInstance* instance)
 {
+    //TODO: uuuh...
+    assert(s_instance == NULL);
+    s_instance = instance;
     
-    
-    /** 
+    /**
      * Create the remote IO instance once.
      */
     drCreateRemoteIOInstance();
@@ -43,6 +91,10 @@ drError drInstance_hostSpecificDeinit(drInstance* instance)
     drStopAndDeinitRemoteIO();
     
     AudioComponentInstanceDispose(auComponentInstance);
+    
+    //TODO: uuuh...
+    assert(s_instance != NULL);
+    s_instance = NULL;
     
     return DR_NO_ERROR;
 }
@@ -94,8 +146,8 @@ OSStatus drCoreAudioInputCallback(void *inRefCon,
                              &inputBufferList);
     assert(status == 0);
     
-    //then pass the samples on to the mixer
-    kwlMixer* const mixer = (kwlMixer*)inRefCon;
+
+    drInstance* instance = (drInstance*)inRefCon;
 
     const int numChannels = inputBufferList.mBuffers[0].mNumberChannels;
     short* buffer = (short*) inputBufferList.mBuffers[0].mData;
@@ -103,20 +155,20 @@ OSStatus drCoreAudioInputCallback(void *inRefCon,
     while (currFrame < inNumberFrames)
     {
         int numFramesToMix = inNumberFrames - currFrame;
-        if (numFramesToMix > KWL_TEMP_BUFFER_SIZE_IN_FRAMES)
+        if (numFramesToMix > DR_IOS_TEMP_BUFFER_SIZE_IN_FRAMES)
         {
-            numFramesToMix = KWL_TEMP_BUFFER_SIZE_IN_FRAMES;
+            numFramesToMix = DR_IOS_TEMP_BUFFER_SIZE_IN_FRAMES;
         }
         
         /*Convert input buffer samples to floats*/
-        kwlInt16ToFloat(&buffer[currFrame * numChannels], 
-                        mixer->inBuffer,
+        drInt16ToFloat(&buffer[currFrame * numChannels], 
+                        inputScratchBuffer,
                         numFramesToMix * numChannels);
             
-        /*Pass the converted buffer to the mixer*/
-        kwlMixer_processInputBuffer(mixer, 
-                                            &(mixer->inBuffer)[currFrame * numChannels], 
-                                            numFramesToMix);
+        /*Pass the converted buffer to the instance*/
+        drInstance_audioInputCallback(instance,
+                                      &(inputScratchBuffer)[currFrame * numChannels],
+                                      numChannels, numFramesToMix);
         
         currFrame += numFramesToMix;
     }
@@ -146,7 +198,7 @@ OSStatus drCoreAudioOutputCallback(void *inRefCon,
     prevDelta = delta;
 #endif
     
-    kwlMixer* const mixer = (kwlMixer*)inRefCon;
+    drInstance* instance = (drInstance*)inRefCon;
     
     const int numChannels = ioData->mBuffers[0].mNumberChannels;
     short* buffer = (short*) ioData->mBuffers[0].mData;
@@ -154,15 +206,15 @@ OSStatus drCoreAudioOutputCallback(void *inRefCon,
     while (currFrame < inNumberFrames)
     {
         int numFramesToMix = inNumberFrames - currFrame;
-        if (numFramesToMix > KWL_TEMP_BUFFER_SIZE_IN_FRAMES)
+        if (numFramesToMix > DR_IOS_TEMP_BUFFER_SIZE_IN_FRAMES)
         {
-            numFramesToMix = KWL_TEMP_BUFFER_SIZE_IN_FRAMES;
+            numFramesToMix = DR_IOS_TEMP_BUFFER_SIZE_IN_FRAMES;
         }
     
         /*prepare a new buffer*/
-        kwlMixer_render(mixer, mixer->outBuffer, numFramesToMix);
+        drInstance_audioOutputCallback(instance, outputScratchBuffer, numChannels, numFramesToMix);
 
-        kwlFloatToInt16(mixer->outBuffer, 
+        drFloatToInt16(outputScratchBuffer,
                         &buffer[currFrame * numChannels], 
                         numFramesToMix * numChannels);
         currFrame += numFramesToMix;
@@ -212,9 +264,9 @@ void drInitAndStartRemoteIO()
     drStopAndDeinitRemoteIO();
     
     const int bitsPerSample = 16; 
-    const int numInChannels = soundEngine->mixer->numInChannels;
-    const int numOutChannels = soundEngine->mixer->numOutChannels;
-    float sampleRate = soundEngine->mixer->sampleRate;
+    const int numInChannels = s_instance->settings.desiredNumInputChannels;
+    const int numOutChannels = s_instance->settings.desiredNumOutputChannels;
+    float sampleRate = s_instance->settings.desiredSampleRate;
     
     const unsigned int OUTPUT_BUS_ID = 0;
     const unsigned int INPUT_BUS_ID = 1;
@@ -234,8 +286,8 @@ void drInitAndStartRemoteIO()
         drEnsureNoAudioUnitError(status);
     }
     
-    /*set buffer size. TODO: use the passed in value.*/
-    Float32 preferredBufferSize = 0.024;
+    /*set buffer size. */
+    Float32 preferredBufferSize = s_instance->settings.desiredBufferSizeInFrames / (float)s_instance->settings.desiredSampleRate;
     status = AudioSessionSetProperty(kAudioSessionProperty_PreferredHardwareIOBufferDuration, 
                                      sizeof(preferredBufferSize), 
                                      &preferredBufferSize);
@@ -300,7 +352,7 @@ void drInitAndStartRemoteIO()
     if (numInChannels > 0)
     {
         renderCallbackStruct.inputProc = drCoreAudioInputCallback;
-        renderCallbackStruct.inputProcRefCon = soundEngine->mixer;
+        renderCallbackStruct.inputProcRefCon = s_instance;
         
         status = AudioUnitSetProperty(auComponentInstance, 
                                       kAudioOutputUnitProperty_SetInputCallback, 
@@ -314,7 +366,7 @@ void drInitAndStartRemoteIO()
     
     /*hook up the output callback*/
     renderCallbackStruct.inputProc = drCoreAudioOutputCallback;
-    renderCallbackStruct.inputProcRefCon = soundEngine->mixer;
+    renderCallbackStruct.inputProcRefCon = s_instance;
     
     status = AudioUnitSetProperty(auComponentInstance, 
                                   kAudioUnitProperty_SetRenderCallback, 
@@ -355,7 +407,7 @@ void drAudioRouteChangeCallback(void *inUserData,
                               const void *inPropertyValue)
 {
     //printf("* audio route changed,\n");
-    drInstance* instance = (kwlEngine*)inUserData;
+    drInstance* instance = (drInstance*)inUserData;
     
     //get the old audio route name and the reason for the change
     CFDictionaryRef dict = inPropertyValue;
@@ -436,7 +488,7 @@ void drAudioRouteChangeCallback(void *inUserData,
         
         drStopAndDeinitRemoteIO();
         
-        int numInChannels = isAudioInputAvailable != 0 ? soundEngine->mixer->numInChannels : 0;
+        int numInChannels = isAudioInputAvailable != 0 ? s_instance->settings.desiredNumInputChannels : 0;
         UInt32 sessionCategory = numInChannels == 0 ? kAudioSessionCategory_MediaPlayback : 
                                                       kAudioSessionCategory_PlayAndRecord;
         result = AudioSessionSetProperty(kAudioSessionProperty_AudioCategory, sizeof(sessionCategory), &sessionCategory);
@@ -473,7 +525,7 @@ void drInitAudioSession()
     /*
      * Initialize and activte audio session
      */
-    status = AudioSessionInitialize(NULL, NULL, &drAudioSessionInterruptionCallback, soundEngine);
+    status = AudioSessionInitialize(NULL, NULL, &drAudioSessionInterruptionCallback, s_instance);
     if (status == kAudioSessionAlreadyInitialized)
     {
         //already initialized
@@ -504,7 +556,7 @@ void drInitAudioSession()
         //This device does not support audio input at this point 
         //(this may change at any time, for example when connecting
         //a headset to an iPod touch).
-        soundEngine->isInputEnabled = 0;
+        s_instance->isInputDisabled = 1;
     }
     
     UInt32 sessionCategory = inputAvailable == 0 ? kAudioSessionCategory_MediaPlayback : 
@@ -519,17 +571,17 @@ void drInitAudioSession()
     
     status = AudioSessionAddPropertyListener(kAudioSessionProperty_AudioInputAvailable, 
                                              &drInputAvailableChangeCallback, 
-                                             soundEngine);
+                                             s_instance);
     drEnsureNoAudioSessionError(status);
     
     status = AudioSessionAddPropertyListener(kAudioSessionProperty_AudioRouteChange, 
                                              drAudioRouteChangeCallback, 
-                                             soundEngine);
+                                             s_instance);
     drEnsureNoAudioSessionError(status);
     
     status = AudioSessionAddPropertyListener(kAudioSessionProperty_ServerDied, 
                                              drServerDiedCallback, 
-                                             soundEngine);
+                                             s_instance);
     drEnsureNoAudioSessionError(status);
 }
 
@@ -554,7 +606,7 @@ int drResume(void)
 
 void drSetASBD(AudioStreamBasicDescription* asbd, int numChannels, float sampleRate)
 {
-    kwlMemset(asbd, 0, sizeof(AudioStreamBasicDescription));
+    memset(asbd, 0, sizeof(AudioStreamBasicDescription));
     assert(numChannels == 1 || numChannels == 2);
     asbd->mBitsPerChannel = 16;
     asbd->mBytesPerFrame = 2 * numChannels;

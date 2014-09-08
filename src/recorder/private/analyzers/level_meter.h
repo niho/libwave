@@ -50,7 +50,7 @@ extern "C"
     /** 
      * Buffer processing callback.
      */
-    void drLevelMeter_processBuffer(void* levelMeter, float* inBuffer, int numChannels, int numFrames);
+    void drLevelMeter_processBuffer(void* levelMeter, const float* inBuffer, int numChannels, int numFrames);
     
     /** 
      * Cleanup callback.

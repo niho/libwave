@@ -14,6 +14,7 @@ extern "C"
     typedef struct drSettings
     {
         int errorFIFOCapacity;
+        int realtimeDataFIFOCapacity;
         int controlEventFIFOCapacity;
         int notificationFIFOCapacity;
         int recordFIFOCapacity;

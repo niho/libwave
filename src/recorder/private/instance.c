@@ -13,62 +13,6 @@
 #include "platform_util.h"
 
 
-/**
- * Gets called from the main thread.
- */
-static void mainThreadUpdateCallback(void* data)
-{
-    drInstance* in = (drInstance*)data;
-    
-    //get measured levels. TODO: pass these using a FIFO
-    //memcpy(in->inputLevelsMain, in->inputLevelsShared, sizeof(drLevels) * MAX_NUM_INPUT_CHANNELS);
-    
-    //invoke the error callback for any incoming errors on the main thread
-    drError e;
-    while (drLockFreeFIFO_pop(&in->errorFIFO, &e))
-    {
-        drInstance_onMainThreadError(in, e);
-    }
-    
-    //invoke the event callback for any incoming events on the main thread
-    drNotification n;
-    while (drLockFreeFIFO_pop(&in->notificationFIFO, &n))
-    {
-        drInstance_onMainThreadNotification(in, &n);
-    }
-}
-
-/**
- * Gets called from the audio thread.
- */
-static void audioThreadUpdateCallback(void* data)
-{
-    drInstance* in = (drInstance*)data;
-    
-    //update measured levels
-    for (int i = 0; i < MAX_NUM_INPUT_CHANNELS; i++)
-    {
-        drLevels* ol = &in->inputLevelsAudio[i];
-        drLevelMeter* m = &in->inputLevelMeters[i];
-        
-        ol->peakLevel = m->peak;
-        ol->peakLevelEnvelope = m->peakEnvelope;
-        ol->rmsLevel = m->rmsLevel;
-        
-        //TODO: edge detect or something?
-        ol->hasClipped = m->clip;
-    }
-    
-    //copy measured levels to the main thread. TODO: pass these using a FIFO
-    memcpy(in->inputLevelsShared, in->inputLevelsAudio, sizeof(drLevels) * MAX_NUM_INPUT_CHANNELS);
-    
-    drControlEvent e;
-    while (drLockFreeFIFO_pop(&in->controlEventFIFO, &e))
-    {
-        drInstance_onAudioThreadControlEvent(in, &e);
-    }
-}
-
 drError drInstance_init(drInstance* instance,
                         drNotificationCallback notificationCallback,
                         drErrorCallback errorCallback,
@@ -121,15 +65,14 @@ drError drInstance_init(drInstance* instance,
                         instance->settings.errorFIFOCapacity,
                         sizeof(drError));
     
+    drLockFreeFIFO_init(&instance->realTimeDataFifo,
+                        instance->settings.realtimeDataFIFOCapacity,
+                        sizeof(drLevels));
     
-    //TODO: pass these as arguments
-
-    const int numOutChannels = 2;
-    const int numInputChannels = 1;
     
     //create audio analyzers
-    assert(numInputChannels <= MAX_NUM_INPUT_CHANNELS);
-    for (int i = 0; i < numInputChannels; i++)
+    assert(instance->settings.desiredNumInputChannels <= MAX_NUM_INPUT_CHANNELS);
+    for (int i = 0; i < instance->settings.desiredNumInputChannels; i++)
     {
         drLevelMeter_init(&instance->inputLevelMeters[i],
                           i,
@@ -175,6 +118,7 @@ drError drInstance_deinit(drInstance* instance)
     drLockFreeFIFO_deinit(&instance->notificationFIFO);
     drLockFreeFIFO_deinit(&instance->controlEventFIFO);
     drLockFreeFIFO_deinit(&instance->errorFIFO);
+    drLockFreeFIFO_deinit(&instance->realTimeDataFifo);
 
     //clear the instance
     memset(instance, 0, sizeof(drInstance));
@@ -195,6 +139,28 @@ void drInstance_update(drInstance* instance, float timeStep)
     
     instance->devInfo.recordFIFOLevel = drLockFreeFIFO_getNumElements(&instance->inputAudioDataQueue) /
     ((float)instance->inputAudioDataQueue.capacity);
+    
+    //get measured levels
+    drLevels l;
+    while (drLockFreeFIFO_pop(&instance->realTimeDataFifo, &l))
+    {
+        //TODO: number of input channels?
+        memcpy(&instance->inputLevels[0], &l, sizeof(drLevels));
+    }
+    
+    //invoke the error callback for any incoming errors on the main thread
+    drError e;
+    while (drLockFreeFIFO_pop(&instance->errorFIFO, &e))
+    {
+        drInstance_onMainThreadError(instance, e);
+    }
+    
+    //invoke the event callback for any incoming events on the main thread
+    drNotification n;
+    while (drLockFreeFIFO_pop(&instance->notificationFIFO, &n))
+    {
+        drInstance_onMainThreadNotification(instance, &n);
+    }
     
     //pump audio data FIFO after the notifiaction FIFO, to make sure
     //a recording started event arrives before the first audio data.
@@ -293,6 +259,33 @@ void drInstance_audioInputCallback(drInstance* in, const float* inBuffer, int nu
                 drInstance_enqueueNotificationOfType(in, DR_RECORDING_FINISHED);
             }
         }
+    }
+    
+    //update measured levels
+    for (int i = 0; i < MAX_NUM_INPUT_CHANNELS; i++)
+    {
+        drLevels l;
+        
+        drLevelMeter* m = &in->inputLevelMeters[i];
+        
+        l.peakLevel = m->peak;
+        l.peakLevelEnvelope = m->peakEnvelope;
+        l.rmsLevel = m->rmsLevel;
+        
+        //TODO: edge detect or something?
+        l.hasClipped = m->clip;
+        
+        //TODO: more channels
+        drLockFreeFIFO_push(&in->realTimeDataFifo, &l);
+    }
+    
+    //copy measured levels to the main thread. TODO: pass these using a FIFO
+    //memcpy(in->inputLevelsShared, in->inputLevelsAudio, sizeof(drLevels) * MAX_NUM_INPUT_CHANNELS);
+    
+    drControlEvent e;
+    while (drLockFreeFIFO_pop(&in->controlEventFIFO, &e))
+    {
+        drInstance_onAudioThreadControlEvent(in, &e);
     }
 }
 
@@ -591,7 +584,7 @@ void drInstance_getInputLevels(drInstance* instance, int channel, int logLevels,
         return;
     }
     
-    drLevels* lSrc = &instance->inputLevelsMain[channel];
+    drLevels* lSrc = &instance->inputLevels[channel];
     
     result->hasClipped = lSrc->hasClipped;
     result->peakLevel = logLevels ? lin2LogLevel(lSrc->peakLevel) : lSrc->peakLevel;

@@ -97,6 +97,7 @@ extern "C"
         drLockFreeFIFO notificationFIFO;
         drLockFreeFIFO controlEventFIFO;
         drLockFreeFIFO errorFIFO;
+        drLockFreeFIFO realTimeDataFifo;
         
         drWritableAudioFilePathCallback writableFilePathCallback;
         
@@ -108,9 +109,7 @@ extern "C"
         drLevelMeter inputLevelMeters[MAX_NUM_INPUT_CHANNELS];
         
         //Measured levels, copied from audio to main via shared memory
-        drLevels inputLevelsAudio[MAX_NUM_INPUT_CHANNELS];
-        drLevels inputLevelsShared[MAX_NUM_INPUT_CHANNELS];
-        drLevels inputLevelsMain[MAX_NUM_INPUT_CHANNELS];
+        drLevels inputLevels[MAX_NUM_INPUT_CHANNELS];
         
         drLockFreeFIFO inputAudioDataQueue;
         
@@ -121,6 +120,8 @@ extern "C"
         int numInputChannels;
         int numOutputChannels;
         
+        //
+        int isInputDisabled;
     } drInstance;
 
     /**
