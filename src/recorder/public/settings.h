@@ -17,12 +17,17 @@ extern "C"
         int controlEventFIFOCapacity;
         int notificationFIFOCapacity;
         int recordFIFOCapacity;
-        int desiredSampleRate;
-        int desiredBufferSizeInFrames;
+        
         /** In seconds. */
         float levelMeterAttackTime;
         /** In seconds. */
         float levelMeterReleaseTime;
+        
+        //desired audio stream parameters
+        int desiredSampleRate;
+        int desiredBufferSizeInFrames;
+        int desiredNumInputChannels;
+        int desiredNumOutputChannels;
     } drSettings;
     
     /**

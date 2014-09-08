@@ -1,5 +1,6 @@
-
-#include <include/portaudio.h>
+#include <assert.h>
+#include <portaudio.h>
+#include <string.h>
 #include "instance.h"
 
 PaStream *stream;
@@ -25,47 +26,10 @@ static int paCallback(const void *inputBuffer,
 {
     drInstance *instance = (drInstance*)userData;
     
-    /*Get the number of output channels.*/
-    const int numOutChannels = instance->settings.;
     
-    /*Fill the output buffer. For efficiency reasons, the 
-      mixer has an internal maximum buffer size determined 
-      by KWL_TEMP_BUFFER_SIZE_IN_FRAMES. If the size of the 
-      requested output buffer exceeds the internal buffer 
-      size, multiple calls to kwlMixer_render 
-      are made. This is typically not the case.*/
-    int currFrame = 0;
-    while (currFrame < framesPerBuffer)
-    {
-        /*Compute the number of frames to mix.*/
-        int numFramesToMix = framesPerBuffer - currFrame;
-        if (numFramesToMix > KWL_TEMP_BUFFER_SIZE_IN_FRAMES)
-        {
-            numFramesToMix = KWL_TEMP_BUFFER_SIZE_IN_FRAMES;
-        }
-        
-        /*Perform mixing.*/
-        
-        drInstance_audioOutputCallback(<#drInstance *in#>, <#float *inBuffer#>, <#int numChannels#>, <#int numFrames#>, <#void *data#>)
-        
-        kwlMixer_render(mixer, 
-                                          mixer->outBuffer, 
-                                          numFramesToMix);
-        
-        /*Copy mixed samples to the output buffer*/
-        int outIdx = currFrame * numOutChannels;
-        
-        memcpy(&((float*)outputBuffer)[outIdx],
-               mixer->outBuffer,
-               sizeof(float) * numOutChannels * numFramesToMix);
-        
-        kwlMixer_processInputBuffer(mixer, 
-                                    &((float*)inputBuffer)[outIdx],
-                                    numFramesToMix);
-        
-        /*Increment write position*/
-        currFrame += numFramesToMix;
-    }
+    drInstance_audioOutputCallback(instance, outputBuffer, instance->numOutputChannels, (int)framesPerBuffer);
+    
+    drInstance_audioInputCallback(instance, inputBuffer, instance->numInputChannels, (int)framesPerBuffer);
     
     /*Return 0 to indicate that everything went well.*/
     return 0;
@@ -79,18 +43,24 @@ static int paCallback(const void *inputBuffer,
  * @param bufferSize
  * @return An error code.
  */
-drError kwlEngine_hostSpecificInitialize(drInstance* instance, int sampleRate, int numOutChannels, int numInChannels, int bufferSize)
+drError drInstance_hostSpecificInit(drInstance* instance)
 {
+    drError result = DR_NO_ERROR;
+    
     PaError err = Pa_Initialize();
-    assert(err == paNoError && "error initializing portaudio");
+    if (err != paNoError)
+    {
+        //printf("PortAudio error: %s\n", Pa_GetErrorText(err));
+        result = DR_FAILED_TO_INITIALIZE_HOST;
+    }
     
     /* Open an audio I/O stream. */
     err = Pa_OpenDefaultStream(&stream,
-                               numInChannels,
-                               numOutChannels,
+                               instance->settings.desiredNumInputChannels,
+                               instance->settings.desiredNumOutputChannels,
                                paFloat32,   /* 32 bit floating point output. */
-                               sampleRate,
-                               bufferSize, /* frames per buffer, i.e. the number
+                               instance->settings.desiredSampleRate,
+                               instance->settings.desiredBufferSizeInFrames, /* frames per buffer, i.e. the number
                                             of sample frames that PortAudio will
                                             request from the callback. Many apps
                                             may want to use
@@ -98,36 +68,59 @@ drError kwlEngine_hostSpecificInitialize(drInstance* instance, int sampleRate, i
                                             tells PortAudio to pick the best,
                                             possibly changing, buffer size.*/
                                (PaStreamCallback*)&paCallback,
-                               engine->mixer);
-    //printf("PortAudio error: %s\n", Pa_GetErrorText(err));
-    assert(err == paNoError);
+                               instance);
+    if (err != paNoError)
+    {
+        //printf("PortAudio error: %s\n", Pa_GetErrorText(err));
+        result = DR_FAILED_TO_INITIALIZE_HOST;
+    }
     
     err = Pa_StartStream(stream);
-    //printf("PortAudio error: %s\n", Pa_GetErrorText(err));
-    assert(err == paNoError);
+    if (err != paNoError)
+    {
+        //printf("PortAudio error: %s\n", Pa_GetErrorText(err));
+        result = DR_FAILED_TO_INITIALIZE_HOST;
+    }
 
-	const PaStreamInfo* si = Pa_GetStreamInfo(stream);
+    if (result == DR_NO_ERROR)
+    {
+        const PaStreamInfo* si = Pa_GetStreamInfo(stream);
+        instance->numInputChannels = instance->settings.desiredNumInputChannels;
+        instance->numOutputChannels = instance->settings.desiredNumOutputChannels;
+        instance->sampleRate = si->sampleRate;
+    }
 
-    return KWL_NO_ERROR;
+    return result;
 }
 
 /**
  * Shuts down PortAudio.
  * @param engine
  */
-drError kwlEngine_hostSpecificDeinitialize(drInstance* instance)
+drError drInstance_hostSpecificDeinit(drInstance* instance)
 {
+    drError result = DR_NO_ERROR;
     
     PaError err = Pa_StopStream(stream);
-    //printf("PortAudio error: %s\n", Pa_GetErrorText(err));
-    assert(err == paNoError);
+    if (err != paNoError)
+    {
+        //printf("PortAudio error: %s\n", Pa_GetErrorText(err));
+        result = DR_FAILED_TO_DEINITIALIZE_HOST;
+    }
     
     err = Pa_CloseStream(stream);
-    //printf("PortAudio error: %s\n", Pa_GetErrorText(err));
-    assert(err == paNoError);
+    if (err != paNoError)
+    {
+        //printf("PortAudio error: %s\n", Pa_GetErrorText(err));
+        result = DR_FAILED_TO_DEINITIALIZE_HOST;
+    }
     
     err = Pa_Terminate();
-    //printf("PortAudio error: %s\n", Pa_GetErrorText(err));
-    assert(err == paNoError);
-    return KWL_NO_ERROR;
+    if (err != paNoError)
+    {
+        //printf("PortAudio error: %s\n", Pa_GetErrorText(err));
+        result = DR_FAILED_TO_DEINITIALIZE_HOST;
+    }
+    
+    return result;
 }

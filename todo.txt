@@ -6,7 +6,8 @@
 [ ] close any encoder files on deinit
 [ ] desired settings vs actual
 [ ] remove platform_util, handle encoder support with ifdefs
-
+[ ] init kowalski with custom io callbacks
+[ ] portaudio external location
 
 
 [ ] Associate recording sessions with handles, to make it possible to resume sessions

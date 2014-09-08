@@ -16,6 +16,14 @@ const char* drErrorToString(drError errorCode)
         {
             return "recorder instance is not initialized";
         }
+        case DR_FAILED_TO_INITIALIZE_HOST:
+        {
+            return "failed to initialize the audio host";
+        }
+        case DR_FAILED_TO_DEINITIALIZE_HOST:
+        {
+            return "failed to deinitialize the audio host";
+        }
         case DR_FAILED_TO_INITIALIZE_ENCODER:
         {
             return "failed to initialize audio encoder";

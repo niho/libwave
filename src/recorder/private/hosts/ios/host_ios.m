@@ -125,11 +125,11 @@ OSStatus drCoreAudioInputCallback(void *inRefCon,
 }
 
 OSStatus drCoreAudioOutputCallback(void *inRefCon,
-                                 AudioUnitRenderActionFlags *ioActionFlags,
-                                 const AudioTimeStamp *inTimeStamp,
-                                 UInt32 inBusNumber,
-                                 UInt32 inNumberFrames,
-                                 AudioBufferList *ioData)
+                                   AudioUnitRenderActionFlags *ioActionFlags,
+                                   const AudioTimeStamp *inTimeStamp,
+                                   UInt32 inBusNumber,
+                                   UInt32 inNumberFrames,
+                                   AudioBufferList *ioData)
 {   
 //#define KWL_DEBUG_CA_DEADLINE
 #ifdef KWL_DEBUG_CA_DEADLINE

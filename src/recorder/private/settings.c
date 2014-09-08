@@ -11,6 +11,9 @@ void drSettings_setDefaults(drSettings* settings)
     settings->recordFIFOCapacity = 250;
     settings->desiredSampleRate = 44100;
     settings->desiredBufferSizeInFrames = 512;
+    settings->desiredNumInputChannels = 1;
+    settings->desiredNumOutputChannels = 2;
+    
     
     settings->levelMeterAttackTime = 0.0001f;
     settings->levelMeterReleaseTime = 2.0f;

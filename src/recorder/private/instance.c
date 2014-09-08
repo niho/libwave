@@ -229,7 +229,7 @@ void drInstance_update(drInstance* instance, float timeStep)
     }
 }
 
-void drInstance_audioInputCallback(drInstance* in, float* inBuffer, int numChannels, int numFrames, void* data)
+void drInstance_audioInputCallback(drInstance* in, const float* inBuffer, int numChannels, int numFrames)
 {
     //pass audio input to analyzers
     for (int i = 0; i < MAX_NUM_ANALYZER_SLOTS; i++)
@@ -296,7 +296,7 @@ void drInstance_audioInputCallback(drInstance* in, float* inBuffer, int numChann
     }
 }
 
-void drInstance_audioOutputCallback(drInstance* in, float* inBuffer, int numChannels, int numFrames, void* data)
+void drInstance_audioOutputCallback(drInstance* in, float* inBuffer, int numChannels, int numFrames)
 {
     if (in->firstSampleHasPlayed == 0)
     {

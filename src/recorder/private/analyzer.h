@@ -11,7 +11,7 @@ extern "C"
     /**
      *
      */
-    typedef void (*drAnalyzerAudioCallback)(void* analyzer, float* inBuffer, int numChannels, int numFrames);
+    typedef void (*drAnalyzerAudioCallback)(void* analyzer, const float* inBuffer, int numChannels, int numFrames);
     
     /**
      *

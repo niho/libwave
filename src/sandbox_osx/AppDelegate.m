@@ -12,13 +12,41 @@
 
 #import "digger_recorder.h"
 
+static void eventCallback(const drNotification* event, void* userData)
+{
+    AppDelegate* ad = (__bridge AppDelegate*)userData;
+}
+
+static void errorCallback(drError error, void* userData)
+{
+    AppDelegate* ad = (__bridge AppDelegate*)userData;
+}
+
+static const char* writableFilePathCallback(void* userData)
+{
+    //SandboxViewController* vc = (__bridge SandboxViewController*)userData;
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    
+    NSString* fileName = [NSString stringWithFormat:@"audio-recording-%d", arc4random()];
+    return [[documentsDirectory stringByAppendingPathComponent:fileName] UTF8String];
+}
+
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    // Insert code here to initialize your application
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString* settingsFilePath = [documentsDirectory stringByAppendingPathComponent:@"drsettings.json"];
     
-    drInitialize(eventCallback, (__bridge void*)(self));
+    drInitialize(eventCallback,
+                 errorCallback,
+                 writableFilePathCallback,
+                 (__bridge void*)(self),
+                 [settingsFilePath UTF8String],
+                 NULL);
     
     NSTimer* t = [NSTimer scheduledTimerWithTimeInterval:kUpdateInterval
                                                   target:self
@@ -27,11 +55,6 @@
                                                  repeats:YES];
     
 
-}
-
-static void eventCallback(void* userData, const drNotification* event)
-{
-    
 }
 
 

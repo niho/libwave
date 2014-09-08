@@ -12,7 +12,6 @@
 		C118B40119B4B5D400005678 /* LevelMeterView.mm in Sources */ = {isa = PBXBuildFile; fileRef = C118B40019B4B5D400005678 /* LevelMeterView.mm */; };
 		C12E1F0319B61523004532A8 /* libkowalski_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C12E1F0219B61523004532A8 /* libkowalski_ios.a */; };
 		C12E1F5B19B63410004532A8 /* DevInfoView.mm in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F5A19B63410004532A8 /* DevInfoView.mm */; };
-		C12E1F5C19B63410004532A8 /* DevInfoView.mm in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F5A19B63410004532A8 /* DevInfoView.mm */; };
 		C12E1F7E19B709D7004532A8 /* BufferLevelView.mm in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F7D19B709D7004532A8 /* BufferLevelView.mm */; };
 		C1F57A3519B4A36D000C6BCF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F57A3419B4A36D000C6BCF /* Foundation.framework */; };
 		C1F57A3719B4A36D000C6BCF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F57A3619B4A36D000C6BCF /* CoreGraphics.framework */; };
@@ -392,7 +391,6 @@
 			files = (
 				C1F57ACB19B4A7D3000C6BCF /* main.m in Sources */,
 				C1F57AC919B4A7D3000C6BCF /* AppDelegate.m in Sources */,
-				C12E1F5C19B63410004532A8 /* DevInfoView.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

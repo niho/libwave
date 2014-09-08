@@ -3,7 +3,7 @@
 
 /*! \file */
 
-#include "tinycthread.h"
+#include <tinycthread.h>
 #include "digger_recorder.h"
 #include "level_meter.h"
 #include "analyzer.h"
@@ -116,6 +116,11 @@ extern "C"
         
         drRecordingSession recordingSession;
         
+        //actual audio stream parameters
+        int sampleRate;
+        int numInputChannels;
+        int numOutputChannels;
+        
     } drInstance;
 
     /**
@@ -148,12 +153,12 @@ extern "C"
     /**
      *
      */
-    void drInstance_audioInputCallback(drInstance* in, float* inBuffer, int numChannels, int numFrames, void* data);
+    void drInstance_audioInputCallback(drInstance* in, const float* inBuffer, int numChannels, int numFrames);
     
     /**
      *
      */
-    void drInstance_audioOutputCallback(drInstance* in, float* inBuffer, int numChannels, int numFrames, void* data);
+    void drInstance_audioOutputCallback(drInstance* in, float* inBuffer, int numChannels, int numFrames);
     
     /**
      * Returns a non-zero value if called from the same thread that called drInstance_init.
