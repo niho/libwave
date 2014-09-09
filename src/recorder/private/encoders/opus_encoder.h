@@ -3,6 +3,9 @@
 
 /*! \file */
 
+#include <stdio.h>
+#include <ogg/ogg.h>
+
 #include "opus.h"
 #include "error_codes.h"
 
@@ -19,10 +22,12 @@ extern "C"
     typedef struct drOpusEncoder
     {
         OpusEncoder* encoder;
+        ogg_stream_state oggStreamState;
         FILE* file;
         unsigned char scratchOutputBuffer[MAX_PACKET_SIZE];
         int numAccumulatedInputFrames;
         float scratchInputBuffer[2 * FRAME_SIZE]; //max 2 channels
+        int packetsWritten;
 
     } drOpusEncoder;
     

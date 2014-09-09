@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <math.h>
 #include "assert.h"
-#include <ogg/ogg.h>
 
 #include "opus_encoder.h"
 
@@ -208,6 +207,7 @@ static int write_ogg_packet(ogg_stream_state *ostream, ogg_packet *opacket, FILE
 #if DEBUGOGG
 			print_opage_info(&opage);
 #endif
+            //TODO: check result here
 			fwrite(opage.header, 1, opage.header_len, fp);
 			fwrite(opage.body  , 1, opage.body_len,   fp);
 		}
@@ -219,89 +219,59 @@ static int write_ogg_packet(ogg_stream_state *ostream, ogg_packet *opacket, FILE
 }
 
 
-ogg_stream_state ostream_rec_local;
-
 drError drOpusEncoder_init(void* opusEncoder, const char* filePath, float fs, float numChannels)
 {
-
-    
-    
-    
     assert(numChannels <= 2);
     
     drOpusEncoder* encoder = (drOpusEncoder*)opusEncoder;
     encoder->numAccumulatedInputFrames = 0;
-    int err;
-    assert(encoder->encoder == 0);
-    //TODO: sample rate must match system rate!
-    encoder->encoder = opus_encoder_create(48000, numChannels, OPUS_APPLICATION_AUDIO, &err);
-    if (err < 0)
+        
+    //create the opus encoder
     {
-        fprintf(stderr, "failed to create an encoder: %s\n", opus_strerror(err));
-        //assert(err >= 0 && "failed to create opus encoder");
-        return DR_FAILED_TO_INITIALIZE_ENCODER;
+        int err;
+        assert(encoder->encoder == 0);
+        //TODO: sample rate must match system rate!
+        encoder->encoder = opus_encoder_create(fs, numChannels, OPUS_APPLICATION_AUDIO, &err);
+        if (err < 0)
+        {
+            fprintf(stderr, "failed to create an encoder: %s\n", opus_strerror(err));
+            //assert(err >= 0 && "failed to create opus encoder");
+            return DR_FAILED_TO_INITIALIZE_ENCODER;
+        }
+        
+        err = opus_encoder_ctl(encoder->encoder, OPUS_SET_BITRATE(BITRATE));
+        assert(err >= 0 && "failed to set oupus encoder bitrate");
     }
     
-    err = opus_encoder_ctl(encoder->encoder, OPUS_SET_BITRATE(BITRATE));
-    assert(err >= 0 && "failed to set oupus encoder bitrate");
-    
-    assert(encoder->file == 0);
-    encoder->file = fopen(filePath, "w");
-    if (encoder->file == 0)
+    //open file to write to
     {
-        return DR_FAILED_TO_OPEN_ENCODER_TARGET_FILE;
+        assert(encoder->file == 0);
+        encoder->file = fopen(filePath, "w");
+        if (encoder->file == 0)
+        {
+            return DR_FAILED_TO_OPEN_ENCODER_TARGET_FILE;
+        }
+    }
+    
+    //init ogg container file
+    {
+        const int serialNo = 1;
+        int oggInitResult = ogg_stream_init(&encoder->oggStreamState, serialNo);
+        assert(oggInitResult >= 0);
+        
+        //TODO: free these
+        ogg_packet* oggHeaderPacket0 = make_opus_header0_oggpacket(numChannels, fs);
+        assert(oggHeaderPacket0);
+        ogg_packet* oggHeaderPacket1 = make_opus_header1_oggpacket("digger recorder");
+        assert(oggHeaderPacket1);
+        
+        int result = write_ogg_packet(&encoder->oggStreamState,  oggHeaderPacket0, encoder->file,  1);
+        assert(result >= 0);
+        result     = write_ogg_packet(&encoder->oggStreamState,  oggHeaderPacket1, encoder->file,  1);
+        assert(result >= 0);
     }
     
     return DR_NO_ERROR;
-}
-
-static void debugWriteOggOpusData(drOpusEncoder* encoder, unsigned char* data, int numBytes)
-{
-    /*
-    {
-        FILE *fp_rec_local  = fopen(filePath, "w");
-        int channels = 1;
-        int rate = 48000;
-        ogg_stream_state     ostream_rec_local;
-        ogg_packet          opacket;
-        ogg_packet          *opacket_opus_header[2];
-        uint8_t              opus_enc_packet[4000];
-        opus_int32           opus_enc_packetlen;
-        int ic = 0;
-        
-        opacket_opus_header[0] = make_opus_header0_oggpacket(channels, rate);
-        opacket_opus_header[1] = make_opus_header1_oggpacket("digger recorder");
-        if (!opacket_opus_header[0] || !opacket_opus_header[1])
-            assert(0 && "Error while creating ogg/opus header packets.\n");
-        
-        for (int i = 0; i < 2; i++)
-        {
-            int result = write_ogg_packet(&ostream_rec_local,  opacket_opus_header[i], fp_rec_local,  1);
-            assert(result >= 0);
-        }
-        
-        int oggInitResult = ogg_stream_init(&ostream_rec_local, 1);
-        assert(oggInitResult >= 0);
-        
-        // forge ogg packet
-        opacket.packet     = opus_enc_packet;
-        opacket.bytes      = opus_enc_packetlen;
-        opacket.b_o_s      = 0;
-        opacket.e_o_s      = 0;
-        opacket.granulepos = (ic+1)*960;
-        opacket.packetno   = ic+1;
-        ic++;
-        
-        write_ogg_packet(&ostream_rec_local, &opacket, fp_rec_local, 0);
-        
-        int oggClearResult = ogg_stream_clear(&ostream_rec_local);
-        assert(oggClearResult >= 0);
-        
-        free(opacket_opus_header[0]);
-        free(opacket_opus_header[1]);
-
-    }*/
-
 }
 
 drError drOpusEncoder_write(void* opusEncoder, int numChannels, int numFrames, float* buffer)
@@ -333,8 +303,22 @@ drError drOpusEncoder_write(void* opusEncoder, int numChannels, int numFrames, f
                 else
                 {
                     //printf("encoded opus packet of size %d\n", encodedPacketSize);
-                    int n = fwrite(encoder->scratchOutputBuffer, 1, encodedPacketSize, encoder->file);
-                    if (n != encodedPacketSize)
+                    
+                    // forge ogg packet
+                    ogg_packet opacket;
+                    memset(&opacket, 0, sizeof(ogg_packet));
+                    opacket.packet     = encoder->scratchOutputBuffer;
+                    opacket.bytes      = encodedPacketSize;
+                    opacket.b_o_s      = 0;//encoder->packetsWritten == 0 ? 1 : 0;
+                    opacket.e_o_s      = 0;
+                    opacket.granulepos = (encoder->packetsWritten + 1) * FRAME_SIZE;
+                    opacket.packetno   = encoder->packetsWritten + 1;
+                    encoder->packetsWritten++;
+                    
+                    int writeResult = write_ogg_packet(&encoder->oggStreamState, &opacket, encoder->file, 0);
+                    
+                    //int n = fwrite(encoder->scratchOutputBuffer, 1, encodedPacketSize, encoder->file);
+                    if (writeResult < 0)
                     {
                         return DR_FAILED_TO_WRITE_ENCODED_AUDIO_DATA;
                     }
@@ -351,6 +335,7 @@ drError drOpusEncoder_finish(void* opusEncoder)
     drOpusEncoder* encoder = (drOpusEncoder*)opusEncoder;
     opus_encoder_destroy(encoder->encoder);
     encoder->encoder = 0;
+    ogg_stream_clear(&encoder->oggStreamState);
     
     if (fclose(encoder->file) != 0)
     {
