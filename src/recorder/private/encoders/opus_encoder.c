@@ -257,8 +257,6 @@ drError drOpusEncoder_init(void* opusEncoder, const char* filePath, float fs, fl
 
 static void debugWriteOggOpusData(drOpusEncoder* encoder, unsigned char* data, int numBytes)
 {
-    //
-    //
     /*
     {
         FILE *fp_rec_local  = fopen(filePath, "w");
@@ -302,10 +300,8 @@ static void debugWriteOggOpusData(drOpusEncoder* encoder, unsigned char* data, i
         free(opacket_opus_header[0]);
         free(opacket_opus_header[1]);
 
-    }
-             */
-    //
-    //
+    }*/
+
 }
 
 drError drOpusEncoder_write(void* opusEncoder, int numChannels, int numFrames, float* buffer)
@@ -331,12 +327,12 @@ drError drOpusEncoder_write(void* opusEncoder, int numChannels, int numFrames, f
                                                           MAX_PACKET_SIZE);
                 if (encodedPacketSize < 0)
                 {
-                    fprintf(stderr, "encode failed: %s\n", opus_strerror(encodedPacketSize));
+                    //fprintf(stderr, "encode failed: %s\n", opus_strerror(encodedPacketSize));
                     return DR_FAILED_TO_ENCODE_AUDIO_DATA;
                 }
                 else
                 {
-                    printf("encoded opus packet of size %d\n", encodedPacketSize);
+                    //printf("encoded opus packet of size %d\n", encodedPacketSize);
                     int n = fwrite(encoder->scratchOutputBuffer, 1, encodedPacketSize, encoder->file);
                     if (n != encodedPacketSize)
                     {

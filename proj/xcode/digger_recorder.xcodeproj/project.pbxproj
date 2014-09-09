@@ -436,12 +436,6 @@
 		C12E1F4D19B62635004532A8 /* lock_free_fifo.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F4B19B62635004532A8 /* lock_free_fifo.c */; };
 		C12E1F4E19B62635004532A8 /* lock_free_fifo.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F4B19B62635004532A8 /* lock_free_fifo.c */; };
 		C12E1F4F19B62635004532A8 /* lock_free_fifo.h in Headers */ = {isa = PBXBuildFile; fileRef = C12E1F4C19B62635004532A8 /* lock_free_fifo.h */; };
-		C12E1F7119B6FEC9004532A8 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F5E19B6FE58004532A8 /* main.c */; };
-		C12E1F7219B6FEC9004532A8 /* test_atomic.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F5F19B6FE58004532A8 /* test_atomic.c */; };
-		C12E1F7319B6FEC9004532A8 /* test_lock_free_fifo.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F6119B6FE58004532A8 /* test_lock_free_fifo.c */; };
-		C12E1F7419B701B7004532A8 /* tinycthread.c in Sources */ = {isa = PBXBuildFile; fileRef = C1F57A8519B4A475000C6BCF /* tinycthread.c */; };
-		C12E1F7519B70400004532A8 /* atomic_darwin.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F4119B62595004532A8 /* atomic_darwin.c */; };
-		C12E1F7619B70400004532A8 /* lock_free_fifo.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F4B19B62635004532A8 /* lock_free_fifo.c */; };
 		C12E1F7919B705E3004532A8 /* raw_encoder.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F7719B705E3004532A8 /* raw_encoder.c */; };
 		C12E1F7A19B705E3004532A8 /* raw_encoder.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F7719B705E3004532A8 /* raw_encoder.c */; };
 		C12E1F7B19B705E3004532A8 /* raw_encoder.h in Headers */ = {isa = PBXBuildFile; fileRef = C12E1F7819B705E3004532A8 /* raw_encoder.h */; };
@@ -449,7 +443,6 @@
 		C12E1F8419B74206004532A8 /* mem.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F8219B74206004532A8 /* mem.c */; };
 		C12E1F8619B74B25004532A8 /* notification.h in Headers */ = {isa = PBXBuildFile; fileRef = C12E1F8519B74B25004532A8 /* notification.h */; };
 		C12E1F8819B74B65004532A8 /* error_codes.h in Headers */ = {isa = PBXBuildFile; fileRef = C12E1F8719B74B65004532A8 /* error_codes.h */; };
-		C12E1F8919B74C0E004532A8 /* mem.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F8219B74206004532A8 /* mem.c */; };
 		C12E1F8B19B7534A004532A8 /* encoder.h in Headers */ = {isa = PBXBuildFile; fileRef = C12E1F8A19B7534A004532A8 /* encoder.h */; };
 		C12E1F8E19B7583C004532A8 /* platform_util_ios.m in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F8C19B7583C004532A8 /* platform_util_ios.m */; };
 		C12E1F8F19B7583C004532A8 /* platform_util_ios.m in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F8C19B7583C004532A8 /* platform_util_ios.m */; };
@@ -458,6 +451,11 @@
 		C12E1F9B19B8B47D004532A8 /* bitwise.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F9619B8B47D004532A8 /* bitwise.c */; };
 		C12E1FA219B8B4E7004532A8 /* ogg.h in Headers */ = {isa = PBXBuildFile; fileRef = C12E1F9E19B8B4E7004532A8 /* ogg.h */; };
 		C12E1FA319B8B4E7004532A8 /* os_types.h in Headers */ = {isa = PBXBuildFile; fileRef = C12E1F9F19B8B4E7004532A8 /* os_types.h */; };
+		C179C32919BF2278007C4734 /* libdigger_recorder_osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C118B3F119B4B28E00005678 /* libdigger_recorder_osx.a */; };
+		C179C32C19BF228B007C4734 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F5E19B6FE58004532A8 /* main.c */; };
+		C179C32D19BF228B007C4734 /* test_atomic.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F5F19B6FE58004532A8 /* test_atomic.c */; };
+		C179C32E19BF228B007C4734 /* test_lock_free_fifo.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F6119B6FE58004532A8 /* test_lock_free_fifo.c */; };
+		C179C32F19BF228B007C4734 /* test_oggopus.c in Sources */ = {isa = PBXBuildFile; fileRef = C11D46CB19BF1C2F009D963C /* test_oggopus.c */; };
 		C1E07B0B19B9BADE00F63CA1 /* dump.c in Sources */ = {isa = PBXBuildFile; fileRef = C1E07AF719B9BADE00F63CA1 /* dump.c */; };
 		C1E07B0C19B9BADE00F63CA1 /* dump.c in Sources */ = {isa = PBXBuildFile; fileRef = C1E07AF719B9BADE00F63CA1 /* dump.c */; };
 		C1E07B0D19B9BADE00F63CA1 /* error.c in Sources */ = {isa = PBXBuildFile; fileRef = C1E07AF819B9BADE00F63CA1 /* error.c */; };
@@ -494,7 +492,6 @@
 		C1E07B3719BCADF500F63CA1 /* framing.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F9719B8B47D004532A8 /* framing.c */; };
 		C1E07B3F19BCAF9000F63CA1 /* host_ios.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E07B3B19BCAF8A00F63CA1 /* host_ios.m */; };
 		C1E07B4119BCAF9400F63CA1 /* host_portaudio.c in Sources */ = {isa = PBXBuildFile; fileRef = C1E07B3D19BCAF8A00F63CA1 /* host_portaudio.c */; };
-		C1E07B4219BCAF9700F63CA1 /* host_portaudio.c in Sources */ = {isa = PBXBuildFile; fileRef = C1E07B3D19BCAF8A00F63CA1 /* host_portaudio.c */; };
 		C1E5477019BDCF3900797DFB /* libportaudio_osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1E5476F19BDCF3900797DFB /* libportaudio_osx.a */; };
 		C1E5477219BDCF6000797DFB /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1E5477119BDCF6000797DFB /* CoreAudio.framework */; };
 		C1E5477419BDCF6500797DFB /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1E5477319BDCF6500797DFB /* AudioToolbox.framework */; };
@@ -505,6 +502,16 @@
 		C1F57A1119B4A282000C6BCF /* instance.c in Sources */ = {isa = PBXBuildFile; fileRef = C1F57A0619B4A282000C6BCF /* instance.c */; };
 		C1F57A8619B4A475000C6BCF /* tinycthread.c in Sources */ = {isa = PBXBuildFile; fileRef = C1F57A8519B4A475000C6BCF /* tinycthread.c */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C179C32A19BF2284007C4734 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C1C7B9ED19B4A1EB00C0ED1D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C118B3F019B4B28E00005678;
+			remoteInfo = digger_recorder_osx;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		C12E1F6619B6FE8B004532A8 /* CopyFiles */ = {
@@ -531,6 +538,8 @@
 		C118B3F119B4B28E00005678 /* libdigger_recorder_osx.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libdigger_recorder_osx.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C118B40A19B4C9FB00005678 /* level_meter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = level_meter.c; sourceTree = "<group>"; };
 		C118B40B19B4C9FB00005678 /* level_meter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = level_meter.h; sourceTree = "<group>"; };
+		C11D46CB19BF1C2F009D963C /* test_oggopus.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = test_oggopus.c; sourceTree = "<group>"; };
+		C11D46CC19BF1C2F009D963C /* test_oggopus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = test_oggopus.h; sourceTree = "<group>"; };
 		C12E1A8619B5B774004532A8 /* analyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = analyzer.h; sourceTree = "<group>"; };
 		C12E1A8C19B5B8CD004532A8 /* mem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mem.h; sourceTree = "<group>"; };
 		C12E1C4719B6132A004532A8 /* _kiss_fft_guts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _kiss_fft_guts.h; sourceTree = "<group>"; };
@@ -878,6 +887,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C179C32919BF2278007C4734 /* libdigger_recorder_osx.a in Frameworks */,
 				C1E5477819BDCF7C00797DFB /* ApplicationServices.framework in Frameworks */,
 				C1E5477619BDCF6E00797DFB /* AudioUnit.framework in Frameworks */,
 				C1E5477419BDCF6500797DFB /* AudioToolbox.framework in Frameworks */,
@@ -1293,6 +1303,8 @@
 				C12E1F6019B6FE58004532A8 /* test_atomic.h */,
 				C12E1F6119B6FE58004532A8 /* test_lock_free_fifo.c */,
 				C12E1F6219B6FE58004532A8 /* test_lock_free_fifo.h */,
+				C11D46CB19BF1C2F009D963C /* test_oggopus.c */,
+				C11D46CC19BF1C2F009D963C /* test_oggopus.h */,
 				C12E1F6319B6FE58004532A8 /* testmacros.h */,
 			);
 			path = test;
@@ -1613,6 +1625,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				C179C32B19BF2284007C4734 /* PBXTargetDependency */,
 			);
 			name = unittests_osx;
 			productName = unittests_osx;
@@ -1868,14 +1881,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C1E07B4219BCAF9700F63CA1 /* host_portaudio.c in Sources */,
-				C12E1F7619B70400004532A8 /* lock_free_fifo.c in Sources */,
-				C12E1F7119B6FEC9004532A8 /* main.c in Sources */,
-				C12E1F8919B74C0E004532A8 /* mem.c in Sources */,
-				C12E1F7419B701B7004532A8 /* tinycthread.c in Sources */,
-				C12E1F7519B70400004532A8 /* atomic_darwin.c in Sources */,
-				C12E1F7319B6FEC9004532A8 /* test_lock_free_fifo.c in Sources */,
-				C12E1F7219B6FEC9004532A8 /* test_atomic.c in Sources */,
+				C179C32D19BF228B007C4734 /* test_atomic.c in Sources */,
+				C179C32C19BF228B007C4734 /* main.c in Sources */,
+				C179C32F19BF228B007C4734 /* test_oggopus.c in Sources */,
+				C179C32E19BF228B007C4734 /* test_lock_free_fifo.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2082,6 +2091,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		C179C32B19BF2284007C4734 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C118B3F019B4B28E00005678 /* digger_recorder_osx */;
+			targetProxy = C179C32A19BF2284007C4734 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
 		C118B3F319B4B28E00005678 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -2108,9 +2125,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
-					OPUS_BUILD,
-					VAR_ARRAYS,
-					HAVE_LRINTF,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -2153,11 +2167,7 @@
 				EXECUTABLE_PREFIX = lib;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					OPUS_BUILD,
-					VAR_ARRAYS,
-					HAVE_LRINTF,
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -2210,6 +2220,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					../../src/recorder,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2244,6 +2255,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -2253,6 +2265,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					../../src/recorder,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2268,6 +2281,11 @@
 		C1C7B9F119B4A1EB00C0ED1D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					OPUS_BUILD,
+					HAVE_LRINTF,
+					VAR_ARRAYS,
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -2283,6 +2301,11 @@
 		C1C7B9F219B4A1EB00C0ED1D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					OPUS_BUILD,
+					HAVE_LRINTF,
+					VAR_ARRAYS,
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -2321,9 +2344,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
-					OPUS_BUILD,
-					HAVE_LRINTF,
-					VAR_ARRAYS,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -2368,11 +2388,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					OPUS_BUILD,
-					HAVE_LRINTF,
-					VAR_ARRAYS,
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
