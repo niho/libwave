@@ -2,7 +2,9 @@
 #include <string.h>
 #include <stdio.h>
 #include <math.h>
-#include "assert.h"
+#include <sys/time.h>
+
+#include <assert.h>
 
 #include "opus.h"
 #include "mem.h"
@@ -173,10 +175,22 @@ void drInstance_update(drInstance* instance, float timeStep)
         {
             instance->recordingSession.numRecordedFrames += c.numFrames;
             
+            
+            struct timeval  tv1, tv2;
+            gettimeofday(&tv1, NULL);
+            /* stuff to do! */
+            
+            
             drError writeResult = instance->recordingSession.encoder.writeCallback(instance->recordingSession.encoder.encoderData,
                                                                                    c.numChannels,
                                                                                    c.numFrames,
                                                                                    c.samples);
+            
+            gettimeofday(&tv2, NULL);
+            
+            printf ("Encoder write callback took = %f seconds\n",
+                    (double) (tv2.tv_usec - tv1.tv_usec) / 1000000 +
+                    (double) (tv2.tv_sec - tv1.tv_sec));
             
             if (writeResult != DR_NO_ERROR)
             {
@@ -340,8 +354,8 @@ void drInstance_initiateRecording(drInstance* instance)
     
     drError initResult = instance->recordingSession.encoder.initCallback(instance->recordingSession.encoder.encoderData,
                                                     instance->writableFilePathCallback(instance->callbackUserData),
-                                                    44100, //TODO
-                                                    1); //TODO
+                                                    instance->settings.desiredSampleRate, //TODO
+                                                    instance->settings.desiredNumInputChannels); //TODO
     
     if (initResult != DR_NO_ERROR)
     {

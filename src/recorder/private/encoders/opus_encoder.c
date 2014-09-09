@@ -225,7 +225,9 @@ drError drOpusEncoder_init(void* opusEncoder, const char* filePath, float fs, fl
     
     drOpusEncoder* encoder = (drOpusEncoder*)opusEncoder;
     encoder->numAccumulatedInputFrames = 0;
-        
+    
+    printf("PATH: %s\n", filePath);
+    
     //create the opus encoder
     {
         int err;

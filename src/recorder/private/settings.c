@@ -10,7 +10,7 @@ void drSettings_setDefaults(drSettings* settings)
     settings->controlEventFIFOCapacity = 50;
     settings->notificationFIFOCapacity = 50;
     settings->recordFIFOCapacity = 250;
-    settings->desiredSampleRate = 44100;
+    settings->desiredSampleRate = 48000;
     settings->desiredBufferSizeInFrames = 512;
     settings->desiredNumInputChannels = 1;
     settings->desiredNumOutputChannels = 2;
