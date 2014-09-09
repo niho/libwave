@@ -278,6 +278,12 @@ drError drOpusEncoder_write(void* opusEncoder, int numChannels, int numFrames, f
 {
     drOpusEncoder* encoder = (drOpusEncoder*)opusEncoder;
     
+    if (encoder->encoder == NULL)
+    {
+        //the encoder was not created properly. do nothing
+        return DR_FAILED_TO_WRITE_ENCODED_AUDIO_DATA;
+    }
+    
     //accumulate buffer to encode
     for (int i = 0; i < numFrames; i++)
     {
@@ -353,9 +359,12 @@ drError drOpusEncoder_cancel(void* opusEncoder)
     opus_encoder_destroy(encoder->encoder);
     encoder->encoder = 0;
     
-    if (fclose(encoder->file) != 0)
+    if (encoder->file)
     {
-        return DR_FAILED_TO_CLOSE_ENCODER_TARGET_FILE;
+        if (fclose(encoder->file) != 0)
+        {
+            return DR_FAILED_TO_CLOSE_ENCODER_TARGET_FILE;
+        }
     }
     
     encoder->file = 0;

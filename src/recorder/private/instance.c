@@ -181,7 +181,8 @@ void drInstance_update(drInstance* instance, float timeStep)
             if (writeResult != DR_NO_ERROR)
             {
                 errorOccured = 1;
-                drInstance_enqueueError(instance, writeResult);
+                drInstance_onMainThreadError(instance, writeResult);
+                drInstance_enqueueControlEventOfType(instance, DR_CANCEL_RECORDING);
             }
             else
             {
@@ -337,10 +338,16 @@ void drInstance_initiateRecording(drInstance* instance)
 {
     assert(drInstance_isOnMainThread(instance));
     
-    instance->recordingSession.encoder.initCallback(instance->recordingSession.encoder.encoderData,
+    drError initResult = instance->recordingSession.encoder.initCallback(instance->recordingSession.encoder.encoderData,
                                                     instance->writableFilePathCallback(instance->callbackUserData),
                                                     44100, //TODO
                                                     1); //TODO
+    
+    if (initResult != DR_NO_ERROR)
+    {
+        drInstance_invokeErrorCallback(instance, initResult);
+    }
+    
     printf("drInstance_initiateRecording\n");
 }
 
@@ -509,15 +516,6 @@ void drInstance_onMainThreadError(drInstance* instance, drError error)
     
     drInstance_invokeErrorCallback(instance, error);
     
-    if (error == DR_FAILED_TO_ENCODE_AUDIO_DATA ||
-        error == DR_FAILED_TO_WRITE_ENCODED_AUDIO_DATA)
-    {
-        drError cancelResult = instance->recordingSession.encoder.cancelCallback(instance->recordingSession.encoder.cancelCallback);
-        if (cancelResult != DR_NO_ERROR)
-        {
-            drInstance_invokeErrorCallback(instance, cancelResult);
-        }
-    }
 }
 
 void drInstance_onMainThreadNotification(drInstance* instance, const drNotification* notification)

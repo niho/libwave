@@ -22,11 +22,12 @@ static void testSimpleEncode()
     drOpusEncoder opusEncoder;
     memset(&opusEncoder, 0, sizeof(drOpusEncoder));
     
-    //TODO
     const int nChannels = 1;
     const int fs = 48000;
-    const int sineDurSec = 5;
-    const char* filePath = "/Users/perarne/code/digger_recorder/unit_test.opus";
+    const float sineDurSec = 0.5;
+    
+    //TODO
+    const char* filePath = "/Users/perarne/code/digger_recorder/opus_test_simple.opus";
     const int sigLength = sineDurSec * fs;
     float* sine440 = generateSine(fs, 440, sigLength);
     float* sine880 = generateSine(fs, 880, sigLength);
@@ -35,6 +36,40 @@ static void testSimpleEncode()
     
     drOpusEncoder_write(&opusEncoder, nChannels, sigLength, sine440);
     drOpusEncoder_write(&opusEncoder, nChannels, sigLength, sine880);
+    drOpusEncoder_write(&opusEncoder, nChannels, sigLength, sine440);
+    drOpusEncoder_write(&opusEncoder, nChannels, sigLength, sine880);
+    drOpusEncoder_write(&opusEncoder, nChannels, sigLength, sine440);
+    drOpusEncoder_write(&opusEncoder, nChannels, sigLength, sine880);
+    
+    drOpusEncoder_finish(&opusEncoder);
+    
+    free(sine440);
+    free(sine880);
+}
+
+static void testChainedStreamEncode()
+{
+    drOpusEncoder opusEncoder;
+    memset(&opusEncoder, 0, sizeof(drOpusEncoder));
+    
+    const int nChannels = 1;
+    const int fs = 48000;
+    const float sineDurSec = 1.0f;
+    
+    //TODO
+    const char* filePath = "/Users/perarne/code/digger_recorder/opus_test_chained.opus";
+    const int sigLength = sineDurSec * fs;
+    float* sine440 = generateSine(fs, 440, sigLength);
+    float* sine880 = generateSine(fs, 880, sigLength);
+    float* sine1000 = generateSine(fs, 1000, sigLength);
+    float* sine1500 = generateSine(fs, 1500, sigLength);
+    
+    drOpusEncoder_init(&opusEncoder, filePath, fs, nChannels);
+    
+    drOpusEncoder_write(&opusEncoder, nChannels, sigLength, sine440);
+    drOpusEncoder_write(&opusEncoder, nChannels, sigLength, sine880);
+    drOpusEncoder_write(&opusEncoder, nChannels, sigLength, sine1000);
+    drOpusEncoder_write(&opusEncoder, nChannels, sigLength, sine1500);
     
     drOpusEncoder_finish(&opusEncoder);
     
