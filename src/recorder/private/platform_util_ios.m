@@ -12,6 +12,7 @@ void drCreateEncoder(drEncoder* encoder)
     {
         //raw
         drRawEncoder* rawEncoder = DR_MALLOC(sizeof(drRawEncoder), "raw encoder");
+        memset(rawEncoder, 0, sizeof(drRawEncoder));
         encoder->encoderData = rawEncoder;
         encoder->cancelCallback = drRawEncoder_cancel;
         encoder->finishCallback = drRawEncoder_finish;
@@ -21,8 +22,9 @@ void drCreateEncoder(drEncoder* encoder)
     else
     {
         //opus
-        drOpusEncoder* oupusEncoder = DR_MALLOC(sizeof(drOpusEncoder), "opus encoder");
-        encoder->encoderData = oupusEncoder;
+        drOpusEncoder* opusEncoder = DR_MALLOC(sizeof(drOpusEncoder), "opus encoder");
+        memset(opusEncoder, 0, sizeof(drOpusEncoder));
+        encoder->encoderData = opusEncoder;
         encoder->cancelCallback = drOpusEncoder_cancel;
         encoder->finishCallback = drOpusEncoder_finish;
         encoder->initCallback = drOpusEncoder_init;
