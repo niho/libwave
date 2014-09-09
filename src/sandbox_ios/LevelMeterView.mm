@@ -33,31 +33,33 @@
 
 -(void)layoutSubviews
 {
-    [self updateLevels:&m_currentLevels];
+    [self updateInfo:&m_currentInfo];
 }
 
--(void)updateLevels:(drLevels*)levels
+-(void)updateInfo:(drRealtimeInfo*)info
 {
-    memcpy(&m_currentLevels, levels, sizeof(drLevels));
+    memcpy(&m_currentInfo, info, sizeof(drRealtimeInfo));
+    
+    printf("recorded time: %f\n", info->numRecordedSeconds);
     
     const int w = self.frame.size.width;
     const int h = self.frame.size.height;
     const int lw = 4;
     
-    m_rmsLine.frame = CGRectMake((int)((w - lw) * m_currentLevels.rmsLevel),
+    m_rmsLine.frame = CGRectMake((int)((w - lw) * m_currentInfo.rmsLevel),
                                  0,
                                  lw,
                                  h);
     
-    m_peakLine.frame = CGRectMake((int)((w - lw) * m_currentLevels.peakLevel),
+    m_peakLine.frame = CGRectMake((int)((w - lw) * m_currentInfo.peakLevel),
                                  0,
                                  lw,
                                  h);
     
-    m_peakEnvBar.frame = CGRectMake(0, 0, (int)(w * m_currentLevels.peakLevelEnvelope), h);
+    m_peakEnvBar.frame = CGRectMake(0, 0, (int)(w * m_currentInfo.peakLevelEnvelope), h);
     
     m_clipIndicator.frame = CGRectMake(w - lw, 0, lw, h);
-    if (m_currentLevels.hasClipped)
+    if (m_currentInfo.hasClipped)
     {
         m_clipIndicator.alpha = 1.0f;
         [UIView animateWithDuration:4.0f animations:^(void) {

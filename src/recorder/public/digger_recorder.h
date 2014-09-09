@@ -15,15 +15,16 @@ extern "C"
 #endif /* __cplusplus */
     
     /**
-     * Information about audio levels for a single channel.
+     * Real time info, like input levels.
      */
-    typedef struct drLevels
+    typedef struct drRealtimeInfo
     {
         float rmsLevel;
         float peakLevel;
         float peakLevelEnvelope;
         int hasClipped;
-    } drLevels;
+        float numRecordedSeconds;
+    } drRealtimeInfo;
     
     /**
      * Information useful when debugging and monitoring.
@@ -102,7 +103,7 @@ extern "C"
     /**
      *
      */
-    drError drGetInputLevels(int channel, int logLevels, drLevels* result);
+    drError drGetRealtimeInfo(int channel, int logLevels, drRealtimeInfo* result);
     
     /**
      *

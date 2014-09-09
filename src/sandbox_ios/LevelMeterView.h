@@ -9,9 +9,9 @@
     UIView* m_peakEnvBar;
     UIView* m_clipIndicator;
     
-    drLevels m_currentLevels;
+    drRealtimeInfo m_currentInfo;
 }
 
--(void)updateLevels:(drLevels*)levels;
+-(void)updateInfo:(drRealtimeInfo*)info;
 
 @end

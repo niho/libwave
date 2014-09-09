@@ -8,7 +8,9 @@
 [ ] remove platform_util, handle encoder support with ifdefs
 [ ] init kowalski with custom io callbacks
 [ ] portaudio external location
-
+[ ] report recorded time
+[ ] finish recording during pause might not work
+[ ] make sure clip flag persists until queried
 
 [ ] Associate recording sessions with handles, to make it possible to resume sessions
 [ ] Verify FIFO data integrity when it arrives on the main thread

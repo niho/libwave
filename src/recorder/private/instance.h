@@ -109,7 +109,7 @@ extern "C"
         drLevelMeter inputLevelMeters[MAX_NUM_INPUT_CHANNELS];
         
         //Measured levels, copied from audio to main via shared memory
-        drLevels inputLevels[MAX_NUM_INPUT_CHANNELS];
+        drRealtimeInfo realtimeInfo;
         
         drLockFreeFIFO inputAudioDataQueue;
         
@@ -169,7 +169,7 @@ extern "C"
     /**
      *
      */
-    void drInstance_getInputLevels(drInstance* instance, int channel, int logLevels, drLevels* result);
+    void drInstance_getRealtimeInfo(drInstance* instance, int channel, int logLevels, drRealtimeInfo* result);
     
     /**
      * Invoked when a control event reaches the audio thread. Invoked on the audio thread.

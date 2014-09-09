@@ -77,6 +77,7 @@ void drLevelMeter_processBuffer(void* levelMeter,
     
     //refresh rms value
     meter->rmsLevel = sqrtf(meter->runningSquareSum / meter->rmsWindowSize);
+    assert(!isnan(meter->rmsLevel));
 }
 
 void drLevelMeter_deinit(void* levelMeter)

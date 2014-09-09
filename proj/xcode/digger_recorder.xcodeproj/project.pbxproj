@@ -394,6 +394,10 @@
 		C179C32D19BF228B007C4734 /* test_atomic.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F5F19B6FE58004532A8 /* test_atomic.c */; };
 		C179C32E19BF228B007C4734 /* test_lock_free_fifo.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F6119B6FE58004532A8 /* test_lock_free_fifo.c */; };
 		C179C32F19BF228B007C4734 /* test_oggopus.c in Sources */ = {isa = PBXBuildFile; fileRef = C11D46CB19BF1C2F009D963C /* test_oggopus.c */; };
+		C179C33719BF61FD007C4734 /* bitwise.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F9619B8B47D004532A8 /* bitwise.c */; };
+		C179C33819BF61FD007C4734 /* framing.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F9719B8B47D004532A8 /* framing.c */; };
+		C179C33919BF61FE007C4734 /* bitwise.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F9619B8B47D004532A8 /* bitwise.c */; };
+		C179C33A19BF61FE007C4734 /* framing.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F9719B8B47D004532A8 /* framing.c */; };
 		C1E07B0B19B9BADE00F63CA1 /* dump.c in Sources */ = {isa = PBXBuildFile; fileRef = C1E07AF719B9BADE00F63CA1 /* dump.c */; };
 		C1E07B0C19B9BADE00F63CA1 /* dump.c in Sources */ = {isa = PBXBuildFile; fileRef = C1E07AF719B9BADE00F63CA1 /* dump.c */; };
 		C1E07B0D19B9BADE00F63CA1 /* error.c in Sources */ = {isa = PBXBuildFile; fileRef = C1E07AF819B9BADE00F63CA1 /* error.c */; };
@@ -1726,6 +1730,7 @@
 				C12E1DF019B6132B004532A8 /* encode_pulses.c in Sources */,
 				C1E07B2119B9BADE00F63CA1 /* strconv.c in Sources */,
 				C12E1DE519B6132B004532A8 /* decode_pitch.c in Sources */,
+				C179C33919BF61FE007C4734 /* bitwise.c in Sources */,
 				C12E1DEC19B6132B004532A8 /* enc_API.c in Sources */,
 				C12E1E5219B6132B004532A8 /* process_gains_FLP.c in Sources */,
 				C12E1E4E19B6132B004532A8 /* pitch_analysis_core_FLP.c in Sources */,
@@ -1765,6 +1770,7 @@
 				C12E1DDF19B6132B004532A8 /* decode_frame.c in Sources */,
 				C12E1E5F19B6132B004532A8 /* solve_LS_FLP.c in Sources */,
 				C12E1EB419B6132B004532A8 /* shell_coder.c in Sources */,
+				C179C33A19BF61FE007C4734 /* framing.c in Sources */,
 				C12E1ED119B6132B004532A8 /* tables_NLSF_CB_NB_MB.c in Sources */,
 				C12E1D8A19B6132B004532A8 /* mathops.c in Sources */,
 				C12E1D5419B6132B004532A8 /* arm_celt_map.c in Sources */,
@@ -1810,6 +1816,7 @@
 				C12E1EC719B6132B004532A8 /* sum_sqr_shift.c in Sources */,
 				C12E1E7A19B6132B004532A8 /* LPC_analysis_filter.c in Sources */,
 				C12E1EBC19B6132B004532A8 /* stereo_encode_pred.c in Sources */,
+				C179C33719BF61FD007C4734 /* bitwise.c in Sources */,
 				C12E1EC019B6132B004532A8 /* stereo_LR_to_MS.c in Sources */,
 				C12E1E4219B6132B004532A8 /* LPC_analysis_filter_FLP.c in Sources */,
 				C12E1E9219B6132B004532A8 /* NSQ.c in Sources */,
@@ -1935,6 +1942,7 @@
 				C12E1E7819B6132B004532A8 /* LP_variable_cutoff.c in Sources */,
 				C12E1E3819B6132B004532A8 /* find_pitch_lags_FLP.c in Sources */,
 				C12E1E6B19B6132B004532A8 /* init_decoder.c in Sources */,
+				C179C33819BF61FD007C4734 /* framing.c in Sources */,
 				C12E1E3219B6132B004532A8 /* energy_FLP.c in Sources */,
 				C1E07B1D19B9BADE00F63CA1 /* strbuffer.c in Sources */,
 				C1E07B1B19B9BADE00F63CA1 /* pack_unpack.c in Sources */,

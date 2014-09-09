@@ -102,14 +102,14 @@ drError drUpdate(float timeStep)
     return DR_NO_ERROR;
 }
 
-drError drGetInputLevels(int channel, int logLevels, drLevels* result)
+drError drGetRealtimeInfo(int channel, int logLevels, drRealtimeInfo* result)
 {
     if (!instance)
     {
         return DR_NOT_INITIALIZED;
     }
     
-    drInstance_getInputLevels(instance, channel, logLevels, result);
+    drInstance_getRealtimeInfo(instance, channel, logLevels, result);
     
     return DR_NO_ERROR;
 }

@@ -130,8 +130,8 @@ static const char* writableFilePathCallback(void* userData)
     if (m_updateCounter == 0)
     {
         drUpdate(kUpdateInterval);
-        drLevels il;
-        drGetInputLevels(0, 1, &il);
+        drRealtimeInfo il;
+        drGetRealtimeInfo(0, 1, &il);
         
         drDevInfo di;
         drGetDevInfo(&di);
@@ -167,7 +167,7 @@ static const char* writableFilePathCallback(void* userData)
             }];
         }
         
-        [self.sandboxView.levelMeterView updateLevels:&il];
+        [self.sandboxView.levelMeterView updateInfo:&il];
         [self.sandboxView.devInfoView updateInfo:&di];
     }
     

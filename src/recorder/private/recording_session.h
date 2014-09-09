@@ -13,7 +13,6 @@ extern "C"
     typedef struct drRecordingSession
     {
         drEncoder encoder;
-        char targetFilePath;
         int numRecordedFrames;
         
     } drRecordingSession;

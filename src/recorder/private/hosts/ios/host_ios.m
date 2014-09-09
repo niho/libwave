@@ -293,6 +293,12 @@ void drInitAndStartRemoteIO()
                                      &preferredBufferSize);
     drEnsureNoAudioSessionError(status);
     
+    Float64 sr = sampleRate;
+    status = AudioSessionSetProperty(kAudioSessionProperty_PreferredHardwareSampleRate,
+                                     sizeof(Float64),
+                                     &sr);
+    drEnsureNoAudioSessionError(status);
+    
     /*enable playback*/    
     UInt32 flag = 1;
     status = AudioUnitSetProperty(auComponentInstance, 
@@ -394,11 +400,12 @@ void drInitAndStartRemoteIO()
                             &ss, 
                             &buffDur);
     
-    Float64 sampRate;
+    Float64 actualSampleRate;
     ss = sizeof(Float64);
     AudioSessionGetProperty(kAudioSessionProperty_CurrentHardwareSampleRate, 
                             &ss, 
-                            &sampRate);
+                            &actualSampleRate);
+    s_instance->sampleRate = actualSampleRate;
 }
 
 void drAudioRouteChangeCallback(void *inUserData,

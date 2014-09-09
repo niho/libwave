@@ -69,7 +69,7 @@ drError drInstance_init(drInstance* instance,
     
     drLockFreeFIFO_init(&instance->realTimeDataFifo,
                         instance->settings.realtimeDataFIFOCapacity,
-                        sizeof(drLevels));
+                        sizeof(drRealtimeInfo));
     
     
     //create audio analyzers
@@ -143,11 +143,11 @@ void drInstance_update(drInstance* instance, float timeStep)
     ((float)instance->inputAudioDataQueue.capacity);
     
     //get measured levels
-    drLevels l;
+    drRealtimeInfo l;
     while (drLockFreeFIFO_pop(&instance->realTimeDataFifo, &l))
     {
         //TODO: number of input channels?
-        memcpy(&instance->inputLevels[0], &l, sizeof(drLevels));
+        memcpy(&instance->realtimeInfo, &l, sizeof(drRealtimeInfo));
     }
     
     //invoke the error callback for any incoming errors on the main thread
@@ -173,11 +173,8 @@ void drInstance_update(drInstance* instance, float timeStep)
         //printf("%d frames of recorded %d channel audio arrived on the main thread\n", c.numFrames, c.numChannels);
         if (!errorOccured)
         {
-            instance->recordingSession.numRecordedFrames += c.numFrames;
-            
-            
-            struct timeval  tv1, tv2;
-            gettimeofday(&tv1, NULL);
+            //struct timeval  tv1, tv2;
+            //gettimeofday(&tv1, NULL);
             /* stuff to do! */
             
             
@@ -186,11 +183,11 @@ void drInstance_update(drInstance* instance, float timeStep)
                                                                                    c.numFrames,
                                                                                    c.samples);
             
-            gettimeofday(&tv2, NULL);
+            //gettimeofday(&tv2, NULL);
             
-            printf ("Encoder write callback took = %f seconds\n",
+            /*printf ("Encoder write callback took = %f seconds\n",
                     (double) (tv2.tv_usec - tv1.tv_usec) / 1000000 +
-                    (double) (tv2.tv_sec - tv1.tv_sec));
+                    (double) (tv2.tv_sec - tv1.tv_sec));*/
             
             if (writeResult != DR_NO_ERROR)
             {
@@ -263,6 +260,11 @@ void drInstance_audioInputCallback(drInstance* in, const float* inBuffer, int nu
                 {
                     in->devInfo.recordFIFOUnderrun = 1;
                 }
+                else
+                {
+                    in->recordingSession.numRecordedFrames += samplesLeft;
+                }
+                
                 sampleIdx += samplesLeft;
                 chunkIdx++;
             }
@@ -274,18 +276,22 @@ void drInstance_audioInputCallback(drInstance* in, const float* inBuffer, int nu
                 drInstance_enqueueNotificationOfType(in, DR_RECORDING_FINISHED);
             }
         }
+        
     }
+    
+    
     
     //update measured levels
     for (int i = 0; i < MAX_NUM_INPUT_CHANNELS; i++)
     {
-        drLevels l;
+        drRealtimeInfo l;
         
         drLevelMeter* m = &in->inputLevelMeters[i];
         
         l.peakLevel = m->peak;
         l.peakLevelEnvelope = m->peakEnvelope;
         l.rmsLevel = m->rmsLevel;
+        l.numRecordedSeconds = in->recordingSession.numRecordedFrames / (float)in->settings.desiredSampleRate;
         
         //TODO: edge detect or something?
         l.hasClipped = m->clip;
@@ -295,7 +301,7 @@ void drInstance_audioInputCallback(drInstance* in, const float* inBuffer, int nu
     }
     
     //copy measured levels to the main thread. TODO: pass these using a FIFO
-    //memcpy(in->inputLevelsShared, in->inputLevelsAudio, sizeof(drLevels) * MAX_NUM_INPUT_CHANNELS);
+    //memcpy(in->inputLevelsShared, in->inputLevelsAudio, sizeof(drRealtimeInfo) * MAX_NUM_INPUT_CHANNELS);
     
     drControlEvent e;
     while (drLockFreeFIFO_pop(&in->controlEventFIFO, &e))
@@ -468,6 +474,7 @@ void drInstance_onAudioThreadControlEvent(drInstance* instance, const drControlE
             {
                 //recording requested and we're currently not recording.
                 //start recording.
+                instance->recordingSession.numRecordedFrames = 0;
                 instance->stateAudioThread = DR_STATE_RECORDING;
                 drInstance_enqueueNotificationOfType(instance, DR_RECORDING_STARTED);
             }
@@ -587,21 +594,22 @@ static float lin2LogLevel(float lin)
     return powf(lin, 0.3f);
 }
 
-void drInstance_getInputLevels(drInstance* instance, int channel, int logLevels, drLevels* result)
+void drInstance_getRealtimeInfo(drInstance* instance, int channel, int logLevels, drRealtimeInfo* result)
 {
-    memset(result, 0, sizeof(drLevels));
+    memset(result, 0, sizeof(drRealtimeInfo));
     
     if (channel >= MAX_NUM_INPUT_CHANNELS)
     {
         return;
     }
     
-    drLevels* lSrc = &instance->inputLevels[channel];
+    drRealtimeInfo* lSrc = &instance->realtimeInfo;
     
     result->hasClipped = lSrc->hasClipped;
     result->peakLevel = logLevels ? lin2LogLevel(lSrc->peakLevel) : lSrc->peakLevel;
     result->peakLevelEnvelope = logLevels ? lin2LogLevel(lSrc->peakLevelEnvelope) : lSrc->peakLevelEnvelope;
     result->rmsLevel = logLevels ? lin2LogLevel(lSrc->rmsLevel) : lSrc->rmsLevel;
+    result->numRecordedSeconds = lSrc->numRecordedSeconds;
 }
 
 void drInstance_getDevInfo(drInstance* instance, drDevInfo* devInfo)
