@@ -181,10 +181,19 @@ void drInstance_update(drInstance* instance, float timeStep)
             drError writeResult = DR_NO_ERROR;
             if (c.numFrames > 0)
             {
+                int numBytesWritten = 0;
                 writeResult = instance->recordingSession.encoder.writeCallback(instance->recordingSession.encoder.encoderData,
                                                                                c.numChannels,
                                                                                c.numFrames,
-                                                                               c.samples);
+                                                                               c.samples,
+                                                                               &numBytesWritten);
+                
+                if (numBytesWritten > 0)
+                {
+                    instance->audioWrittenCallback(instance->recordingSession.targetFilePath,
+                                                   numBytesWritten,
+                                                   instance->callbackUserData);
+                }
             }
             
             //gettimeofday(&tv2, NULL);
@@ -366,12 +375,14 @@ void drInstance_requestStartRecording(drInstance* instance, const char* filePath
 
 }
 
-void drInstance_initiateRecording(drInstance* instance, const char* filePath)
+void drInstance_initiateRecording(drInstance* instance)
 {
     assert(drInstance_isOnMainThread(instance));
-    
+    strcpy(instance->recordingSession.targetFilePath, instance->requestedAudioFilePath);
+    instance->requestedAudioFilePath[0] = '\0';
+    assert(strlen(instance->recordingSession.targetFilePath) > 0);
     drError initResult = instance->recordingSession.encoder.initCallback(instance->recordingSession.encoder.encoderData,
-                                                    filePath,
+                                                    instance->recordingSession.targetFilePath,
                                                     instance->sampleRate,
                                                     instance->settings.desiredNumInputChannels); //TODO
     
@@ -590,7 +601,7 @@ void drInstance_onMainThreadNotification(drInstance* instance, const drNotificat
         {
             instance->stateMainThread = DR_STATE_RECORDING;
             //initiate recording
-            drInstance_initiateRecording(instance, instance->recordingSession.targetFilePath);
+            drInstance_initiateRecording(instance);
             break;
         }
         default:

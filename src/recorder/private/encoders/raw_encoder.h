@@ -17,7 +17,7 @@ extern "C"
     
     drError drRawEncoder_init(void* rawEncoder, const char* filePath, float fs, float numChannels);
     
-    drError drRawEncoder_write(void* rawEncoder, int numChannels, int numFrames, float* buffer);
+    drError drRawEncoder_write(void* rawEncoder, int numChannels, int numFrames, float* buffer, int* numBytesWritten);
     
     drError drRawEncoder_finish(void* rawEncoder);
     

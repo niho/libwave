@@ -28,12 +28,15 @@ extern "C"
         int numAccumulatedInputFrames;
         float scratchInputBuffer[2 * FRAME_SIZE]; //max 2 channels
         int packetsWritten;
+        ogg_packet* oggHeaderPacket0;
+        ogg_packet* oggHeaderPacket1;
+        int hasWrittenHeaderPackets;
 
     } drOpusEncoder;
     
     drError drOpusEncoder_init(void* opusEncoder, const char* filePath, float fs, float numChannels);
     
-    drError drOpusEncoder_write(void* opusEncoder, int numChannels, int numFrames, float* buffer);
+    drError drOpusEncoder_write(void* opusEncoder, int numChannels, int numFrames, float* buffer, int* numBytesWritten);
     
     drError drOpusEncoder_finish(void* opusEncoder);
     

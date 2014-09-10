@@ -35,12 +35,13 @@ static void testSimpleEncode()
     
     drOpusEncoder_init(&opusEncoder, filePath, fs, nChannels);
     
-    drOpusEncoder_write(&opusEncoder, nChannels, sigLength, sine440);
-    drOpusEncoder_write(&opusEncoder, nChannels, sigLength, sine880);
-    drOpusEncoder_write(&opusEncoder, nChannels, sigLength, sine440);
-    drOpusEncoder_write(&opusEncoder, nChannels, sigLength, sine880);
-    drOpusEncoder_write(&opusEncoder, nChannels, sigLength, sine440);
-    drOpusEncoder_write(&opusEncoder, nChannels, sigLength, sine880);
+    int n = 0;
+    drOpusEncoder_write(&opusEncoder, nChannels, sigLength, sine440, &n);
+    drOpusEncoder_write(&opusEncoder, nChannels, sigLength, sine880, &n);
+    drOpusEncoder_write(&opusEncoder, nChannels, sigLength, sine440, &n);
+    drOpusEncoder_write(&opusEncoder, nChannels, sigLength, sine880, &n);
+    drOpusEncoder_write(&opusEncoder, nChannels, sigLength, sine440, &n);
+    drOpusEncoder_write(&opusEncoder, nChannels, sigLength, sine880, &n);
     
     drOpusEncoder_finish(&opusEncoder);
     
@@ -64,17 +65,17 @@ static void testChainedStreamEncode()
     const int sigLength = sineDurSec * fs;
     float* sine440 = generateSine(fs, 440, sigLength);
     float* sine1500 = generateSine(fs, 1500, sigLength);
-    
+    int n = 0;
     drOpusEncoder_init(&opusEncoder, filePath, fs, nChannels);
     
-    drOpusEncoder_write(&opusEncoder, nChannels, sigLength, sine440);
+    drOpusEncoder_write(&opusEncoder, nChannels, sigLength, sine440, &n);
     
     drOpusEncoder_finish(&opusEncoder);
     
     //init with existing file
     drOpusEncoder_init(&opusEncoder, filePath, fs, nChannels);
     
-    drOpusEncoder_write(&opusEncoder, nChannels, sigLength, sine1500);
+    drOpusEncoder_write(&opusEncoder, nChannels, sigLength, sine1500, &n);
     
     drOpusEncoder_finish(&opusEncoder);
     

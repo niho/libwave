@@ -1,8 +1,10 @@
+#include <assert.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 #include <math.h>
-#include "assert.h"
+
+#include "mem.h"
 
 #include "opus_encoder.h"
 
@@ -53,8 +55,8 @@ static ogg_packet *make_opus_header0_oggpacket(unsigned char channels, unsigned 
 	ogg_packet *op;
 	unsigned char *data;
     
-	op   = malloc(sizeof(*op));
-	data = malloc(size);
+	op   = DR_MALLOC(sizeof(*op), "ogg header packet");
+	data = DR_MALLOC(size, "ogg header packet data");
 	if (!op || !data)
 		return NULL;
     
@@ -84,8 +86,8 @@ static ogg_packet *make_opus_header1_oggpacket(char *vendor)
 	ogg_packet *op;
 	unsigned char *data;
     
-	op   = malloc(sizeof(*op));
-	data = malloc(size);
+	op   = DR_MALLOC(sizeof(*op), "ogg header packet");
+	data = DR_MALLOC(size, "ogg header packet data");
 	if (!op || !data)
 		return NULL;
     
@@ -104,8 +106,9 @@ static ogg_packet *make_opus_header1_oggpacket(char *vendor)
 	return op;
 }
 
-static int write_ogg_packet(ogg_stream_state *ostream, ogg_packet *opacket, FILE *fp, int flush)
+static int write_ogg_packet(ogg_stream_state *ostream, ogg_packet *opacket, FILE *fp, int flush, int* numBytesWritten)
 {
+    *numBytesWritten = 0;
 	ogg_page opage;
     
 #if DEBUGOGG
@@ -119,8 +122,10 @@ static int write_ogg_packet(ogg_stream_state *ostream, ogg_packet *opacket, FILE
 			print_opage_info(&opage);
 #endif
             //TODO: check result here
-			fwrite(opage.header, 1, opage.header_len, fp);
-			fwrite(opage.body  , 1, opage.body_len,   fp);
+			size_t n1 = fwrite(opage.header, 1, opage.header_len, fp);
+            if (n1 > 0) *numBytesWritten += n1;
+			size_t n2 = fwrite(opage.body  , 1, opage.body_len, fp);
+            if (n2 > 0) *numBytesWritten += n2;
 		}
 	} else {
 		fprintf(stderr, "Error on ogg_stream_packetin().\n");
@@ -166,30 +171,22 @@ drError drOpusEncoder_init(void* opusEncoder, const char* filePath, float fs, fl
     }
     
     //init ogg container file
-    //if (!appendingToExistingFile)
-    {
-        const int serialNo = rand();
-        int oggInitResult = ogg_stream_init(&encoder->oggStreamState, serialNo);
-        assert(oggInitResult >= 0);
-        
-        //TODO: free these
-        ogg_packet* oggHeaderPacket0 = make_opus_header0_oggpacket(numChannels, fs);
-        assert(oggHeaderPacket0);
-        ogg_packet* oggHeaderPacket1 = make_opus_header1_oggpacket("digger recorder");
-        assert(oggHeaderPacket1);
-        
-        int result = write_ogg_packet(&encoder->oggStreamState,  oggHeaderPacket0, encoder->file,  1);
-        assert(result >= 0);
-        result     = write_ogg_packet(&encoder->oggStreamState,  oggHeaderPacket1, encoder->file,  1);
-        assert(result >= 0);
-    }
+    const int serialNo = rand();
+    int oggInitResult = ogg_stream_init(&encoder->oggStreamState, serialNo);
+    assert(oggInitResult >= 0);
+    
+    encoder->oggHeaderPacket0 = make_opus_header0_oggpacket(numChannels, fs);
+    assert(encoder->oggHeaderPacket0);
+    encoder->oggHeaderPacket1 = make_opus_header1_oggpacket("digger recorder");
+    assert(encoder->oggHeaderPacket1);
     
     return DR_NO_ERROR;
 }
 
-drError drOpusEncoder_write(void* opusEncoder, int numChannels, int numFrames, float* buffer)
+drError drOpusEncoder_write(void* opusEncoder, int numChannels, int numFrames, float* buffer, int* numBytesWritten)
 {
     drOpusEncoder* encoder = (drOpusEncoder*)opusEncoder;
+    *numBytesWritten = 0;
     
     if (encoder->encoder == NULL)
     {
@@ -221,7 +218,19 @@ drError drOpusEncoder_write(void* opusEncoder, int numChannels, int numFrames, f
                 }
                 else
                 {
-                    //printf("encoded opus packet of size %d\n", encodedPacketSize);
+                    int totalBytesWritten = 0;
+                    if (!encoder->hasWrittenHeaderPackets)
+                    {
+                        int b = 0;
+                        int result = write_ogg_packet(&encoder->oggStreamState, encoder->oggHeaderPacket0, encoder->file, 1, &b);
+                        assert(result >= 0);
+                        totalBytesWritten += b;
+                        result     = write_ogg_packet(&encoder->oggStreamState,  encoder->oggHeaderPacket1, encoder->file, 1, &b);
+                        assert(result >= 0);
+                        totalBytesWritten += b;
+                        
+                        encoder->hasWrittenHeaderPackets = 1;
+                    }
                     
                     // forge ogg packet
                     ogg_packet opacket;
@@ -234,7 +243,12 @@ drError drOpusEncoder_write(void* opusEncoder, int numChannels, int numFrames, f
                     opacket.packetno   = encoder->packetsWritten + 1;
                     encoder->packetsWritten++;
                     
-                    int writeResult = write_ogg_packet(&encoder->oggStreamState, &opacket, encoder->file, 0);
+                    int b = 0;
+                    int writeResult = write_ogg_packet(&encoder->oggStreamState, &opacket, encoder->file, 0, &b);
+                    
+                    totalBytesWritten += b;
+                    
+                    *numBytesWritten = totalBytesWritten;
                     
                     //int n = fwrite(encoder->scratchOutputBuffer, 1, encodedPacketSize, encoder->file);
                     if (writeResult < 0)
@@ -253,6 +267,12 @@ static drError cleanup(drOpusEncoder* encoder)
 {
     opus_encoder_destroy(encoder->encoder);
     ogg_stream_clear(&encoder->oggStreamState);
+    
+    DR_FREE(encoder->oggHeaderPacket0->packet);
+    DR_FREE(encoder->oggHeaderPacket0);
+    
+    DR_FREE(encoder->oggHeaderPacket1->packet);
+    DR_FREE(encoder->oggHeaderPacket1);
     
     FILE* f = encoder->file;
     

@@ -212,7 +212,7 @@ extern "C"
     /**
      *
      */
-    void drInstance_initiateRecording(drInstance* instance, const char* filePath);
+    void drInstance_initiateRecording(drInstance* instance);
     
     /**
      *

@@ -24,6 +24,12 @@ static const char* writableFilePathCallback(void* userData)
     return [[documentsDirectory stringByAppendingPathComponent:fileName] UTF8String];
 }
 
+static void audioWrittenCallback(const char* path, int numBytes, void* userData)
+{
+    SandboxViewController* vc = (__bridge SandboxViewController*)userData;
+    printf("wrote %d bytes to %s\n", numBytes, path);
+}
+
 
 @implementation SandboxViewController
 
@@ -214,7 +220,7 @@ static const char* writableFilePathCallback(void* userData)
     
     drInitialize(eventCallback,
                  errorCallback,
-                 writableFilePathCallback,
+                 audioWrittenCallback,
                  (__bridge void*)(self),
                  [settingsFilePath UTF8String],
                  NULL);

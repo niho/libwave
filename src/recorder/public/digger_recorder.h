@@ -74,7 +74,7 @@ extern "C"
     /**
      *
      */
-    typedef const char* (*drAudioWrittenCallback)(FILE* file, int numBytes, void* userData);
+    typedef void (*drAudioWrittenCallback)(const char* path, int numBytes, void* userData);
     
     /**
      * Initializes the recorder.

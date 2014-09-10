@@ -12,7 +12,7 @@ extern "C"
   
     typedef drError (*drEncoderInitCallback)(void* encoderData, const char* filePath, float fs, float numChannels);
     
-    typedef drError (*drEncoderWriteCallback)(void* encoderData, int numChannels, int numFrames, float* buffer);
+    typedef drError (*drEncoderWriteCallback)(void* encoderData, int numChannels, int numFrames, float* buffer, int* numBytesWritten);
     
     typedef drError (*drEncoderFinishCallback)(void* encoderData);
     

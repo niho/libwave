@@ -11,7 +11,7 @@ drError drRawEncoder_init(void* rawEncoder, const char* filePath, float fs, floa
 {
     drRawEncoder* re = (drRawEncoder*)rawEncoder;
     assert(re->file == 0);
-    re->file = fopen(filePath, "wb");
+    re->file = fopen(filePath, "a+");
     if (re->file == 0)
     {
         return DR_FAILED_TO_OPEN_ENCODER_TARGET_FILE;
@@ -20,14 +20,18 @@ drError drRawEncoder_init(void* rawEncoder, const char* filePath, float fs, floa
     return DR_NO_ERROR;
 }
 
-drError drRawEncoder_write(void* rawEncoder, int numChannels, int numFrames, float* buffer)
+drError drRawEncoder_write(void* rawEncoder, int numChannels, int numFrames, float* buffer, int* numBytesWritten)
 {
+    *numBytesWritten = 0;
+    
     drRawEncoder* re = (drRawEncoder*)rawEncoder;
-    int bytesWritten = fwrite(buffer, sizeof(float), numFrames * numChannels, re->file);
+    size_t bytesWritten = fwrite(buffer, sizeof(float), numFrames * numChannels, re->file);
     if (numFrames * numChannels != bytesWritten)
     {
         return DR_FAILED_TO_WRITE_ENCODED_AUDIO_DATA;
     }
+    
+    *numBytesWritten = bytesWritten;
     
     return DR_NO_ERROR;
 }
