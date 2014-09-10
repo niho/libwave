@@ -54,7 +54,7 @@ static drInstance* instance = NULL;
 
 drError drInitialize(drNotificationCallback notificationCallback,
                      drErrorCallback errorCallback,
-                     drWritableAudioFilePathCallback writableFilePathCallback,
+                     drAudioWrittenCallback audioWrittenCallback,
                      void* callbackUserData,
                      const char* settingsFilePath,
                      drSettings* settings)
@@ -68,7 +68,7 @@ drError drInitialize(drNotificationCallback notificationCallback,
     drInstance_init(instance, 
                     notificationCallback,
                     errorCallback,
-                    writableFilePathCallback,
+                    audioWrittenCallback,
                     callbackUserData,
                     settingsFilePath,
                     settings);
@@ -121,7 +121,7 @@ drError drStartRecording(const char* audioFilePath)
         return DR_NOT_INITIALIZED;
     }
     
-    drInstance_enqueueControlEventOfType(instance, DR_START_RECORDING);
+    drInstance_requestStartRecording(instance, audioFilePath);
     
     return DR_NO_ERROR;
 }

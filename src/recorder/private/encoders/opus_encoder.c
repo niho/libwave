@@ -154,26 +154,21 @@ drError drOpusEncoder_init(void* opusEncoder, const char* filePath, float fs, fl
         assert(err >= 0 && "failed to set oupus encoder bitrate");
     }
     
-    int appendingToExistingFile = 0;
     //open file to write to
     {
         assert(encoder->file == 0);
-        encoder->file = fopen(filePath, "wb");
+        encoder->file = fopen(filePath, "a+");
         
         if (encoder->file == 0)
         {
             return DR_FAILED_TO_OPEN_ENCODER_TARGET_FILE;
         }
-       
-        //appendingToExistingFile = jahapp....
-        
-        fseek(encoder->file, 0L, SEEK_SET);
     }
     
-    //init ogg container file, if we're writing to a new file
-    if (!appendingToExistingFile)
+    //init ogg container file
+    //if (!appendingToExistingFile)
     {
-        const int serialNo = 1;
+        const int serialNo = rand();
         int oggInitResult = ogg_stream_init(&encoder->oggStreamState, serialNo);
         assert(oggInitResult >= 0);
         

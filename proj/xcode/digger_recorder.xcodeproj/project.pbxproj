@@ -369,7 +369,6 @@
 		C12E1F0919B61817004532A8 /* opus_encoder.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F0719B61817004532A8 /* opus_encoder.c */; };
 		C12E1F0A19B61817004532A8 /* opus_encoder.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F0719B61817004532A8 /* opus_encoder.c */; };
 		C12E1F0B19B61817004532A8 /* opus_encoder.h in Headers */ = {isa = PBXBuildFile; fileRef = C12E1F0819B61817004532A8 /* opus_encoder.h */; };
-		C12E1F4019B62485004532A8 /* recording_session.h in Headers */ = {isa = PBXBuildFile; fileRef = C12E1F3F19B62485004532A8 /* recording_session.h */; };
 		C12E1F4319B62595004532A8 /* atomic_darwin.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F4119B62595004532A8 /* atomic_darwin.c */; };
 		C12E1F4419B62595004532A8 /* atomic_darwin.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F4119B62595004532A8 /* atomic_darwin.c */; };
 		C12E1F4519B62595004532A8 /* atomic.h in Headers */ = {isa = PBXBuildFile; fileRef = C12E1F4219B62595004532A8 /* atomic.h */; };
@@ -739,7 +738,6 @@
 		C12E1D5019B6132B004532A8 /* tansig_table.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tansig_table.h; sourceTree = "<group>"; };
 		C12E1F0719B61817004532A8 /* opus_encoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = opus_encoder.c; sourceTree = "<group>"; };
 		C12E1F0819B61817004532A8 /* opus_encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = opus_encoder.h; sourceTree = "<group>"; };
-		C12E1F3F19B62485004532A8 /* recording_session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = recording_session.h; sourceTree = "<group>"; };
 		C12E1F4119B62595004532A8 /* atomic_darwin.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = atomic_darwin.c; sourceTree = "<group>"; };
 		C12E1F4219B62595004532A8 /* atomic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = atomic.h; sourceTree = "<group>"; };
 		C12E1F4B19B62635004532A8 /* lock_free_fifo.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lock_free_fifo.c; sourceTree = "<group>"; };
@@ -1371,7 +1369,6 @@
 				C12E1A8C19B5B8CD004532A8 /* mem.h */,
 				C12E1F8C19B7583C004532A8 /* platform_util_ios.m */,
 				C12E1F8D19B7583C004532A8 /* platform_util.h */,
-				C12E1F3F19B62485004532A8 /* recording_session.h */,
 				C1E07B2719B9C7E900F63CA1 /* settings.c */,
 			);
 			path = private;
@@ -1520,7 +1517,6 @@
 				C12E1D9F19B6132B004532A8 /* stack_alloc.h in Headers */,
 				C12E1EDB19B6132B004532A8 /* typedef.h in Headers */,
 				C12E1DA019B6132B004532A8 /* static_modes_fixed.h in Headers */,
-				C12E1F4019B62485004532A8 /* recording_session.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

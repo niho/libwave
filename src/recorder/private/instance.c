@@ -18,7 +18,7 @@
 drError drInstance_init(drInstance* instance,
                         drNotificationCallback notificationCallback,
                         drErrorCallback errorCallback,
-                        drWritableAudioFilePathCallback writableFilePathCallback,
+                        drAudioWrittenCallback audioWrittenCallback,
                         void* callbackUserData,
                         const char* settingsFilePath,
                         drSettings* settings)
@@ -43,7 +43,7 @@ drError drInstance_init(drInstance* instance,
     instance->mainThread = thrd_current();
     
     //hook up notification callback
-    instance->writableFilePathCallback = writableFilePathCallback;
+    instance->audioWrittenCallback = audioWrittenCallback;
     instance->notificationCallback = notificationCallback;
     instance->errorCallback = errorCallback;
     instance->callbackUserData = callbackUserData;
@@ -181,10 +181,10 @@ void drInstance_update(drInstance* instance, float timeStep)
             drError writeResult = DR_NO_ERROR;
             if (c.numFrames > 0)
             {
-                drError writeResult = instance->recordingSession.encoder.writeCallback(instance->recordingSession.encoder.encoderData,
-                                                                                       c.numChannels,
-                                                                                       c.numFrames,
-                                                                                       c.samples);
+                writeResult = instance->recordingSession.encoder.writeCallback(instance->recordingSession.encoder.encoderData,
+                                                                               c.numChannels,
+                                                                               c.numFrames,
+                                                                               c.samples);
             }
             
             //gettimeofday(&tv2, NULL);
@@ -358,13 +358,21 @@ int drInstance_addInputAnalyzer(drInstance* instance,
     return 1;
 }
 
-void drInstance_initiateRecording(drInstance* instance)
+void drInstance_requestStartRecording(drInstance* instance, const char* filePath)
+{
+    
+    strncpy(instance->requestedAudioFilePath, filePath, DR_MAX_PATH_LEN);
+    drInstance_enqueueControlEventOfType(instance, DR_START_RECORDING);
+
+}
+
+void drInstance_initiateRecording(drInstance* instance, const char* filePath)
 {
     assert(drInstance_isOnMainThread(instance));
     
     drError initResult = instance->recordingSession.encoder.initCallback(instance->recordingSession.encoder.encoderData,
-                                                    instance->writableFilePathCallback(instance->callbackUserData),
-                                                    instance->settings.desiredSampleRate, //TODO
+                                                    filePath,
+                                                    instance->sampleRate,
                                                     instance->settings.desiredNumInputChannels); //TODO
     
     if (initResult != DR_NO_ERROR)
@@ -582,7 +590,7 @@ void drInstance_onMainThreadNotification(drInstance* instance, const drNotificat
         {
             instance->stateMainThread = DR_STATE_RECORDING;
             //initiate recording
-            drInstance_initiateRecording(instance);
+            drInstance_initiateRecording(instance, instance->recordingSession.targetFilePath);
             break;
         }
         default:

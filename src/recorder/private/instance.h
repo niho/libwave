@@ -8,8 +8,8 @@
 #include "level_meter.h"
 #include "analyzer.h"
 #include "lock_free_fifo.h"
-#include "recording_session.h"
 #include "settings.h"
+#include "encoder.h"
 
 #ifdef __cplusplus
 extern "C"
@@ -20,8 +20,16 @@ extern "C"
     #define MAX_NUM_INPUT_CHANNELS 1
     #define MAX_NUM_OUTPUT_CHANNELS 2
     
+    #define DR_MAX_PATH_LEN 1024
     
     #define MAX_RECORDED_CHUNK_SIZE 1024
+    
+    typedef struct drRecordingSession
+    {
+        drEncoder encoder;
+        int numRecordedFrames;
+        char targetFilePath[DR_MAX_PATH_LEN];
+    } drRecordingSession;
     
     typedef struct drRecordedChunk
     {
@@ -99,7 +107,7 @@ extern "C"
         drLockFreeFIFO errorFIFO;
         drLockFreeFIFO realTimeDataFifo;
         
-        drWritableAudioFilePathCallback writableFilePathCallback;
+        drAudioWrittenCallback audioWrittenCallback;
         
         drNotificationCallback notificationCallback;
         drErrorCallback errorCallback;
@@ -122,6 +130,8 @@ extern "C"
         
         //
         int isInputDisabled;
+        
+        char requestedAudioFilePath[DR_MAX_PATH_LEN];
     } drInstance;
 
     /**
@@ -130,7 +140,7 @@ extern "C"
     drError drInstance_init(drInstance* instance,
                             drNotificationCallback notificationCallback,
                             drErrorCallback errorCallback,
-                            drWritableAudioFilePathCallback writableFilePathCallback,
+                            drAudioWrittenCallback audioWrittenCallback,
                             void* callbackUserData,
                             const char* settingsFilePath,
                             drSettings* settings);
@@ -197,7 +207,12 @@ extern "C"
     /**
      *
      */
-    void drInstance_initiateRecording(drInstance* instance);
+    void drInstance_requestStartRecording(drInstance* instance, const char* filePath);
+    
+    /**
+     *
+     */
+    void drInstance_initiateRecording(drInstance* instance, const char* filePath);
     
     /**
      *

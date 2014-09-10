@@ -5,6 +5,8 @@
  Public Digger Recorder API
  */
 
+#include <stdio.h>
+
 #include "error_codes.h"
 #include "notification.h"
 #include "settings.h"
@@ -70,21 +72,16 @@ extern "C"
     typedef void (*drNotificationCallback)(const drNotification* event, void* userData);
     
     /**
-     * A callback that gets invoked when the recorder needs to create
-     * an audio file to record to.
+     *
      */
-    typedef const char* (*drWritableAudioFilePathCallback)(void* userData);
+    typedef const char* (*drAudioWrittenCallback)(FILE* file, int numBytes, void* userData);
     
     /**
      * Initializes the recorder.
-     * @param notificationCallback
-     * @param errorCallback
-     * @param callbackUserData Gets passed as an argument in all callbacks.
-     * @param settings If NULL, default settings will be used.
      */
     drError drInitialize(drNotificationCallback notificationCallback,
                          drErrorCallback errorCallback,
-                         drWritableAudioFilePathCallback writableFilePathCallback,
+                         drAudioWrittenCallback audioWrittenCallback,
                          void* callbackUserData,
                          const char* settingsFilePath,
                          drSettings* settings);
