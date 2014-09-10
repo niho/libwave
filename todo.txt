@@ -1,3 +1,5 @@
+[ ] time continues to tick when recorder is paused
+
 [x] public API for encoder events
 [X] settings for init
 [x] resume recording sessions
