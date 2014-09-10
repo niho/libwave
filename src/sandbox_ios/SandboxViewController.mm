@@ -210,13 +210,11 @@ static void audioWrittenCallback(const char* path, int numBytes, void* userData)
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString* settingsFilePath = [documentsDirectory stringByAppendingPathComponent:@"drsettings.json"];
     
     drInitialize(eventCallback,
                  errorCallback,
                  audioWrittenCallback,
                  (__bridge void*)(self),
-                 [settingsFilePath UTF8String],
                  NULL);
 }
 

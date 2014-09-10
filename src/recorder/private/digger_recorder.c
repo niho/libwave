@@ -52,7 +52,6 @@ drError drInitialize(drNotificationCallback notificationCallback,
                      drErrorCallback errorCallback,
                      drAudioWrittenCallback audioWrittenCallback,
                      void* callbackUserData,
-                     const char* settingsFilePath,
                      drSettings* settings)
 {
     if (instance)
@@ -66,7 +65,6 @@ drError drInitialize(drNotificationCallback notificationCallback,
                     errorCallback,
                     audioWrittenCallback,
                     callbackUserData,
-                    settingsFilePath,
                     settings);
     
     return DR_NO_ERROR;

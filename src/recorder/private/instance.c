@@ -20,7 +20,6 @@ drError drInstance_init(drInstance* instance,
                         drErrorCallback errorCallback,
                         drAudioWrittenCallback audioWrittenCallback,
                         void* callbackUserData,
-                        const char* settingsFilePath,
                         drSettings* settings)
 {
     memset(instance, 0, sizeof(drInstance));

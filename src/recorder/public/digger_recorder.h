@@ -83,7 +83,6 @@ extern "C"
                          drErrorCallback errorCallback,
                          drAudioWrittenCallback audioWrittenCallback,
                          void* callbackUserData,
-                         const char* settingsFilePath,
                          drSettings* settings);
     
     /**
