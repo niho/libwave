@@ -38,9 +38,8 @@ extern "C"
     
     drError drOpusEncoder_write(void* opusEncoder, int numChannels, int numFrames, float* buffer, int* numBytesWritten);
     
-    drError drOpusEncoder_finish(void* opusEncoder);
+    drError drOpusEncoder_stop(void* opusEncoder);
     
-    drError drOpusEncoder_cancel(void* opusEncoder);
     
 #ifdef __cplusplus
 }

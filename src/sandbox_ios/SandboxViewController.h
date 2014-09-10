@@ -27,7 +27,7 @@
 
 -(void)onRecStart:(id)sender;
 
--(void)onRecFinish:(id)sender;
+-(void)onRecStop:(id)sender;
 
 -(void)onRecCancel:(id)sender;
 

@@ -33,13 +33,9 @@ const char* drNotificationTypeToString(drNotificationType type)
         {
             return "recording resumed";
         }
-        case DR_RECORDING_FINISHED:
+        case DR_RECORDING_STOPPED:
         {
-            return "recording finished";
-        }
-        case DR_RECORDING_CANCELED:
-        {
-            return "recording canceled";
+            return "recording stopped";
         }
         default:
         {
@@ -126,26 +122,14 @@ drError drStartRecording(const char* audioFilePath)
     return DR_NO_ERROR;
 }
 
-drError drCancelRecording()
+drError drStopRecording()
 {
     if (!instance)
     {
         return DR_NOT_INITIALIZED;
     }
     
-    drInstance_enqueueControlEventOfType(instance, DR_CANCEL_RECORDING);
-    
-    return DR_NO_ERROR;
-}
-
-drError drFinishRecording()
-{
-    if (!instance)
-    {
-        return DR_NOT_INITIALIZED;
-    }
-    
-    drInstance_enqueueControlEventOfType(instance, DR_FINISH_RECORDING);
+    drInstance_enqueueControlEventOfType(instance, DR_STOP_RECORDING);
     
     return DR_NO_ERROR;
 }

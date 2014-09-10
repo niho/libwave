@@ -47,8 +47,7 @@ extern "C"
         DR_START_RECORDING = 0,
         DR_PAUSE_RECORDING,
         DR_RESUME_RECORDING,
-        DR_CANCEL_RECORDING,
-        DR_FINISH_RECORDING,
+        DR_STOP_RECORDING,
     } drControlEventType;
     
     /**
@@ -96,8 +95,7 @@ extern "C"
         drDevInfo devInfo;
         
         int firstSampleHasPlayed;
-        int finishRecordingRequested;
-        int cancelRecordingRequested;
+        int stopRecordingRequested;
         
         //used to verify that functions are being called from the right threads
         thrd_t mainThread;
@@ -217,12 +215,7 @@ extern "C"
     /**
      *
      */
-    void drInstance_finishRecording(drInstance* instance);
-    
-    /**
-     *
-     */
-    void drInstance_cancelRecording(drInstance* instance);
+    void drInstance_stopRecording(drInstance* instance);
     
     /**
      *

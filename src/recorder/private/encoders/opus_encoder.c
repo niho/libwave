@@ -264,8 +264,10 @@ drError drOpusEncoder_write(void* opusEncoder, int numChannels, int numFrames, f
     return DR_NO_ERROR;
 }
 
-static drError cleanup(drOpusEncoder* encoder)
+drError drOpusEncoder_stop(void* opusEncoder)
 {
+    drOpusEncoder* encoder = (drOpusEncoder*)opusEncoder;
+    
     opus_encoder_destroy(encoder->encoder);
     ogg_stream_clear(&encoder->oggStreamState);
     
@@ -290,14 +292,4 @@ static drError cleanup(drOpusEncoder* encoder)
     
     return DR_NO_ERROR;
     
-}
-
-drError drOpusEncoder_finish(void* opusEncoder)
-{
-    return cleanup((drOpusEncoder*)opusEncoder);
-}
-
-drError drOpusEncoder_cancel(void* opusEncoder)
-{
-    return cleanup((drOpusEncoder*)opusEncoder);
 }

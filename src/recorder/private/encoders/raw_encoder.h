@@ -19,9 +19,7 @@ extern "C"
     
     drError drRawEncoder_write(void* rawEncoder, int numChannels, int numFrames, float* buffer, int* numBytesWritten);
     
-    drError drRawEncoder_finish(void* rawEncoder);
-    
-    drError drRawEncoder_cancel(void* rawEncoder);
+    drError drRawEncoder_stop(void* rawEncoder);
     
 #ifdef __cplusplus
 }

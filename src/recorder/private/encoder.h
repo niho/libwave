@@ -14,7 +14,7 @@ extern "C"
     
     typedef drError (*drEncoderWriteCallback)(void* encoderData, int numChannels, int numFrames, float* buffer, int* numBytesWritten);
     
-    typedef drError (*drEncoderFinishCallback)(void* encoderData);
+    typedef drError (*drEncoderStopCallback)(void* encoderData);
     
     typedef drError (*drEncoderCancelCallback)(void* encoderData);
     
@@ -24,9 +24,7 @@ extern "C"
         
         drEncoderWriteCallback writeCallback;
         
-        drEncoderFinishCallback finishCallback;
-        
-        drEncoderCancelCallback cancelCallback;
+        drEncoderStopCallback stopCallback;
         
         void* encoderData;
     } drEncoder;

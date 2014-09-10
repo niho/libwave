@@ -80,18 +80,17 @@ static void audioWrittenCallback(const char* path, int numBytes, void* userData)
             
             
             [self.sandboxView.recToggleButton addTarget:self
-                                                 action:@selector(onRecFinish:)
+                                                 action:@selector(onRecStop:)
                                        forControlEvents:UIControlEventTouchUpInside];
             [self.sandboxView.recPauseButton addTarget:self
                                                 action:@selector(onRecPause:)
                                       forControlEvents:UIControlEventTouchUpInside];
             self.sandboxView.recPauseButton.enabled = YES;
-            self.sandboxView.recCancelButton.enabled = YES;
-            [self.sandboxView.recToggleButton setTitle:@"finish" forState:UIControlStateNormal];
+            [self.sandboxView.recToggleButton setTitle:@"stop" forState:UIControlStateNormal];
             self.sandboxView.recToggleButton.backgroundColor = [UIColor redColor];
             break;
         }
-        case DR_RECORDING_FINISHED:
+        case DR_RECORDING_STOPPED:
         {
             fclose(m_uploadTargetFile);
             m_uploadTargetFile = NULL;
@@ -99,7 +98,6 @@ static void audioWrittenCallback(const char* path, int numBytes, void* userData)
             m_recordingTargetFile = NULL;
             
             self.sandboxView.recPauseButton.enabled = NO;
-            self.sandboxView.recCancelButton.enabled = NO;
             [self.sandboxView.recPauseButton setTitle:@"pause" forState:UIControlStateNormal];
             [self.sandboxView.recToggleButton setTitle:@"start" forState:UIControlStateNormal];
             self.sandboxView.recToggleButton.backgroundColor = [UIColor clearColor];
@@ -124,23 +122,7 @@ static void audioWrittenCallback(const char* path, int numBytes, void* userData)
             [self.sandboxView.recPauseButton setTitle:@"pause" forState:UIControlStateNormal];
             break;
         }
-        case DR_RECORDING_CANCELED:
-        {
-            fclose(m_uploadTargetFile);
-            m_uploadTargetFile = NULL;
-            fclose(m_recordingTargetFile);
-            m_recordingTargetFile = NULL;
-            
-            self.sandboxView.recPauseButton.enabled = NO;
-            self.sandboxView.recCancelButton.enabled = NO;
-            [self.sandboxView.recPauseButton setTitle:@"pause" forState:UIControlStateNormal];
-            [self.sandboxView.recToggleButton setTitle:@"start" forState:UIControlStateNormal];
-            self.sandboxView.recToggleButton.backgroundColor = [UIColor clearColor];
-            [self.sandboxView.recToggleButton addTarget:self
-                                                 action:@selector(onRecStart:)
-                                       forControlEvents:UIControlEventTouchUpInside];
-            break;
-        }
+
         default:
         {
             break;
@@ -202,14 +184,9 @@ static void audioWrittenCallback(const char* path, int numBytes, void* userData)
     drStartRecording([m_recordingTargetPath UTF8String]);
 }
 
--(void)onRecFinish:(id)sender
+-(void)onRecStop:(id)sender
 {
-    drFinishRecording();
-}
-
--(void)onRecCancel:(id)sender
-{
-    drCancelRecording();
+    drStopRecording();
 }
 
 -(void)onRecPause:(id)sender

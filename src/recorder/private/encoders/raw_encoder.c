@@ -31,28 +31,16 @@ drError drRawEncoder_write(void* rawEncoder, int numChannels, int numFrames, flo
         return DR_FAILED_TO_WRITE_ENCODED_AUDIO_DATA;
     }
     
+    fflush(re->file);
+    
     *numBytesWritten = bytesWritten;
     
     return DR_NO_ERROR;
 }
 
-drError drRawEncoder_finish(void* rawEncoder)
+drError drRawEncoder_stop(void* rawEncoder)
 {
     drRawEncoder* re = (drRawEncoder*)rawEncoder;
-    if (fclose(re->file) != 0)
-    {
-        return DR_FAILED_TO_CLOSE_ENCODER_TARGET_FILE;
-    }
-    
-    re->file = 0;
-    
-    return DR_NO_ERROR;
-}
-
-drError drRawEncoder_cancel(void* rawEncoder)
-{
-    drRawEncoder* re = (drRawEncoder*)rawEncoder;
-    
     if (fclose(re->file) != 0)
     {
         return DR_FAILED_TO_CLOSE_ENCODER_TARGET_FILE;

@@ -1,17 +1,17 @@
-[ ] public API for encoder events
+[x] public API for encoder events
 [X] settings for init
-[ ] resume recording sessions
+[x] resume recording sessions
 [X] error callback
-[ ] encoder write callback needs to return the number of bytes written to file
-[ ] close any encoder files on deinit
+[x] encoder write callback needs to return the number of bytes written to file
+[x] close any encoder files on deinit
 [ ] desired settings vs actual
 [ ] remove platform_util, handle encoder support with ifdefs
 [ ] init kowalski with custom io callbacks
 [ ] portaudio external location
 [X] report recorded time
-[ ] finish recording during pause might not work
+[x] finish recording during pause might not work
 [ ] make sure clip flag persists until queried
-[ ] cancel/finish -> stop recording
+[x] cancel/finish -> stop recording
 
 [ ] Verify FIFO data integrity when it arrives on the main thread
 [ ] Don't drive the polling from a loop that pauses during scrolls (i.e NSTimer)
@@ -21,12 +21,3 @@
 [ ] actually record chunks of MAX_RECORDED_CHUNK_SIZE instead of current buffer size
 [ ] check the actual number of input channels + fs before using
 [X] make encoder callbacks return error codes
-
-
-{
-    "recording_sessions":[
-        {
-            "file":"/löl/lölö/löl"
-        }
-    ]
-}

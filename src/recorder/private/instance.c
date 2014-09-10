@@ -206,14 +206,14 @@ void drInstance_update(drInstance* instance, float timeStep)
             {
                 errorOccured = 1;
                 drInstance_onMainThreadError(instance, writeResult);
-                drInstance_enqueueControlEventOfType(instance, DR_CANCEL_RECORDING);
+                drInstance_enqueueControlEventOfType(instance, DR_STOP_RECORDING);
             }
             else
             {
                 //printf("recorded %d frames on the main thread\n", instance->recordingSession.numRecordedFrames);
                 if (c.lastChunk)
                 {
-                    drInstance_finishRecording(instance);
+                    drInstance_stopRecording(instance);
                 }
             }
         }
@@ -235,62 +235,53 @@ void drInstance_audioInputCallback(drInstance* in, const float* inBuffer, int nu
     if (in->stateAudioThread == DR_STATE_RECORDING ||
         in->stateAudioThread == DR_STATE_RECORDING_PAUSED)
     {
-        if (in->cancelRecordingRequested)
+        drRecordedChunk c;
+        const int lastBuffer = in->stopRecordingRequested;
+        
+        const int numSamples = numChannels * numFrames;
+        int sampleIdx = 0;
+        const int chunkSize = MAX_RECORDED_CHUNK_SIZE;
+        const int numChunks = ceil(numSamples / (float)chunkSize);
+        int chunkIdx = 0;
+        while (sampleIdx < numSamples)
         {
-            in->cancelRecordingRequested = 0;
-            in->stateAudioThread = DR_STATE_IDLE;
-            drInstance_enqueueNotificationOfType(in, DR_RECORDING_CANCELED);
+            int samplesLeft = numSamples - sampleIdx;
+            if (samplesLeft > chunkSize)
+            {
+                samplesLeft = chunkSize;
+            }
+            
+            //TODO: this is a double memcpy....
+            const int paused = in->stateAudioThread == DR_STATE_RECORDING_PAUSED;
+            c.numFrames = paused ? 0 : samplesLeft;
+            c.numChannels = numChannels;
+            c.lastChunk = 0;
+            if (lastBuffer && chunkIdx == numChunks - 1)
+            {
+                c.lastChunk = 1;
+            }
+            memcpy(c.samples, &inBuffer[sampleIdx], samplesLeft * sizeof(float));
+            //printf("sending %d frames of recorded %d channel audio to the main thread\n", samplesLeft, numChannels);
+            int pushSuccess = drLockFreeFIFO_push(&in->inputAudioDataQueue, &c);
+            if (pushSuccess == 0)
+            {
+                in->devInfo.recordFIFOUnderrun = 1;
+            }
+            else
+            {
+                in->recordingSession.numRecordedFrames += samplesLeft;
+            }
+            
+            sampleIdx += samplesLeft;
+            chunkIdx++;
         }
-        else
+        
+        
+        if (in->stopRecordingRequested)
         {
-            drRecordedChunk c;
-            const int lastBuffer = in->finishRecordingRequested;
-            
-            const int numSamples = numChannels * numFrames;
-            int sampleIdx = 0;
-            const int chunkSize = MAX_RECORDED_CHUNK_SIZE;
-            const int numChunks = ceil(numSamples / (float)chunkSize);
-            int chunkIdx = 0;
-            while (sampleIdx < numSamples)
-            {
-                int samplesLeft = numSamples - sampleIdx;
-                if (samplesLeft > chunkSize)
-                {
-                    samplesLeft = chunkSize;
-                }
-                
-                //TODO: this is a double memcpy....
-                const int paused = in->stateAudioThread == DR_STATE_RECORDING_PAUSED;
-                c.numFrames = paused ? 0 : samplesLeft;
-                c.numChannels = numChannels;
-                c.lastChunk = 0;
-                if (lastBuffer && chunkIdx == numChunks - 1)
-                {
-                    c.lastChunk = 1;
-                }
-                memcpy(c.samples, &inBuffer[sampleIdx], samplesLeft * sizeof(float));
-                //printf("sending %d frames of recorded %d channel audio to the main thread\n", samplesLeft, numChannels);
-                int pushSuccess = drLockFreeFIFO_push(&in->inputAudioDataQueue, &c);
-                if (pushSuccess == 0)
-                {
-                    in->devInfo.recordFIFOUnderrun = 1;
-                }
-                else
-                {
-                    in->recordingSession.numRecordedFrames += samplesLeft;
-                }
-                
-                sampleIdx += samplesLeft;
-                chunkIdx++;
-            }
-
-            
-            if (in->finishRecordingRequested)
-            {
-                in->finishRecordingRequested = 0;
-                in->stateAudioThread = DR_STATE_IDLE;
-                drInstance_enqueueNotificationOfType(in, DR_RECORDING_FINISHED);
-            }
+            in->stopRecordingRequested = 0;
+            in->stateAudioThread = DR_STATE_IDLE;
+            drInstance_enqueueNotificationOfType(in, DR_RECORDING_STOPPED);
         }
     }
     
@@ -394,18 +385,9 @@ void drInstance_initiateRecording(drInstance* instance)
     printf("drInstance_initiateRecording\n");
 }
 
-void drInstance_finishRecording(drInstance* instance)
+void drInstance_stopRecording(drInstance* instance)
 {
-    assert(drInstance_isOnMainThread(instance));
-    printf("drInstance_finishRecording\n");
     
-    instance->recordingSession.encoder.finishCallback(instance->recordingSession.encoder.encoderData);
-
-    instance->recordingSession.numRecordedFrames = 0;
-}
-
-void drInstance_cancelRecording(drInstance* instance)
-{
     assert(drInstance_isOnMainThread(instance));
     printf("drInstance_cancelRecording\n");
     
@@ -414,12 +396,16 @@ void drInstance_cancelRecording(drInstance* instance)
     {
         drRecordedChunk c;
         drLockFreeFIFO_pop(&instance->inputAudioDataQueue, &c);
+        
+        //TODO: write this chunk!
+        //instance->recordingSession.encoder.writeCallback(
     }
     
-    instance->recordingSession.encoder.cancelCallback(instance->recordingSession.encoder.encoderData);
+    instance->recordingSession.encoder.stopCallback(instance->recordingSession.encoder.encoderData);
     
     instance->recordingSession.numRecordedFrames = 0;
 }
+
 
 void drInstance_invokeErrorCallback(drInstance* instance, drError errorCode)
 {
@@ -525,25 +511,14 @@ void drInstance_onAudioThreadControlEvent(drInstance* instance, const drControlE
             }
             break;
         }
-        case DR_FINISH_RECORDING:
-        {
-            if (instance->stateAudioThread == DR_STATE_RECORDING ||
-                instance->stateAudioThread == DR_STATE_RECORDING_PAUSED)
-            {
-                //finish recording requested and we're currently recording.
-                //finish up.
-                instance->finishRecordingRequested = 1;
-            }
-            break;
-        }
-        case DR_CANCEL_RECORDING:
+        case DR_STOP_RECORDING:
         {
             if (instance->stateAudioThread == DR_STATE_RECORDING ||
                 instance->stateAudioThread == DR_STATE_RECORDING_PAUSED)
             {
                 //cancel recording requested and we're currently recording.
                 //cancel.
-                instance->cancelRecordingRequested = 1;
+                instance->stopRecordingRequested = 1;
             }
             break;
         }
@@ -574,13 +549,21 @@ void drInstance_onMainThreadNotification(drInstance* instance, const drNotificat
         {
             break;
         }
-        case DR_RECORDING_CANCELED:
+            /*
+        case DR_RECORDING_STOPPED:
         {
-            drInstance_cancelRecording(instance);
+            drInstance_stopRecording(instance);
             instance->stateMainThread = DR_STATE_IDLE;
             break;
+        }*/
+        case DR_RECORDING_STARTED:
+        {
+            instance->stateMainThread = DR_STATE_RECORDING;
+            //initiate recording
+            drInstance_initiateRecording(instance);
+            break;
         }
-        case DR_RECORDING_FINISHED:
+        case DR_RECORDING_STOPPED:
         {
             //nothing here. the recording is finished when the last buffer
             //has been received.
@@ -597,13 +580,7 @@ void drInstance_onMainThreadNotification(drInstance* instance, const drNotificat
             instance->stateMainThread = DR_STATE_RECORDING;
             break;
         }
-        case DR_RECORDING_STARTED:
-        {
-            instance->stateMainThread = DR_STATE_RECORDING;
-            //initiate recording
-            drInstance_initiateRecording(instance);
-            break;
-        }
+        
         default:
         {
             break;

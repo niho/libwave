@@ -110,15 +110,12 @@ extern "C"
      */
     drError drStartRecording(const char* audioFilePath);
     
-    /**
-     *
-     */
-    drError drCancelRecording();
     
     /**
-     *
+     * Shuts down the encoder and closes the file it's recording to.
+     * If recording is not in progress, this function does nothing.
      */
-    drError drFinishRecording();
+    drError drStopRecording();
     
     /**
      * Pauses recording, i.e prevents the audio thread from passing

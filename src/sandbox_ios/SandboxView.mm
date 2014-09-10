@@ -61,14 +61,8 @@
         [self.recPauseButton setTitle:@"pause" forState:UIControlStateNormal];
         self.recPauseButton.enabled = NO;
         
-        self.recCancelButton = [UIButton buttonWithType:UIButtonTypeSystem];
-        [self.recCancelButton setTitle:@"cancel" forState:UIControlStateNormal];
-        [self.recCancelButton addTarget:vc action:@selector(onRecCancel:) forControlEvents:UIControlEventTouchUpInside];
-        self.recCancelButton.enabled = NO;
-        
         [self addUIRow:self.recToggleButton
-                      :self.recPauseButton
-                      :self.recCancelButton];
+                      :self.recPauseButton];
     }
     
     //rec dev control buttons
@@ -92,7 +86,7 @@
         
         UIButton* recFinishButton = [UIButton buttonWithType:UIButtonTypeSystem];
         [recFinishButton setTitle:@"finish" forState:UIControlStateNormal];
-        [recFinishButton addTarget:vc action:@selector(onRecFinish:) forControlEvents:UIControlEventTouchUpInside];
+        [recFinishButton addTarget:vc action:@selector(onRecStop:) forControlEvents:UIControlEventTouchUpInside];
         
         [self addUITitleRow:@"Recording dev controls"];
         
