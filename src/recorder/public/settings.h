@@ -23,6 +23,8 @@ extern "C"
         float levelMeterAttackTime;
         /** In seconds. */
         float levelMeterReleaseTime;
+        /** 0 to disable. */
+        float rmsWindowSizeInSeconds;
         
         //desired audio stream parameters
         int desiredSampleRate;

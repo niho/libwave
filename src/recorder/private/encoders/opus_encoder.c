@@ -13,48 +13,6 @@
 //http://holdenc.altervista.org/parole/
 
 
-/* write functions, be */
-
-static void write_be64(uint8_t *p, uint64_t v)
-{
-	p[0] = (v >> 56) & 0xFF;
-	p[1] = (v >> 48) & 0xFF;
-	p[2] = (v >> 40) & 0xFF;
-	p[3] = (v >> 32) & 0xFF;
-	p[4] = (v >> 24) & 0xFF;
-	p[5] = (v >> 16) & 0xFF;
-	p[6] = (v >>  8) & 0xFF;
-	p[7] = (v      ) & 0xFF;
-}
-
-static void write_be32(uint8_t *p, uint32_t v)
-{
-	p[0] = (v >> 24) & 0xFF;
-	p[1] = (v >> 16) & 0xFF;
-	p[2] = (v >>  8) & 0xFF;
-	p[3] = (v      ) & 0xFF;
-}
-
-static void write_be16(uint8_t *p, uint16_t v)
-{
-	p[0] = (v >>  8) & 0xFF;
-	p[1] = (v      ) & 0xFF;
-}
-
-/* write functions, le */
-
-static void write_le64(uint8_t *p, uint64_t v)
-{
-	p[0] = (v      ) & 0xFF;
-	p[1] = (v >>  8) & 0xFF;
-	p[2] = (v >> 16) & 0xFF;
-	p[3] = (v >> 24) & 0xFF;
-	p[4] = (v >> 32) & 0xFF;
-	p[5] = (v >> 40) & 0xFF;
-	p[6] = (v >> 48) & 0xFF;
-	p[7] = (v >> 56) & 0xFF;
-}
-
 static void write_le32(uint8_t *p, uint32_t v)
 {
 	p[0] = (v      ) & 0xFF;
@@ -67,53 +25,6 @@ static void write_le16(uint8_t *p, uint16_t v)
 {
 	p[0] = (v      ) & 0xFF;
 	p[1] = (v >>  8) & 0xFF;
-}
-
-
-/* read functions, be */
-
-static uint64_t read_be64(const uint8_t *p)
-{
-	int i;
-	uint64_t r = 0;
-    
-	for (i = 0; i < 8; i++)
-		r |= p[i] << (7-i)*8;
-    
-	return r;
-}
-
-static uint32_t read_be32(const uint8_t *p)
-{
-	return ((p[0] << 24) | (p[1] << 16) | (p[2] << 8) | p[3]);
-}
-
-static uint16_t read_be16(const uint8_t *p)
-{
-	return ((p[0] << 8) | p[1]);
-}
-
-/* read functions, le */
-
-static uint64_t read_le64(const uint8_t *p)
-{
-	int i;
-	uint64_t r = 0;
-    
-	for (i = 0; i < 8; i++)
-		r |= p[i] << i*8;
-    
-	return r;
-}
-
-static uint32_t read_le32(const uint8_t *p)
-{
-	return ((p[3] << 24) | (p[2] << 16) | (p[1] << 8) | p[0]);
-}
-
-static uint16_t read_le16(const uint8_t *p)
-{
-	return ((p[1] << 8) | p[0]);
 }
 
 
@@ -226,8 +137,6 @@ drError drOpusEncoder_init(void* opusEncoder, const char* filePath, float fs, fl
     drOpusEncoder* encoder = (drOpusEncoder*)opusEncoder;
     encoder->numAccumulatedInputFrames = 0;
     
-    printf("PATH: %s\n", filePath);
-    
     //create the opus encoder
     {
         int err;
@@ -245,17 +154,24 @@ drError drOpusEncoder_init(void* opusEncoder, const char* filePath, float fs, fl
         assert(err >= 0 && "failed to set oupus encoder bitrate");
     }
     
+    int appendingToExistingFile = 0;
     //open file to write to
     {
         assert(encoder->file == 0);
-        encoder->file = fopen(filePath, "w");
+        encoder->file = fopen(filePath, "wb");
+        
         if (encoder->file == 0)
         {
             return DR_FAILED_TO_OPEN_ENCODER_TARGET_FILE;
         }
+       
+        //appendingToExistingFile = jahapp....
+        
+        fseek(encoder->file, 0L, SEEK_SET);
     }
     
-    //init ogg container file
+    //init ogg container file, if we're writing to a new file
+    if (!appendingToExistingFile)
     {
         const int serialNo = 1;
         int oggInitResult = ogg_stream_init(&encoder->oggStreamState, serialNo);
@@ -338,38 +254,34 @@ drError drOpusEncoder_write(void* opusEncoder, int numChannels, int numFrames, f
     return DR_NO_ERROR;
 }
 
-drError drOpusEncoder_finish(void* opusEncoder)
+static drError cleanup(drOpusEncoder* encoder)
 {
-    drOpusEncoder* encoder = (drOpusEncoder*)opusEncoder;
     opus_encoder_destroy(encoder->encoder);
-    encoder->encoder = 0;
     ogg_stream_clear(&encoder->oggStreamState);
     
-    if (fclose(encoder->file) != 0)
+    FILE* f = encoder->file;
+    
+    memset(encoder, 0, sizeof(drOpusEncoder));
+    
+    if (f)
     {
-        return DR_FAILED_TO_CLOSE_ENCODER_TARGET_FILE;
-    }
-    
-    encoder->file = 0;
-    
-    return DR_NO_ERROR;
-}
-
-drError drOpusEncoder_cancel(void* opusEncoder)
-{
-    drOpusEncoder* encoder = (drOpusEncoder*)opusEncoder;
-    opus_encoder_destroy(encoder->encoder);
-    encoder->encoder = 0;
-    
-    if (encoder->file)
-    {
-        if (fclose(encoder->file) != 0)
+        if (fclose(f) != 0)
         {
             return DR_FAILED_TO_CLOSE_ENCODER_TARGET_FILE;
         }
     }
     
-    encoder->file = 0;
     
     return DR_NO_ERROR;
+    
+}
+
+drError drOpusEncoder_finish(void* opusEncoder)
+{
+    return cleanup((drOpusEncoder*)opusEncoder);
+}
+
+drError drOpusEncoder_cancel(void* opusEncoder)
+{
+    return cleanup((drOpusEncoder*)opusEncoder);
 }

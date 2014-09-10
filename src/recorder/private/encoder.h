@@ -21,9 +21,13 @@ extern "C"
     typedef struct drEncoder
     {
         drEncoderInitCallback initCallback;
+        
         drEncoderWriteCallback writeCallback;
+        
         drEncoderFinishCallback finishCallback;
+        
         drEncoderCancelCallback cancelCallback;
+        
         void* encoderData;
     } drEncoder;
     

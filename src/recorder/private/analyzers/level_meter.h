@@ -15,6 +15,9 @@ extern "C"
     {
         /** The index of the channel to process. */
         int channel;
+        
+        int disableRMS;
+        
         /** */
         int rmsWindowPos;
         /** */

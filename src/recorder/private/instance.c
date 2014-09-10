@@ -81,7 +81,7 @@ drError drInstance_init(drInstance* instance,
                           instance->settings.desiredSampleRate,
                           instance->settings.levelMeterAttackTime,
                           instance->settings.levelMeterReleaseTime,
-                          0.5f);
+                          instance->settings.rmsWindowSizeInSeconds);
         drInstance_addInputAnalyzer(instance,
                                     &instance->inputLevelMeters[i],
                                     drLevelMeter_processBuffer,
@@ -173,21 +173,25 @@ void drInstance_update(drInstance* instance, float timeStep)
         //printf("%d frames of recorded %d channel audio arrived on the main thread\n", c.numFrames, c.numChannels);
         if (!errorOccured)
         {
+            
             //struct timeval  tv1, tv2;
             //gettimeofday(&tv1, NULL);
             /* stuff to do! */
             
-            
-            drError writeResult = instance->recordingSession.encoder.writeCallback(instance->recordingSession.encoder.encoderData,
-                                                                                   c.numChannels,
-                                                                                   c.numFrames,
-                                                                                   c.samples);
+            drError writeResult = DR_NO_ERROR;
+            if (c.numFrames > 0)
+            {
+                drError writeResult = instance->recordingSession.encoder.writeCallback(instance->recordingSession.encoder.encoderData,
+                                                                                       c.numChannels,
+                                                                                       c.numFrames,
+                                                                                       c.samples);
+            }
             
             //gettimeofday(&tv2, NULL);
             
             /*printf ("Encoder write callback took = %f seconds\n",
-                    (double) (tv2.tv_usec - tv1.tv_usec) / 1000000 +
-                    (double) (tv2.tv_sec - tv1.tv_sec));*/
+             (double) (tv2.tv_usec - tv1.tv_usec) / 1000000 +
+             (double) (tv2.tv_sec - tv1.tv_sec));*/
             
             if (writeResult != DR_NO_ERROR)
             {
@@ -219,7 +223,8 @@ void drInstance_audioInputCallback(drInstance* in, const float* inBuffer, int nu
     }
     
     //record, if requested
-    if (in->stateAudioThread == DR_STATE_RECORDING)
+    if (in->stateAudioThread == DR_STATE_RECORDING ||
+        in->stateAudioThread == DR_STATE_RECORDING_PAUSED)
     {
         if (in->cancelRecordingRequested)
         {
@@ -246,7 +251,8 @@ void drInstance_audioInputCallback(drInstance* in, const float* inBuffer, int nu
                 }
                 
                 //TODO: this is a double memcpy....
-                c.numFrames = samplesLeft;
+                const int paused = in->stateAudioThread == DR_STATE_RECORDING_PAUSED;
+                c.numFrames = paused ? 0 : samplesLeft;
                 c.numChannels = numChannels;
                 c.lastChunk = 0;
                 if (lastBuffer && chunkIdx == numChunks - 1)
@@ -268,6 +274,7 @@ void drInstance_audioInputCallback(drInstance* in, const float* inBuffer, int nu
                 sampleIdx += samplesLeft;
                 chunkIdx++;
             }
+
             
             if (in->finishRecordingRequested)
             {
@@ -276,10 +283,7 @@ void drInstance_audioInputCallback(drInstance* in, const float* inBuffer, int nu
                 drInstance_enqueueNotificationOfType(in, DR_RECORDING_FINISHED);
             }
         }
-        
     }
-    
-    
     
     //update measured levels
     for (int i = 0; i < MAX_NUM_INPUT_CHANNELS; i++)

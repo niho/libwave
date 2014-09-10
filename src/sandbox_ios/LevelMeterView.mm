@@ -40,7 +40,7 @@
 {
     memcpy(&m_currentInfo, info, sizeof(drRealtimeInfo));
     
-    printf("recorded time: %f\n", info->numRecordedSeconds);
+    //printf("recorded time: %f\n", info->numRecordedSeconds);
     
     const int w = self.frame.size.width;
     const int h = self.frame.size.height;

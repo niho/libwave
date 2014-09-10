@@ -28,6 +28,7 @@ static void testSimpleEncode()
     
     //TODO
     const char* filePath = "/Users/perarne/code/digger_recorder/opus_test_simple.opus";
+    remove(filePath);
     const int sigLength = sineDurSec * fs;
     float* sine440 = generateSine(fs, 440, sigLength);
     float* sine880 = generateSine(fs, 880, sigLength);
@@ -58,6 +59,8 @@ static void testChainedStreamEncode()
     
     //TODO
     const char* filePath = "/Users/perarne/code/digger_recorder/opus_test_chained.opus";
+    remove(filePath);
+    
     const int sigLength = sineDurSec * fs;
     float* sine440 = generateSine(fs, 440, sigLength);
     float* sine880 = generateSine(fs, 880, sigLength);
@@ -68,6 +71,14 @@ static void testChainedStreamEncode()
     
     drOpusEncoder_write(&opusEncoder, nChannels, sigLength, sine440);
     drOpusEncoder_write(&opusEncoder, nChannels, sigLength, sine880);
+    drOpusEncoder_write(&opusEncoder, nChannels, sigLength, sine440);
+    drOpusEncoder_write(&opusEncoder, nChannels, sigLength, sine880);
+    
+    drOpusEncoder_finish(&opusEncoder);
+    
+    //init with existing file
+    drOpusEncoder_init(&opusEncoder, filePath, fs, nChannels);
+    
     drOpusEncoder_write(&opusEncoder, nChannels, sigLength, sine1000);
     drOpusEncoder_write(&opusEncoder, nChannels, sigLength, sine1500);
     
@@ -75,9 +86,12 @@ static void testChainedStreamEncode()
     
     free(sine440);
     free(sine880);
+    free(sine1000);
+    free(sine1500);
 }
 
 void testOggOpus()
 {
     testSimpleEncode();
+    testChainedStreamEncode();
 }

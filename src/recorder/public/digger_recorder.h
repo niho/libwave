@@ -106,12 +106,15 @@ extern "C"
     drError drGetRealtimeInfo(int channel, int logLevels, drRealtimeInfo* result);
     
     /**
-     *
+     * Starts recording audio to a file at a given path. If \c audioFilePath
+     * already exists, it is assumed that some audio has already been recorded
+     * to that file and new audio will be appended to the end of the file.
+     * @param audioFilePath The path of the file to record to.
      */
-    drError drStartRecording();
+    drError drStartRecording(const char* audioFilePath);
     
     /**
-     * 
+     *
      */
     drError drCancelRecording();
     
@@ -121,12 +124,18 @@ extern "C"
     drError drFinishRecording();
     
     /**
-     *
+     * Pauses recording, i.e prevents the audio thread from passing
+     * audio data to the encoder until \c drResumeRecording() is called.
+     * If the system is not recording or if recording is already paused,
+     * this function does nothing.
+     * @see drResumeRecording
      */
     drError drPauseRecording();
     
     /**
-     *
+     * Resumes recording, i.e instructs the audio thread to start
+     * passing audio data to the encoder again.
+     * @see drPauseRecording
      */
     drError drResumeRecording();
     

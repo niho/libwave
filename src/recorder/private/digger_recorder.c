@@ -114,7 +114,7 @@ drError drGetRealtimeInfo(int channel, int logLevels, drRealtimeInfo* result)
     return DR_NO_ERROR;
 }
 
-drError drStartRecording()
+drError drStartRecording(const char* audioFilePath)
 {
     if (!instance)
     {

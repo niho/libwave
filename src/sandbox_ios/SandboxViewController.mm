@@ -176,7 +176,7 @@ static const char* writableFilePathCallback(void* userData)
 
 -(void)onRecStart:(id)sender
 {
-    drStartRecording();
+    drStartRecording(writableFilePathCallback(NULL));
 }
 
 -(void)onRecFinish:(id)sender

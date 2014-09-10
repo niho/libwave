@@ -19,10 +19,17 @@ void drLevelMeter_init(drLevelMeter* meter,
     
     const float thresh = 0.01f;
     
+    meter->disableRMS = rmsWindowSizeInSeconds <= 0.0f;
+    
     meter->peakEnvelopeFeedbackAttack = powf(thresh, 1.0f / (fs * attackTime));
     meter->peakEnvelopeFeedbackDecay = powf(thresh, 1.0f / (fs * decayTime));
     
     meter->rmsWindowSize = (int)(fs * rmsWindowSizeInSeconds + 0.5f);
+    if (meter->rmsWindowSize <= 0)
+    {
+        //make sure we have at least one window sample
+        meter->rmsWindowSize = 1;
+    }
     meter->rmsWindow = (float*)DR_MALLOC(sizeof(float) * meter->rmsWindowSize, "rms window");
     memset(meter->rmsWindow, 0, sizeof(float) * meter->rmsWindowSize);
 }

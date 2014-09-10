@@ -18,4 +18,5 @@ void drSettings_setDefaults(drSettings* settings)
     
     settings->levelMeterAttackTime = 0.0001f;
     settings->levelMeterReleaseTime = 2.0f;
+    settings->rmsWindowSizeInSeconds = 0.0f;
 }
