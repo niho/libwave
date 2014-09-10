@@ -75,6 +75,9 @@ void drLevelMeter_processBuffer(void* levelMeter,
     
     meter->peak = peak;
     
+    //make sure rounding errors have not caused the running sum to be negative
+    meter->runningSquareSum = fmaxf(0.0f, meter->runningSquareSum);
+    
     //refresh rms value
     meter->rmsLevel = sqrtf(meter->runningSquareSum / meter->rmsWindowSize);
     assert(!isnan(meter->rmsLevel));
