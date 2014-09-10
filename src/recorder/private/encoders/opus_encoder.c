@@ -126,6 +126,7 @@ static int write_ogg_packet(ogg_stream_state *ostream, ogg_packet *opacket, FILE
             if (n1 > 0) *numBytesWritten += n1;
 			size_t n2 = fwrite(opage.body  , 1, opage.body_len, fp);
             if (n2 > 0) *numBytesWritten += n2;
+            fflush(fp);
 		}
 	} else {
 		fprintf(stderr, "Error on ogg_stream_packetin().\n");

@@ -11,7 +11,12 @@
 {
     int m_updateStride;
     int m_updateCounter;
+    NSString* m_recordingTargetPath;
+    NSString* m_uploadTargetPath;
+    FILE* m_recordingTargetFile;
+    FILE* m_uploadTargetFile;
 }
+
 @property (nonatomic, retain) SandboxView* sandboxView;
 
 -(void)onError:(drError)error;
@@ -35,5 +40,7 @@
 -(void)onInit:(id)sender;
 
 -(void)onDeinit:(id)sender;
+
+-(void)onAudioDataWritten:(NSString*)path:(int)numBytes;
 
 @end

@@ -11,6 +11,7 @@
 [X] report recorded time
 [ ] finish recording during pause might not work
 [ ] make sure clip flag persists until queried
+[ ] cancel/finish -> stop recording
 
 [ ] Verify FIFO data integrity when it arrives on the main thread
 [ ] Don't drive the polling from a loop that pauses during scrolls (i.e NSTimer)

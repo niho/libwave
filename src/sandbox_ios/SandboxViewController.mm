@@ -1,6 +1,9 @@
 
 #import "SandboxViewController.h"
 
+static const int tempBufSize = 16000;
+static char tempBuf[tempBufSize];
+
 static void eventCallback(const drNotification* event, void* userData)
 {
     SandboxViewController* vc = (__bridge SandboxViewController*)userData;
@@ -13,21 +16,11 @@ static void errorCallback(drError error, void* userData)
     [vc onError:error];
 }
 
-static const char* writableFilePathCallback(void* userData)
-{
-    //SandboxViewController* vc = (__bridge SandboxViewController*)userData;
-    
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    
-    NSString* fileName = [NSString stringWithFormat:@"audio-recording-%d", arc4random()];
-    return [[documentsDirectory stringByAppendingPathComponent:fileName] UTF8String];
-}
-
 static void audioWrittenCallback(const char* path, int numBytes, void* userData)
 {
     SandboxViewController* vc = (__bridge SandboxViewController*)userData;
-    printf("wrote %d bytes to %s\n", numBytes, path);
+    [vc onAudioDataWritten:[NSString stringWithUTF8String:path]
+                          :numBytes];
 }
 
 
@@ -48,6 +41,14 @@ static void audioWrittenCallback(const char* path, int numBytes, void* userData)
                                                 selector:@selector(updateTick)
                                                 userInfo:nil
                                                  repeats:YES];
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    
+    m_recordingTargetPath = [documentsDirectory stringByAppendingPathComponent:@"test-recording.opus"];
+    m_uploadTargetPath = [documentsDirectory stringByAppendingPathComponent:@"test-recording-upload.opus"];
+    NSLog(@"%@", m_recordingTargetPath);
+    NSLog(@"%@", m_uploadTargetPath);
     
     return self;
 }
@@ -72,6 +73,12 @@ static void audioWrittenCallback(const char* path, int numBytes, void* userData)
         }
         case DR_RECORDING_STARTED:
         {
+            memset(tempBuf, 0, tempBufSize);
+            m_uploadTargetFile = fopen([m_uploadTargetPath UTF8String], "wb");
+            assert(m_uploadTargetFile);
+            
+            
+            
             [self.sandboxView.recToggleButton addTarget:self
                                                  action:@selector(onRecFinish:)
                                        forControlEvents:UIControlEventTouchUpInside];
@@ -86,6 +93,11 @@ static void audioWrittenCallback(const char* path, int numBytes, void* userData)
         }
         case DR_RECORDING_FINISHED:
         {
+            fclose(m_uploadTargetFile);
+            m_uploadTargetFile = NULL;
+            fclose(m_recordingTargetFile);
+            m_recordingTargetFile = NULL;
+            
             self.sandboxView.recPauseButton.enabled = NO;
             self.sandboxView.recCancelButton.enabled = NO;
             [self.sandboxView.recPauseButton setTitle:@"pause" forState:UIControlStateNormal];
@@ -114,6 +126,11 @@ static void audioWrittenCallback(const char* path, int numBytes, void* userData)
         }
         case DR_RECORDING_CANCELED:
         {
+            fclose(m_uploadTargetFile);
+            m_uploadTargetFile = NULL;
+            fclose(m_recordingTargetFile);
+            m_recordingTargetFile = NULL;
+            
             self.sandboxView.recPauseButton.enabled = NO;
             self.sandboxView.recCancelButton.enabled = NO;
             [self.sandboxView.recPauseButton setTitle:@"pause" forState:UIControlStateNormal];
@@ -182,7 +199,7 @@ static void audioWrittenCallback(const char* path, int numBytes, void* userData)
 
 -(void)onRecStart:(id)sender
 {
-    drStartRecording(writableFilePathCallback(NULL));
+    drStartRecording([m_recordingTargetPath UTF8String]);
 }
 
 -(void)onRecFinish:(id)sender
@@ -229,6 +246,28 @@ static void audioWrittenCallback(const char* path, int numBytes, void* userData)
 -(void)onDeinit:(id)sender
 {
     drDeinitialize();
+}
+
+-(void)onAudioDataWritten:(NSString*)path
+                         :(int)numBytes
+{
+    assert(path);
+    assert([path isEqualToString:m_recordingTargetPath]);
+    
+    if (!m_recordingTargetFile)
+    {
+        m_recordingTargetFile = fopen([m_recordingTargetPath UTF8String], "r");
+        assert(m_recordingTargetFile);
+    }
+    
+    fseek(m_recordingTargetFile, -numBytes, SEEK_END);
+    int nr = fread(tempBuf, 1, numBytes, m_recordingTargetFile);
+    assert(tempBuf[0] != 0);
+    
+    
+    assert(nr = numBytes);
+    int nw = fwrite(tempBuf, 1, numBytes, m_uploadTargetFile);
+    assert(nw == numBytes);
 }
 
 @end
