@@ -400,6 +400,7 @@
 		C179C33819BF61FD007C4734 /* framing.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F9719B8B47D004532A8 /* framing.c */; };
 		C179C33919BF61FE007C4734 /* bitwise.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F9619B8B47D004532A8 /* bitwise.c */; };
 		C179C33A19BF61FE007C4734 /* framing.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F9719B8B47D004532A8 /* framing.c */; };
+		C17E1C0D19C1AAEB002F8107 /* ios_aac_encoder.c in Sources */ = {isa = PBXBuildFile; fileRef = C17E1C0B19C1AAEB002F8107 /* ios_aac_encoder.c */; };
 		C1E07B0B19B9BADE00F63CA1 /* dump.c in Sources */ = {isa = PBXBuildFile; fileRef = C1E07AF719B9BADE00F63CA1 /* dump.c */; };
 		C1E07B0C19B9BADE00F63CA1 /* dump.c in Sources */ = {isa = PBXBuildFile; fileRef = C1E07AF719B9BADE00F63CA1 /* dump.c */; };
 		C1E07B0D19B9BADE00F63CA1 /* error.c in Sources */ = {isa = PBXBuildFile; fileRef = C1E07AF819B9BADE00F63CA1 /* error.c */; };
@@ -767,6 +768,8 @@
 		C145499819C0C17000301E6C /* level_advisor.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = level_advisor.c; sourceTree = "<group>"; };
 		C145499919C0C17000301E6C /* level_advisor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = level_advisor.h; sourceTree = "<group>"; };
 		C179C33119BF40DA007C4734 /* celt_pitch_xcorr_arm.s */ = {isa = PBXFileReference; explicitFileType = sourcecode.asm; fileEncoding = 4; path = celt_pitch_xcorr_arm.s; sourceTree = "<group>"; };
+		C17E1C0B19C1AAEB002F8107 /* ios_aac_encoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ios_aac_encoder.c; sourceTree = "<group>"; };
+		C17E1C0C19C1AAEB002F8107 /* ios_aac_encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ios_aac_encoder.h; sourceTree = "<group>"; };
 		C1E07AF719B9BADE00F63CA1 /* dump.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = dump.c; path = ../../external/jansson/src/dump.c; sourceTree = "<group>"; };
 		C1E07AF819B9BADE00F63CA1 /* error.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = error.c; path = ../../external/jansson/src/error.c; sourceTree = "<group>"; };
 		C1E07AF919B9BADE00F63CA1 /* hashtable_seed.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = hashtable_seed.c; path = ../../external/jansson/src/hashtable_seed.c; sourceTree = "<group>"; };
@@ -1222,6 +1225,8 @@
 		C12E1F0619B61817004532A8 /* encoders */ = {
 			isa = PBXGroup;
 			children = (
+				C17E1C0B19C1AAEB002F8107 /* ios_aac_encoder.c */,
+				C17E1C0C19C1AAEB002F8107 /* ios_aac_encoder.h */,
 				C12E1F0719B61817004532A8 /* opus_encoder.c */,
 				C12E1F0819B61817004532A8 /* opus_encoder.h */,
 				C12E1F7719B705E3004532A8 /* raw_encoder.c */,
@@ -1831,6 +1836,7 @@
 				C12E1D6519B6132B004532A8 /* celt_decoder.c in Sources */,
 				C12E1E2619B6132B004532A8 /* apply_sine_window_FLP.c in Sources */,
 				C12E1DE219B6132B004532A8 /* decode_parameters.c in Sources */,
+				C17E1C0D19C1AAEB002F8107 /* ios_aac_encoder.c in Sources */,
 				C1E07B0F19B9BADE00F63CA1 /* hashtable_seed.c in Sources */,
 				C12E1E2819B6132B004532A8 /* autocorrelation_FLP.c in Sources */,
 				C12E1DE619B6132B004532A8 /* decode_pulses.c in Sources */,

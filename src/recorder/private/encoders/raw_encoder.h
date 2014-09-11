@@ -10,6 +10,9 @@ extern "C"
 {
 #endif /* __cplusplus */
     
+    /**
+     * Writes raw PCM samples to disk. 
+     */
     typedef struct drRawEncoder
     {
         FILE* file;   

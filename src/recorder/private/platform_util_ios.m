@@ -1,6 +1,7 @@
 #include "platform_util.h"
 #include "raw_encoder.h"
 #include "opus_encoder.h"
+#include "ios_aac_encoder.h"
 #include "mem.h"
 
 #include <Foundation/Foundation.h>
@@ -18,7 +19,7 @@ void drCreateEncoder(drEncoder* encoder)
         encoder->initCallback = drRawEncoder_init;
         encoder->writeCallback = drRawEncoder_write;
     }
-    else
+    else if (1)
     {
         //opus
         drOpusEncoder* opusEncoder = DR_MALLOC(sizeof(drOpusEncoder), "opus encoder");
@@ -27,5 +28,15 @@ void drCreateEncoder(drEncoder* encoder)
         encoder->stopCallback = drOpusEncoder_stop;
         encoder->initCallback = drOpusEncoder_init;
         encoder->writeCallback = drOpusEncoder_write;
+    }
+    else
+    {
+        //ios AAC
+        driOSAACEncoder* aacEncoder = DR_MALLOC(sizeof(driOSAACEncoder), "AAC encoder");
+        memset(aacEncoder, 0, sizeof(driOSAACEncoder));
+        encoder->encoderData = aacEncoder;
+        encoder->stopCallback = driOSAACEncoder_stopCallback;
+        encoder->initCallback = driOSAACEncoder_initCallback;
+        encoder->writeCallback = driOSAACEncoder_writeCallback;
     }
 }

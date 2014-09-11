@@ -21,10 +21,10 @@ void drLevelAdvisor_init(drLevelAdvisor* advisor,
     advisor->instance = instance;
     
     advisor->loudWarningDelayInFrames = 0.5f * fs;
-    advisor->loudThreshold = 0.8f;
+    advisor->loudThreshold = 0.6f;
     
     advisor->quietWarningDelayInFrames = 3.0f * fs;
-    advisor->quietThreshold = 0.3f;
+    advisor->quietThreshold = 0.2f;
 }
 
 void drLevelAdvisor_processBuffer(void* advisorPtr, const float* inBuffer, int numChannels, int numFrames)
@@ -40,7 +40,9 @@ void drLevelAdvisor_processBuffer(void* advisorPtr, const float* inBuffer, int n
     
     drLevelMeter_processBuffer(&advisor->levelMeter, inBuffer, numChannels, numFrames);
     
-    if (advisor->levelMeter.peakEnvelope < advisor->quietThreshold)
+    const float level = advisor->levelMeter.peakEnvelope;
+    
+    if (level < advisor->quietThreshold)
     {
         //quiet zone
         advisor->loudWarningTimer = 0;
@@ -53,7 +55,7 @@ void drLevelAdvisor_processBuffer(void* advisorPtr, const float* inBuffer, int n
             drInstance_enqueueNotificationOfType(advisor->instance, DR_LEVEL_LOW_WARNING);
         }
     }
-    else if (advisor->levelMeter.peakEnvelope > advisor->loudThreshold)
+    else if (level > advisor->loudThreshold)
     {
         //loud zone
         advisor->loudWarningTimer += numFrames;

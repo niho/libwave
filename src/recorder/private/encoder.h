@@ -16,8 +16,6 @@ extern "C"
     
     typedef drError (*drEncoderStopCallback)(void* encoderData);
     
-    typedef drError (*drEncoderCancelCallback)(void* encoderData);
-    
     typedef struct drEncoder
     {
         drEncoderInitCallback initCallback;
