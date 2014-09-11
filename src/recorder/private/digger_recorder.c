@@ -37,6 +37,14 @@ const char* drNotificationTypeToString(drNotificationType type)
         {
             return "recording stopped";
         }
+        case DR_LEVEL_HIGH_WARNING:
+        {
+            return "input level high warning";
+        }
+        case DR_LEVEL_LOW_WARNING:
+        {
+            return "input level low warning";
+        }
         default:
         {
             break;

@@ -60,7 +60,11 @@ static void audioWrittenCallback(const char* path, int numBytes, void* userData)
 
 -(void)onNotification:(const drNotification*)notification
 {
+    self.sandboxView.latestNotificationLabel.alpha = 0.6f;
     self.sandboxView.latestNotificationLabel.text = [NSString stringWithUTF8String:drNotificationTypeToString(notification->type)];
+    [UIView animateWithDuration:3.0f animations:^(void) {
+        self.sandboxView.latestNotificationLabel.alpha = 0.1f;
+    }];
     
     switch (notification->type)
     {
@@ -120,6 +124,14 @@ static void audioWrittenCallback(const char* path, int numBytes, void* userData)
                                                 action:@selector(onRecPause:)
                                       forControlEvents:UIControlEventTouchUpInside];
             [self.sandboxView.recPauseButton setTitle:@"pause" forState:UIControlStateNormal];
+            break;
+        }
+        case DR_LEVEL_LOW_WARNING:
+        {
+            break;
+        }
+        case DR_LEVEL_HIGH_WARNING:
+        {
             break;
         }
 

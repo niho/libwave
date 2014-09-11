@@ -19,7 +19,10 @@ extern "C"
         DR_RECORDING_STARTED,
         DR_RECORDING_PAUSED,
         DR_RECORDING_RESUMED,
-        DR_RECORDING_STOPPED
+        DR_RECORDING_STOPPED,
+        
+        DR_LEVEL_LOW_WARNING,
+        DR_LEVEL_HIGH_WARNING
 
         
     } drNotificationType;

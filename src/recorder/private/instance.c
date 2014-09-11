@@ -87,6 +87,16 @@ drError drInstance_init(drInstance* instance,
                                     drLevelMeter_deinit);
     }
     
+    //create level advisor
+    drLevelAdvisor_init(&instance->levelAdvisor,
+                        instance,
+                        0,
+                        instance->settings.desiredSampleRate);
+    drInstance_addInputAnalyzer(instance,
+                                &instance->levelAdvisor,
+                                drLevelAdvisor_processBuffer,
+                                drLevelAdvisor_deinit);
+    
     drError initResult = drInstance_hostSpecificInit(instance);
     return initResult;
 }
@@ -266,7 +276,7 @@ void drInstance_audioInputCallback(drInstance* in, const float* inBuffer, int nu
             {
                 in->devInfo.recordFIFOUnderrun = 1;
             }
-            else
+            else if (in->stateAudioThread == DR_STATE_RECORDING)
             {
                 in->recordingSession.numRecordedFrames += samplesLeft;
             }

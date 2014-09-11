@@ -10,6 +10,7 @@
 #include "lock_free_fifo.h"
 #include "settings.h"
 #include "encoder.h"
+#include "level_advisor.h"
 
 #ifdef __cplusplus
 extern "C"
@@ -113,6 +114,8 @@ extern "C"
         
         //Level meters, only accessed from the audio thread
         drLevelMeter inputLevelMeters[MAX_NUM_INPUT_CHANNELS];
+        
+        drLevelAdvisor levelAdvisor;
         
         //Measured levels, copied from audio to main via shared memory
         drRealtimeInfo realtimeInfo;

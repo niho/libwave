@@ -388,6 +388,9 @@
 		C12E1F9019B7583C004532A8 /* platform_util.h in Headers */ = {isa = PBXBuildFile; fileRef = C12E1F8D19B7583C004532A8 /* platform_util.h */; };
 		C12E1FA219B8B4E7004532A8 /* ogg.h in Headers */ = {isa = PBXBuildFile; fileRef = C12E1F9E19B8B4E7004532A8 /* ogg.h */; };
 		C12E1FA319B8B4E7004532A8 /* os_types.h in Headers */ = {isa = PBXBuildFile; fileRef = C12E1F9F19B8B4E7004532A8 /* os_types.h */; };
+		C145499A19C0C17000301E6C /* level_advisor.c in Sources */ = {isa = PBXBuildFile; fileRef = C145499819C0C17000301E6C /* level_advisor.c */; };
+		C145499B19C0C17000301E6C /* level_advisor.c in Sources */ = {isa = PBXBuildFile; fileRef = C145499819C0C17000301E6C /* level_advisor.c */; };
+		C145499C19C0C17000301E6C /* level_advisor.h in Headers */ = {isa = PBXBuildFile; fileRef = C145499919C0C17000301E6C /* level_advisor.h */; };
 		C179C32919BF2278007C4734 /* libdigger_recorder_osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C118B3F119B4B28E00005678 /* libdigger_recorder_osx.a */; };
 		C179C32C19BF228B007C4734 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F5E19B6FE58004532A8 /* main.c */; };
 		C179C32D19BF228B007C4734 /* test_atomic.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F5F19B6FE58004532A8 /* test_atomic.c */; };
@@ -761,6 +764,8 @@
 		C12E1F9719B8B47D004532A8 /* framing.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = framing.c; path = "../../external/libogg-1.3.2/src/framing.c"; sourceTree = "<group>"; };
 		C12E1F9E19B8B4E7004532A8 /* ogg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ogg.h; path = "../../external/libogg-1.3.2/include/ogg/ogg.h"; sourceTree = "<group>"; };
 		C12E1F9F19B8B4E7004532A8 /* os_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = os_types.h; path = "../../external/libogg-1.3.2/include/ogg/os_types.h"; sourceTree = "<group>"; };
+		C145499819C0C17000301E6C /* level_advisor.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = level_advisor.c; sourceTree = "<group>"; };
+		C145499919C0C17000301E6C /* level_advisor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = level_advisor.h; sourceTree = "<group>"; };
 		C179C33119BF40DA007C4734 /* celt_pitch_xcorr_arm.s */ = {isa = PBXFileReference; explicitFileType = sourcecode.asm; fileEncoding = 4; path = celt_pitch_xcorr_arm.s; sourceTree = "<group>"; };
 		C1E07AF719B9BADE00F63CA1 /* dump.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = dump.c; path = ../../external/jansson/src/dump.c; sourceTree = "<group>"; };
 		C1E07AF819B9BADE00F63CA1 /* error.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = error.c; path = ../../external/jansson/src/error.c; sourceTree = "<group>"; };
@@ -843,6 +848,8 @@
 		C118B40919B4C9FB00005678 /* analyzers */ = {
 			isa = PBXGroup;
 			children = (
+				C145499819C0C17000301E6C /* level_advisor.c */,
+				C145499919C0C17000301E6C /* level_advisor.h */,
 				C118B40A19B4C9FB00005678 /* level_meter.c */,
 				C118B40B19B4C9FB00005678 /* level_meter.h */,
 			);
@@ -1474,6 +1481,7 @@
 				C12E1F8819B74B65004532A8 /* error_codes.h in Headers */,
 				C12E1DEA19B6132B004532A8 /* define.h in Headers */,
 				C12E1DC019B6132B004532A8 /* macros_armv4.h in Headers */,
+				C145499C19C0C17000301E6C /* level_advisor.h in Headers */,
 				C12E1EEA19B6132B004532A8 /* mlp_train.h in Headers */,
 				C1E07B1819B9BADE00F63CA1 /* lookup3.h in Headers */,
 				C12E1E0C19B6132B004532A8 /* main_FIX.h in Headers */,
@@ -1690,6 +1698,7 @@
 				C12E1DCD19B6132B004532A8 /* CNG.c in Sources */,
 				C12E1EA319B6132B004532A8 /* resampler_down2.c in Sources */,
 				C12E1E9519B6132B004532A8 /* NSQ_del_dec.c in Sources */,
+				C145499B19C0C17000301E6C /* level_advisor.c in Sources */,
 				C12E1E3719B6132B004532A8 /* find_LTP_FLP.c in Sources */,
 				C12E1D6319B6132B004532A8 /* celt.c in Sources */,
 				C12E1ED719B6132B004532A8 /* tables_pitch_lag.c in Sources */,
@@ -1789,6 +1798,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C12E1DD119B6132B004532A8 /* control_audio_bandwidth.c in Sources */,
+				C145499A19C0C17000301E6C /* level_advisor.c in Sources */,
 				C1E07B2D19B9F9E200F63CA1 /* error_codes.c in Sources */,
 				C12E1E8819B6132B004532A8 /* NLSF_encode.c in Sources */,
 				C12E1DD519B6132B004532A8 /* control_SNR.c in Sources */,
