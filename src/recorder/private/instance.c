@@ -550,8 +550,6 @@ void drInstance_onMainThreadNotification(drInstance* instance, const drNotificat
 {
     assert(drInstance_isOnMainThread(instance));
     
-    drInstance_invokeNotificationCallback(instance, notification);
-    
     switch (notification->type)
     {
         case DR_DID_INITIALIZE:
@@ -595,6 +593,8 @@ void drInstance_onMainThreadNotification(drInstance* instance, const drNotificat
             break;
         }
     }
+    
+    drInstance_invokeNotificationCallback(instance, notification);
 }
 
 static float lin2LogLevel(float lin)
