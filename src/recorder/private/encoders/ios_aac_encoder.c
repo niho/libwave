@@ -8,9 +8,11 @@
 
 #include "ios_aac_encoder.h"
 
+//TODO: remove
 //http://stackoverflow.com/questions/4956338/how-can-i-get-aac-encoding-with-extaudiofile-on-ios-to-work?rq=1
 //http://stackoverflow.com/questions/12828159/using-extaudiofilewrite-to-write-at-the-end-of-a-file
 
+/*
 static float* generateSine(int fs, int f, int nSamples)
 {
     float* s = (float*)malloc(nSamples * sizeof(float));
@@ -20,6 +22,98 @@ static float* generateSine(int fs, int f, int nSamples)
     }
     
     return s;
+}*/
+
+static void ensureNoAudioConverterError(OSStatus result)
+{
+    if (result == noErr)
+    {
+        return;
+    }
+    
+    switch (result)
+    {
+        case kAudioConverterErr_FormatNotSupported:
+        {
+            assert(0 && "kAudioConverterErr_FormatNotSupported");
+            break;
+        }
+        case kAudioConverterErr_OperationNotSupported:
+        {
+            assert(0 && "kAudioConverterErr_OperationNotSupported");
+            break;
+        }
+        case kAudioConverterErr_PropertyNotSupported:
+        {
+            assert(0 && "kAudioConverterErr_PropertyNotSupported");
+            break;
+        }
+        case kAudioConverterErr_InvalidInputSize:
+        {
+            assert(0 && "kAudioConverterErr_InvalidInputSize");
+            break;
+        }
+        case kAudioConverterErr_InvalidOutputSize:
+        {
+            // e.g. byte size is not a multiple of the frame size
+            assert(0 && "kAudioConverterErr_InvalidOutputSize");
+            break;
+        }
+        case kAudioConverterErr_UnspecifiedError:
+        {
+            assert(0 && "kAudioConverterErr_UnspecifiedError");
+            break;
+        }
+        case kAudioConverterErr_BadPropertySizeError:
+        {
+            assert(0 && "kAudioConverterErr_BadPropertySizeError");
+            break;
+        }
+        case kAudioConverterErr_RequiresPacketDescriptionsError:
+        {
+            assert(0 && "kAudioConverterErr_RequiresPacketDescriptionsError");
+            break;
+        }
+        case kAudioConverterErr_InputSampleRateOutOfRange:
+        {
+            assert(0 && "kAudioConverterErr_InputSampleRateOutOfRange");
+            break;
+        }
+        case kAudioConverterErr_OutputSampleRateOutOfRange:
+        {
+            assert(0 && "kAudioConverterErr_OutputSampleRateOutOfRange");
+            break;
+        }
+        
+        case kAudioConverterErr_HardwareInUse:
+        {
+            /*
+             iOS only: Returned from AudioConverterFillComplexBuffer if the underlying hardware codec has
+             become unavailable, probably due to an interruption. In this case, your application
+             must stop calling AudioConverterFillComplexBuffer. If the converter can resume from an
+             interruption (see kAudioConverterPropertyCanResumeFromInterruption), you must
+             wait for an EndInterruption notification from AudioSession, and call AudioSessionSetActive(true)
+             before resuming.
+             */
+            assert(0 && "kAudioConverterErr_HardwareInUse");
+            break;
+        }
+        case kAudioConverterErr_NoHardwarePermission:
+        {
+            /*
+             iOS only: Returned from AudioConverterNew if the new converter would use a hardware codec
+             which the application does not have permission to use.
+             */
+            assert(0 && "kAudioConverterErr_NoHardwarePermission");
+            break;
+        }
+        default:
+        {
+            break;
+        }
+    }
+    
+    assert(0 && "unknown AudioConverter error");
 }
 
 static void ensureNoAudioFileError(OSStatus result)
@@ -116,8 +210,62 @@ static void ensureNoAudioFileError(OSStatus result)
             break;
     }
     
-    assert(0 && "unknown error");
+    assert(0 && "unknown AudioFile error");
 }
+
+//-----------------------------------------------------------------------------
+/*!
+ @typedef    AudioConverterComplexInputDataProc
+ @abstract   Callback function for supplying input data to AudioConverterFillComplexBuffer.
+ 
+ @param      inAudioConverter
+ The AudioConverter requesting input.
+ @param      ioNumberDataPackets
+ On entry, the minimum number of packets of input audio data the converter
+ would like in order to fulfill its current FillBuffer request. On exit, the
+ number of packets of audio data actually being provided for input, or 0 if
+ there is no more input.
+ @param      ioData
+ On exit, the members of ioData should be set to point to the audio data
+ being provided for input.
+ @param      outDataPacketDescription
+ If non-null, on exit, the callback is expected to fill this in with
+ an AudioStreamPacketDescription for each packet of input data being provided.
+ @param      inUserData
+ The inInputDataProcUserData parameter passed to AudioConverterFillComplexBuffer().
+ @result     An OSStatus result code.
+ 
+ @discussion
+ This callback function supplies input to AudioConverterFillComplexBuffer.
+ 
+ The AudioConverter requests a minimum number of packets (*ioNumberDataPackets).
+ The callback may return one or more packets. If this is less than the minimum,
+ the callback will simply be called again in the near future.
+ 
+ The callback manipulates the members of ioData to point to one or more buffers
+ of audio data (multiple buffers are used with non-interleaved PCM data). The
+ callback is responsible for not freeing or altering this buffer until it is
+ called again.
+ 
+ If the callback returns an error, it must return zero packets of data.
+ AudioConverterFillComplexBuffer will stop producing output and return whatever
+ output has already been produced to its caller, along with the error code. This
+ mechanism can be used when an input proc has temporarily run out of data, but
+ has not yet reached end of stream.
+ */
+static OSStatus audioConverterComplexInputDataProc(AudioConverterRef inAudioConverter,
+                                                   UInt32* ioNumberDataPackets,
+                                                   AudioBufferList* ioData,
+                                                   AudioStreamPacketDescription** outDataPacketDescription,
+                                                   void* inUserData)
+{
+    //TODO
+    return 0;
+}
+
+
+
+
 
 
 /*!
@@ -222,6 +370,25 @@ drError driOSAACEncoder_initCallback(void* encoderData, const char* filePath, fl
 {
     driOSAACEncoder* encoder = (driOSAACEncoder*)encoderData;
     
+    //input format
+    AudioStreamBasicDescription sourceFormat;
+    memset(&sourceFormat, 0, sizeof(AudioStreamBasicDescription));
+    sourceFormat.mBitsPerChannel = 32;
+    sourceFormat.mBytesPerFrame = 4 * numChannels;
+    sourceFormat.mBytesPerPacket = sourceFormat.mBytesPerFrame;
+    sourceFormat.mChannelsPerFrame = numChannels;
+    sourceFormat.mFormatFlags = kAudioFormatFlagIsFloat | kAudioFormatFlagIsPacked;
+    sourceFormat.mFormatID = kAudioFormatLinearPCM;
+    sourceFormat.mFramesPerPacket = 1;
+    sourceFormat.mSampleRate = fs;
+    
+    //output format
+    AudioStreamBasicDescription outputFormat;
+    memset(&outputFormat, 0, sizeof(AudioStreamBasicDescription));
+    outputFormat.mFormatID = kAudioFormatMPEG4AAC;
+    outputFormat.mSampleRate = fs;
+    outputFormat.mChannelsPerFrame = numChannels;
+    
     FILE* f = fopen(filePath, "r");
     const int fileExists = f != 0;
     fclose(f);
@@ -248,11 +415,6 @@ drError driOSAACEncoder_initCallback(void* encoderData, const char* filePath, fl
     {
         // Define the output format (AAC).
         encoder->file = fopen(filePath, "w");
-        AudioStreamBasicDescription outputFormat;
-        memset(&outputFormat, 0, sizeof(AudioStreamBasicDescription));
-        outputFormat.mFormatID = kAudioFormatMPEG4AAC;
-        outputFormat.mSampleRate = fs;
-        outputFormat.mChannelsPerFrame = numChannels;
         
         OSStatus initResult = AudioFileInitializeWithCallbacks(encoder,
                                                                audioFileReadProc,
@@ -267,6 +429,11 @@ drError driOSAACEncoder_initCallback(void* encoderData, const char* filePath, fl
         ensureNoAudioFileError(initResult);
     }
     
+    //create audio converter
+    OSStatus createResult = AudioConverterNew(&sourceFormat,
+                                              &outputFormat,
+                                              &encoder->audioConverter);
+    ensureNoAudioConverterError(createResult);
     
     
     /*
@@ -275,7 +442,7 @@ drError driOSAACEncoder_initCallback(void* encoderData, const char* filePath, fl
     const int testSignalLength = 100007;
     float* testSignal = generateSine(fs, 440, testSignalLength);
     
-    // Get the source data format
+     //source data format
      AudioStreamBasicDescription sourceFormat;
      memset(&sourceFormat, 0, sizeof(AudioStreamBasicDescription));
      sourceFormat.mBitsPerChannel = 32;
@@ -392,8 +559,12 @@ drError driOSAACEncoder_writeCallback(void* encoderData,
 drError driOSAACEncoder_stopCallback(void* encoderData)
 {
     driOSAACEncoder* encoder = (driOSAACEncoder*)encoderData;
+    
     OSStatus closeResult = AudioFileClose(encoder->destAudioFile);
     ensureNoAudioFileError(closeResult);
+    
+    OSStatus disposeResult = AudioConverterDispose(encoder->audioConverter);
+    ensureNoAudioConverterError(disposeResult);
     
     return DR_NO_ERROR;
 }
