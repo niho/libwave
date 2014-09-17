@@ -556,13 +556,6 @@ void drInstance_onMainThreadNotification(drInstance* instance, const drNotificat
         {
             break;
         }
-            /*
-        case DR_RECORDING_STOPPED:
-        {
-            drInstance_stopRecording(instance);
-            instance->stateMainThread = DR_STATE_IDLE;
-            break;
-        }*/
         case DR_RECORDING_STARTED:
         {
             instance->stateMainThread = DR_STATE_RECORDING;

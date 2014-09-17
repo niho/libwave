@@ -8,7 +8,6 @@
 
 void drCreateEncoder(drEncoder* encoder)
 {
-    //TODO: aac encoder
     if (0)
     {
         //raw
@@ -19,7 +18,7 @@ void drCreateEncoder(drEncoder* encoder)
         encoder->initCallback = drRawEncoder_init;
         encoder->writeCallback = drRawEncoder_write;
     }
-    else if (1)
+    else if (0)
     {
         //opus
         drOpusEncoder* opusEncoder = DR_MALLOC(sizeof(drOpusEncoder), "opus encoder");
