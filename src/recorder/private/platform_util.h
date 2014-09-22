@@ -4,6 +4,7 @@
 /*! \file */
 
 #include "encoder.h"
+#include "settings.h"
 
 #ifdef __cplusplus
 extern "C"
@@ -18,7 +19,7 @@ extern "C"
     /**
      *
      */
-    void drCreateEncoder(drEncoder* encoder);
+    void drCreateEncoder(drEncoder* encoder, drSettings* settings);
     
 #ifdef __cplusplus
 }

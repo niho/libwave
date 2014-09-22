@@ -9,7 +9,17 @@ extern "C"
 #endif /* __cplusplus */
     
     /**
-     *
+     * Error codes.
+     */
+    typedef enum drEncoderFormat
+    {
+        DR_ENCODER_FORMAT_RAW = 0,
+        DR_ENCODER_FORMAT_OPUS,
+        DR_ENCODER_FORMAT_AAC
+    } drEncoderFormat;
+    
+    /**
+     * Settings
      */
     typedef struct drSettings
     {
@@ -31,6 +41,9 @@ extern "C"
         int desiredBufferSizeInFrames;
         int desiredNumInputChannels;
         int desiredNumOutputChannels;
+        
+        //encoder format
+        drEncoderFormat encoderFormat;
     } drSettings;
     
     /**

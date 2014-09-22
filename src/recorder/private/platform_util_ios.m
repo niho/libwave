@@ -6,10 +6,10 @@
 
 #include <Foundation/Foundation.h>
 
-void drCreateEncoder(drEncoder* encoder)
+void drCreateEncoder(drEncoder* encoder, drSettings* settings)
 {
     //TODO: aac encoder
-    if (0)
+    if (settings->encoderFormat == DR_ENCODER_FORMAT_RAW)
     {
         //raw
         drRawEncoder* rawEncoder = DR_MALLOC(sizeof(drRawEncoder), "raw encoder");
@@ -19,7 +19,7 @@ void drCreateEncoder(drEncoder* encoder)
         encoder->initCallback = drRawEncoder_init;
         encoder->writeCallback = drRawEncoder_write;
     }
-    else if (1)
+    else if (settings->encoderFormat == DR_ENCODER_FORMAT_OPUS)
     {
         //opus
         drOpusEncoder* opusEncoder = DR_MALLOC(sizeof(drOpusEncoder), "opus encoder");
