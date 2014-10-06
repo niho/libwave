@@ -172,7 +172,7 @@ drError drOpusEncoder_init(void* opusEncoder, const char* filePath, float fs, fl
     }
     
     //init ogg container file
-    const int serialNo = rand();
+    const int serialNo = rand(); //TODO: make sure this is unique per stream in the scope of a file
     int oggInitResult = ogg_stream_init(&encoder->oggStreamState, serialNo);
     assert(oggInitResult >= 0);
     

@@ -11,6 +11,7 @@
 {
     int m_updateStride;
     int m_updateCounter;
+    int m_numBytesWritten;
     NSString* m_recordingTargetPath;
     NSString* m_uploadTargetPath;
     FILE* m_recordingTargetFile;

@@ -272,7 +272,7 @@ static OSStatus audioConverterComplexInputDataProc(AudioConverterRef inAudioConv
     
     if (encoder->numPcmFramesLeftToDeliverToEncoder == 0)
     {
-        printf("input callback: no more PCM packets to deliver to encoder\n");
+        //printf("input callback: no more PCM packets to deliver to encoder\n");
         *ioNumberDataPackets = 0;
         return kNoMorePCMDataErrorCode;
     }
@@ -283,10 +283,7 @@ static OSStatus audioConverterComplexInputDataProc(AudioConverterRef inAudioConv
         numPacketsToDeliver = encoder->numPcmFramesLeftToDeliverToEncoder;
     }
     
-    
-    printf("input callback: %d pcm packets requested, %d delivered\n",
-           *ioNumberDataPackets,
-           numPacketsToDeliver);
+    //printf("input callback: %d pcm packets requested, %d delivered\n", *ioNumberDataPackets, numPacketsToDeliver);
     
     *ioNumberDataPackets = numPacketsToDeliver;
     ioData->mNumberBuffers = 1;
@@ -355,12 +352,17 @@ static OSStatus audioFileWriteProc(void* inClientData,
     size_t pos = ftell(encoder->file);
     if (pos != inPosition)
     {
-        fseek(encoder->file, (long)inPosition, SEEK_SET);
+        int seekResult = fseek(encoder->file, (long)inPosition, SEEK_SET);
+        assert(seekResult == 0);
     }
     
     int bytesWritten = fwrite(buffer, 1, requestCount, encoder->file);
     *actualCount = bytesWritten < 0 ? 0 : bytesWritten;
-    fflush(encoder->file);
+    int flushResult = fflush(encoder->file);
+    assert(flushResult == 0);
+    encoder->numBytesWrittenSinceLastCheck += (*actualCount);
+    
+    printf("wrote audio %d audio file bytes at pos %d\n", *actualCount, (int)inPosition);
     
     return noErr;
 }
@@ -442,7 +444,9 @@ drError driOSAACEncoder_initCallback(void* encoderData, const char* filePath, fl
     const int fileExists = f != 0;
     fclose(f);
     
-    if (fileExists)
+    const UInt32 fileType = kAudioFileAAC_ADTSType;
+    
+    if (0) //TODO: make appending work (fileExists)
     {
         //try opening the file
         //https://developer.apple.com/library/ios/qa/qa1676/_index.html
@@ -452,7 +456,7 @@ drError driOSAACEncoder_initCallback(void* encoderData, const char* filePath, fl
                                                          audioFileWriteProc,
                                                          audioFileGetSizeProc,
                                                          audioFileSetSizeProc,
-                                                         kAudioFileCAFType,
+                                                         fileType,
                                                          &encoder->destAudioFile);
         ensureNoAudioFileError(openResult);
 
@@ -471,7 +475,7 @@ drError driOSAACEncoder_initCallback(void* encoderData, const char* filePath, fl
                                                                audioFileWriteProc,
                                                                audioFileGetSizeProc,
                                                                audioFileSetSizeProc,
-                                                               kAudioFileCAFType,
+                                                               fileType,
                                                                &outputFormat,
                                                                0,
                                                                &encoder->destAudioFile);
@@ -524,6 +528,8 @@ drError driOSAACEncoder_writeCallback(void* encoderData,
     driOSAACEncoder* encoder = (driOSAACEncoder*)encoderData;
     //TODO: optimize these loops
     
+    *numBytesWritten = 0;
+    
     //accumulate pcm data in the scratch buffer and do encoding
     //when it's full
     for (int i = 0; i < numFrames; i++)
@@ -575,6 +581,15 @@ drError driOSAACEncoder_writeCallback(void* encoderData,
                                                              encoder->outputFilePos,
                                                              &numPackets,
                                                              encoder->aacOutputBuffer);
+                
+                if (writeResult != noErr)
+                {
+                    *numBytesWritten = encoder->numBytesWrittenSinceLastCheck;
+                    return DR_FAILED_TO_WRITE_ENCODED_AUDIO_DATA;
+                }
+                
+                printf("wrote %d bytes of AAC data\n", inNumBytes);
+                
                 ensureNoAudioFileError(writeResult);
                 
                 encoder->outputFilePos += numPackets;
@@ -584,6 +599,9 @@ drError driOSAACEncoder_writeCallback(void* encoderData,
             encoder->pcmBufferWritePos = 0;
         }
     }
+    
+    *numBytesWritten = encoder->numBytesWrittenSinceLastCheck;
+    encoder->numBytesWrittenSinceLastCheck = 0;
     
     return DR_NO_ERROR;
 }

@@ -45,8 +45,8 @@ static void audioWrittenCallback(const char* path, int numBytes, void* userData)
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     
-    m_recordingTargetPath = [documentsDirectory stringByAppendingPathComponent:@"test-recording.opus"];
-    m_uploadTargetPath = [documentsDirectory stringByAppendingPathComponent:@"test-recording-upload.opus"];
+    m_recordingTargetPath = [documentsDirectory stringByAppendingPathComponent:@"test-recording.adts"];
+    m_uploadTargetPath = [documentsDirectory stringByAppendingPathComponent:@"test-recording-upload.adts"];
     NSLog(@"%@", m_recordingTargetPath);
     NSLog(@"%@", m_uploadTargetPath);
     
@@ -223,11 +223,15 @@ static void audioWrittenCallback(const char* path, int numBytes, void* userData)
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     
+    drSettings settings;
+    drSettings_setDefaults(&settings);
+    settings.encoderFormat = DR_ENCODER_FORMAT_AAC;
+    
     drInitialize(eventCallback,
                  errorCallback,
                  audioWrittenCallback,
                  (__bridge void*)(self),
-                 NULL);
+                 &settings);
 }
 
 -(void)onDeinit:(id)sender
@@ -238,6 +242,8 @@ static void audioWrittenCallback(const char* path, int numBytes, void* userData)
 -(void)onAudioDataWritten:(NSString*)path
                          :(int)numBytes
 {
+    NSLog(@"%d bytes of audio data written", numBytes);
+    
     assert(path);
     assert([path isEqualToString:m_recordingTargetPath]);
     
@@ -247,14 +253,19 @@ static void audioWrittenCallback(const char* path, int numBytes, void* userData)
         assert(m_recordingTargetFile);
     }
     
-    fseek(m_recordingTargetFile, -numBytes, SEEK_END);
+
+    fseek(m_recordingTargetFile, m_numBytesWritten, SEEK_SET);
     int nr = fread(tempBuf, 1, numBytes, m_recordingTargetFile);
-    assert(tempBuf[0] != 0);
     
+        
     
     assert(nr = numBytes);
     int nw = fwrite(tempBuf, 1, numBytes, m_uploadTargetFile);
+    fflush(m_uploadTargetFile);
     assert(nw == numBytes);
+    
+    m_numBytesWritten += numBytes;
+    
 }
 
 @end

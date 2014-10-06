@@ -36,6 +36,8 @@ extern "C"
         int maxNumOutputPackets;
         /* */
         int outputFilePos;
+        /** */
+        int numBytesWrittenSinceLastCheck;
         
     } driOSAACEncoder;
     
