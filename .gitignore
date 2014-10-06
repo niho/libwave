@@ -6,3 +6,4 @@ xcuserdata
 *.o
 external/jansson
 external/tinycthread
+.DS_Store

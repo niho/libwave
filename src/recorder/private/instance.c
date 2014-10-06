@@ -47,7 +47,8 @@ drError drInstance_init(drInstance* instance,
     instance->errorCallback = errorCallback;
     instance->callbackUserData = callbackUserData;
     
-    drCreateEncoder(&instance->recordingSession.encoder);
+    drCreateEncoder(&instance->recordingSession.encoder,
+                    &instance->settings);
     
     drLockFreeFIFO_init(&instance->inputAudioDataQueue,
                         instance->settings.recordFIFOCapacity,
