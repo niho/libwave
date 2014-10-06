@@ -11,7 +11,7 @@ extern "C"
 {
 #endif /* __cplusplus */
     
-#define DR_AAC_PCM_BUFFER_SIZE_IN_FRAMES 1024
+#define DR_AAC_PCM_BUFFER_SIZE_IN_FRAMES 1003
 #define DR_AAC_OUTPUT_BUFFER_SIZE (1 << 15)
     
     typedef struct driOSAACEncoder
@@ -26,6 +26,8 @@ extern "C"
         float* pcmBuffer;
         /** */
         int pcmBufferWritePos;
+        /** */
+        int numPcmFramesLeftToDeliverToEncoder;
         /** */
         unsigned char* aacOutputBuffer;
         /** */

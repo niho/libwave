@@ -25,6 +25,8 @@ static float* generateSine(int fs, int f, int nSamples)
     return s;
 }*/
 
+#define kNoMorePCMDataErrorCode (0x666beef)
+
 static void ensureNoAudioConverterError(OSStatus result)
 {
     if (result == noErr)
@@ -268,14 +270,36 @@ static OSStatus audioConverterComplexInputDataProc(AudioConverterRef inAudioConv
     driOSAACEncoder* encoder = (driOSAACEncoder*)inUserData;
     assert(!outDataPacketDescription);
     
-    *ioNumberDataPackets = DR_AAC_PCM_BUFFER_SIZE_IN_FRAMES;
+    if (encoder->numPcmFramesLeftToDeliverToEncoder == 0)
+    {
+        printf("input callback: no more PCM packets to deliver to encoder\n");
+        *ioNumberDataPackets = 0;
+        return kNoMorePCMDataErrorCode;
+    }
+    
+    int numPacketsToDeliver = *ioNumberDataPackets;
+    if (numPacketsToDeliver > encoder->numPcmFramesLeftToDeliverToEncoder)
+    {
+        numPacketsToDeliver = encoder->numPcmFramesLeftToDeliverToEncoder;
+    }
+    
+    
+    printf("input callback: %d pcm packets requested, %d delivered\n",
+           *ioNumberDataPackets,
+           numPacketsToDeliver);
+    
+    *ioNumberDataPackets = numPacketsToDeliver;
     ioData->mNumberBuffers = 1;
     const int nChannels = 1;//TODO
     ioData->mBuffers[0].mNumberChannels = nChannels;
     ioData->mBuffers[0].mDataByteSize = nChannels * (*ioNumberDataPackets) * sizeof(float);
     ioData->mBuffers[0].mData = encoder->pcmBuffer;
     
-    return 0;
+    encoder->numPcmFramesLeftToDeliverToEncoder -= numPacketsToDeliver;
+    
+    assert(encoder->numPcmFramesLeftToDeliverToEncoder >= 0);
+    
+    return noErr;
 }
 
 /*!
@@ -497,9 +521,6 @@ drError driOSAACEncoder_writeCallback(void* encoderData,
                                       int* numBytesWritten)
 {
     driOSAACEncoder* encoder = (driOSAACEncoder*)encoderData;
-    
-    AudioBufferList outputData;
-    
     //TODO: optimize these loops
     
     //accumulate pcm data in the scratch buffer and do encoding
@@ -514,6 +535,9 @@ drError driOSAACEncoder_writeCallback(void* encoderData,
         encoder->pcmBufferWritePos++;
         if (encoder->pcmBufferWritePos == DR_AAC_PCM_BUFFER_SIZE_IN_FRAMES)
         {
+            printf("accumulated %d pcm frames, about to convert to AAC\n",
+                   encoder->pcmBufferWritePos);
+            
             //convert audio data
             AudioBufferList fillBufList;
             fillBufList.mNumberBuffers = 1;
@@ -522,26 +546,39 @@ drError driOSAACEncoder_writeCallback(void* encoderData,
             fillBufList.mBuffers[0].mData = encoder->aacOutputBuffer;
             
             UInt32 numPackets = encoder->maxNumOutputPackets;
+            encoder->numPcmFramesLeftToDeliverToEncoder = DR_AAC_PCM_BUFFER_SIZE_IN_FRAMES;
             OSStatus fillResult = AudioConverterFillComplexBuffer(encoder->audioConverter,
                                                                   audioConverterComplexInputDataProc,
                                                                   encoder,
                                                                   &numPackets,
                                                                   &fillBufList,
                                                                   encoder->aacOutputPacketDescriptions);
-            ensureNoAudioConverterError(fillResult);
+            if (fillResult == kNoMorePCMDataErrorCode)
+            {
+                
+            }
+            else
+            {
+                ensureNoAudioConverterError(fillResult);
+            }
+            printf("converted pcm to %d packets of AAC", numPackets);
             
             //write packets
-            UInt32 inNumBytes = fillBufList.mBuffers[0].mDataByteSize;
-            OSStatus writeResult = AudioFileWritePackets(encoder->destAudioFile,
-                                                         0,
-                                                         inNumBytes,
-                                                         encoder->aacOutputPacketDescriptions,
-                                                         encoder->outputFilePos,
-                                                         &numPackets,
-                                                         encoder->aacOutputBuffer);
-            ensureNoAudioFileError(writeResult);
-            
-            encoder->outputFilePos += numPackets;
+            if (numPackets > 0)
+            {
+                UInt32 inNumBytes = fillBufList.mBuffers[0].mDataByteSize;
+                printf("about to write %d bytes of AAC data\n", inNumBytes);
+                OSStatus writeResult = AudioFileWritePackets(encoder->destAudioFile,
+                                                             0,
+                                                             inNumBytes,
+                                                             encoder->aacOutputPacketDescriptions,
+                                                             encoder->outputFilePos,
+                                                             &numPackets,
+                                                             encoder->aacOutputBuffer);
+                ensureNoAudioFileError(writeResult);
+                
+                encoder->outputFilePos += numPackets;
+            }
             
             //reset frame counter
             encoder->pcmBufferWritePos = 0;
