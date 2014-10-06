@@ -599,6 +599,8 @@ drError driOSAACEncoder_stopCallback(void* encoderData)
     ensureNoAudioConverterError(disposeResult);
     
     DR_FREE(encoder->pcmBuffer);
+    DR_FREE(encoder->aacOutputBuffer);
+    DR_FREE(encoder->aacOutputPacketDescriptions);
     
     //TODO: close file
     
