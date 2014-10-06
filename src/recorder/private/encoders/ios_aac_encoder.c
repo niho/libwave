@@ -5,6 +5,7 @@
 
 #include "assert.h"
 #include "error_codes.h"
+#include "mem.h"
 
 #include "ios_aac_encoder.h"
 
@@ -105,6 +106,11 @@ static void ensureNoAudioConverterError(OSStatus result)
              which the application does not have permission to use.
              */
             assert(0 && "kAudioConverterErr_NoHardwarePermission");
+            break;
+        }
+        case -50:
+        {
+            assert(0 && "param error");
             break;
         }
         default:
@@ -259,14 +265,18 @@ static OSStatus audioConverterComplexInputDataProc(AudioConverterRef inAudioConv
                                                    AudioStreamPacketDescription** outDataPacketDescription,
                                                    void* inUserData)
 {
-    //TODO
+    driOSAACEncoder* encoder = (driOSAACEncoder*)inUserData;
+    assert(!outDataPacketDescription);
+    
+    *ioNumberDataPackets = DR_AAC_PCM_BUFFER_SIZE_IN_FRAMES;
+    ioData->mNumberBuffers = 1;
+    const int nChannels = 1;//TODO
+    ioData->mBuffers[0].mNumberChannels = nChannels;
+    ioData->mBuffers[0].mDataByteSize = nChannels * (*ioNumberDataPackets) * sizeof(float);
+    ioData->mBuffers[0].mData = encoder->pcmBuffer;
+    
     return 0;
 }
-
-
-
-
-
 
 /*!
  @typedef	AudioFile_ReadProc
@@ -370,6 +380,11 @@ drError driOSAACEncoder_initCallback(void* encoderData, const char* filePath, fl
 {
     driOSAACEncoder* encoder = (driOSAACEncoder*)encoderData;
     
+    //pcm scratch buffer
+    const int scratchBufferSize = numChannels * DR_AAC_PCM_BUFFER_SIZE_IN_FRAMES * sizeof(float);
+    encoder->pcmBuffer = (float*)DR_MALLOC(scratchBufferSize, "AAC scratch buffer");
+    memset(encoder->pcmBuffer, 0, scratchBufferSize);
+    
     //input format
     AudioStreamBasicDescription sourceFormat;
     memset(&sourceFormat, 0, sizeof(AudioStreamBasicDescription));
@@ -388,7 +403,17 @@ drError driOSAACEncoder_initCallback(void* encoderData, const char* filePath, fl
     outputFormat.mFormatID = kAudioFormatMPEG4AAC;
     outputFormat.mSampleRate = fs;
     outputFormat.mChannelsPerFrame = numChannels;
+    //use AudioFormat API to fill out the rest of the description
+    UInt32 size = sizeof(outputFormat);
+    OSStatus result = AudioFormatGetProperty(kAudioFormatProperty_FormatInfo,
+                                             0,
+                                             NULL,
+                                             &size,
+                                             &outputFormat);
+    assert(result == 0);
     
+    //check if the target file exists. assume it does't if it cant be opened
+    //TODO: a better check?
     FILE* f = fopen(filePath, "r");
     const int fileExists = f != 0;
     fclose(f);
@@ -435,100 +460,33 @@ drError driOSAACEncoder_initCallback(void* encoderData, const char* filePath, fl
                                               &encoder->audioConverter);
     ensureNoAudioConverterError(createResult);
     
+    //set converter bit rate
+    const UInt32 outputBitRate = 64000;
+    OSStatus setBitrateResult = AudioConverterSetProperty(encoder->audioConverter,
+                                                          kAudioConverterEncodeBitRate,
+                                                          sizeof(outputBitRate),
+                                                          &outputBitRate);
+    ensureNoAudioConverterError(setBitrateResult);
     
-    /*
-    UInt32 size;
-    
-    const int testSignalLength = 100007;
-    float* testSignal = generateSine(fs, 440, testSignalLength);
-    
-     //source data format
-     AudioStreamBasicDescription sourceFormat;
-     memset(&sourceFormat, 0, sizeof(AudioStreamBasicDescription));
-     sourceFormat.mBitsPerChannel = 32;
-     sourceFormat.mBytesPerFrame = 4 * numChannels;
-     sourceFormat.mBytesPerPacket = sourceFormat.mBytesPerFrame;
-     sourceFormat.mChannelsPerFrame = numChannels;
-     sourceFormat.mFormatFlags = kAudioFormatFlagIsFloat | kAudioFormatFlagIsPacked;
-     sourceFormat.mFormatID = kAudioFormatLinearPCM;
-     sourceFormat.mFramesPerPacket = 1;
-     sourceFormat.mSampleRate = fs;
-    
-    
-    
+    //get the maximum output packet size and allocate output buffers accordingly
+    UInt32 maxOutputPacketSize = 0;
+    UInt32 propSize = sizeof(maxOutputPacketSize);
+    OSStatus maxSizeResult = AudioConverterGetProperty(encoder->audioConverter,
+                                                       kAudioConverterPropertyMaximumOutputPacketSize,
+                                                       &propSize,
+                                                       &maxOutputPacketSize);
+    ensureNoAudioConverterError(maxSizeResult);
+    assert(maxOutputPacketSize > 0 && "maximum AAC output packet size should be positive");
+    encoder->aacOutputBuffer = (unsigned char*)DR_MALLOC(DR_AAC_OUTPUT_BUFFER_SIZE, "AAC output buffer");
+    memset(encoder->aacOutputBuffer, 0, DR_AAC_OUTPUT_BUFFER_SIZE);
+    encoder->maxNumOutputPackets = DR_AAC_OUTPUT_BUFFER_SIZE / maxOutputPacketSize;
+    encoder->aacOutputPacketDescriptions =
+            (AudioStreamPacketDescription*)DR_MALLOC(sizeof(AudioStreamPacketDescription) *
+                                                     encoder->maxNumOutputPackets, "AAC packet descriptions");
+    memset(encoder->aacOutputPacketDescriptions,
+           0,
+           sizeof(AudioStreamPacketDescription) * encoder->maxNumOutputPackets);
 
-    // Use AudioFormat API to fill out the rest of the description.
-    size = sizeof(outputFormat);
-    OSStatus result = AudioFormatGetProperty(kAudioFormatProperty_FormatInfo, 0, NULL, &size, &outputFormat);
-    assert(result == 0);
-    
-    // Make a destination audio file with this output format.
-    
-    CFStringRef destPathStr = CFStringCreateWithCString(NULL, filePath, kCFStringEncodingUTF8);
-    CFURLRef destUrl = CFURLCreateWithFileSystemPath(NULL,
-                                                     destPathStr,
-                                                     kCFURLPOSIXPathStyle,
-                                                     0);
-
-    result = ExtAudioFileCreateWithURL(destUrl,
-                                                kAudioFileM4AType,
-                                                &outputFormat,
-                                                NULL,
-                                                kAudioFileFlags_EraseFile,
-                                                &destAudioFile);
-    assert(result == 0);
-    
-    
-    // Set the client format in source and destination file.
-    size = sizeof(sourceFormat);
-    result = ExtAudioFileSetProperty(destAudioFile, kExtAudioFileProperty_ClientDataFormat, size, &sourceFormat);
-    assert(result == 0);
-    
-
-    // Make a buffer
-    int bufferSizeInFrames = 8000;
-    int bufferSize = (bufferSizeInFrames * sourceFormat.mBytesPerFrame);
-    UInt8 * buffer = (UInt8 *)malloc(bufferSize);
-    AudioBufferList bufferList;
-    bufferList.mNumberBuffers = 1;
-    bufferList.mBuffers[0].mNumberChannels = sourceFormat.mChannelsPerFrame;
-    bufferList.mBuffers[0].mData = buffer;
-    bufferList.mBuffers[0].mDataByteSize = (bufferSize);
-    
-    int frame = 0;
-    while( TRUE )
-    {
-        // Try to fill the buffer to capacity.
-        int i = 0;
-        for (i = 0; i < bufferSizeInFrames; i++)
-        {
-            if (frame == testSignalLength)
-            {
-                break;
-            }
-            
-            float* tb = (float*)bufferList.mBuffers[0].mData;
-            tb[i] = testSignal[frame];
-            frame++;
-            bufferList.mBuffers[0].mDataByteSize = 4 * i + 4;
-            
-        }
-
-        
-        // Write.
-        OSStatus wr = ExtAudioFileWrite(destAudioFile, i, &bufferList);
-        assert(wr == 0);
-        
-        if (frame == testSignalLength)
-        {
-            break;
-        }
-    }
-    
-    free( buffer );
-
-    
-    */
     return DR_NO_ERROR;
 }
 
@@ -539,20 +497,57 @@ drError driOSAACEncoder_writeCallback(void* encoderData,
                                       int* numBytesWritten)
 {
     driOSAACEncoder* encoder = (driOSAACEncoder*)encoderData;
-    const int numBytes = numChannels * numFrames * sizeof(float);
-    AudioStreamPacketDescription d;
-    d.mDataByteSize = numBytes;
-    d.mStartOffset = 0;
-    d.mVariableFramesInPacket = 0;
-    UInt32 nPackets = 1;
-    OSStatus writeResult = AudioFileWritePackets(encoder->destAudioFile,
-                                                 0,
-                                                 numBytes,
-                                                 NULL,
-                                                 0,
-                                                 &nPackets,
-                                                 buffer);
-    ensureNoAudioFileError(writeResult);
+    
+    AudioBufferList outputData;
+    
+    //TODO: optimize these loops
+    
+    //accumulate pcm data in the scratch buffer and do encoding
+    //when it's full
+    for (int i = 0; i < numFrames; i++)
+    {
+        for (int c = 0; c < numChannels; c++)
+        {
+            encoder->pcmBuffer[encoder->pcmBufferWritePos * numChannels + c] = buffer[i * numChannels + c];
+        }
+        
+        encoder->pcmBufferWritePos++;
+        if (encoder->pcmBufferWritePos == DR_AAC_PCM_BUFFER_SIZE_IN_FRAMES)
+        {
+            //convert audio data
+            AudioBufferList fillBufList;
+            fillBufList.mNumberBuffers = 1;
+            fillBufList.mBuffers[0].mNumberChannels = numChannels;
+            fillBufList.mBuffers[0].mDataByteSize = DR_AAC_OUTPUT_BUFFER_SIZE;
+            fillBufList.mBuffers[0].mData = encoder->aacOutputBuffer;
+            
+            UInt32 numPackets = encoder->maxNumOutputPackets;
+            OSStatus fillResult = AudioConverterFillComplexBuffer(encoder->audioConverter,
+                                                                  audioConverterComplexInputDataProc,
+                                                                  encoder,
+                                                                  &numPackets,
+                                                                  &fillBufList,
+                                                                  encoder->aacOutputPacketDescriptions);
+            ensureNoAudioConverterError(fillResult);
+            
+            //write packets
+            UInt32 inNumBytes = fillBufList.mBuffers[0].mDataByteSize;
+            OSStatus writeResult = AudioFileWritePackets(encoder->destAudioFile,
+                                                         0,
+                                                         inNumBytes,
+                                                         encoder->aacOutputPacketDescriptions,
+                                                         encoder->outputFilePos,
+                                                         &numPackets,
+                                                         encoder->aacOutputBuffer);
+            ensureNoAudioFileError(writeResult);
+            
+            encoder->outputFilePos += numPackets;
+            
+            //reset frame counter
+            encoder->pcmBufferWritePos = 0;
+        }
+    }
+    
     return DR_NO_ERROR;
 }
 
@@ -565,6 +560,10 @@ drError driOSAACEncoder_stopCallback(void* encoderData)
     
     OSStatus disposeResult = AudioConverterDispose(encoder->audioConverter);
     ensureNoAudioConverterError(disposeResult);
+    
+    DR_FREE(encoder->pcmBuffer);
+    
+    //TODO: close file
     
     return DR_NO_ERROR;
 }

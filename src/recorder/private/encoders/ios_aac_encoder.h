@@ -11,6 +11,9 @@ extern "C"
 {
 #endif /* __cplusplus */
     
+#define DR_AAC_PCM_BUFFER_SIZE_IN_FRAMES 1024
+#define DR_AAC_OUTPUT_BUFFER_SIZE (1 << 15)
+    
     typedef struct driOSAACEncoder
     {
         /** The file to write to. */
@@ -19,6 +22,19 @@ extern "C"
         AudioFileID destAudioFile;
         /** Converter responsible for converting PCM to AAC. */
         AudioConverterRef audioConverter;
+        /** */
+        float* pcmBuffer;
+        /** */
+        int pcmBufferWritePos;
+        /** */
+        unsigned char* aacOutputBuffer;
+        /** */
+        AudioStreamPacketDescription* aacOutputPacketDescriptions;
+        /* */
+        int maxNumOutputPackets;
+        /* */
+        int outputFilePos;
+        
     } driOSAACEncoder;
     
     drError driOSAACEncoder_initCallback(void* encoderData,
