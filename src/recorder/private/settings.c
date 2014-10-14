@@ -20,5 +20,5 @@ void drSettings_setDefaults(drSettings* settings)
     settings->levelMeterReleaseTime = 2.0f;
     settings->rmsWindowSizeInSeconds = 0.0f;
     
-    settings->encoderFormat = DR_ENCODER_FORMAT_OPUS;
+    settings->encoderFormat = DR_ENCODER_FORMAT_AAC;
 }
