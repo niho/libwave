@@ -268,7 +268,11 @@ static OSStatus audioConverterComplexInputDataProc(AudioConverterRef inAudioConv
                                                    void* inUserData)
 {
     driOSAACEncoder* encoder = (driOSAACEncoder*)inUserData;
-    assert(!outDataPacketDescription);
+    //assert(!outDataPacketDescription);
+    
+    if (!outDataPacketDescription) {
+        return noErr;
+    }
     
     if (encoder->numPcmFramesLeftToDeliverToEncoder == 0)
     {
