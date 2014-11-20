@@ -11,7 +11,7 @@ extern "C"
 {
 #endif /* __cplusplus */
     
-#define DR_AAC_PCM_BUFFER_SIZE_IN_FRAMES 4096
+#define DR_AAC_PCM_BUFFER_SIZE_IN_FRAMES (1 << 12)
 #define DR_AAC_OUTPUT_BUFFER_SIZE (1 << 15)
     
     typedef struct driOSAACEncoder

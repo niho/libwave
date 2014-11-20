@@ -268,10 +268,9 @@ static OSStatus audioConverterComplexInputDataProc(AudioConverterRef inAudioConv
                                                    void* inUserData)
 {
     driOSAACEncoder* encoder = (driOSAACEncoder*)inUserData;
-    //assert(!outDataPacketDescription);
     
-    if (!outDataPacketDescription) {
-        return noErr;
+    if (outDataPacketDescription) {
+        *outDataPacketDescription = NULL;
     }
     
     if (encoder->numPcmFramesLeftToDeliverToEncoder == 0)
@@ -290,12 +289,19 @@ static OSStatus audioConverterComplexInputDataProc(AudioConverterRef inAudioConv
     //printf("input callback: %d pcm packets requested, %d delivered\n", *ioNumberDataPackets, numPacketsToDeliver);
     
     *ioNumberDataPackets = numPacketsToDeliver;
+    
     ioData->mNumberBuffers = 1;
     const int nChannels = 1;//TODO
+    const int numBytes = nChannels * (*ioNumberDataPackets) * sizeof(float);
     ioData->mBuffers[0].mNumberChannels = nChannels;
-    ioData->mBuffers[0].mDataByteSize = nChannels * (*ioNumberDataPackets) * sizeof(float);
-    ioData->mBuffers[0].mData = encoder->pcmBuffer;
+    ioData->mBuffers[0].mDataByteSize = numBytes;
     
+    //since this function could be invoked more than once every time the input pcm buffer
+    //is full, compute the offset into the buffer to use for this chunk.
+    const int sampleOffset = nChannels * (DR_AAC_PCM_BUFFER_SIZE_IN_FRAMES - encoder->numPcmFramesLeftToDeliverToEncoder);
+    assert(sampleOffset >= 0);
+    ioData->mBuffers[0].mData = &(encoder->pcmBuffer[sampleOffset]);
+
     encoder->numPcmFramesLeftToDeliverToEncoder -= numPacketsToDeliver;
     
     assert(encoder->numPcmFramesLeftToDeliverToEncoder >= 0);
