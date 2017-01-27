@@ -372,7 +372,7 @@ static OSStatus audioFileWriteProc(void* inClientData,
     assert(flushResult == 0);
     encoder->numBytesWrittenSinceLastCheck += (*actualCount);
     
-    //printf("wrote audio %d audio file bytes at pos %d\n", *actualCount, (int)inPosition);
+    printf("wrote audio %d audio file bytes at pos %d\n", *actualCount, (int)inPosition);
     
     return noErr;
 }
@@ -598,7 +598,7 @@ drError driOSAACEncoder_writeCallback(void* encoderData,
                     return DR_FAILED_TO_WRITE_ENCODED_AUDIO_DATA;
                 }
                 
-                //printf("wrote %d bytes of AAC data\n", inNumBytes);
+                printf("wrote %d bytes of AAC data\n", inNumBytes);
                 
                 ensureNoAudioFileError(writeResult);
                 
