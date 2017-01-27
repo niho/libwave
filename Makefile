@@ -38,7 +38,11 @@ $(EXTERNALDIR)/tinycthread:
 $(EXTERNALDIR)/jansson:
 	./clone_externals.sh
 
+doc: doxyfile_private doxyfile_public
+	doxygen doxyfile_private
+	doxygen doxyfile_public
+
 clean:
 	rm -rf $(BUILDDIR)
 
-.PHONY : all clean
+.PHONY : all clean doc
