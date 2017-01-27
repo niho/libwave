@@ -1,5 +1,5 @@
-#ifndef DR_NOTIFICATION_H
-#define DR_NOTIFICATION_H
+#ifndef WAVE_NOTIFICATION_H
+#define WAVE_NOTIFICATION_H
 
 /*! \file  */
 
@@ -46,4 +46,4 @@ extern "C"
 }
 #endif /* __cplusplus */
 
-#endif /* DR_NOTIFICATION_H */
+#endif /* WAVE_NOTIFICATION_H */

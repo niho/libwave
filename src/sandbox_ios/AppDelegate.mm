@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "SandboxViewController.h"
 
-#import "digger_recorder.h"
+#import "wave_recorder.h"
 
 @implementation AppDelegate
 

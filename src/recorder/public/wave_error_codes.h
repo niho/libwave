@@ -1,5 +1,5 @@
-#ifndef DR_ERROR_CODES_H
-#define DR_ERROR_CODES_H
+#ifndef WAVE_ERROR_CODES_H
+#define WAVE_ERROR_CODES_H
 
 /*! \file  */
 
@@ -13,15 +13,15 @@ extern "C"
      */
     typedef enum drError
     {
-        DR_NO_ERROR = 0,
-        DR_ALREADY_INITIALIZED,
-        DR_NOT_INITIALIZED,
+        WV_NO_ERROR = 0,
+        WV_ALREADY_INITIALIZED,
+        WV_NOT_INITIALIZED,
         
-        DR_FAILED_TO_INITIALIZE_HOST,
-        DR_FAILED_TO_DEINITIALIZE_HOST,
+        WV_FAILED_TO_INITIALIZE_HOST,
+        WV_FAILED_TO_DEINITIALIZE_HOST,
         
-        DR_FAILED_TO_INITIALIZE_ENCODER,
-        DR_FAILED_TO_ENCODE_AUDIO_DATA,
+        WV_FAILED_TO_INITIALIZE_ENCODER,
+        WV_FAILED_TO_ENCODE_AUDIO_DATA,
         DR_FAILED_TO_OPEN_ENCODER_TARGET_FILE,
         DR_FAILED_TO_WRITE_ENCODED_AUDIO_DATA,
         DR_FAILED_TO_CLOSE_ENCODER_TARGET_FILE
@@ -37,4 +37,4 @@ extern "C"
 }
 #endif /* __cplusplus */
 
-#endif /* DR_ERROR_CODES_H */
+#endif /* WAVE_ERROR_CODES_H */

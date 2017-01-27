@@ -1,15 +1,15 @@
-#ifndef DR_DIGGER_RECORDER_H
-#define DR_DIGGER_RECORDER_H
+#ifndef WAVE_RECORDER_H
+#define WAVE_RECORDER_H
 
 /*! \file 
- Public Digger Recorder API
+ Public Recorder API
  */
 
 #include <stdio.h>
 
-#include "error_codes.h"
-#include "notification.h"
-#include "settings.h"
+#include "wave_error_codes.h"
+#include "wave_notification.h"
+#include "wave_settings.h"
 
 #ifdef __cplusplus
 extern "C"
@@ -142,4 +142,4 @@ extern "C"
 }
 #endif /* __cplusplus */
 
-#endif /* DR_DIGGER_RECORDER_H */
+#endif /* WAVE_RECORDER_H */

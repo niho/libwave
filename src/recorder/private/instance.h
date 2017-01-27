@@ -4,11 +4,11 @@
 /*! \file */
 
 #include <tinycthread.h>
-#include "digger_recorder.h"
+#include "wave_recorder.h"
 #include "level_meter.h"
 #include "analyzer.h"
 #include "lock_free_fifo.h"
-#include "settings.h"
+#include "wave_settings.h"
 #include "encoder.h"
 #include "level_advisor.h"
 
@@ -82,7 +82,7 @@ extern "C"
     } drAnalyzerSlot;
     
     /**
-     * A Digger recorder instance.
+     * A recorder instance.
      */
     typedef struct drInstance
     {

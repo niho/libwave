@@ -4,7 +4,7 @@
 #include <math.h>
 #include "assert.h"
 
-#include "digger_recorder.h"
+#include "wave_recorder.h"
 #include "tinycthread.h"
 #include "instance.h"
 #include "mem.h"
@@ -67,7 +67,7 @@ drError drInitialize(drNotificationCallback notificationCallback,
         return DR_ALREADY_INITIALIZED;
     }
     
-    instance = DR_MALLOC(sizeof(drInstance), "Digger recorder instance");
+    instance = DR_MALLOC(sizeof(drInstance), "libwave recorder instance");
     drInstance_init(instance, 
                     notificationCallback,
                     errorCallback,

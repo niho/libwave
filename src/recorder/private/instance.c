@@ -10,7 +10,7 @@
 #include "mem.h"
 
 #include "instance.h"
-#include "digger_recorder.h"
+#include "wave_recorder.h"
 #include "raw_encoder.h"
 #include "platform_util.h"
 

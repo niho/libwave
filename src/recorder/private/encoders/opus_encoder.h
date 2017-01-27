@@ -7,7 +7,7 @@
 #include <ogg/ogg.h>
 
 #include "opus.h"
-#include "error_codes.h"
+#include "wave_error_codes.h"
 
 #ifdef __cplusplus
 extern "C"

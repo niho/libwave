@@ -1,5 +1,5 @@
 #include <string.h>
-#include "settings.h"
+#include "wave_settings.h"
 
 void drSettings_setDefaults(drSettings* settings)
 {

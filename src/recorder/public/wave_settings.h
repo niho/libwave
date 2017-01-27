@@ -1,5 +1,5 @@
-#ifndef DR_SETTINGS_H
-#define DR_SETTINGS_H
+#ifndef WAVE_SETTINGS_H
+#define WAVE_SETTINGS_H
 
 /*! \file  */
 
@@ -55,4 +55,4 @@ extern "C"
 }
 #endif /* __cplusplus */
 
-#endif /* DR_SETTINGS_H */
+#endif /* WAVE_SETTINGS_H */

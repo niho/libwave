@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <math.h>
 #include "assert.h"
-#include "error_codes.h"
+#include "wave_error_codes.h"
 
 #include "raw_encoder.h"
 

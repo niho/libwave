@@ -4,7 +4,7 @@
 /*! \file */
 
 #include "encoder.h"
-#include "settings.h"
+#include "wave_settings.h"
 
 #ifdef __cplusplus
 extern "C"

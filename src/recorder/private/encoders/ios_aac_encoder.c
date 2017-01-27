@@ -4,7 +4,7 @@
 #include <math.h>
 
 #include "assert.h"
-#include "error_codes.h"
+#include "wave_error_codes.h"
 #include "mem.h"
 
 #include "ios_aac_encoder.h"

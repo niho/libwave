@@ -3,7 +3,7 @@
 
 /*! \file */
 
-#include "error_codes.h"
+#include "wave_error_codes.h"
 
 #ifdef __cplusplus
 extern "C"

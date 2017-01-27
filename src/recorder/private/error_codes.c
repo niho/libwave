@@ -1,4 +1,4 @@
-#include "error_codes.h"
+#include "wave_error_codes.h"
 
 const char* drErrorToString(drError errorCode)
 {

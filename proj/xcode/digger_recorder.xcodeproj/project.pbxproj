@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8535F0991E3BF93A0042E766 /* platform_util_osx.c in Sources */ = {isa = PBXBuildFile; fileRef = 8535F0971E3BF91C0042E766 /* platform_util_osx.c */; };
-		C118B3F819B4B2BC00005678 /* digger_recorder.c in Sources */ = {isa = PBXBuildFile; fileRef = C1F57A0519B4A282000C6BCF /* digger_recorder.c */; };
+		C118B3F819B4B2BC00005678 /* recorder.c in Sources */ = {isa = PBXBuildFile; fileRef = C1F57A0519B4A282000C6BCF /* recorder.c */; };
 		C118B3F919B4B2BC00005678 /* instance.c in Sources */ = {isa = PBXBuildFile; fileRef = C1F57A0619B4A282000C6BCF /* instance.c */; };
 		C118B3FC19B4B2C000005678 /* tinycthread.c in Sources */ = {isa = PBXBuildFile; fileRef = C1F57A8519B4A475000C6BCF /* tinycthread.c */; };
 		C118B40C19B4C9FB00005678 /* level_meter.c in Sources */ = {isa = PBXBuildFile; fileRef = C118B40A19B4C9FB00005678 /* level_meter.c */; };
@@ -379,8 +379,8 @@
 		C12E1F7B19B705E3004532A8 /* raw_encoder.h in Headers */ = {isa = PBXBuildFile; fileRef = C12E1F7819B705E3004532A8 /* raw_encoder.h */; };
 		C12E1F8319B74206004532A8 /* mem.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F8219B74206004532A8 /* mem.c */; };
 		C12E1F8419B74206004532A8 /* mem.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F8219B74206004532A8 /* mem.c */; };
-		C12E1F8619B74B25004532A8 /* notification.h in Headers */ = {isa = PBXBuildFile; fileRef = C12E1F8519B74B25004532A8 /* notification.h */; };
-		C12E1F8819B74B65004532A8 /* error_codes.h in Headers */ = {isa = PBXBuildFile; fileRef = C12E1F8719B74B65004532A8 /* error_codes.h */; };
+		C12E1F8619B74B25004532A8 /* wave_notification.h in Headers */ = {isa = PBXBuildFile; fileRef = C12E1F8519B74B25004532A8 /* wave_notification.h */; };
+		C12E1F8819B74B65004532A8 /* wave_error_codes.h in Headers */ = {isa = PBXBuildFile; fileRef = C12E1F8719B74B65004532A8 /* wave_error_codes.h */; };
 		C12E1F8B19B7534A004532A8 /* encoder.h in Headers */ = {isa = PBXBuildFile; fileRef = C12E1F8A19B7534A004532A8 /* encoder.h */; };
 		C12E1F8E19B7583C004532A8 /* platform_util_ios.m in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F8C19B7583C004532A8 /* platform_util_ios.m */; };
 		C12E1F9019B7583C004532A8 /* platform_util.h in Headers */ = {isa = PBXBuildFile; fileRef = C12E1F8D19B7583C004532A8 /* platform_util.h */; };
@@ -439,7 +439,7 @@
 		C1E5477619BDCF6E00797DFB /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1E5477519BDCF6E00797DFB /* AudioUnit.framework */; };
 		C1E5477819BDCF7C00797DFB /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1E5477719BDCF7C00797DFB /* ApplicationServices.framework */; };
 		C1F579E019B4A262000C6BCF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F579DF19B4A262000C6BCF /* Foundation.framework */; };
-		C1F57A1019B4A282000C6BCF /* digger_recorder.c in Sources */ = {isa = PBXBuildFile; fileRef = C1F57A0519B4A282000C6BCF /* digger_recorder.c */; };
+		C1F57A1019B4A282000C6BCF /* recorder.c in Sources */ = {isa = PBXBuildFile; fileRef = C1F57A0519B4A282000C6BCF /* recorder.c */; };
 		C1F57A1119B4A282000C6BCF /* instance.c in Sources */ = {isa = PBXBuildFile; fileRef = C1F57A0619B4A282000C6BCF /* instance.c */; };
 		C1F57A8619B4A475000C6BCF /* tinycthread.c in Sources */ = {isa = PBXBuildFile; fileRef = C1F57A8519B4A475000C6BCF /* tinycthread.c */; };
 /* End PBXBuildFile section */
@@ -754,8 +754,8 @@
 		C12E1F7719B705E3004532A8 /* raw_encoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = raw_encoder.c; sourceTree = "<group>"; };
 		C12E1F7819B705E3004532A8 /* raw_encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = raw_encoder.h; sourceTree = "<group>"; };
 		C12E1F8219B74206004532A8 /* mem.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mem.c; sourceTree = "<group>"; };
-		C12E1F8519B74B25004532A8 /* notification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = notification.h; sourceTree = "<group>"; };
-		C12E1F8719B74B65004532A8 /* error_codes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = error_codes.h; sourceTree = "<group>"; };
+		C12E1F8519B74B25004532A8 /* wave_notification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wave_notification.h; sourceTree = "<group>"; };
+		C12E1F8719B74B65004532A8 /* wave_error_codes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wave_error_codes.h; sourceTree = "<group>"; };
 		C12E1F8A19B7534A004532A8 /* encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = encoder.h; sourceTree = "<group>"; };
 		C12E1F8C19B7583C004532A8 /* platform_util_ios.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = platform_util_ios.m; sourceTree = "<group>"; };
 		C12E1F8D19B7583C004532A8 /* platform_util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform_util.h; sourceTree = "<group>"; };
@@ -789,7 +789,7 @@
 		C1E07B0919B9BADE00F63CA1 /* utf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = utf.h; path = ../../external/jansson/src/utf.h; sourceTree = "<group>"; };
 		C1E07B0A19B9BADE00F63CA1 /* value.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = value.c; path = ../../external/jansson/src/value.c; sourceTree = "<group>"; };
 		C1E07B2719B9C7E900F63CA1 /* settings.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = settings.c; sourceTree = "<group>"; };
-		C1E07B2A19B9C7F000F63CA1 /* settings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = settings.h; sourceTree = "<group>"; };
+		C1E07B2A19B9C7F000F63CA1 /* wave_settings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = wave_settings.h; sourceTree = "<group>"; };
 		C1E07B2B19B9F81900F63CA1 /* error_codes.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = error_codes.c; sourceTree = "<group>"; };
 		C1E07B3A19BCAF8A00F63CA1 /* host_ios.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = host_ios.h; sourceTree = "<group>"; };
 		C1E07B3B19BCAF8A00F63CA1 /* host_ios.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = host_ios.m; sourceTree = "<group>"; };
@@ -803,10 +803,10 @@
 		C1F579DF19B4A262000C6BCF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C1F579ED19B4A262000C6BCF /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		C1F579F019B4A262000C6BCF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		C1F57A0519B4A282000C6BCF /* digger_recorder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = digger_recorder.c; sourceTree = "<group>"; };
+		C1F57A0519B4A282000C6BCF /* recorder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = recorder.c; sourceTree = "<group>"; };
 		C1F57A0619B4A282000C6BCF /* instance.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = instance.c; sourceTree = "<group>"; };
 		C1F57A0719B4A282000C6BCF /* instance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = instance.h; sourceTree = "<group>"; };
-		C1F57A0E19B4A282000C6BCF /* digger_recorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = digger_recorder.h; sourceTree = "<group>"; };
+		C1F57A0E19B4A282000C6BCF /* wave_recorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wave_recorder.h; sourceTree = "<group>"; };
 		C1F57A8519B4A475000C6BCF /* tinycthread.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = tinycthread.c; path = ../../external/tinycthread/source/tinycthread.c; sourceTree = "<group>"; };
 		C1F57AD319B4A842000C6BCF /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		C1F57AD619B4A842000C6BCF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -1367,7 +1367,7 @@
 				C12E1A8619B5B774004532A8 /* analyzer.h */,
 				C12E1F4119B62595004532A8 /* atomic_darwin.c */,
 				C12E1F4219B62595004532A8 /* atomic.h */,
-				C1F57A0519B4A282000C6BCF /* digger_recorder.c */,
+				C1F57A0519B4A282000C6BCF /* recorder.c */,
 				C12E1F8A19B7534A004532A8 /* encoder.h */,
 				C1E07B2B19B9F81900F63CA1 /* error_codes.c */,
 				C1F57A0619B4A282000C6BCF /* instance.c */,
@@ -1387,10 +1387,10 @@
 		C1F57A0D19B4A282000C6BCF /* public */ = {
 			isa = PBXGroup;
 			children = (
-				C12E1F8719B74B65004532A8 /* error_codes.h */,
-				C1F57A0E19B4A282000C6BCF /* digger_recorder.h */,
-				C12E1F8519B74B25004532A8 /* notification.h */,
-				C1E07B2A19B9C7F000F63CA1 /* settings.h */,
+				C12E1F8719B74B65004532A8 /* wave_error_codes.h */,
+				C1F57A0E19B4A282000C6BCF /* wave_recorder.h */,
+				C12E1F8519B74B25004532A8 /* wave_notification.h */,
+				C1E07B2A19B9C7F000F63CA1 /* wave_settings.h */,
 			);
 			path = public;
 			sourceTree = "<group>";
@@ -1476,12 +1476,12 @@
 				C12E1D9E19B6132B004532A8 /* rate.h in Headers */,
 				C12E1F9019B7583C004532A8 /* platform_util.h in Headers */,
 				C1E07B2419B9BADE00F63CA1 /* utf.h in Headers */,
-				C12E1F8619B74B25004532A8 /* notification.h in Headers */,
+				C12E1F8619B74B25004532A8 /* wave_notification.h in Headers */,
 				C12E1D8819B6132B004532A8 /* laplace.h in Headers */,
 				C12E1EB119B6132B004532A8 /* resampler_rom.h in Headers */,
 				C12E1DBA19B6132B004532A8 /* opus_types.h in Headers */,
 				C12E1D5B19B6132B004532A8 /* fixed_armv5e.h in Headers */,
-				C12E1F8819B74B65004532A8 /* error_codes.h in Headers */,
+				C12E1F8819B74B65004532A8 /* wave_error_codes.h in Headers */,
 				C12E1DEA19B6132B004532A8 /* define.h in Headers */,
 				C12E1DC019B6132B004532A8 /* macros_armv4.h in Headers */,
 				C145499C19C0C17000301E6C /* level_advisor.h in Headers */,
@@ -1742,7 +1742,7 @@
 				C12E1E4E19B6132B004532A8 /* pitch_analysis_core_FLP.c in Sources */,
 				C12E1E6A19B6132B004532A8 /* HP_variable_cutoff.c in Sources */,
 				C12E1DCB19B6132B004532A8 /* check_control_input.c in Sources */,
-				C118B3F819B4B2BC00005678 /* digger_recorder.c in Sources */,
+				C118B3F819B4B2BC00005678 /* recorder.c in Sources */,
 				C12E1EB919B6132B004532A8 /* sort.c in Sources */,
 				C12E1E8719B6132B004532A8 /* NLSF_del_dec_quant.c in Sources */,
 				C12E1E5A19B6132B004532A8 /* scale_vector_FLP.c in Sources */,
@@ -1925,7 +1925,7 @@
 				C12E1E4D19B6132B004532A8 /* pitch_analysis_core_FLP.c in Sources */,
 				C12E1E6919B6132B004532A8 /* HP_variable_cutoff.c in Sources */,
 				C12E1DCA19B6132B004532A8 /* check_control_input.c in Sources */,
-				C1F57A1019B4A282000C6BCF /* digger_recorder.c in Sources */,
+				C1F57A1019B4A282000C6BCF /* recorder.c in Sources */,
 				C12E1EB819B6132B004532A8 /* sort.c in Sources */,
 				C12E1E8619B6132B004532A8 /* NLSF_del_dec_quant.c in Sources */,
 				C12E1E5919B6132B004532A8 /* scale_vector_FLP.c in Sources */,
