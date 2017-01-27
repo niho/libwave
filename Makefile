@@ -17,9 +17,9 @@ CONFIGURATION := Debug
 
 SOURCES := $(SRCDIR)/**/**/* $(EXTERNALDIR)/**/**/*
 
-IOS := $(BUILDDIR)/$(LIB).build/$(CONFIGURATION)-iphoneos/lib$(LIB)_ios.a
-OSX := $(BUILDDIR)/$(LIB).build/$(CONFIGURATION)/lib$(LIB)_osx.a
-SANDBOX := sandbox
+IOS := $(BUILDDIR)/$(CONFIGURATION)-iphoneos/lib$(LIB)_ios.a
+OSX := $(BUILDDIR)/$(CONFIGURATION)/lib$(LIB)_osx.a
+SANDBOX := $(BUILDDIR)/$(CONFIGURATION)/sandbox_osx.app
 
 all: $(IOS) $(OSX) $(SANDBOX)
 

@@ -45,8 +45,6 @@
 		C12E1D6D19B6132B004532A8 /* cwrs.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1C5E19B6132A004532A8 /* cwrs.c */; };
 		C12E1D6E19B6132B004532A8 /* cwrs.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1C5E19B6132A004532A8 /* cwrs.c */; };
 		C12E1D6F19B6132B004532A8 /* cwrs.h in Headers */ = {isa = PBXBuildFile; fileRef = C12E1C5F19B6132A004532A8 /* cwrs.h */; };
-		C12E1D7219B6132B004532A8 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = C12E1C6219B6132A004532A8 /* Makefile */; };
-		C12E1D7319B6132B004532A8 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = C12E1C6219B6132A004532A8 /* Makefile */; };
 		C12E1D7419B6132B004532A8 /* ecintrin.h in Headers */ = {isa = PBXBuildFile; fileRef = C12E1C6319B6132A004532A8 /* ecintrin.h */; };
 		C12E1D7519B6132B004532A8 /* entcode.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1C6419B6132A004532A8 /* entcode.c */; };
 		C12E1D7619B6132B004532A8 /* entcode.c in Sources */ = {isa = PBXBuildFile; fileRef = C12E1C6419B6132A004532A8 /* entcode.c */; };
@@ -510,7 +508,6 @@
 		C12E1C5E19B6132A004532A8 /* cwrs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cwrs.c; sourceTree = "<group>"; };
 		C12E1C5F19B6132A004532A8 /* cwrs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cwrs.h; sourceTree = "<group>"; };
 		C12E1C6119B6132A004532A8 /* dump_modes.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dump_modes.c; sourceTree = "<group>"; };
-		C12E1C6219B6132A004532A8 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		C12E1C6319B6132A004532A8 /* ecintrin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ecintrin.h; sourceTree = "<group>"; };
 		C12E1C6419B6132A004532A8 /* entcode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = entcode.c; sourceTree = "<group>"; };
 		C12E1C6519B6132A004532A8 /* entcode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = entcode.h; sourceTree = "<group>"; };
@@ -962,7 +959,6 @@
 			isa = PBXGroup;
 			children = (
 				C12E1C6119B6132A004532A8 /* dump_modes.c */,
-				C12E1C6219B6132A004532A8 /* Makefile */,
 			);
 			path = dump_modes;
 			sourceTree = "<group>";
@@ -1691,7 +1687,6 @@
 				C12E1E4C19B6132B004532A8 /* noise_shape_analysis_FLP.c in Sources */,
 				C12E1E2F19B6132B004532A8 /* corrMatrix_FLP.c in Sources */,
 				C12E1E8519B6132B004532A8 /* NLSF_decode.c in Sources */,
-				C12E1D7319B6132B004532A8 /* Makefile in Sources */,
 				C12E1E9119B6132B004532A8 /* NLSF_VQ_weights_laroia.c in Sources */,
 				C12E1EC319B6132B004532A8 /* stereo_MS_to_LR.c in Sources */,
 				C12E1EDF19B6132B004532A8 /* VQ_WMat_EC.c in Sources */,
@@ -1878,7 +1873,6 @@
 				C12E1E4B19B6132B004532A8 /* noise_shape_analysis_FLP.c in Sources */,
 				C12E1E2E19B6132B004532A8 /* corrMatrix_FLP.c in Sources */,
 				C12E1E8419B6132B004532A8 /* NLSF_decode.c in Sources */,
-				C12E1D7219B6132B004532A8 /* Makefile in Sources */,
 				C12E1E9019B6132B004532A8 /* NLSF_VQ_weights_laroia.c in Sources */,
 				C12E1EC219B6132B004532A8 /* stereo_MS_to_LR.c in Sources */,
 				C12E1EDE19B6132B004532A8 /* VQ_WMat_EC.c in Sources */,
