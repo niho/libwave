@@ -36,9 +36,9 @@
     [self updateInfo:&m_currentInfo];
 }
 
--(void)updateInfo:(drRealtimeInfo*)info
+-(void)updateInfo:(WaveRealtimeInfo*)info
 {
-    memcpy(&m_currentInfo, info, sizeof(drRealtimeInfo));
+    memcpy(&m_currentInfo, info, sizeof(WaveRealtimeInfo));
     
     //printf("recorded time: %f\n", info->numRecordedSeconds);
     

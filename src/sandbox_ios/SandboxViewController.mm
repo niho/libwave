@@ -147,7 +147,7 @@ static void audioWrittenCallback(const char* path, int numBytes, void* userData)
     if (m_updateCounter == 0)
     {
         drUpdate(kUpdateInterval);
-        drRealtimeInfo il;
+        WaveRealtimeInfo il;
         drGetRealtimeInfo(0, 1, &il);
         
         drDevInfo di;

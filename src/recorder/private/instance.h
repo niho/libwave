@@ -118,7 +118,7 @@ extern "C"
         drLevelAdvisor levelAdvisor;
         
         //Measured levels, copied from audio to main via shared memory
-        drRealtimeInfo realtimeInfo;
+        WaveRealtimeInfo realtimeInfo;
         
         drLockFreeFIFO inputAudioDataQueue;
         
@@ -179,7 +179,7 @@ extern "C"
     /**
      *
      */
-    void drInstance_getRealtimeInfo(drInstance* instance, int channel, int logLevels, drRealtimeInfo* result);
+    void drInstance_getRealtimeInfo(drInstance* instance, int channel, int logLevels, WaveRealtimeInfo* result);
     
     /**
      * Invoked when a control event reaches the audio thread. Invoked on the audio thread.

@@ -19,14 +19,14 @@ extern "C"
     /**
      * Real time info, like input levels.
      */
-    typedef struct drRealtimeInfo
+    typedef struct WaveRealtimeInfo
     {
         float rmsLevel;
         float peakLevel;
         float peakLevelEnvelope;
         int hasClipped;
         float numRecordedSeconds;
-    } drRealtimeInfo;
+    } WaveRealtimeInfo;
     
     /**
      * Information useful when debugging and monitoring.
@@ -99,7 +99,7 @@ extern "C"
     /**
      *
      */
-    WaveError drGetRealtimeInfo(int channel, int logLevels, drRealtimeInfo* result);
+    WaveError drGetRealtimeInfo(int channel, int logLevels, WaveRealtimeInfo* result);
     
     /**
      * Starts recording audio to a file at a given path. If \c audioFilePath

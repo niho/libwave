@@ -69,7 +69,7 @@ WaveError drInstance_init(drInstance* instance,
     
     drLockFreeFIFO_init(&instance->realTimeDataFifo,
                         instance->settings.realtimeDataFIFOCapacity,
-                        sizeof(drRealtimeInfo));
+                        sizeof(WaveRealtimeInfo));
     
     
     //create audio analyzers
@@ -153,11 +153,11 @@ void drInstance_update(drInstance* instance, float timeStep)
     ((float)instance->inputAudioDataQueue.capacity);
     
     //get measured levels
-    drRealtimeInfo l;
+    WaveRealtimeInfo l;
     while (drLockFreeFIFO_pop(&instance->realTimeDataFifo, &l))
     {
         //TODO: number of input channels?
-        memcpy(&instance->realtimeInfo, &l, sizeof(drRealtimeInfo));
+        memcpy(&instance->realtimeInfo, &l, sizeof(WaveRealtimeInfo));
     }
     
     //invoke the error callback for any incoming errors on the main thread
@@ -298,7 +298,7 @@ void drInstance_audioInputCallback(drInstance* in, const float* inBuffer, int nu
     //update measured levels
     for (int i = 0; i < MAX_NUM_INPUT_CHANNELS; i++)
     {
-        drRealtimeInfo l;
+        WaveRealtimeInfo l;
         
         drLevelMeter* m = &in->inputLevelMeters[i];
         
@@ -597,16 +597,16 @@ static float lin2LogLevel(float lin)
     return powf(lin, 0.3f);
 }
 
-void drInstance_getRealtimeInfo(drInstance* instance, int channel, int logLevels, drRealtimeInfo* result)
+void drInstance_getRealtimeInfo(drInstance* instance, int channel, int logLevels, WaveRealtimeInfo* result)
 {
-    memset(result, 0, sizeof(drRealtimeInfo));
+    memset(result, 0, sizeof(WaveRealtimeInfo));
     
     if (channel >= MAX_NUM_INPUT_CHANNELS)
     {
         return;
     }
     
-    drRealtimeInfo* lSrc = &instance->realtimeInfo;
+    WaveRealtimeInfo* lSrc = &instance->realtimeInfo;
     
     result->hasClipped = lSrc->hasClipped;
     result->peakLevel = logLevels ? lin2LogLevel(lSrc->peakLevel) : lSrc->peakLevel;

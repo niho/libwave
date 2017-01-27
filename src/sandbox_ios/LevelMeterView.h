@@ -9,9 +9,9 @@
     UIView* m_peakEnvBar;
     UIView* m_clipIndicator;
     
-    drRealtimeInfo m_currentInfo;
+    WaveRealtimeInfo m_currentInfo;
 }
 
--(void)updateInfo:(drRealtimeInfo*)info;
+-(void)updateInfo:(WaveRealtimeInfo*)info;
 
 @end

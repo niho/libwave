@@ -104,7 +104,7 @@ WaveError drUpdate(float timeStep)
     return WAVE_NO_ERROR;
 }
 
-WaveError drGetRealtimeInfo(int channel, int logLevels, drRealtimeInfo* result)
+WaveError drGetRealtimeInfo(int channel, int logLevels, WaveRealtimeInfo* result)
 {
     if (!instance)
     {
