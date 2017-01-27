@@ -136,7 +136,7 @@ static int write_ogg_packet(ogg_stream_state *ostream, ogg_packet *opacket, FILE
 }
 
 
-drError drOpusEncoder_init(void* opusEncoder, const char* filePath, float fs, float numChannels)
+WaveError drOpusEncoder_init(void* opusEncoder, const char* filePath, float fs, float numChannels)
 {
     assert(numChannels <= 2);
     
@@ -153,7 +153,7 @@ drError drOpusEncoder_init(void* opusEncoder, const char* filePath, float fs, fl
         {
             fprintf(stderr, "failed to create an encoder: %s\n", opus_strerror(err));
             //assert(err >= 0 && "failed to create opus encoder");
-            return DR_FAILED_TO_INITIALIZE_ENCODER;
+            return WAVE_FAILED_TO_INITIALIZE_ENCODER;
         }
         
         err = opus_encoder_ctl(encoder->encoder, OPUS_SET_BITRATE(BITRATE));
@@ -167,7 +167,7 @@ drError drOpusEncoder_init(void* opusEncoder, const char* filePath, float fs, fl
         
         if (encoder->file == 0)
         {
-            return DR_FAILED_TO_OPEN_ENCODER_TARGET_FILE;
+            return WAVE_FAILED_TO_OPEN_ENCODER_TARGET_FILE;
         }
     }
     
@@ -181,10 +181,10 @@ drError drOpusEncoder_init(void* opusEncoder, const char* filePath, float fs, fl
     encoder->oggHeaderPacket1 = make_opus_header1_oggpacket("digger recorder");
     assert(encoder->oggHeaderPacket1);
     
-    return DR_NO_ERROR;
+    return WAVE_NO_ERROR;
 }
 
-drError drOpusEncoder_write(void* opusEncoder, int numChannels, int numFrames, float* buffer, int* numBytesWritten)
+WaveError drOpusEncoder_write(void* opusEncoder, int numChannels, int numFrames, float* buffer, int* numBytesWritten)
 {
     drOpusEncoder* encoder = (drOpusEncoder*)opusEncoder;
     *numBytesWritten = 0;
@@ -192,7 +192,7 @@ drError drOpusEncoder_write(void* opusEncoder, int numChannels, int numFrames, f
     if (encoder->encoder == NULL)
     {
         //the encoder was not created properly. do nothing
-        return DR_FAILED_TO_WRITE_ENCODED_AUDIO_DATA;
+        return WAVE_FAILED_TO_WRITE_ENCODED_AUDIO_DATA;
     }
     
     //accumulate buffer to encode
@@ -215,7 +215,7 @@ drError drOpusEncoder_write(void* opusEncoder, int numChannels, int numFrames, f
                 if (encodedPacketSize < 0)
                 {
                     //fprintf(stderr, "encode failed: %s\n", opus_strerror(encodedPacketSize));
-                    return DR_FAILED_TO_ENCODE_AUDIO_DATA;
+                    return WAVE_FAILED_TO_ENCODE_AUDIO_DATA;
                 }
                 else
                 {
@@ -254,17 +254,17 @@ drError drOpusEncoder_write(void* opusEncoder, int numChannels, int numFrames, f
                     //int n = fwrite(encoder->scratchOutputBuffer, 1, encodedPacketSize, encoder->file);
                     if (writeResult < 0)
                     {
-                        return DR_FAILED_TO_WRITE_ENCODED_AUDIO_DATA;
+                        return WAVE_FAILED_TO_WRITE_ENCODED_AUDIO_DATA;
                     }
                 }
             }
         }
     }
     
-    return DR_NO_ERROR;
+    return WAVE_NO_ERROR;
 }
 
-drError drOpusEncoder_stop(void* opusEncoder)
+WaveError drOpusEncoder_stop(void* opusEncoder)
 {
     drOpusEncoder* encoder = (drOpusEncoder*)opusEncoder;
     
@@ -285,11 +285,11 @@ drError drOpusEncoder_stop(void* opusEncoder)
     {
         if (fclose(f) != 0)
         {
-            return DR_FAILED_TO_CLOSE_ENCODER_TARGET_FILE;
+            return WAVE_FAILED_TO_CLOSE_ENCODER_TARGET_FILE;
         }
     }
     
     
-    return DR_NO_ERROR;
+    return WAVE_NO_ERROR;
     
 }

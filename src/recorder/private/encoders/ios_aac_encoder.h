@@ -41,18 +41,18 @@ extern "C"
         
     } driOSAACEncoder;
     
-    drError driOSAACEncoder_initCallback(void* encoderData,
+    WaveError driOSAACEncoder_initCallback(void* encoderData,
                                          const char* filePath,
                                          float fs,
                                          float numChannels);
     
-    drError driOSAACEncoder_writeCallback(void* encoderData,
+    WaveError driOSAACEncoder_writeCallback(void* encoderData,
                                           int numChannels,
                                           int numFrames,
                                           float* buffer,
                                           int* numBytesWritten);
     
-    drError driOSAACEncoder_stopCallback(void* encoderData);
+    WaveError driOSAACEncoder_stopCallback(void* encoderData);
     
 #ifdef __cplusplus
 }

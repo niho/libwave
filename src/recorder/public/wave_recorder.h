@@ -64,7 +64,7 @@ extern "C"
     /**
      * A callback to invoke when errors occur.
      */
-    typedef void (*drErrorCallback)(drError errorCode, void* userData);
+    typedef void (*drErrorCallback)(WaveError errorCode, void* userData);
     
     /**
      * A callback to invoke for each incoming notification.
@@ -79,7 +79,7 @@ extern "C"
     /**
      * Initializes the recorder.
      */
-    drError drInitialize(drNotificationCallback notificationCallback,
+    WaveError drInitialize(drNotificationCallback notificationCallback,
                          drErrorCallback errorCallback,
                          drAudioWrittenCallback audioWrittenCallback,
                          void* callbackUserData,
@@ -88,18 +88,18 @@ extern "C"
     /**
      * Shuts down the recorder.
      */
-    drError drDeinitialize();
+    WaveError drDeinitialize();
     
     /**
      * Called continually from the main/UI thread to pump new events
      * and invoke event callbacks.
      */
-    drError drUpdate(float timeStep);
+    WaveError drUpdate(float timeStep);
     
     /**
      *
      */
-    drError drGetRealtimeInfo(int channel, int logLevels, drRealtimeInfo* result);
+    WaveError drGetRealtimeInfo(int channel, int logLevels, drRealtimeInfo* result);
     
     /**
      * Starts recording audio to a file at a given path. If \c audioFilePath
@@ -107,14 +107,14 @@ extern "C"
      * to that file and new audio will be appended to the end of the file.
      * @param audioFilePath The path of the file to record to.
      */
-    drError drStartRecording(const char* audioFilePath);
+    WaveError drStartRecording(const char* audioFilePath);
     
     
     /**
      * Shuts down the encoder and closes the file it's recording to.
      * If recording is not in progress, this function does nothing.
      */
-    drError drStopRecording();
+    WaveError drStopRecording();
     
     /**
      * Pauses recording, i.e prevents the audio thread from passing
@@ -123,19 +123,19 @@ extern "C"
      * this function does nothing.
      * @see drResumeRecording
      */
-    drError drPauseRecording();
+    WaveError drPauseRecording();
     
     /**
      * Resumes recording, i.e instructs the audio thread to start
      * passing audio data to the encoder again.
      * @see drPauseRecording
      */
-    drError drResumeRecording();
+    WaveError drResumeRecording();
     
     /**
      *
      */
-    drError drGetDevInfo(drDevInfo* devInfo);
+    WaveError drGetDevInfo(drDevInfo* devInfo);
     
     
 #ifdef __cplusplus

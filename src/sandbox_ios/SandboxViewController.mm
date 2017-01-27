@@ -10,7 +10,7 @@ static void eventCallback(const drNotification* event, void* userData)
     [vc onNotification:event];
 }
 
-static void errorCallback(drError error, void* userData)
+static void errorCallback(WaveError error, void* userData)
 {
     SandboxViewController* vc = (__bridge SandboxViewController*)userData;
     [vc onError:error];
@@ -53,9 +53,9 @@ static void audioWrittenCallback(const char* path, int numBytes, void* userData)
     return self;
 }
 
--(void)onError:(drError)error
+-(void)onError:(WaveError)error
 {
-    self.sandboxView.latestErrorLabel.text = [NSString stringWithUTF8String:drErrorToString(error)];
+    self.sandboxView.latestErrorLabel.text = [NSString stringWithUTF8String:wave_error_str(error)];
 }
 
 -(void)onNotification:(const drNotification*)notification

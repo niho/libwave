@@ -56,7 +56,7 @@ const char* drNotificationTypeToString(drNotificationType type)
 
 static drInstance* instance = NULL;
 
-drError drInitialize(drNotificationCallback notificationCallback,
+WaveError drInitialize(drNotificationCallback notificationCallback,
                      drErrorCallback errorCallback,
                      drAudioWrittenCallback audioWrittenCallback,
                      void* callbackUserData,
@@ -64,7 +64,7 @@ drError drInitialize(drNotificationCallback notificationCallback,
 {
     if (instance)
     {
-        return DR_ALREADY_INITIALIZED;
+        return WAVE_ALREADY_INITIALIZED;
     }
     
     instance = DR_MALLOC(sizeof(drInstance), "libwave recorder instance");
@@ -75,103 +75,103 @@ drError drInitialize(drNotificationCallback notificationCallback,
                     callbackUserData,
                     settings);
     
-    return DR_NO_ERROR;
+    return WAVE_NO_ERROR;
 }
 
-drError drDeinitialize()
+WaveError drDeinitialize()
 {
     if (!instance)
     {
-        return DR_NOT_INITIALIZED;
+        return WAVE_NOT_INITIALIZED;
     }
     
     drInstance_deinit(instance);
     DR_FREE(instance);
     instance = 0;
     
-    return DR_NO_ERROR;
+    return WAVE_NO_ERROR;
 }
 
-drError drUpdate(float timeStep)
+WaveError drUpdate(float timeStep)
 {
     if (!instance)
     {
-        return DR_NOT_INITIALIZED;
+        return WAVE_NOT_INITIALIZED;
     }
     
     drInstance_update(instance, timeStep);
     
-    return DR_NO_ERROR;
+    return WAVE_NO_ERROR;
 }
 
-drError drGetRealtimeInfo(int channel, int logLevels, drRealtimeInfo* result)
+WaveError drGetRealtimeInfo(int channel, int logLevels, drRealtimeInfo* result)
 {
     if (!instance)
     {
-        return DR_NOT_INITIALIZED;
+        return WAVE_NOT_INITIALIZED;
     }
     
     drInstance_getRealtimeInfo(instance, channel, logLevels, result);
     
-    return DR_NO_ERROR;
+    return WAVE_NO_ERROR;
 }
 
-drError drStartRecording(const char* audioFilePath)
+WaveError drStartRecording(const char* audioFilePath)
 {
     if (!instance)
     {
-        return DR_NOT_INITIALIZED;
+        return WAVE_NOT_INITIALIZED;
     }
     
     drInstance_requestStartRecording(instance, audioFilePath);
     
-    return DR_NO_ERROR;
+    return WAVE_NO_ERROR;
 }
 
-drError drStopRecording()
+WaveError drStopRecording()
 {
     if (!instance)
     {
-        return DR_NOT_INITIALIZED;
+        return WAVE_NOT_INITIALIZED;
     }
     
     drInstance_enqueueControlEventOfType(instance, DR_STOP_RECORDING);
     
-    return DR_NO_ERROR;
+    return WAVE_NO_ERROR;
 }
 
-drError drPauseRecording()
+WaveError drPauseRecording()
 {
     if (!instance)
     {
-        return DR_NOT_INITIALIZED;
+        return WAVE_NOT_INITIALIZED;
     }
     
     drInstance_enqueueControlEventOfType(instance, DR_PAUSE_RECORDING);
     
-    return DR_NO_ERROR;
+    return WAVE_NO_ERROR;
 }
 
-drError drResumeRecording()
+WaveError drResumeRecording()
 {
     if (!instance)
     {
-        return DR_NOT_INITIALIZED;
+        return WAVE_NOT_INITIALIZED;
     }
     
     drInstance_enqueueControlEventOfType(instance, DR_RESUME_RECORDING);
     
-    return DR_NO_ERROR;
+    return WAVE_NO_ERROR;
 }
 
-drError drGetDevInfo(drDevInfo* devInfo)
+WaveError drGetDevInfo(drDevInfo* devInfo)
 {
     if (!instance)
     {
-        return DR_NOT_INITIALIZED;
+        return WAVE_NOT_INITIALIZED;
     }
     
     drInstance_getDevInfo(instance, devInfo);
     
-    return DR_NO_ERROR;
+    return WAVE_NO_ERROR;
 }

@@ -62,7 +62,7 @@ static inline void drInt16ToFloat(short* sourceBuffer, float* targetBuffer, int 
     }
 }
 
-drError drInstance_hostSpecificInit(drInstance* instance)
+WaveError drInstance_hostSpecificInit(drInstance* instance)
 {
     //TODO: uuuh...
     assert(s_instance == NULL);
@@ -83,10 +83,10 @@ drError drInstance_hostSpecificInit(drInstance* instance)
      */
     drResume();
     
-    return DR_NO_ERROR;
+    return WAVE_NO_ERROR;
 }
 
-drError drInstance_hostSpecificDeinit(drInstance* instance)
+WaveError drInstance_hostSpecificDeinit(drInstance* instance)
 {
     drStopAndDeinitRemoteIO();
     
@@ -96,7 +96,7 @@ drError drInstance_hostSpecificDeinit(drInstance* instance)
     assert(s_instance != NULL);
     s_instance = NULL;
     
-    return DR_NO_ERROR;
+    return WAVE_NO_ERROR;
 }
 
 void drAudioSessionInterruptionCallback(void *inClientData,  UInt32 inInterruptionState)

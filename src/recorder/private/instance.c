@@ -15,7 +15,7 @@
 #include "platform_util.h"
 
 
-drError drInstance_init(drInstance* instance,
+WaveError drInstance_init(drInstance* instance,
                         drNotificationCallback notificationCallback,
                         drErrorCallback errorCallback,
                         drAudioWrittenCallback audioWrittenCallback,
@@ -65,7 +65,7 @@ drError drInstance_init(drInstance* instance,
     
     drLockFreeFIFO_init(&instance->errorFIFO,
                         instance->settings.errorFIFOCapacity,
-                        sizeof(drError));
+                        sizeof(WaveError));
     
     drLockFreeFIFO_init(&instance->realTimeDataFifo,
                         instance->settings.realtimeDataFIFOCapacity,
@@ -98,15 +98,15 @@ drError drInstance_init(drInstance* instance,
                                 drLevelAdvisor_processBuffer,
                                 drLevelAdvisor_deinit);
     
-    drError initResult = drInstance_hostSpecificInit(instance);
+    WaveError initResult = drInstance_hostSpecificInit(instance);
     return initResult;
 }
 
-drError drInstance_deinit(drInstance* instance)
+WaveError drInstance_deinit(drInstance* instance)
 {
     assert(drInstance_isOnMainThread(instance));
     //stop the audio system
-    drError deinitResult = drInstance_hostSpecificDeinit(instance);
+    WaveError deinitResult = drInstance_hostSpecificDeinit(instance);
     
     drNotification n;
     n.type = DR_DID_SHUT_DOWN;
@@ -161,7 +161,7 @@ void drInstance_update(drInstance* instance, float timeStep)
     }
     
     //invoke the error callback for any incoming errors on the main thread
-    drError e;
+    WaveError e;
     while (drLockFreeFIFO_pop(&instance->errorFIFO, &e))
     {
         drInstance_onMainThreadError(instance, e);
@@ -188,7 +188,7 @@ void drInstance_update(drInstance* instance, float timeStep)
             //gettimeofday(&tv1, NULL);
             /* stuff to do! */
             
-            drError writeResult = DR_NO_ERROR;
+            WaveError writeResult = WAVE_NO_ERROR;
             if (c.numFrames > 0)
             {
                 int numBytesWritten = 0;
@@ -212,7 +212,7 @@ void drInstance_update(drInstance* instance, float timeStep)
              (double) (tv2.tv_usec - tv1.tv_usec) / 1000000 +
              (double) (tv2.tv_sec - tv1.tv_sec));*/
             
-            if (writeResult != DR_NO_ERROR)
+            if (writeResult != WAVE_NO_ERROR)
             {
                 errorOccured = 1;
                 drInstance_onMainThreadError(instance, writeResult);
@@ -382,12 +382,12 @@ void drInstance_initiateRecording(drInstance* instance)
     strcpy(instance->recordingSession.targetFilePath, instance->requestedAudioFilePath);
     instance->requestedAudioFilePath[0] = '\0';
     assert(strlen(instance->recordingSession.targetFilePath) > 0);
-    drError initResult = instance->recordingSession.encoder.initCallback(instance->recordingSession.encoder.encoderData,
+    WaveError initResult = instance->recordingSession.encoder.initCallback(instance->recordingSession.encoder.encoderData,
                                                     instance->recordingSession.targetFilePath,
                                                     instance->sampleRate,
                                                     instance->settings.desiredNumInputChannels); //TODO
     
-    if (initResult != DR_NO_ERROR)
+    if (initResult != WAVE_NO_ERROR)
     {
         drInstance_invokeErrorCallback(instance, initResult);
     }
@@ -417,7 +417,7 @@ void drInstance_stopRecording(drInstance* instance)
 }
 
 
-void drInstance_invokeErrorCallback(drInstance* instance, drError errorCode)
+void drInstance_invokeErrorCallback(drInstance* instance, WaveError errorCode)
 {
     assert(drInstance_isOnMainThread(instance));
     
@@ -435,7 +435,7 @@ void drInstance_invokeNotificationCallback(drInstance* instance, const drNotific
     }
 }
 
-void drInstance_enqueueError(drInstance* instance, drError error)
+void drInstance_enqueueError(drInstance* instance, WaveError error)
 {
     assert(!drInstance_isOnMainThread(instance));
     int pushSuccess = drLockFreeFIFO_push(&instance->errorFIFO, &error);
@@ -539,7 +539,7 @@ void drInstance_onAudioThreadControlEvent(drInstance* instance, const drControlE
     }
 }
 
-void drInstance_onMainThreadError(drInstance* instance, drError error)
+void drInstance_onMainThreadError(drInstance* instance, WaveError error)
 {
     assert(drInstance_isOnMainThread(instance));
     

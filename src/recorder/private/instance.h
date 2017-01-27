@@ -138,7 +138,7 @@ extern "C"
     /**
      *
      */
-    drError drInstance_init(drInstance* instance,
+    WaveError drInstance_init(drInstance* instance,
                             drNotificationCallback notificationCallback,
                             drErrorCallback errorCallback,
                             drAudioWrittenCallback audioWrittenCallback,
@@ -146,15 +146,15 @@ extern "C"
                             drSettings* settings);
     
     /** Implemented for each host. */
-    drError drInstance_hostSpecificInit(drInstance* instance);
+    WaveError drInstance_hostSpecificInit(drInstance* instance);
     
     /**
      *
      */
-    drError drInstance_deinit(drInstance* instance);
+    WaveError drInstance_deinit(drInstance* instance);
     
     /** Implemented for each host.*/
-    drError drInstance_hostSpecificDeinit(drInstance* instance);
+    WaveError drInstance_hostSpecificDeinit(drInstance* instance);
     
     /**
      *
@@ -194,7 +194,7 @@ extern "C"
     /**
      *
      */
-    void drInstance_onMainThreadError(drInstance* instance, drError error);
+    void drInstance_onMainThreadError(drInstance* instance, WaveError error);
     
     /**
      * Returns 0 on success, or non-zero if there is no free analyzer slot.
@@ -222,7 +222,7 @@ extern "C"
     /**
      *
      */
-    void drInstance_invokeErrorCallback(drInstance* instance, drError errorCode);
+    void drInstance_invokeErrorCallback(drInstance* instance, WaveError errorCode);
     
     /**
      *
@@ -232,7 +232,7 @@ extern "C"
     /**
      * Must be called <strong>only from the audio thread</strong>!
      */
-    void drInstance_enqueueError(drInstance* instance, drError error);
+    void drInstance_enqueueError(drInstance* instance, WaveError error);
     
     /**
      * Must be called <strong>only from the audio thread</strong>!

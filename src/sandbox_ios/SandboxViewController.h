@@ -20,7 +20,7 @@
 
 @property (nonatomic, retain) SandboxView* sandboxView;
 
--(void)onError:(drError)error;
+-(void)onError:(WaveError)error;
 
 -(void)onNotification:(const drNotification*)event;
 

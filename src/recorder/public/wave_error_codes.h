@@ -11,27 +11,27 @@ extern "C"
     /**
      * Error codes.
      */
-    typedef enum drError
+    typedef enum WaveError
     {
-        WV_NO_ERROR = 0,
-        WV_ALREADY_INITIALIZED,
-        WV_NOT_INITIALIZED,
+        WAVE_NO_ERROR = 0,
+        WAVE_ALREADY_INITIALIZED,
+        WAVE_NOT_INITIALIZED,
         
-        WV_FAILED_TO_INITIALIZE_HOST,
-        WV_FAILED_TO_DEINITIALIZE_HOST,
+        WAVE_FAILED_TO_INITIALIZE_HOST,
+        WAVE_FAILED_TO_DEINITIALIZE_HOST,
         
-        WV_FAILED_TO_INITIALIZE_ENCODER,
-        WV_FAILED_TO_ENCODE_AUDIO_DATA,
-        DR_FAILED_TO_OPEN_ENCODER_TARGET_FILE,
-        DR_FAILED_TO_WRITE_ENCODED_AUDIO_DATA,
-        DR_FAILED_TO_CLOSE_ENCODER_TARGET_FILE
-    } drError;
+        WAVE_FAILED_TO_INITIALIZE_ENCODER,
+        WAVE_FAILED_TO_ENCODE_AUDIO_DATA,
+        WAVE_FAILED_TO_OPEN_ENCODER_TARGET_FILE,
+        WAVE_FAILED_TO_WRITE_ENCODED_AUDIO_DATA,
+        WAVE_FAILED_TO_CLOSE_ENCODER_TARGET_FILE
+    } WaveError;
     
     /**
      * Helper function that returns a human readable description of an
      * error code.
      */
-    const char* drErrorToString(drError errorCode);
+    const char* wave_error_str(WaveError errorCode);
     
 #ifdef __cplusplus
 }

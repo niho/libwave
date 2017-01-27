@@ -34,11 +34,11 @@ extern "C"
 
     } drOpusEncoder;
     
-    drError drOpusEncoder_init(void* opusEncoder, const char* filePath, float fs, float numChannels);
+    WaveError drOpusEncoder_init(void* opusEncoder, const char* filePath, float fs, float numChannels);
     
-    drError drOpusEncoder_write(void* opusEncoder, int numChannels, int numFrames, float* buffer, int* numBytesWritten);
+    WaveError drOpusEncoder_write(void* opusEncoder, int numChannels, int numFrames, float* buffer, int* numBytesWritten);
     
-    drError drOpusEncoder_stop(void* opusEncoder);
+    WaveError drOpusEncoder_stop(void* opusEncoder);
     
     
 #ifdef __cplusplus

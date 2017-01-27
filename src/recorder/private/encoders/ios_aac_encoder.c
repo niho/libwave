@@ -412,7 +412,7 @@ static OSStatus audioFileSetSizeProc(void* inClientData,
     return 0;
 }
 
-drError driOSAACEncoder_initCallback(void* encoderData, const char* filePath, float fs, float numChannels)
+WaveError driOSAACEncoder_initCallback(void* encoderData, const char* filePath, float fs, float numChannels)
 {
     driOSAACEncoder* encoder = (driOSAACEncoder*)encoderData;
     
@@ -472,7 +472,7 @@ drError driOSAACEncoder_initCallback(void* encoderData, const char* filePath, fl
 
         if (openResult != 0)
         {
-            return DR_FAILED_TO_INITIALIZE_ENCODER;
+            return WAVE_FAILED_TO_INITIALIZE_ENCODER;
         }
     }
     else
@@ -526,10 +526,10 @@ drError driOSAACEncoder_initCallback(void* encoderData, const char* filePath, fl
            0,
            sizeof(AudioStreamPacketDescription) * encoder->maxNumOutputPackets);
 
-    return DR_NO_ERROR;
+    return WAVE_NO_ERROR;
 }
 
-drError driOSAACEncoder_writeCallback(void* encoderData,
+WaveError driOSAACEncoder_writeCallback(void* encoderData,
                                       int numChannels,
                                       int numFrames,
                                       float* buffer,
@@ -595,7 +595,7 @@ drError driOSAACEncoder_writeCallback(void* encoderData,
                 if (writeResult != noErr)
                 {
                     *numBytesWritten = encoder->numBytesWrittenSinceLastCheck;
-                    return DR_FAILED_TO_WRITE_ENCODED_AUDIO_DATA;
+                    return WAVE_FAILED_TO_WRITE_ENCODED_AUDIO_DATA;
                 }
                 
                 printf("wrote %d bytes of AAC data\n", inNumBytes);
@@ -613,10 +613,10 @@ drError driOSAACEncoder_writeCallback(void* encoderData,
     *numBytesWritten = encoder->numBytesWrittenSinceLastCheck;
     encoder->numBytesWrittenSinceLastCheck = 0;
     
-    return DR_NO_ERROR;
+    return WAVE_NO_ERROR;
 }
 
-drError driOSAACEncoder_stopCallback(void* encoderData)
+WaveError driOSAACEncoder_stopCallback(void* encoderData)
 {
     driOSAACEncoder* encoder = (driOSAACEncoder*)encoderData;
     
@@ -632,5 +632,5 @@ drError driOSAACEncoder_stopCallback(void* encoderData)
     
     //TODO: close file
     
-    return DR_NO_ERROR;
+    return WAVE_NO_ERROR;
 }

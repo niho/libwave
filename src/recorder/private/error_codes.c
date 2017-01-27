@@ -1,46 +1,46 @@
 #include "wave_error_codes.h"
 
-const char* drErrorToString(drError errorCode)
+const char* wave_error_str(WaveError errorCode)
 {
     switch (errorCode)
     {
-        case DR_NO_ERROR:
+        case WAVE_NO_ERROR:
         {
             return "no error";
         }
-        case DR_ALREADY_INITIALIZED:
+        case WAVE_ALREADY_INITIALIZED:
         {
             return "recorder instance is already initialized";
         }
-        case DR_NOT_INITIALIZED:
+        case WAVE_NOT_INITIALIZED:
         {
             return "recorder instance is not initialized";
         }
-        case DR_FAILED_TO_INITIALIZE_HOST:
+        case WAVE_FAILED_TO_INITIALIZE_HOST:
         {
             return "failed to initialize the audio host";
         }
-        case DR_FAILED_TO_DEINITIALIZE_HOST:
+        case WAVE_FAILED_TO_DEINITIALIZE_HOST:
         {
             return "failed to deinitialize the audio host";
         }
-        case DR_FAILED_TO_INITIALIZE_ENCODER:
+        case WAVE_FAILED_TO_INITIALIZE_ENCODER:
         {
             return "failed to initialize audio encoder";
         }
-        case DR_FAILED_TO_ENCODE_AUDIO_DATA:
+        case WAVE_FAILED_TO_ENCODE_AUDIO_DATA:
         {
             return "failed to encode audio data";
         }
-        case DR_FAILED_TO_OPEN_ENCODER_TARGET_FILE:
+        case WAVE_FAILED_TO_OPEN_ENCODER_TARGET_FILE:
         {
             return "failed to open encoder target file";
         }
-        case DR_FAILED_TO_WRITE_ENCODED_AUDIO_DATA:
+        case WAVE_FAILED_TO_WRITE_ENCODED_AUDIO_DATA:
         {
             return "failed to write encoded data";
         }
-        case DR_FAILED_TO_CLOSE_ENCODER_TARGET_FILE:
+        case WAVE_FAILED_TO_CLOSE_ENCODER_TARGET_FILE:
         {
             return "failed to close encoded target file";
         }

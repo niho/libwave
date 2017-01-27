@@ -18,11 +18,11 @@ extern "C"
         FILE* file;   
     } drRawEncoder;
     
-    drError drRawEncoder_init(void* rawEncoder, const char* filePath, float fs, float numChannels);
+    WaveError drRawEncoder_init(void* rawEncoder, const char* filePath, float fs, float numChannels);
     
-    drError drRawEncoder_write(void* rawEncoder, int numChannels, int numFrames, float* buffer, int* numBytesWritten);
+    WaveError drRawEncoder_write(void* rawEncoder, int numChannels, int numFrames, float* buffer, int* numBytesWritten);
     
-    drError drRawEncoder_stop(void* rawEncoder);
+    WaveError drRawEncoder_stop(void* rawEncoder);
     
 #ifdef __cplusplus
 }
