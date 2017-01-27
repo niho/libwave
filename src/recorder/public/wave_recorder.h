@@ -83,7 +83,7 @@ extern "C"
                          drErrorCallback errorCallback,
                          drAudioWrittenCallback audioWrittenCallback,
                          void* callbackUserData,
-                         drSettings* settings);
+                         WaveSettings* settings);
     
     /**
      * Shuts down the recorder.

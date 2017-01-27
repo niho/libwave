@@ -6,9 +6,9 @@
 
 #include <Foundation/Foundation.h>
 
-void drCreateEncoder(drEncoder* encoder, drSettings* settings)
+void drCreateEncoder(drEncoder* encoder, WaveSettings* settings)
 {
-    if (settings->encoderFormat == DR_ENCODER_FORMAT_RAW)
+    if (settings->encoderFormat == WAVE_ENCODER_FORMAT_RAW)
     {
         //raw
         drRawEncoder* rawEncoder = DR_MALLOC(sizeof(drRawEncoder), "raw encoder");
@@ -18,7 +18,7 @@ void drCreateEncoder(drEncoder* encoder, drSettings* settings)
         encoder->initCallback = drRawEncoder_init;
         encoder->writeCallback = drRawEncoder_write;
     }
-    else if (settings->encoderFormat == DR_ENCODER_FORMAT_OPUS)
+    else if (settings->encoderFormat == WAVE_ENCODER_FORMAT_OPUS)
     {
         //opus
         drOpusEncoder* opusEncoder = DR_MALLOC(sizeof(drOpusEncoder), "opus encoder");
@@ -28,7 +28,7 @@ void drCreateEncoder(drEncoder* encoder, drSettings* settings)
         encoder->initCallback = drOpusEncoder_init;
         encoder->writeCallback = drOpusEncoder_write;
     }
-    else if (settings->encoderFormat == DR_ENCODER_FORMAT_AAC)
+    else if (settings->encoderFormat == WAVE_ENCODER_FORMAT_AAC)
     {
         //ios AAC
         driOSAACEncoder* aacEncoder = DR_MALLOC(sizeof(driOSAACEncoder), "AAC encoder");

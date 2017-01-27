@@ -9,19 +9,19 @@ extern "C"
 #endif /* __cplusplus */
     
     /**
-     * Error codes.
+     * Encoder formats.
      */
-    typedef enum drEncoderFormat
+    typedef enum WaveEncoderFormat
     {
-        DR_ENCODER_FORMAT_RAW = 0,
-        DR_ENCODER_FORMAT_OPUS,
-        DR_ENCODER_FORMAT_AAC       // Only available on iOS
-    } drEncoderFormat;
+        WAVE_ENCODER_FORMAT_RAW = 0,
+        WAVE_ENCODER_FORMAT_OPUS,
+        WAVE_ENCODER_FORMAT_AAC       // Only available on iOS
+    } WaveEncoderFormat;
     
     /**
      * Settings
      */
-    typedef struct drSettings
+    typedef struct WaveSettings
     {
         int errorFIFOCapacity;
         int realtimeDataFIFOCapacity;
@@ -43,13 +43,13 @@ extern "C"
         int desiredNumOutputChannels;
         
         //encoder format
-        drEncoderFormat encoderFormat;
-    } drSettings;
+        WaveEncoderFormat encoderFormat;
+    } WaveSettings;
     
     /**
      * @param settings
      */
-    void drSettings_setDefaults(drSettings* settings);
+    void wave_settings_init(WaveSettings* settings);
     
 #ifdef __cplusplus
 }

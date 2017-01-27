@@ -86,7 +86,7 @@ extern "C"
      */
     typedef struct drInstance
     {
-        drSettings settings;
+        WaveSettings settings;
         
         drState stateAudioThread;
         drState stateMainThread;
@@ -143,7 +143,7 @@ extern "C"
                             drErrorCallback errorCallback,
                             drAudioWrittenCallback audioWrittenCallback,
                             void* callbackUserData,
-                            drSettings* settings);
+                            WaveSettings* settings);
     
     /** Implemented for each host. */
     WaveError drInstance_hostSpecificInit(drInstance* instance);

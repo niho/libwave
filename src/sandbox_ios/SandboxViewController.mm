@@ -223,9 +223,9 @@ static void audioWrittenCallback(const char* path, int numBytes, void* userData)
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     
-    drSettings settings;
-    drSettings_setDefaults(&settings);
-    settings.encoderFormat = DR_ENCODER_FORMAT_AAC;
+    WaveSettings settings;
+    wave_settings_init(&settings);
+    settings.encoderFormat = WAVE_ENCODER_FORMAT_AAC;
     
     drInitialize(eventCallback,
                  errorCallback,

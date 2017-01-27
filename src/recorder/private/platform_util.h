@@ -19,7 +19,7 @@ extern "C"
     /**
      *
      */
-    void drCreateEncoder(drEncoder* encoder, drSettings* settings);
+    void drCreateEncoder(drEncoder* encoder, WaveSettings* settings);
     
 #ifdef __cplusplus
 }

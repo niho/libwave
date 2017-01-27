@@ -20,18 +20,18 @@ WaveError drInstance_init(drInstance* instance,
                         drErrorCallback errorCallback,
                         drAudioWrittenCallback audioWrittenCallback,
                         void* callbackUserData,
-                        drSettings* settings)
+                        WaveSettings* settings)
 {
     memset(instance, 0, sizeof(drInstance));
     
     //use custom settings if provided.
     if (settings)
     {
-        memcpy(&instance->settings, settings, sizeof(drSettings));
+        memcpy(&instance->settings, settings, sizeof(WaveSettings));
     }
     else
     {
-        drSettings_setDefaults(&instance->settings);
+        wave_settings_init(&instance->settings);
     }
     
     //printf("opus_get_version_string %s\n", opus_get_version_string());

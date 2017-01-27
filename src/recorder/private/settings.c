@@ -1,9 +1,9 @@
 #include <string.h>
 #include "wave_settings.h"
 
-void drSettings_setDefaults(drSettings* settings)
+void wave_settings_init(WaveSettings* settings)
 {
-    memset(settings, 0, sizeof(drSettings));
+    memset(settings, 0, sizeof(WaveSettings));
     
     settings->errorFIFOCapacity = 50;
     settings->realtimeDataFIFOCapacity = 50;
@@ -20,5 +20,5 @@ void drSettings_setDefaults(drSettings* settings)
     settings->levelMeterReleaseTime = 2.0f;
     settings->rmsWindowSizeInSeconds = 0.0f;
     
-    settings->encoderFormat = DR_ENCODER_FORMAT_OPUS;
+    settings->encoderFormat = WAVE_ENCODER_FORMAT_OPUS;
 }

@@ -60,7 +60,7 @@ WaveError drInitialize(drNotificationCallback notificationCallback,
                      drErrorCallback errorCallback,
                      drAudioWrittenCallback audioWrittenCallback,
                      void* callbackUserData,
-                     drSettings* settings)
+                     WaveSettings* settings)
 {
     if (instance)
     {
