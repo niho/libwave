@@ -52,7 +52,7 @@ void drLevelAdvisor_processBuffer(void* advisorPtr, const float* inBuffer, int n
         {
             //fire quiet warning
             //printf("warning, been below %f for %d frames\n", advisor->quietThreshold, advisor->quietWarningDelayInFrames);
-            drInstance_enqueueNotificationOfType(advisor->instance, DR_LEVEL_LOW_WARNING);
+            drInstance_enqueueNotificationOfType(advisor->instance, WAVE_LEVEL_LOW_WARNING);
         }
     }
     else if (level > advisor->loudThreshold)
@@ -65,7 +65,7 @@ void drLevelAdvisor_processBuffer(void* advisorPtr, const float* inBuffer, int n
         {
             //fire loud warning
             //printf("warning, been above %f for %d frames\n", advisor->loudThreshold, advisor->loudWarningDelayInFrames);
-            drInstance_enqueueNotificationOfType(advisor->instance, DR_LEVEL_HIGH_WARNING);
+            drInstance_enqueueNotificationOfType(advisor->instance, WAVE_LEVEL_HIGH_WARNING);
         }
     }
     else

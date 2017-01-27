@@ -9,39 +9,39 @@
 #include "instance.h"
 #include "mem.h"
 
-const char* drNotificationTypeToString(drNotificationType type)
+const char* wave_notification_type_str(WaveNotificationType type)
 {
     switch (type)
     {
-        case DR_DID_INITIALIZE:
+        case WAVE_DID_INITIALIZE:
         {
             return "audio system did initialize";
         }
-        case DR_DID_SHUT_DOWN:
+        case WAVE_DID_SHUT_DOWN:
         {
             return "audio system shut down";
         }
-        case DR_RECORDING_STARTED:
+        case WAVE_RECORDING_STARTED:
         {
             return "recording started";
         }
-        case DR_RECORDING_PAUSED:
+        case WAVE_RECORDING_PAUSED:
         {
             return "recording paused";
         }
-        case DR_RECORDING_RESUMED:
+        case WAVE_RECORDING_RESUMED:
         {
             return "recording resumed";
         }
-        case DR_RECORDING_STOPPED:
+        case WAVE_RECORDING_STOPPED:
         {
             return "recording stopped";
         }
-        case DR_LEVEL_HIGH_WARNING:
+        case WAVE_LEVEL_HIGH_WARNING:
         {
             return "input level high warning";
         }
-        case DR_LEVEL_LOW_WARNING:
+        case WAVE_LEVEL_LOW_WARNING:
         {
             return "input level low warning";
         }

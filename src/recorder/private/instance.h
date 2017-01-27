@@ -189,7 +189,7 @@ extern "C"
     /**
      * Invoked when a notification reaches the main thread. Invoked on the main thread.
      */
-    void drInstance_onMainThreadNotification(drInstance* instance, const drNotification* notification);
+    void drInstance_onMainThreadNotification(drInstance* instance, const WaveNotification* notification);
     
     /**
      *
@@ -227,7 +227,7 @@ extern "C"
     /**
      *
      */
-    void drInstance_invokeNotificationCallback(drInstance* instance, const drNotification* notification);
+    void drInstance_invokeNotificationCallback(drInstance* instance, const WaveNotification* notification);
     
     /**
      * Must be called <strong>only from the audio thread</strong>!
@@ -237,12 +237,12 @@ extern "C"
     /**
      * Must be called <strong>only from the audio thread</strong>!
      */
-    void drInstance_enqueueNotification(drInstance* instance, const drNotification* notification);
+    void drInstance_enqueueNotification(drInstance* instance, const WaveNotification* notification);
     
     /**
      * Must be called <strong>only from the audio thread</strong>!
      */
-    void drInstance_enqueueNotificationOfType(drInstance* instance, drNotificationType type);
+    void drInstance_enqueueNotificationOfType(drInstance* instance, WaveNotificationType type);
     
     /**
      * Must be called <strong>only from the main thread</strong>!

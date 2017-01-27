@@ -11,35 +11,35 @@ extern "C"
     /**
      * Valid notification types.
      */
-    typedef enum drNotificationType
+    typedef enum WaveNotificationType
     {
-        DR_DID_INITIALIZE = 0,
-        DR_DID_SHUT_DOWN,
+        WAVE_DID_INITIALIZE = 0,
+        WAVE_DID_SHUT_DOWN,
         
-        DR_RECORDING_STARTED,
-        DR_RECORDING_PAUSED,
-        DR_RECORDING_RESUMED,
-        DR_RECORDING_STOPPED,
+        WAVE_RECORDING_STARTED,
+        WAVE_RECORDING_PAUSED,
+        WAVE_RECORDING_RESUMED,
+        WAVE_RECORDING_STOPPED,
         
-        DR_LEVEL_LOW_WARNING,
-        DR_LEVEL_HIGH_WARNING
+        WAVE_LEVEL_LOW_WARNING,
+        WAVE_LEVEL_HIGH_WARNING
 
         
-    } drNotificationType;
+    } WaveNotificationType;
     
     /**
      * A notification passed to the main (i.e UI) thread.
      */
-    typedef struct drNotification
+    typedef struct WaveNotification
     {
-        drNotificationType type;
-    } drNotification;
+        WaveNotificationType type;
+    } WaveNotification;
     
     /**
      * Helper function that returns a human readable description of a
      * notification type.
      */
-    const char* drNotificationTypeToString(drNotificationType type);
+    const char* wave_notification_type_str(WaveNotificationType type);
     
     
 #ifdef __cplusplus

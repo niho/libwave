@@ -4,7 +4,7 @@
 static const int tempBufSize = 16000;
 static char tempBuf[tempBufSize];
 
-static void eventCallback(const drNotification* event, void* userData)
+static void eventCallback(const WaveNotification* event, void* userData)
 {
     SandboxViewController* vc = (__bridge SandboxViewController*)userData;
     [vc onNotification:event];
@@ -58,24 +58,24 @@ static void audioWrittenCallback(const char* path, int numBytes, void* userData)
     self.sandboxView.latestErrorLabel.text = [NSString stringWithUTF8String:wave_error_str(error)];
 }
 
--(void)onNotification:(const drNotification*)notification
+-(void)onNotification:(const WaveNotification*)notification
 {
     self.sandboxView.latestNotificationLabel.alpha = 0.6f;
-    self.sandboxView.latestNotificationLabel.text = [NSString stringWithUTF8String:drNotificationTypeToString(notification->type)];
+    self.sandboxView.latestNotificationLabel.text = [NSString stringWithUTF8String:wave_notification_type_str(notification->type)];
     [UIView animateWithDuration:3.0f animations:^(void) {
         self.sandboxView.latestNotificationLabel.alpha = 0.1f;
     }];
     
     switch (notification->type)
     {
-        case DR_DID_INITIALIZE:
+        case WAVE_DID_INITIALIZE:
         {
             [self.sandboxView.recToggleButton addTarget:self
                                                 action:@selector(onRecStart:)
                                       forControlEvents:UIControlEventTouchUpInside];
             break;
         }
-        case DR_RECORDING_STARTED:
+        case WAVE_RECORDING_STARTED:
         {
             memset(tempBuf, 0, tempBufSize);
             m_uploadTargetFile = fopen([m_uploadTargetPath UTF8String], "wb");
@@ -94,7 +94,7 @@ static void audioWrittenCallback(const char* path, int numBytes, void* userData)
             self.sandboxView.recToggleButton.backgroundColor = [UIColor redColor];
             break;
         }
-        case DR_RECORDING_STOPPED:
+        case WAVE_RECORDING_STOPPED:
         {
             fclose(m_uploadTargetFile);
             m_uploadTargetFile = NULL;
@@ -110,7 +110,7 @@ static void audioWrittenCallback(const char* path, int numBytes, void* userData)
                                        forControlEvents:UIControlEventTouchUpInside];
             break;
         }
-        case DR_RECORDING_PAUSED:
+        case WAVE_RECORDING_PAUSED:
         {
             [self.sandboxView.recPauseButton addTarget:self
                                                 action:@selector(onRecResume:)
@@ -118,7 +118,7 @@ static void audioWrittenCallback(const char* path, int numBytes, void* userData)
             [self.sandboxView.recPauseButton setTitle:@"resume" forState:UIControlStateNormal];
             break;
         }
-        case DR_RECORDING_RESUMED:
+        case WAVE_RECORDING_RESUMED:
         {
             [self.sandboxView.recPauseButton addTarget:self
                                                 action:@selector(onRecPause:)
@@ -126,11 +126,11 @@ static void audioWrittenCallback(const char* path, int numBytes, void* userData)
             [self.sandboxView.recPauseButton setTitle:@"pause" forState:UIControlStateNormal];
             break;
         }
-        case DR_LEVEL_LOW_WARNING:
+        case WAVE_LEVEL_LOW_WARNING:
         {
             break;
         }
-        case DR_LEVEL_HIGH_WARNING:
+        case WAVE_LEVEL_HIGH_WARNING:
         {
             break;
         }

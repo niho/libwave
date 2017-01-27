@@ -57,7 +57,7 @@ WaveError drInstance_init(drInstance* instance,
     //create error, notification and control event queues
     drLockFreeFIFO_init(&instance->notificationFIFO,
                         instance->settings.notificationFIFOCapacity,
-                        sizeof(drNotification));
+                        sizeof(WaveNotification));
     
     drLockFreeFIFO_init(&instance->controlEventFIFO,
                         instance->settings.controlEventFIFOCapacity,
@@ -108,8 +108,8 @@ WaveError drInstance_deinit(drInstance* instance)
     //stop the audio system
     WaveError deinitResult = drInstance_hostSpecificDeinit(instance);
     
-    drNotification n;
-    n.type = DR_DID_SHUT_DOWN;
+    WaveNotification n;
+    n.type = WAVE_DID_SHUT_DOWN;
     drInstance_invokeNotificationCallback(instance, &n);
     
     //clean up analyzers
@@ -168,7 +168,7 @@ void drInstance_update(drInstance* instance, float timeStep)
     }
     
     //invoke the event callback for any incoming events on the main thread
-    drNotification n;
+    WaveNotification n;
     while (drLockFreeFIFO_pop(&instance->notificationFIFO, &n))
     {
         drInstance_onMainThreadNotification(instance, &n);
@@ -291,7 +291,7 @@ void drInstance_audioInputCallback(drInstance* in, const float* inBuffer, int nu
         {
             in->stopRecordingRequested = 0;
             in->stateAudioThread = DR_STATE_IDLE;
-            drInstance_enqueueNotificationOfType(in, DR_RECORDING_STOPPED);
+            drInstance_enqueueNotificationOfType(in, WAVE_RECORDING_STOPPED);
         }
     }
     
@@ -328,8 +328,8 @@ void drInstance_audioOutputCallback(drInstance* in, float* inBuffer, int numChan
 {
     if (in->firstSampleHasPlayed == 0)
     {
-        drNotification e;
-        e.type = DR_DID_INITIALIZE;
+        WaveNotification e;
+        e.type = WAVE_DID_INITIALIZE;
         drInstance_enqueueNotification(in, &e);
         in->firstSampleHasPlayed = 1;
     }
@@ -427,7 +427,7 @@ void drInstance_invokeErrorCallback(drInstance* instance, WaveError errorCode)
     }
 }
 
-void drInstance_invokeNotificationCallback(drInstance* instance, const drNotification* notification)
+void drInstance_invokeNotificationCallback(drInstance* instance, const WaveNotification* notification)
 {
     if (instance->notificationCallback)
     {
@@ -445,7 +445,7 @@ void drInstance_enqueueError(drInstance* instance, WaveError error)
     }
 }
 
-void drInstance_enqueueNotification(drInstance* instance, const drNotification* notification)
+void drInstance_enqueueNotification(drInstance* instance, const WaveNotification* notification)
 {
     assert(!drInstance_isOnMainThread(instance));
     int pushSuccess = drLockFreeFIFO_push(&instance->notificationFIFO, notification);
@@ -455,10 +455,10 @@ void drInstance_enqueueNotification(drInstance* instance, const drNotification* 
     }
 }
 
-void drInstance_enqueueNotificationOfType(drInstance* instance, drNotificationType type)
+void drInstance_enqueueNotificationOfType(drInstance* instance, WaveNotificationType type)
 {
-    drNotification n;
-    memset(&n, 0, sizeof(drNotification));
+    WaveNotification n;
+    memset(&n, 0, sizeof(WaveNotification));
     n.type = type;
     drInstance_enqueueNotification(instance, &n);
 }
@@ -495,7 +495,7 @@ void drInstance_onAudioThreadControlEvent(drInstance* instance, const drControlE
                 //start recording.
                 instance->recordingSession.numRecordedFrames = 0;
                 instance->stateAudioThread = DR_STATE_RECORDING;
-                drInstance_enqueueNotificationOfType(instance, DR_RECORDING_STARTED);
+                drInstance_enqueueNotificationOfType(instance, WAVE_RECORDING_STARTED);
             }
             break;
         }
@@ -506,7 +506,7 @@ void drInstance_onAudioThreadControlEvent(drInstance* instance, const drControlE
                 //recording pause requested and we're currently recording.
                 //pause recording.
                 instance->stateAudioThread = DR_STATE_RECORDING_PAUSED;
-                drInstance_enqueueNotificationOfType(instance, DR_RECORDING_PAUSED);
+                drInstance_enqueueNotificationOfType(instance, WAVE_RECORDING_PAUSED);
             }
             break;
         }
@@ -517,7 +517,7 @@ void drInstance_onAudioThreadControlEvent(drInstance* instance, const drControlE
                 //recording resume requested and we're currently paused.
                 //resume recording.
                 instance->stateAudioThread = DR_STATE_RECORDING;
-                drInstance_enqueueNotificationOfType(instance, DR_RECORDING_RESUMED);
+                drInstance_enqueueNotificationOfType(instance, WAVE_RECORDING_RESUMED);
             }
             break;
         }
@@ -547,36 +547,36 @@ void drInstance_onMainThreadError(drInstance* instance, WaveError error)
     
 }
 
-void drInstance_onMainThreadNotification(drInstance* instance, const drNotification* notification)
+void drInstance_onMainThreadNotification(drInstance* instance, const WaveNotification* notification)
 {
     assert(drInstance_isOnMainThread(instance));
     
     switch (notification->type)
     {
-        case DR_DID_INITIALIZE:
+        case WAVE_DID_INITIALIZE:
         {
             break;
         }
-        case DR_RECORDING_STARTED:
+        case WAVE_RECORDING_STARTED:
         {
             instance->stateMainThread = DR_STATE_RECORDING;
             //initiate recording
             drInstance_initiateRecording(instance);
             break;
         }
-        case DR_RECORDING_STOPPED:
+        case WAVE_RECORDING_STOPPED:
         {
             //nothing here. the recording is finished when the last buffer
             //has been received.
             instance->stateMainThread = DR_STATE_IDLE;
             break;
         }
-        case DR_RECORDING_PAUSED:
+        case WAVE_RECORDING_PAUSED:
         {
             instance->stateMainThread = DR_STATE_RECORDING_PAUSED;
             break;
         }
-        case DR_RECORDING_RESUMED:
+        case WAVE_RECORDING_RESUMED:
         {
             instance->stateMainThread = DR_STATE_RECORDING;
             break;

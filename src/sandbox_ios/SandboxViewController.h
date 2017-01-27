@@ -22,7 +22,7 @@
 
 -(void)onError:(WaveError)error;
 
--(void)onNotification:(const drNotification*)event;
+-(void)onNotification:(const WaveNotification*)event;
 
 -(void)updateTick;
 

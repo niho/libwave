@@ -69,7 +69,7 @@ extern "C"
     /**
      * A callback to invoke for each incoming notification.
      */
-    typedef void (*drNotificationCallback)(const drNotification* event, void* userData);
+    typedef void (*drNotificationCallback)(const WaveNotification* event, void* userData);
     
     /**
      *
