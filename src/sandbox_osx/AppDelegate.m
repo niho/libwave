@@ -45,8 +45,7 @@ static const char* writableFilePathCallback(void* userData)
                  errorCallback,
                  writableFilePathCallback,
                  (__bridge void*)(self),
-                 [settingsFilePath UTF8String],
-                 NULL);
+                 [settingsFilePath UTF8String]);
     
     NSTimer* t = [NSTimer scheduledTimerWithTimeInterval:kUpdateInterval
                                                   target:self

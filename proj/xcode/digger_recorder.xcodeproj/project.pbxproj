@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8535F0991E3BF93A0042E766 /* platform_util_osx.c in Sources */ = {isa = PBXBuildFile; fileRef = 8535F0971E3BF91C0042E766 /* platform_util_osx.c */; };
 		C118B3F819B4B2BC00005678 /* digger_recorder.c in Sources */ = {isa = PBXBuildFile; fileRef = C1F57A0519B4A282000C6BCF /* digger_recorder.c */; };
 		C118B3F919B4B2BC00005678 /* instance.c in Sources */ = {isa = PBXBuildFile; fileRef = C1F57A0619B4A282000C6BCF /* instance.c */; };
 		C118B3FC19B4B2C000005678 /* tinycthread.c in Sources */ = {isa = PBXBuildFile; fileRef = C1F57A8519B4A475000C6BCF /* tinycthread.c */; };
@@ -384,7 +385,6 @@
 		C12E1F8819B74B65004532A8 /* error_codes.h in Headers */ = {isa = PBXBuildFile; fileRef = C12E1F8719B74B65004532A8 /* error_codes.h */; };
 		C12E1F8B19B7534A004532A8 /* encoder.h in Headers */ = {isa = PBXBuildFile; fileRef = C12E1F8A19B7534A004532A8 /* encoder.h */; };
 		C12E1F8E19B7583C004532A8 /* platform_util_ios.m in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F8C19B7583C004532A8 /* platform_util_ios.m */; };
-		C12E1F8F19B7583C004532A8 /* platform_util_ios.m in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F8C19B7583C004532A8 /* platform_util_ios.m */; };
 		C12E1F9019B7583C004532A8 /* platform_util.h in Headers */ = {isa = PBXBuildFile; fileRef = C12E1F8D19B7583C004532A8 /* platform_util.h */; };
 		C12E1FA219B8B4E7004532A8 /* ogg.h in Headers */ = {isa = PBXBuildFile; fileRef = C12E1F9E19B8B4E7004532A8 /* ogg.h */; };
 		C12E1FA319B8B4E7004532A8 /* os_types.h in Headers */ = {isa = PBXBuildFile; fileRef = C12E1F9F19B8B4E7004532A8 /* os_types.h */; };
@@ -478,6 +478,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8535F0971E3BF91C0042E766 /* platform_util_osx.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = platform_util_osx.c; sourceTree = "<group>"; };
 		C118B3F119B4B28E00005678 /* libdigger_recorder_osx.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libdigger_recorder_osx.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C118B40A19B4C9FB00005678 /* level_meter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = level_meter.c; sourceTree = "<group>"; };
 		C118B40B19B4C9FB00005678 /* level_meter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = level_meter.h; sourceTree = "<group>"; };
@@ -1380,6 +1381,7 @@
 				C12E1F8219B74206004532A8 /* mem.c */,
 				C12E1A8C19B5B8CD004532A8 /* mem.h */,
 				C12E1F8C19B7583C004532A8 /* platform_util_ios.m */,
+				8535F0971E3BF91C0042E766 /* platform_util_osx.c */,
 				C12E1F8D19B7583C004532A8 /* platform_util.h */,
 				C1E07B2719B9C7E900F63CA1 /* settings.c */,
 			);
@@ -1656,7 +1658,6 @@
 				C12E1DE719B6132B004532A8 /* decode_pulses.c in Sources */,
 				C12E1E3119B6132B004532A8 /* encode_frame_FLP.c in Sources */,
 				C12E1E4719B6132B004532A8 /* LTP_analysis_filter_FLP.c in Sources */,
-				C12E1F8F19B7583C004532A8 /* platform_util_ios.m in Sources */,
 				C12E1E2D19B6132B004532A8 /* bwexpander_FLP.c in Sources */,
 				C1E07B0E19B9BADE00F63CA1 /* error.c in Sources */,
 				C12E1ECD19B6132B004532A8 /* tables_gain.c in Sources */,
@@ -1760,6 +1761,7 @@
 				C12E1DBC19B6132B004532A8 /* A2NLSF.c in Sources */,
 				C12E1E2B19B6132B004532A8 /* burg_modified_FLP.c in Sources */,
 				C12E1F7A19B705E3004532A8 /* raw_encoder.c in Sources */,
+				8535F0991E3BF93A0042E766 /* platform_util_osx.c in Sources */,
 				C12E1E7519B6132B004532A8 /* lin2log.c in Sources */,
 				C12E1E7D19B6132B004532A8 /* LPC_inv_pred_gain.c in Sources */,
 				C12E1D9719B6132B004532A8 /* pitch.c in Sources */,
@@ -2106,7 +2108,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/perarne/code/digger_recorder/lib,
+					../../lib,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
@@ -2151,7 +2153,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/perarne/code/digger_recorder/lib,
+					../../lib,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";

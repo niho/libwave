@@ -15,7 +15,7 @@ extern "C"
     {
         DR_ENCODER_FORMAT_RAW = 0,
         DR_ENCODER_FORMAT_OPUS,
-        DR_ENCODER_FORMAT_AAC
+        DR_ENCODER_FORMAT_AAC       // Only available on iOS
     } drEncoderFormat;
     
     /**

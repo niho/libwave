@@ -1,10 +1,8 @@
 #include "platform_util.h"
 #include "raw_encoder.h"
 #include "opus_encoder.h"
-#include "ios_aac_encoder.h"
 #include "mem.h"
-
-#include <Foundation/Foundation.h>
+#include "assert.h"
 
 void drCreateEncoder(drEncoder* encoder, drSettings* settings)
 {
@@ -27,16 +25,6 @@ void drCreateEncoder(drEncoder* encoder, drSettings* settings)
         encoder->stopCallback = drOpusEncoder_stop;
         encoder->initCallback = drOpusEncoder_init;
         encoder->writeCallback = drOpusEncoder_write;
-    }
-    else if (settings->encoderFormat == DR_ENCODER_FORMAT_AAC)
-    {
-        //ios AAC
-        driOSAACEncoder* aacEncoder = DR_MALLOC(sizeof(driOSAACEncoder), "AAC encoder");
-        memset(aacEncoder, 0, sizeof(driOSAACEncoder));
-        encoder->encoderData = aacEncoder;
-        encoder->stopCallback = driOSAACEncoder_stopCallback;
-        encoder->initCallback = driOSAACEncoder_initCallback;
-        encoder->writeCallback = driOSAACEncoder_writeCallback;
     }
     else
     {
