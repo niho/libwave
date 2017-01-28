@@ -56,11 +56,11 @@ const char* wave_notification_type_str(WaveNotificationType type)
 
 static drInstance* instance = NULL;
 
-WaveError drInitialize(drNotificationCallback notificationCallback,
-                     drErrorCallback errorCallback,
-                     drAudioWrittenCallback audioWrittenCallback,
-                     void* callbackUserData,
-                     WaveSettings* settings)
+WaveError wave_init(WaveNotificationCallback notificationCallback,
+                    WaveErrorCallback errorCallback,
+                    WaveAudioWrittenCallback audioWrittenCallback,
+                    void* callbackUserData,
+                    WaveSettings* settings)
 {
     if (instance)
     {
@@ -78,7 +78,7 @@ WaveError drInitialize(drNotificationCallback notificationCallback,
     return WAVE_NO_ERROR;
 }
 
-WaveError drDeinitialize()
+WaveError wave_deinit()
 {
     if (!instance)
     {
@@ -92,7 +92,7 @@ WaveError drDeinitialize()
     return WAVE_NO_ERROR;
 }
 
-WaveError drUpdate(float timeStep)
+WaveError wave_update(float timeStep)
 {
     if (!instance)
     {
@@ -104,7 +104,7 @@ WaveError drUpdate(float timeStep)
     return WAVE_NO_ERROR;
 }
 
-WaveError drGetRealtimeInfo(int channel, int logLevels, WaveRealtimeInfo* result)
+WaveError wave_get_realtime_info(int channel, int logLevels, WaveRealtimeInfo* result)
 {
     if (!instance)
     {
@@ -116,7 +116,7 @@ WaveError drGetRealtimeInfo(int channel, int logLevels, WaveRealtimeInfo* result
     return WAVE_NO_ERROR;
 }
 
-WaveError drStartRecording(const char* audioFilePath)
+WaveError wave_start_recording(const char* audioFilePath)
 {
     if (!instance)
     {
@@ -128,7 +128,7 @@ WaveError drStartRecording(const char* audioFilePath)
     return WAVE_NO_ERROR;
 }
 
-WaveError drStopRecording()
+WaveError wave_stop_recording()
 {
     if (!instance)
     {
@@ -140,7 +140,7 @@ WaveError drStopRecording()
     return WAVE_NO_ERROR;
 }
 
-WaveError drPauseRecording()
+WaveError wave_pause_recording()
 {
     if (!instance)
     {
@@ -152,7 +152,7 @@ WaveError drPauseRecording()
     return WAVE_NO_ERROR;
 }
 
-WaveError drResumeRecording()
+WaveError wave_resume_recording()
 {
     if (!instance)
     {
@@ -164,7 +164,7 @@ WaveError drResumeRecording()
     return WAVE_NO_ERROR;
 }
 
-WaveError drGetDevInfo(drDevInfo* devInfo)
+WaveError wave_get_dev_info(WaveDevInfo* devInfo)
 {
     if (!instance)
     {

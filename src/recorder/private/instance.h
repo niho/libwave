@@ -93,7 +93,7 @@ extern "C"
         
         drAnalyzerSlot inputAnalyzerSlots[MAX_NUM_ANALYZER_SLOTS];
         
-        drDevInfo devInfo;
+        WaveDevInfo devInfo;
         
         int firstSampleHasPlayed;
         int stopRecordingRequested;
@@ -106,10 +106,10 @@ extern "C"
         drLockFreeFIFO errorFIFO;
         drLockFreeFIFO realTimeDataFifo;
         
-        drAudioWrittenCallback audioWrittenCallback;
+        WaveAudioWrittenCallback audioWrittenCallback;
         
-        drNotificationCallback notificationCallback;
-        drErrorCallback errorCallback;
+        WaveNotificationCallback notificationCallback;
+        WaveErrorCallback errorCallback;
         void* callbackUserData;
         
         //Level meters, only accessed from the audio thread
@@ -139,9 +139,9 @@ extern "C"
      *
      */
     WaveError drInstance_init(drInstance* instance,
-                            drNotificationCallback notificationCallback,
-                            drErrorCallback errorCallback,
-                            drAudioWrittenCallback audioWrittenCallback,
+                            WaveNotificationCallback notificationCallback,
+                            WaveErrorCallback errorCallback,
+                            WaveAudioWrittenCallback audioWrittenCallback,
                             void* callbackUserData,
                             WaveSettings* settings);
     
@@ -257,7 +257,7 @@ extern "C"
     /**
      *
      */
-    void drInstance_getDevInfo(drInstance* instance, drDevInfo* devInfo);
+    void drInstance_getDevInfo(drInstance* instance, WaveDevInfo* devInfo);
     
 #ifdef __cplusplus
 }

@@ -34,9 +34,9 @@
     
 }
 
--(void)updateInfo:(drDevInfo*)info
+-(void)updateInfo:(WaveDevInfo*)info
 {
-    memcpy(&m_currentInfo, info, sizeof(drDevInfo));
+    memcpy(&m_currentInfo, info, sizeof(WaveDevInfo));
     
     [m_controlEventFIFOLevelView updateLevel:m_currentInfo.controlEventFIFOLevel];
     [m_notificationFIFOLevelView updateLevel:m_currentInfo.notificationFIFOLevel];

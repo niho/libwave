@@ -31,7 +31,7 @@ extern "C"
     /**
      * Information useful when debugging and monitoring.
      */
-    typedef struct drDevInfo
+    typedef struct WaveDevInfo
     {
         /** 0 - 1, 0 empty, 1 full. */
         float recordFIFOLevel;
@@ -59,47 +59,47 @@ extern "C"
          * had an overrun since the previous call to drGetDevInfo.
          */
         int errorFIFOUnderrun;
-    } drDevInfo;
+    } WaveDevInfo;
     
     /**
      * A callback to invoke when errors occur.
      */
-    typedef void (*drErrorCallback)(WaveError errorCode, void* userData);
+    typedef void (*WaveErrorCallback)(WaveError errorCode, void* userData);
     
     /**
      * A callback to invoke for each incoming notification.
      */
-    typedef void (*drNotificationCallback)(const WaveNotification* event, void* userData);
+    typedef void (*WaveNotificationCallback)(const WaveNotification* event, void* userData);
     
     /**
      *
      */
-    typedef void (*drAudioWrittenCallback)(const char* path, int numBytes, void* userData);
+    typedef void (*WaveAudioWrittenCallback)(const char* path, int numBytes, void* userData);
     
     /**
      * Initializes the recorder.
      */
-    WaveError drInitialize(drNotificationCallback notificationCallback,
-                         drErrorCallback errorCallback,
-                         drAudioWrittenCallback audioWrittenCallback,
-                         void* callbackUserData,
-                         WaveSettings* settings);
+    WaveError wave_init(WaveNotificationCallback notificationCallback,
+                        WaveErrorCallback errorCallback,
+                        WaveAudioWrittenCallback audioWrittenCallback,
+                        void* callbackUserData,
+                        WaveSettings* settings);
     
     /**
      * Shuts down the recorder.
      */
-    WaveError drDeinitialize();
+    WaveError wave_deinit();
     
     /**
      * Called continually from the main/UI thread to pump new events
      * and invoke event callbacks.
      */
-    WaveError drUpdate(float timeStep);
+    WaveError wave_update(float timeStep);
     
     /**
      *
      */
-    WaveError drGetRealtimeInfo(int channel, int logLevels, WaveRealtimeInfo* result);
+    WaveError wave_get_realtime_info(int channel, int logLevels, WaveRealtimeInfo* result);
     
     /**
      * Starts recording audio to a file at a given path. If \c audioFilePath
@@ -107,14 +107,14 @@ extern "C"
      * to that file and new audio will be appended to the end of the file.
      * @param audioFilePath The path of the file to record to.
      */
-    WaveError drStartRecording(const char* audioFilePath);
+    WaveError wave_start_recording(const char* audioFilePath);
     
     
     /**
      * Shuts down the encoder and closes the file it's recording to.
      * If recording is not in progress, this function does nothing.
      */
-    WaveError drStopRecording();
+    WaveError wave_stop_recording();
     
     /**
      * Pauses recording, i.e prevents the audio thread from passing
@@ -123,19 +123,19 @@ extern "C"
      * this function does nothing.
      * @see drResumeRecording
      */
-    WaveError drPauseRecording();
+    WaveError wave_pause_recording();
     
     /**
      * Resumes recording, i.e instructs the audio thread to start
      * passing audio data to the encoder again.
      * @see drPauseRecording
      */
-    WaveError drResumeRecording();
+    WaveError wave_resume_recording();
     
     /**
      *
      */
-    WaveError drGetDevInfo(drDevInfo* devInfo);
+    WaveError wave_get_dev_info(WaveDevInfo* devInfo);
     
     
 #ifdef __cplusplus

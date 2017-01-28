@@ -146,12 +146,12 @@ static void audioWrittenCallback(const char* path, int numBytes, void* userData)
 {
     if (m_updateCounter == 0)
     {
-        drUpdate(kUpdateInterval);
+        wave_update(kUpdateInterval);
         WaveRealtimeInfo il;
-        drGetRealtimeInfo(0, 1, &il);
+        wave_get_realtime_info(0, 1, &il);
         
-        drDevInfo di;
-        drGetDevInfo(&di);
+        WaveDevInfo di;
+        wave_get_dev_info(&di);
         
         float a = 0.2f;
         float dur = 2.0f;
@@ -193,22 +193,22 @@ static void audioWrittenCallback(const char* path, int numBytes, void* userData)
 
 -(void)onRecStart:(id)sender
 {
-    drStartRecording([m_recordingTargetPath UTF8String]);
+    wave_start_recording([m_recordingTargetPath UTF8String]);
 }
 
 -(void)onRecStop:(id)sender
 {
-    drStopRecording();
+    wave_stop_recording();
 }
 
 -(void)onRecPause:(id)sender
 {
-    drPauseRecording();
+    wave_pause_recording();
 }
 
 -(void)onRecResume:(id)sender
 {
-    drResumeRecording();
+    wave_resume_recording();
 }
 
 -(void)onUpdateIntervalChanged:(UISegmentedControl*)c
@@ -227,16 +227,16 @@ static void audioWrittenCallback(const char* path, int numBytes, void* userData)
     wave_settings_init(&settings);
     settings.encoderFormat = WAVE_ENCODER_FORMAT_AAC;
     
-    drInitialize(eventCallback,
-                 errorCallback,
-                 audioWrittenCallback,
-                 (__bridge void*)(self),
-                 &settings);
+    wave_init(eventCallback,
+              errorCallback,
+              audioWrittenCallback,
+              (__bridge void*)(self),
+              &settings);
 }
 
 -(void)onDeinit:(id)sender
 {
-    drDeinitialize();
+    wave_deinit();
 }
 
 -(void)onAudioDataWritten:(NSString*)path

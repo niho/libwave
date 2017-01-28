@@ -16,9 +16,9 @@
 
 
 WaveError drInstance_init(drInstance* instance,
-                        drNotificationCallback notificationCallback,
-                        drErrorCallback errorCallback,
-                        drAudioWrittenCallback audioWrittenCallback,
+                        WaveNotificationCallback notificationCallback,
+                        WaveErrorCallback errorCallback,
+                        WaveAudioWrittenCallback audioWrittenCallback,
                         void* callbackUserData,
                         WaveSettings* settings)
 {
@@ -615,10 +615,10 @@ void drInstance_getRealtimeInfo(drInstance* instance, int channel, int logLevels
     result->numRecordedSeconds = lSrc->numRecordedSeconds;
 }
 
-void drInstance_getDevInfo(drInstance* instance, drDevInfo* devInfo)
+void drInstance_getDevInfo(drInstance* instance, WaveDevInfo* devInfo)
 {
     //copy the info to the caller
-    memcpy(devInfo, &instance->devInfo, sizeof(drDevInfo));
+    memcpy(devInfo, &instance->devInfo, sizeof(WaveDevInfo));
     
     //clear any flags
     instance->devInfo.recordFIFOUnderrun = 0;
