@@ -17,18 +17,18 @@
     //init/deinit buttons
     {
         [self addUITitleRow:@"Digger Recorder lifecycle"];
-        self.initButton = [UIButton buttonWithType:UIButtonTypeSystem];
-        [self.initButton setTitle:@"Initialize" forState:UIControlStateNormal];
-        [self.initButton addTarget:vc action:@selector(onInit:)
+        self.waveInitButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [self.waveInitButton setTitle:@"Initialize" forState:UIControlStateNormal];
+        [self.waveInitButton addTarget:vc action:@selector(onInit:)
                         forControlEvents:UIControlEventTouchUpInside];
         
-        self.deinitButton = [UIButton buttonWithType:UIButtonTypeSystem];
-        [self.deinitButton setTitle:@"Shut down" forState:UIControlStateNormal];
-        [self.deinitButton addTarget:vc action:@selector(onDeinit:)
+        self.waveDeinitButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [self.waveDeinitButton setTitle:@"Shut down" forState:UIControlStateNormal];
+        [self.waveDeinitButton addTarget:vc action:@selector(onDeinit:)
                       forControlEvents:UIControlEventTouchUpInside];
         
-        [self addUIRow:self.initButton
-                      :self.deinitButton];
+        [self addUIRow:self.waveInitButton
+                      :self.waveDeinitButton];
     }
     
     //latest notification

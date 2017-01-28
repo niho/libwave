@@ -24,8 +24,8 @@
 @property (nonatomic, retain) UIButton* recToggleButton;
 @property (nonatomic, retain) UIButton* recPauseButton;
 
-@property (nonatomic, retain) UIButton* initButton;
-@property (nonatomic, retain) UIButton* deinitButton;
+@property (nonatomic, retain) UIButton* waveInitButton;
+@property (nonatomic, retain) UIButton* waveDeinitButton;
 
 @property (nonatomic, retain) UISegmentedControl* updateIntervalButton;
 

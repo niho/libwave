@@ -35,9 +35,6 @@ $(OSX): $(SOURCES)
 $(EXTERNALDIR)/tinycthread:
 	./clone_externals.sh
 
-$(EXTERNALDIR)/jansson:
-	./clone_externals.sh
-
 doc: doxyfile_private doxyfile_public
 	doxygen doxyfile_private
 	doxygen doxyfile_public
