@@ -15,14 +15,14 @@
 #include "platform_util.h"
 
 
-WaveError drInstance_init(drInstance* instance,
-                        WaveNotificationCallback notificationCallback,
-                        WaveErrorCallback errorCallback,
-                        WaveAudioWrittenCallback audioWrittenCallback,
-                        void* callbackUserData,
-                        WaveSettings* settings)
+WaveError wave_instance_init(WaveInstance* instance,
+                             WaveNotificationCallback notificationCallback,
+                             WaveErrorCallback errorCallback,
+                             WaveAudioWrittenCallback audioWrittenCallback,
+                             void* callbackUserData,
+                             WaveSettings* settings)
 {
-    memset(instance, 0, sizeof(drInstance));
+    memset(instance, 0, sizeof(WaveInstance));
     
     //use custom settings if provided.
     if (settings)
@@ -47,70 +47,70 @@ WaveError drInstance_init(drInstance* instance,
     instance->errorCallback = errorCallback;
     instance->callbackUserData = callbackUserData;
     
-    drCreateEncoder(&instance->recordingSession.encoder,
+    wave_create_encoder(&instance->recordingSession.encoder,
                     &instance->settings);
     
-    drLockFreeFIFO_init(&instance->inputAudioDataQueue,
-                        instance->settings.recordFIFOCapacity,
-                        sizeof(drRecordedChunk));
+    wave_lock_free_fifo_init(&instance->inputAudioDataQueue,
+                             instance->settings.recordFIFOCapacity,
+                             sizeof(WaveRecordedChunk));
     
     //create error, notification and control event queues
-    drLockFreeFIFO_init(&instance->notificationFIFO,
-                        instance->settings.notificationFIFOCapacity,
-                        sizeof(WaveNotification));
+    wave_lock_free_fifo_init(&instance->notificationFIFO,
+                             instance->settings.notificationFIFOCapacity,
+                             sizeof(WaveNotification));
     
-    drLockFreeFIFO_init(&instance->controlEventFIFO,
-                        instance->settings.controlEventFIFOCapacity,
-                        sizeof(drControlEvent));
+    wave_lock_free_fifo_init(&instance->controlEventFIFO,
+                             instance->settings.controlEventFIFOCapacity,
+                             sizeof(WaveControlEvent));
     
-    drLockFreeFIFO_init(&instance->errorFIFO,
-                        instance->settings.errorFIFOCapacity,
-                        sizeof(WaveError));
+    wave_lock_free_fifo_init(&instance->errorFIFO,
+                             instance->settings.errorFIFOCapacity,
+                             sizeof(WaveError));
     
-    drLockFreeFIFO_init(&instance->realTimeDataFifo,
-                        instance->settings.realtimeDataFIFOCapacity,
-                        sizeof(WaveRealtimeInfo));
+    wave_lock_free_fifo_init(&instance->realTimeDataFifo,
+                             instance->settings.realtimeDataFIFOCapacity,
+                             sizeof(WaveRealtimeInfo));
     
     
     //create audio analyzers
     assert(instance->settings.desiredNumInputChannels <= MAX_NUM_INPUT_CHANNELS);
     for (int i = 0; i < instance->settings.desiredNumInputChannels; i++)
     {
-        drLevelMeter_init(&instance->inputLevelMeters[i],
+        wave_level_meter_init(&instance->inputLevelMeters[i],
                           i,
                           instance->settings.desiredSampleRate,
                           instance->settings.levelMeterAttackTime,
                           instance->settings.levelMeterReleaseTime,
                           instance->settings.rmsWindowSizeInSeconds);
-        drInstance_addInputAnalyzer(instance,
+        wave_instance_add_input_analyzer(instance,
                                     &instance->inputLevelMeters[i],
-                                    drLevelMeter_processBuffer,
-                                    drLevelMeter_deinit);
+                                    wave_level_meter_process_buffer,
+                                    wave_level_meter_deinit);
     }
     
     //create level advisor
-    drLevelAdvisor_init(&instance->levelAdvisor,
+    wave_level_advisor_init(&instance->levelAdvisor,
                         instance,
                         0,
                         instance->settings.desiredSampleRate);
-    drInstance_addInputAnalyzer(instance,
+    wave_instance_add_input_analyzer(instance,
                                 &instance->levelAdvisor,
-                                drLevelAdvisor_processBuffer,
-                                drLevelAdvisor_deinit);
+                                wave_level_advisor_process_buffer,
+                                wave_level_advisor_deinit);
     
-    WaveError initResult = drInstance_hostSpecificInit(instance);
+    WaveError initResult = wave_instance_host_specific_init(instance);
     return initResult;
 }
 
-WaveError drInstance_deinit(drInstance* instance)
+WaveError wave_instance_deinit(WaveInstance* instance)
 {
-    assert(drInstance_isOnMainThread(instance));
+    assert(wave_instance_is_on_main_thread(instance));
     //stop the audio system
-    WaveError deinitResult = drInstance_hostSpecificDeinit(instance);
+    WaveError deinitResult = wave_instance_host_specific_deinit(instance);
     
     WaveNotification n;
     n.type = WAVE_DID_SHUT_DOWN;
-    drInstance_invokeNotificationCallback(instance, &n);
+    wave_instance_invoke_notification_callback(instance, &n);
     
     //clean up analyzers
     for (int i = 0; i < MAX_NUM_ANALYZER_SLOTS; i++)
@@ -122,39 +122,39 @@ WaveError drInstance_deinit(drInstance* instance)
         }
     }
     
-    DR_FREE(instance->recordingSession.encoder.encoderData);
+    WAVE_FREE(instance->recordingSession.encoder.encoderData);
     
-    drLockFreeFIFO_deinit(&instance->inputAudioDataQueue);
+    wave_lock_free_fifo_deinit(&instance->inputAudioDataQueue);
     
     //release event queues
-    drLockFreeFIFO_deinit(&instance->notificationFIFO);
-    drLockFreeFIFO_deinit(&instance->controlEventFIFO);
-    drLockFreeFIFO_deinit(&instance->errorFIFO);
-    drLockFreeFIFO_deinit(&instance->realTimeDataFifo);
+    wave_lock_free_fifo_deinit(&instance->notificationFIFO);
+    wave_lock_free_fifo_deinit(&instance->controlEventFIFO);
+    wave_lock_free_fifo_deinit(&instance->errorFIFO);
+    wave_lock_free_fifo_deinit(&instance->realTimeDataFifo);
 
     //clear the instance
-    memset(instance, 0, sizeof(drInstance));
+    memset(instance, 0, sizeof(WaveInstance));
     
     return deinitResult;
 }
 
-void drInstance_update(drInstance* instance, float timeStep)
+void wave_instance_update(WaveInstance* instance, float timeStep)
 {
-    assert(drInstance_isOnMainThread(instance));
+    assert(wave_instance_is_on_main_thread(instance));
     
     //update dev info before consuming any events
-    instance->devInfo.controlEventFIFOLevel = drLockFreeFIFO_getNumElements(&instance->controlEventFIFO) /
+    instance->devInfo.controlEventFIFOLevel = wave_lock_free_fifo_get_num_elements(&instance->controlEventFIFO) /
     ((float)instance->controlEventFIFO.capacity);
     
-    instance->devInfo.notificationFIFOLevel = drLockFreeFIFO_getNumElements(&instance->notificationFIFO) /
+    instance->devInfo.notificationFIFOLevel = wave_lock_free_fifo_get_num_elements(&instance->notificationFIFO) /
     ((float)instance->notificationFIFO.capacity);
     
-    instance->devInfo.recordFIFOLevel = drLockFreeFIFO_getNumElements(&instance->inputAudioDataQueue) /
+    instance->devInfo.recordFIFOLevel = wave_lock_free_fifo_get_num_elements(&instance->inputAudioDataQueue) /
     ((float)instance->inputAudioDataQueue.capacity);
     
     //get measured levels
     WaveRealtimeInfo l;
-    while (drLockFreeFIFO_pop(&instance->realTimeDataFifo, &l))
+    while (wave_lock_free_fifo_pop(&instance->realTimeDataFifo, &l))
     {
         //TODO: number of input channels?
         memcpy(&instance->realtimeInfo, &l, sizeof(WaveRealtimeInfo));
@@ -162,23 +162,23 @@ void drInstance_update(drInstance* instance, float timeStep)
     
     //invoke the error callback for any incoming errors on the main thread
     WaveError e;
-    while (drLockFreeFIFO_pop(&instance->errorFIFO, &e))
+    while (wave_lock_free_fifo_pop(&instance->errorFIFO, &e))
     {
-        drInstance_onMainThreadError(instance, e);
+        wave_instance_on_main_thread_error(instance, e);
     }
     
     //invoke the event callback for any incoming events on the main thread
     WaveNotification n;
-    while (drLockFreeFIFO_pop(&instance->notificationFIFO, &n))
+    while (wave_lock_free_fifo_pop(&instance->notificationFIFO, &n))
     {
-        drInstance_onMainThreadNotification(instance, &n);
+        wave_instance_on_main_thread_notification(instance, &n);
     }
     
     //pump audio data FIFO after the notifiaction FIFO, to make sure
     //a recording started event arrives before the first audio data.
-    drRecordedChunk c;
+    WaveRecordedChunk c;
     int errorOccured = 0;
-    while (drLockFreeFIFO_pop(&instance->inputAudioDataQueue, &c))
+    while (wave_lock_free_fifo_pop(&instance->inputAudioDataQueue, &c))
     {
         //printf("%d frames of recorded %d channel audio arrived on the main thread\n", c.numFrames, c.numChannels);
         if (!errorOccured)
@@ -215,22 +215,22 @@ void drInstance_update(drInstance* instance, float timeStep)
             if (writeResult != WAVE_NO_ERROR)
             {
                 errorOccured = 1;
-                drInstance_onMainThreadError(instance, writeResult);
-                drInstance_enqueueControlEventOfType(instance, DR_STOP_RECORDING);
+                wave_instance_on_main_thread_error(instance, writeResult);
+                wave_instance_enqueue_control_event_of_type(instance, WAVE_STOP_RECORDING);
             }
             else
             {
                 //printf("recorded %d frames on the main thread\n", instance->recordingSession.numRecordedFrames);
                 if (c.lastChunk)
                 {
-                    drInstance_stopRecording(instance);
+                    wave_instance_stop_recording(instance);
                 }
             }
         }
     }
 }
 
-void drInstance_audioInputCallback(drInstance* in, const float* inBuffer, int numChannels, int numFrames)
+void wave_instance_audio_input_callback(WaveInstance* in, const float* inBuffer, int numChannels, int numFrames)
 {
     //pass audio input to analyzers
     for (int i = 0; i < MAX_NUM_ANALYZER_SLOTS; i++)
@@ -242,10 +242,10 @@ void drInstance_audioInputCallback(drInstance* in, const float* inBuffer, int nu
     }
     
     //record, if requested
-    if (in->stateAudioThread == DR_STATE_RECORDING ||
-        in->stateAudioThread == DR_STATE_RECORDING_PAUSED)
+    if (in->stateAudioThread == WAVE_STATE_RECORDING ||
+        in->stateAudioThread == WAVE_STATE_RECORDING_PAUSED)
     {
-        drRecordedChunk c;
+        WaveRecordedChunk c;
         const int lastBuffer = in->stopRecordingRequested;
         
         const int numSamples = numChannels * numFrames;
@@ -262,7 +262,7 @@ void drInstance_audioInputCallback(drInstance* in, const float* inBuffer, int nu
             }
             
             //TODO: this is a double memcpy....
-            const int paused = in->stateAudioThread == DR_STATE_RECORDING_PAUSED;
+            const int paused = in->stateAudioThread == WAVE_STATE_RECORDING_PAUSED;
             c.numFrames = paused ? 0 : samplesLeft;
             c.numChannels = numChannels;
             c.lastChunk = 0;
@@ -272,12 +272,12 @@ void drInstance_audioInputCallback(drInstance* in, const float* inBuffer, int nu
             }
             memcpy(c.samples, &inBuffer[sampleIdx], samplesLeft * sizeof(float));
             //printf("sending %d frames of recorded %d channel audio to the main thread\n", samplesLeft, numChannels);
-            int pushSuccess = drLockFreeFIFO_push(&in->inputAudioDataQueue, &c);
+            int pushSuccess = wave_lock_free_fifo_push(&in->inputAudioDataQueue, &c);
             if (pushSuccess == 0)
             {
                 in->devInfo.recordFIFOUnderrun = 1;
             }
-            else if (in->stateAudioThread == DR_STATE_RECORDING)
+            else if (in->stateAudioThread == WAVE_STATE_RECORDING)
             {
                 in->recordingSession.numRecordedFrames += samplesLeft;
             }
@@ -290,8 +290,8 @@ void drInstance_audioInputCallback(drInstance* in, const float* inBuffer, int nu
         if (in->stopRecordingRequested)
         {
             in->stopRecordingRequested = 0;
-            in->stateAudioThread = DR_STATE_IDLE;
-            drInstance_enqueueNotificationOfType(in, WAVE_RECORDING_STOPPED);
+            in->stateAudioThread = WAVE_STATE_IDLE;
+            wave_instance_enqueue_notification_of_type(in, WAVE_RECORDING_STOPPED);
         }
     }
     
@@ -300,7 +300,7 @@ void drInstance_audioInputCallback(drInstance* in, const float* inBuffer, int nu
     {
         WaveRealtimeInfo l;
         
-        drLevelMeter* m = &in->inputLevelMeters[i];
+        WaveLevelMeter* m = &in->inputLevelMeters[i];
         
         l.peakLevel = m->peak;
         l.peakLevelEnvelope = m->peakEnvelope;
@@ -311,26 +311,26 @@ void drInstance_audioInputCallback(drInstance* in, const float* inBuffer, int nu
         l.hasClipped = m->clip;
         
         //TODO: more channels
-        drLockFreeFIFO_push(&in->realTimeDataFifo, &l);
+        wave_lock_free_fifo_push(&in->realTimeDataFifo, &l);
     }
     
     //copy measured levels to the main thread. TODO: pass these using a FIFO
-    //memcpy(in->inputLevelsShared, in->inputLevelsAudio, sizeof(drRealtimeInfo) * MAX_NUM_INPUT_CHANNELS);
+    //memcpy(in->inputLevelsShared, in->inputLevelsAudio, sizeof(WaveRealtimeInfo) * MAX_NUM_INPUT_CHANNELS);
     
-    drControlEvent e;
-    while (drLockFreeFIFO_pop(&in->controlEventFIFO, &e))
+    WaveControlEvent e;
+    while (wave_lock_free_fifo_pop(&in->controlEventFIFO, &e))
     {
-        drInstance_onAudioThreadControlEvent(in, &e);
+        wave_instance_on_audio_thread_control_event(in, &e);
     }
 }
 
-void drInstance_audioOutputCallback(drInstance* in, float* inBuffer, int numChannels, int numFrames)
+void wave_instance_audio_output_callback(WaveInstance* in, float* inBuffer, int numChannels, int numFrames)
 {
     if (in->firstSampleHasPlayed == 0)
     {
         WaveNotification e;
         e.type = WAVE_DID_INITIALIZE;
-        drInstance_enqueueNotification(in, &e);
+        wave_instance_enqueue_notification(in, &e);
         in->firstSampleHasPlayed = 1;
     }
     
@@ -340,16 +340,16 @@ void drInstance_audioOutputCallback(drInstance* in, float* inBuffer, int numChan
     }
 }
 
-int drInstance_isOnMainThread(drInstance* instance)
+int wave_instance_is_on_main_thread(WaveInstance* instance)
 {
     return thrd_equal(thrd_current(), instance->mainThread);
 }
 
 
-int drInstance_addInputAnalyzer(drInstance* instance,
+int wave_instance_add_input_analyzer(WaveInstance* instance,
                                 void* analyzerData,
-                                drAnalyzerAudioCallback audioCallback,
-                                drAnalyzerDeinitCallback deinitCallback)
+                                WaveAnalyzerAudioCallback audioCallback,
+                                WaveAnalyzerDeinitCallback deinitCallback)
 {
     //TODO: make sure this is not called when the audio system is running. or lock this somehow.
     for (int i = 0; MAX_NUM_ANALYZER_SLOTS; i++)
@@ -368,17 +368,17 @@ int drInstance_addInputAnalyzer(drInstance* instance,
     return 1;
 }
 
-void drInstance_requestStartRecording(drInstance* instance, const char* filePath)
+void wave_instance_request_start_recording(WaveInstance* instance, const char* filePath)
 {
     
-    strncpy(instance->requestedAudioFilePath, filePath, DR_MAX_PATH_LEN);
-    drInstance_enqueueControlEventOfType(instance, DR_START_RECORDING);
+    strncpy(instance->requestedAudioFilePath, filePath, WAVE_MAX_PATH_LEN);
+    wave_instance_enqueue_control_event_of_type(instance, WAVE_START_RECORDING);
 
 }
 
-void drInstance_initiateRecording(drInstance* instance)
+void wave_instance_initiate_recording(WaveInstance* instance)
 {
-    assert(drInstance_isOnMainThread(instance));
+    assert(wave_instance_is_on_main_thread(instance));
     strcpy(instance->recordingSession.targetFilePath, instance->requestedAudioFilePath);
     instance->requestedAudioFilePath[0] = '\0';
     assert(strlen(instance->recordingSession.targetFilePath) > 0);
@@ -389,23 +389,22 @@ void drInstance_initiateRecording(drInstance* instance)
     
     if (initResult != WAVE_NO_ERROR)
     {
-        drInstance_invokeErrorCallback(instance, initResult);
+        wave_instance_invoke_error_callback(instance, initResult);
     }
     
-    printf("drInstance_initiateRecording\n");
+    printf("wave_instance_initiate_recording\n");
 }
 
-void drInstance_stopRecording(drInstance* instance)
+void wave_instance_stop_recording(WaveInstance* instance)
 {
-    
-    assert(drInstance_isOnMainThread(instance));
-    printf("drInstance_cancelRecording\n");
+    assert(wave_instance_is_on_main_thread(instance));
+    printf("wave_instance_stop_recording\n");
     
     //clear any queued up audio chunks
-    while (!drLockFreeFIFO_isEmpty(&instance->inputAudioDataQueue))
+    while (!wave_lock_free_fifo_is_empty(&instance->inputAudioDataQueue))
     {
-        drRecordedChunk c;
-        drLockFreeFIFO_pop(&instance->inputAudioDataQueue, &c);
+        WaveRecordedChunk c;
+        wave_lock_free_fifo_pop(&instance->inputAudioDataQueue, &c);
         
         //TODO: write this chunk!
         //instance->recordingSession.encoder.writeCallback(
@@ -417,9 +416,9 @@ void drInstance_stopRecording(drInstance* instance)
 }
 
 
-void drInstance_invokeErrorCallback(drInstance* instance, WaveError errorCode)
+void wave_instance_invoke_error_callback(WaveInstance* instance, WaveError errorCode)
 {
-    assert(drInstance_isOnMainThread(instance));
+    assert(wave_instance_is_on_main_thread(instance));
     
     if (instance->errorCallback)
     {
@@ -427,7 +426,7 @@ void drInstance_invokeErrorCallback(drInstance* instance, WaveError errorCode)
     }
 }
 
-void drInstance_invokeNotificationCallback(drInstance* instance, const WaveNotification* notification)
+void wave_instance_invoke_notification_callback(WaveInstance* instance, const WaveNotification* notification)
 {
     if (instance->notificationCallback)
     {
@@ -435,96 +434,96 @@ void drInstance_invokeNotificationCallback(drInstance* instance, const WaveNotif
     }
 }
 
-void drInstance_enqueueError(drInstance* instance, WaveError error)
+void wave_instance_enqueue_error(WaveInstance* instance, WaveError error)
 {
-    assert(!drInstance_isOnMainThread(instance));
-    int pushSuccess = drLockFreeFIFO_push(&instance->errorFIFO, &error);
+    assert(!wave_instance_is_on_main_thread(instance));
+    int pushSuccess = wave_lock_free_fifo_push(&instance->errorFIFO, &error);
     if (pushSuccess == 0)
     {
         instance->devInfo.errorFIFOUnderrun = 1;
     }
 }
 
-void drInstance_enqueueNotification(drInstance* instance, const WaveNotification* notification)
+void wave_instance_enqueue_notification(WaveInstance* instance, const WaveNotification* notification)
 {
-    assert(!drInstance_isOnMainThread(instance));
-    int pushSuccess = drLockFreeFIFO_push(&instance->notificationFIFO, notification);
+    assert(!wave_instance_is_on_main_thread(instance));
+    int pushSuccess = wave_lock_free_fifo_push(&instance->notificationFIFO, notification);
     if (pushSuccess == 0)
     {
         instance->devInfo.notificationFIFOUnderrun = 1;
     }
 }
 
-void drInstance_enqueueNotificationOfType(drInstance* instance, WaveNotificationType type)
+void wave_instance_enqueue_notification_of_type(WaveInstance* instance, WaveNotificationType type)
 {
     WaveNotification n;
     memset(&n, 0, sizeof(WaveNotification));
     n.type = type;
-    drInstance_enqueueNotification(instance, &n);
+    wave_instance_enqueue_notification(instance, &n);
 }
 
-void drInstance_enqueueControlEvent(drInstance* instance, const drControlEvent* event)
+void wave_instance_enqueue_control_event(WaveInstance* instance, const WaveControlEvent* event)
 {
-    assert(drInstance_isOnMainThread(instance));
-    int pushSuccess = drLockFreeFIFO_push(&instance->controlEventFIFO, (void*)event);
+    assert(wave_instance_is_on_main_thread(instance));
+    int pushSuccess = wave_lock_free_fifo_push(&instance->controlEventFIFO, (void*)event);
     if (pushSuccess == 0)
     {
         instance->devInfo.controlEventFIFOUnderrun = 1;
     }
 }
 
-void drInstance_enqueueControlEventOfType(drInstance* instance, drControlEventType type)
+void wave_instance_enqueue_control_event_of_type(WaveInstance* instance, WaveControlEventType type)
 {
-    drControlEvent e;
-    memset(&e, 0, sizeof(drControlEvent));
+    WaveControlEvent e;
+    memset(&e, 0, sizeof(WaveControlEvent));
     e.type = type;
-    drInstance_enqueueControlEvent(instance, &e);
+    wave_instance_enqueue_control_event(instance, &e);
 }
 
-void drInstance_onAudioThreadControlEvent(drInstance* instance, const drControlEvent* event)
+void wave_instance_on_audio_thread_control_event(WaveInstance* instance, const WaveControlEvent* event)
 {
-    assert(!drInstance_isOnMainThread(instance));
+    assert(!wave_instance_is_on_main_thread(instance));
     
     switch (event->type)
     {
-        case DR_START_RECORDING:
+        case WAVE_START_RECORDING:
         {
-            if (instance->stateAudioThread == DR_STATE_IDLE)
+            if (instance->stateAudioThread == WAVE_STATE_IDLE)
             {
                 //recording requested and we're currently not recording.
                 //start recording.
                 instance->recordingSession.numRecordedFrames = 0;
-                instance->stateAudioThread = DR_STATE_RECORDING;
-                drInstance_enqueueNotificationOfType(instance, WAVE_RECORDING_STARTED);
+                instance->stateAudioThread = WAVE_STATE_RECORDING;
+                wave_instance_enqueue_notification_of_type(instance, WAVE_RECORDING_STARTED);
             }
             break;
         }
-        case DR_PAUSE_RECORDING:
+        case WAVE_PAUSE_RECORDING:
         {
-            if (instance->stateAudioThread == DR_STATE_RECORDING)
+            if (instance->stateAudioThread == WAVE_STATE_RECORDING)
             {
                 //recording pause requested and we're currently recording.
                 //pause recording.
-                instance->stateAudioThread = DR_STATE_RECORDING_PAUSED;
-                drInstance_enqueueNotificationOfType(instance, WAVE_RECORDING_PAUSED);
+                instance->stateAudioThread = WAVE_STATE_RECORDING_PAUSED;
+                wave_instance_enqueue_notification_of_type(instance, WAVE_RECORDING_PAUSED);
             }
             break;
         }
-        case DR_RESUME_RECORDING:
+        case WAVE_RESUME_RECORDING:
         {
-            if (instance->stateAudioThread == DR_STATE_RECORDING_PAUSED)
+            if (instance->stateAudioThread == WAVE_STATE_RECORDING_PAUSED)
             {
                 //recording resume requested and we're currently paused.
                 //resume recording.
-                instance->stateAudioThread = DR_STATE_RECORDING;
-                drInstance_enqueueNotificationOfType(instance, WAVE_RECORDING_RESUMED);
+                instance->stateAudioThread = WAVE_STATE_RECORDING;
+                wave_instance_enqueue_notification_of_type(instance, WAVE_RECORDING_RESUMED);
             }
             break;
         }
-        case DR_STOP_RECORDING:
+        case WAVE_STOP_RECORDING:
         {
-            if (instance->stateAudioThread == DR_STATE_RECORDING ||
-                instance->stateAudioThread == DR_STATE_RECORDING_PAUSED)
+            if (instance->stateAudioThread == WAVE_STATE_RECORDING ||
+                instance->stateAudioThread == WAVE_STATE_RECORDING_PAUSED)
             {
                 //cancel recording requested and we're currently recording.
                 //cancel.
@@ -539,17 +538,17 @@ void drInstance_onAudioThreadControlEvent(drInstance* instance, const drControlE
     }
 }
 
-void drInstance_onMainThreadError(drInstance* instance, WaveError error)
+void wave_instance_on_main_thread_error(WaveInstance* instance, WaveError error)
 {
-    assert(drInstance_isOnMainThread(instance));
+    assert(wave_instance_is_on_main_thread(instance));
     
-    drInstance_invokeErrorCallback(instance, error);
+    wave_instance_invoke_error_callback(instance, error);
     
 }
 
-void drInstance_onMainThreadNotification(drInstance* instance, const WaveNotification* notification)
+void wave_instance_on_main_thread_notification(WaveInstance* instance, const WaveNotification* notification)
 {
-    assert(drInstance_isOnMainThread(instance));
+    assert(wave_instance_is_on_main_thread(instance));
     
     switch (notification->type)
     {
@@ -559,26 +558,26 @@ void drInstance_onMainThreadNotification(drInstance* instance, const WaveNotific
         }
         case WAVE_RECORDING_STARTED:
         {
-            instance->stateMainThread = DR_STATE_RECORDING;
+            instance->stateMainThread = WAVE_STATE_RECORDING;
             //initiate recording
-            drInstance_initiateRecording(instance);
+            wave_instance_initiate_recording(instance);
             break;
         }
         case WAVE_RECORDING_STOPPED:
         {
             //nothing here. the recording is finished when the last buffer
             //has been received.
-            instance->stateMainThread = DR_STATE_IDLE;
+            instance->stateMainThread = WAVE_STATE_IDLE;
             break;
         }
         case WAVE_RECORDING_PAUSED:
         {
-            instance->stateMainThread = DR_STATE_RECORDING_PAUSED;
+            instance->stateMainThread = WAVE_STATE_RECORDING_PAUSED;
             break;
         }
         case WAVE_RECORDING_RESUMED:
         {
-            instance->stateMainThread = DR_STATE_RECORDING;
+            instance->stateMainThread = WAVE_STATE_RECORDING;
             break;
         }
         
@@ -588,7 +587,7 @@ void drInstance_onMainThreadNotification(drInstance* instance, const WaveNotific
         }
     }
     
-    drInstance_invokeNotificationCallback(instance, notification);
+    wave_instance_invoke_notification_callback(instance, notification);
 }
 
 static float lin2LogLevel(float lin)
@@ -597,7 +596,7 @@ static float lin2LogLevel(float lin)
     return powf(lin, 0.3f);
 }
 
-void drInstance_getRealtimeInfo(drInstance* instance, int channel, int logLevels, WaveRealtimeInfo* result)
+void wave_instance_get_realtime_info(WaveInstance* instance, int channel, int logLevels, WaveRealtimeInfo* result)
 {
     memset(result, 0, sizeof(WaveRealtimeInfo));
     
@@ -615,7 +614,7 @@ void drInstance_getRealtimeInfo(drInstance* instance, int channel, int logLevels
     result->numRecordedSeconds = lSrc->numRecordedSeconds;
 }
 
-void drInstance_getDevInfo(drInstance* instance, WaveDevInfo* devInfo)
+void wave_instance_get_dev_info(WaveInstance* instance, WaveDevInfo* devInfo)
 {
     //copy the info to the caller
     memcpy(devInfo, &instance->devInfo, sizeof(WaveDevInfo));

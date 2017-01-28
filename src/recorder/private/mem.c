@@ -5,16 +5,16 @@
 
 #ifdef DEBUG
 
-#define DR_MAX_NUM_DEBUG_ALLOCATION_RECORDS 1024
+#define WAVE_MAX_NUM_DEBUG_ALLOCATION_RECORDS 1024
 
-typedef struct drAllocationRecord
+typedef struct WaveAllocationRecord
 {
     void* ptr;
     size_t size;
     const char* tag;
-} drAllocationRecord;
+} WaveAllocationRecord;
 
-static drAllocationRecord allocationRecords[DR_MAX_NUM_DEBUG_ALLOCATION_RECORDS];
+static WaveAllocationRecord allocationRecords[WAVE_MAX_NUM_DEBUG_ALLOCATION_RECORDS];
 
 static int clearRecords = 1;
 
@@ -22,18 +22,18 @@ static size_t numLiveBytes = 0;
 
 #endif
 
-void* drMalloc(size_t size, const char* tag)
+void* wave_malloc(size_t size, const char* tag)
 {
 #ifdef DEBUG
     if (clearRecords)
     {
-        memset(allocationRecords, 0, DR_MAX_NUM_DEBUG_ALLOCATION_RECORDS * sizeof(drAllocationRecord));
+        memset(allocationRecords, 0, WAVE_MAX_NUM_DEBUG_ALLOCATION_RECORDS * sizeof(WaveAllocationRecord));
         clearRecords = 0;
     }
     
-    drAllocationRecord* record = NULL;
+    WaveAllocationRecord* record = NULL;
     
-    for (int i = 0; i < DR_MAX_NUM_DEBUG_ALLOCATION_RECORDS; i++)
+    for (int i = 0; i < WAVE_MAX_NUM_DEBUG_ALLOCATION_RECORDS; i++)
     {
         if (allocationRecords[i].ptr == 0)
         {
@@ -62,17 +62,17 @@ void* drMalloc(size_t size, const char* tag)
 #endif //DEBUG
 }
 
-void drFree(void* ptr)
+void wave_free(void* ptr)
 {
 #ifdef DEBUG
     if (clearRecords)
     {
-        memset(allocationRecords, 0, DR_MAX_NUM_DEBUG_ALLOCATION_RECORDS * sizeof(drAllocationRecord));
+        memset(allocationRecords, 0, WAVE_MAX_NUM_DEBUG_ALLOCATION_RECORDS * sizeof(WaveAllocationRecord));
         clearRecords = 0;
     }
     
-    drAllocationRecord* record = NULL;
-    for (int i = 0; i < DR_MAX_NUM_DEBUG_ALLOCATION_RECORDS; i++)
+    WaveAllocationRecord* record = NULL;
+    for (int i = 0; i < WAVE_MAX_NUM_DEBUG_ALLOCATION_RECORDS; i++)
     {
         if (allocationRecords[i].ptr == ptr)
         {
@@ -83,7 +83,7 @@ void drFree(void* ptr)
     
     if (!record)
     {
-        assert(0 && "attempting to DR_FREE a pointer that was not allocated using DR_MALLOC");
+        assert(0 && "attempting to WAVE_FREE a pointer that was not allocated using WAVE_MALLOC");
         return;
     }
     
@@ -92,7 +92,7 @@ void drFree(void* ptr)
     
     printf("freed pointer %p, live bytes %ld\n", record->ptr, numLiveBytes);
     
-    memset(record, 0, sizeof(drAllocationRecord));
+    memset(record, 0, sizeof(WaveAllocationRecord));
     
     
 #else

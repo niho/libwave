@@ -7,9 +7,9 @@
 
 #include "raw_encoder.h"
 
-WaveError drRawEncoder_init(void* rawEncoder, const char* filePath, float fs, float numChannels)
+WaveError wave_raw_encoder_init(void* rawEncoder, const char* filePath, float fs, float numChannels)
 {
-    drRawEncoder* re = (drRawEncoder*)rawEncoder;
+    WaveRawEncoder* re = (WaveRawEncoder*)rawEncoder;
     assert(re->file == 0);
     re->file = fopen(filePath, "a+");
     if (re->file == 0)
@@ -20,11 +20,11 @@ WaveError drRawEncoder_init(void* rawEncoder, const char* filePath, float fs, fl
     return WAVE_NO_ERROR;
 }
 
-WaveError drRawEncoder_write(void* rawEncoder, int numChannels, int numFrames, float* buffer, int* numBytesWritten)
+WaveError wave_raw_encoder_write(void* rawEncoder, int numChannels, int numFrames, float* buffer, int* numBytesWritten)
 {
     *numBytesWritten = 0;
     
-    drRawEncoder* re = (drRawEncoder*)rawEncoder;
+    WaveRawEncoder* re = (WaveRawEncoder*)rawEncoder;
     size_t bytesWritten = fwrite(buffer, sizeof(float), numFrames * numChannels, re->file);
     if (numFrames * numChannels != bytesWritten)
     {
@@ -38,9 +38,9 @@ WaveError drRawEncoder_write(void* rawEncoder, int numChannels, int numFrames, f
     return WAVE_NO_ERROR;
 }
 
-WaveError drRawEncoder_stop(void* rawEncoder)
+WaveError wave_raw_encoder_stop(void* rawEncoder)
 {
-    drRawEncoder* re = (drRawEncoder*)rawEncoder;
+    WaveRawEncoder* re = (WaveRawEncoder*)rawEncoder;
     if (fclose(re->file) != 0)
     {
         return WAVE_FAILED_TO_CLOSE_ENCODER_TARGET_FILE;

@@ -41,22 +41,22 @@ extern "C"
         float controlEventFIFOLevel;
         /** 
          * Gets set to a non-zero value if the audio recording FIFO has
-         * had an overrun since the previous call to drGetDevInfo.
+         * had an overrun since the previous call to wave_get_dev_info().
          */
         int recordFIFOUnderrun;
         /**
          * Gets set to a non-zero value if the notification FIFO has
-         * had an overrun since the previous call to drGetDevInfo.
+         * had an overrun since the previous call to wave_get_dev_info().
          */
         int notificationFIFOUnderrun;
         /**
          * Gets set to a non-zero value if the control event FIFO has
-         * had an overrun since the previous call to drGetDevInfo.
+         * had an overrun since the previous call to wave_get_dev_info().
          */
         int controlEventFIFOUnderrun;
         /**
          * Gets set to a non-zero value if the error FIFO has
-         * had an overrun since the previous call to drGetDevInfo.
+         * had an overrun since the previous call to wave_get_dev_info().
          */
         int errorFIFOUnderrun;
     } WaveDevInfo;
@@ -118,17 +118,17 @@ extern "C"
     
     /**
      * Pauses recording, i.e prevents the audio thread from passing
-     * audio data to the encoder until \c drResumeRecording() is called.
+     * audio data to the encoder until \c wave_resume_recording() is called.
      * If the system is not recording or if recording is already paused,
      * this function does nothing.
-     * @see drResumeRecording
+     * @see wave_resume_recording
      */
     WaveError wave_pause_recording();
     
     /**
      * Resumes recording, i.e instructs the audio thread to start
      * passing audio data to the encoder again.
-     * @see drPauseRecording
+     * @see wave_pause_recording
      */
     WaveError wave_resume_recording();
     

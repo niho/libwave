@@ -9,14 +9,14 @@
 
 #include "level_advisor.h"
 
-void drLevelAdvisor_init(drLevelAdvisor* advisor,
-                         drInstance* instance,
+void wave_level_advisor_init(WaveLevelAdvisor* advisor,
+                         WaveInstance* instance,
                          int channel,
                          float fs)
 {
-    memset(advisor, 0, sizeof(drLevelAdvisor));
+    memset(advisor, 0, sizeof(WaveLevelAdvisor));
  
-    drLevelMeter_init(&advisor->levelMeter, channel, fs, 0.0001f, 2.0f, 0.0f);
+    wave_level_meter_init(&advisor->levelMeter, channel, fs, 0.0001f, 2.0f, 0.0f);
     
     advisor->instance = instance;
     
@@ -27,18 +27,18 @@ void drLevelAdvisor_init(drLevelAdvisor* advisor,
     advisor->quietThreshold = 0.2f;
 }
 
-void drLevelAdvisor_processBuffer(void* advisorPtr, const float* inBuffer, int numChannels, int numFrames)
+void wave_level_advisor_process_buffer(void* advisorPtr, const float* inBuffer, int numChannels, int numFrames)
 {
-    drLevelAdvisor* advisor = (drLevelAdvisor*)advisorPtr;
+    WaveLevelAdvisor* advisor = (WaveLevelAdvisor*)advisorPtr;
     
-    if (advisor->instance->stateAudioThread != DR_STATE_RECORDING)
+    if (advisor->instance->stateAudioThread != WAVE_STATE_RECORDING)
     {
         advisor->loudWarningTimer = 0;
         advisor->quietWarningTimer = 0;
         return;
     }
     
-    drLevelMeter_processBuffer(&advisor->levelMeter, inBuffer, numChannels, numFrames);
+    wave_level_meter_process_buffer(&advisor->levelMeter, inBuffer, numChannels, numFrames);
     
     const float level = advisor->levelMeter.peakEnvelope;
     
@@ -52,7 +52,7 @@ void drLevelAdvisor_processBuffer(void* advisorPtr, const float* inBuffer, int n
         {
             //fire quiet warning
             //printf("warning, been below %f for %d frames\n", advisor->quietThreshold, advisor->quietWarningDelayInFrames);
-            drInstance_enqueueNotificationOfType(advisor->instance, WAVE_LEVEL_LOW_WARNING);
+            wave_instance_enqueue_notification_of_type(advisor->instance, WAVE_LEVEL_LOW_WARNING);
         }
     }
     else if (level > advisor->loudThreshold)
@@ -65,7 +65,7 @@ void drLevelAdvisor_processBuffer(void* advisorPtr, const float* inBuffer, int n
         {
             //fire loud warning
             //printf("warning, been above %f for %d frames\n", advisor->loudThreshold, advisor->loudWarningDelayInFrames);
-            drInstance_enqueueNotificationOfType(advisor->instance, WAVE_LEVEL_HIGH_WARNING);
+            wave_instance_enqueue_notification_of_type(advisor->instance, WAVE_LEVEL_HIGH_WARNING);
         }
     }
     else
@@ -76,8 +76,8 @@ void drLevelAdvisor_processBuffer(void* advisorPtr, const float* inBuffer, int n
     }
 }
 
-void drLevelAdvisor_deinit(void* advisorPtr)
+void wave_level_advisor_deinit(void* advisorPtr)
 {
-    drLevelAdvisor* advisor = (drLevelAdvisor*)advisorPtr;
-    drLevelMeter_deinit(&advisor->levelMeter);
+    WaveLevelAdvisor* advisor = (WaveLevelAdvisor*)advisorPtr;
+    wave_level_meter_deinit(&advisor->levelMeter);
 }

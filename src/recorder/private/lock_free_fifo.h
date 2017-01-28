@@ -1,5 +1,5 @@
-#ifndef STF_LOCK_FREE_FIFO_H
-#define STF_LOCK_FREE_FIFO_H
+#ifndef WAVE_LOCK_FREE_FIFO_H
+#define WAVE_LOCK_FREE_FIFO_H
 
 /*! \file */ 
 
@@ -11,7 +11,7 @@ extern "C"
     /**
      * Single reader, single writer lock free FIFO.
      */
-    typedef struct drLockFreeFIFO
+    typedef struct WaveLockFreeFIFO
     {
         int capacity;
         int elementSize;
@@ -20,45 +20,45 @@ extern "C"
         int head;
         /** Only accessed through atomic operations. Only changed by the producer thread.*/
         int tail;
-    } drLockFreeFIFO;
+    } WaveLockFreeFIFO;
     
     /**
      *
      */
-    void drLockFreeFIFO_init(drLockFreeFIFO* fifo, int capacity, int elementSize);
+    void wave_lock_free_fifo_init(WaveLockFreeFIFO* fifo, int capacity, int elementSize);
     
     /**
      *
      */
-    void drLockFreeFIFO_deinit(drLockFreeFIFO* fifo);
+    void wave_lock_free_fifo_deinit(WaveLockFreeFIFO* fifo);
     
     /**
      *
      */
-    int drLockFreeFIFO_isEmpty(drLockFreeFIFO* fifo);
+    int wave_lock_free_fifo_is_empty(WaveLockFreeFIFO* fifo);
     
     /**
      *
      */
-    int drLockFreeFIFO_isFull(drLockFreeFIFO* fifo);
+    int wave_lock_free_fifo_is_full(WaveLockFreeFIFO* fifo);
     
     /**
      *
      */
-    int drLockFreeFIFO_getNumElements(drLockFreeFIFO* fifo);
+    int wave_lock_free_fifo_get_num_elements(WaveLockFreeFIFO* fifo);
     
     /**
      * Called from the producer thread only.
      */
-    int drLockFreeFIFO_push(drLockFreeFIFO* fifo, const void* element);
+    int wave_lock_free_fifo_push(WaveLockFreeFIFO* fifo, const void* element);
     
     /**
      * Called from the consumer thread only.
      */
-    int drLockFreeFIFO_pop(drLockFreeFIFO* fifo, void* element);
+    int wave_lock_free_fifo_pop(WaveLockFreeFIFO* fifo, void* element);
     
 #ifdef __cplusplus
 } //extern "C"
 #endif /* __cplusplus */
 
-#endif //STF_LOCK_FREE_FIFO_H
+#endif //WAVE_LOCK_FREE_FIFO_H

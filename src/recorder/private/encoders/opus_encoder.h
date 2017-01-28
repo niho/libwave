@@ -1,5 +1,5 @@
-#ifndef DR_OPUS_ENCODER_H
-#define DR_OPUS_ENCODER_H
+#ifndef WAVE_OPUS_ENCODER_H
+#define WAVE_OPUS_ENCODER_H
 
 /*! \file */
 
@@ -19,7 +19,7 @@ extern "C"
     #define FRAME_SIZE 960
     #define MAX_PACKET_SIZE (3*1276)
     
-    typedef struct drOpusEncoder
+    typedef struct WaveOpusEncoder
     {
         OpusEncoder* encoder;
         ogg_stream_state oggStreamState;
@@ -32,17 +32,17 @@ extern "C"
         ogg_packet* oggHeaderPacket1;
         int hasWrittenHeaderPackets;
 
-    } drOpusEncoder;
+    } WaveOpusEncoder;
     
-    WaveError drOpusEncoder_init(void* opusEncoder, const char* filePath, float fs, float numChannels);
+    WaveError wave_opus_encoder_init(void* opusEncoder, const char* filePath, float fs, float numChannels);
     
-    WaveError drOpusEncoder_write(void* opusEncoder, int numChannels, int numFrames, float* buffer, int* numBytesWritten);
+    WaveError wave_opus_encoder_write(void* opusEncoder, int numChannels, int numFrames, float* buffer, int* numBytesWritten);
     
-    WaveError drOpusEncoder_stop(void* opusEncoder);
+    WaveError wave_opus_encoder_stop(void* opusEncoder);
     
     
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
 
-#endif /* DR_OPUS_ENCODER_H */
+#endif /* WAVE_OPUS_ENCODER_H */

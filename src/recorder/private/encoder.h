@@ -1,5 +1,5 @@
-#ifndef DR_ENCODER_H
-#define DR_ENCODER_H
+#ifndef WAVE_ENCODER_H
+#define WAVE_ENCODER_H
 
 /*! \file */
 
@@ -10,25 +10,25 @@ extern "C"
 {
 #endif /* __cplusplus */
   
-    typedef WaveError (*drEncoderInitCallback)(void* encoderData, const char* filePath, float fs, float numChannels);
+    typedef WaveError (*WaveEncoderInitCallback)(void* encoderData, const char* filePath, float fs, float numChannels);
     
-    typedef WaveError (*drEncoderWriteCallback)(void* encoderData, int numChannels, int numFrames, float* buffer, int* numBytesWritten);
+    typedef WaveError (*WaveEncoderWriteCallback)(void* encoderData, int numChannels, int numFrames, float* buffer, int* numBytesWritten);
     
-    typedef WaveError (*drEncoderStopCallback)(void* encoderData);
+    typedef WaveError (*WaveEncoderStopCallback)(void* encoderData);
     
-    typedef struct drEncoder
+    typedef struct WaveEncoder
     {
-        drEncoderInitCallback initCallback;
+        WaveEncoderInitCallback initCallback;
         
-        drEncoderWriteCallback writeCallback;
+        WaveEncoderWriteCallback writeCallback;
         
-        drEncoderStopCallback stopCallback;
+        WaveEncoderStopCallback stopCallback;
         
         void* encoderData;
-    } drEncoder;
+    } WaveEncoder;
     
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
 
-#endif /* DR_ENCODER_H */
+#endif /* WAVE_ENCODER_H */

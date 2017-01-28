@@ -19,31 +19,31 @@ static float* generateSine(int fs, int f, int nSamples)
 
 static void testSimpleEncode()
 {
-    drOpusEncoder opusEncoder;
-    memset(&opusEncoder, 0, sizeof(drOpusEncoder));
+    WaveOpusEncoder opusEncoder;
+    memset(&opusEncoder, 0, sizeof(WaveOpusEncoder));
     
     const int nChannels = 1;
     const int fs = 48000;
     const float sineDurSec = 0.5;
     
     //TODO
-    const char* filePath = "/Users/perarne/code/digger_recorder/opus_test_simple.opus";
+    const char* filePath = "opus_test_simple.opus";
     remove(filePath);
     const int sigLength = sineDurSec * fs;
     float* sine440 = generateSine(fs, 440, sigLength);
     float* sine880 = generateSine(fs, 880, sigLength);
     
-    drOpusEncoder_init(&opusEncoder, filePath, fs, nChannels);
+    wave_opus_encoder_init(&opusEncoder, filePath, fs, nChannels);
     
     int n = 0;
-    drOpusEncoder_write(&opusEncoder, nChannels, sigLength, sine440, &n);
-    drOpusEncoder_write(&opusEncoder, nChannels, sigLength, sine880, &n);
-    drOpusEncoder_write(&opusEncoder, nChannels, sigLength, sine440, &n);
-    drOpusEncoder_write(&opusEncoder, nChannels, sigLength, sine880, &n);
-    drOpusEncoder_write(&opusEncoder, nChannels, sigLength, sine440, &n);
-    drOpusEncoder_write(&opusEncoder, nChannels, sigLength, sine880, &n);
+    wave_opus_encoder_write(&opusEncoder, nChannels, sigLength, sine440, &n);
+    wave_opus_encoder_write(&opusEncoder, nChannels, sigLength, sine880, &n);
+    wave_opus_encoder_write(&opusEncoder, nChannels, sigLength, sine440, &n);
+    wave_opus_encoder_write(&opusEncoder, nChannels, sigLength, sine880, &n);
+    wave_opus_encoder_write(&opusEncoder, nChannels, sigLength, sine440, &n);
+    wave_opus_encoder_write(&opusEncoder, nChannels, sigLength, sine880, &n);
     
-    drOpusEncoder_finish(&opusEncoder);
+    wave_opus_encoder_stop(&opusEncoder);
     
     free(sine440);
     free(sine880);
@@ -51,33 +51,33 @@ static void testSimpleEncode()
 
 static void testChainedStreamEncode()
 {
-    drOpusEncoder opusEncoder;
-    memset(&opusEncoder, 0, sizeof(drOpusEncoder));
+    WaveOpusEncoder opusEncoder;
+    memset(&opusEncoder, 0, sizeof(WaveOpusEncoder));
     
     const int nChannels = 1;
     const int fs = 48000;
     const float sineDurSec = 1.0f;
     
     //TODO
-    const char* filePath = "/Users/perarne/code/digger_recorder/opus_test_chained.opus";
+    const char* filePath = "opus_test_chained.opus";
     remove(filePath);
     
     const int sigLength = sineDurSec * fs;
     float* sine440 = generateSine(fs, 440, sigLength);
     float* sine1500 = generateSine(fs, 1500, sigLength);
     int n = 0;
-    drOpusEncoder_init(&opusEncoder, filePath, fs, nChannels);
+    wave_opus_encoder_init(&opusEncoder, filePath, fs, nChannels);
     
-    drOpusEncoder_write(&opusEncoder, nChannels, sigLength, sine440, &n);
+    wave_opus_encoder_write(&opusEncoder, nChannels, sigLength, sine440, &n);
     
-    drOpusEncoder_finish(&opusEncoder);
+    wave_opus_encoder_stop(&opusEncoder);
     
     //init with existing file
-    drOpusEncoder_init(&opusEncoder, filePath, fs, nChannels);
+    wave_opus_encoder_init(&opusEncoder, filePath, fs, nChannels);
     
-    drOpusEncoder_write(&opusEncoder, nChannels, sigLength, sine1500, &n);
+    wave_opus_encoder_write(&opusEncoder, nChannels, sigLength, sine1500, &n);
     
-    drOpusEncoder_finish(&opusEncoder);
+    wave_opus_encoder_stop(&opusEncoder);
     
     free(sine440);
     free(sine1500);

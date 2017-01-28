@@ -10,11 +10,11 @@ static const int loopCount = 10000;
 
 static int entryPointProducer(void* data)
 {
-    drLockFreeFIFO* f = (drLockFreeFIFO*)data;
+    WaveLockFreeFIFO* f = (WaveLockFreeFIFO*)data;
     
     for (int i = 0; i < loopCount; i++)
     {
-        int success = drLockFreeFIFO_push(f, &i);
+        int success = wave_lock_free_fifo_push(f, &i);
         //printf("pushed %d (success %d)\n", i, success);
     }
     
@@ -24,12 +24,12 @@ static int entryPointProducer(void* data)
 static int entryPointConsumer(void* data)
 {
     
-    drLockFreeFIFO* f = (drLockFreeFIFO*)data;
+    WaveLockFreeFIFO* f = (WaveLockFreeFIFO*)data;
     
     for (int i = 0; i < loopCount; i++)
     {
         int val = 0;
-        int success = drLockFreeFIFO_pop(f, &val);
+        int success = wave_lock_free_fifo_pop(f, &val);
         //printf("popped %d (success %d)\n", val, success);
         
     }
@@ -46,8 +46,8 @@ static void testTwoThreads()
     const int es = sizeof(int);
     const int c = 100;
     
-    drLockFreeFIFO f;
-    drLockFreeFIFO_init(&f, c, es);
+    WaveLockFreeFIFO f;
+    wave_lock_free_fifo_init(&f, c, es);
     
     thrd_t t1, t2;
     thrd_create(&t1, entryPointConsumer, &f);
@@ -71,25 +71,25 @@ static void testSize()
     
     for (int i = 0; i < nCases; i++)
     {
-        drLockFreeFIFO f;
-        drLockFreeFIFO_init(&f, c, es);
+        WaveLockFreeFIFO f;
+        wave_lock_free_fifo_init(&f, c, es);
         
         for (int j = 0; j < nPush[i]; j++)
         {
-            int success = drLockFreeFIFO_push(&f, &j);
+            int success = wave_lock_free_fifo_push(&f, &j);
         }
         
         for (int j = 0; j < nPop[i]; j++)
         {
             int val = 0;
-            int success = drLockFreeFIFO_pop(&f, &val);
+            int success = wave_lock_free_fifo_pop(&f, &val);
         }
         
         const int expectedSize = fmaxf(0.0f, nPush[i] - nPop[i]);
-        const int size = drLockFreeFIFO_getNumElements(&f);
+        const int size = wave_lock_free_fifo_get_num_elements(&f);
         fail_unless(expectedSize == size, "FIFO size should be the same after pushing and popping the same number of items");
         
-        drLockFreeFIFO_deinit(&f);
+        wave_lock_free_fifo_deinit(&f);
     }
     
     
@@ -102,25 +102,25 @@ void testPushUntilFull()
     const int es = sizeof(int);
     const int c = 100;
     
-    drLockFreeFIFO f;
-    drLockFreeFIFO_init(&f, c, es);
+    WaveLockFreeFIFO f;
+    wave_lock_free_fifo_init(&f, c, es);
     
     for (int i = 0; i < c; i++)
     {
-        int success = drLockFreeFIFO_push(&f, &i);
+        int success = wave_lock_free_fifo_push(&f, &i);
         if (!success)
         {
             fail_unless(success == 1, "push to FIFO with free slots should succeed");
         }
     }
     
-    int success = drLockFreeFIFO_push(&f, &c);
+    int success = wave_lock_free_fifo_push(&f, &c);
     fail_unless(success == 0, "push to full FIFO should fail");
     
-    const int full = drLockFreeFIFO_isFull(&f);
+    const int full = wave_lock_free_fifo_is_full(&f);
     fail_unless(full == 1, "full FIFO should report that it's full");
     
-    const int empty = drLockFreeFIFO_isEmpty(&f);
+    const int empty = wave_lock_free_fifo_is_empty(&f);
     fail_unless(empty == 0, "full FIFO should not report that it's empty");
 }
 
@@ -131,31 +131,31 @@ static void testPushUntilFullAndPopUntilEmpty()
     const int es = sizeof(int);
     const int c = 100;
     
-    drLockFreeFIFO f;
-    drLockFreeFIFO_init(&f, c, es);
+    WaveLockFreeFIFO f;
+    wave_lock_free_fifo_init(&f, c, es);
     
     for (int i = 0; i < c; i++)
     {
-        int success = drLockFreeFIFO_push(&f, &i);
+        int success = wave_lock_free_fifo_push(&f, &i);
         if (!success)
         {
             fail_unless(success == 1, "push to FIFO with free slots should succeed");
         }
     }
     
-    int success = drLockFreeFIFO_push(&f, &c);
+    int success = wave_lock_free_fifo_push(&f, &c);
     fail_unless(success == 0, "push to full FIFO should fail");
     
-    int full = drLockFreeFIFO_isFull(&f);
+    int full = wave_lock_free_fifo_is_full(&f);
     fail_unless(full == 1, "full FIFO should report that it's full");
     
-    int empty = drLockFreeFIFO_isEmpty(&f);
+    int empty = wave_lock_free_fifo_is_empty(&f);
     fail_unless(empty == 0, "full FIFO should not report that it's empty");
     
     for (int i = 0; i < c; i++)
     {
         int val = 0;
-        int success = drLockFreeFIFO_pop(&f, &val);
+        int success = wave_lock_free_fifo_pop(&f, &val);
         if (success != 1)
         {
             fail_unless(success == 1, "popping from FIFO with one or more elements should succeed");
@@ -166,10 +166,10 @@ static void testPushUntilFullAndPopUntilEmpty()
         }
     }
     
-    full = drLockFreeFIFO_isFull(&f);
+    full = wave_lock_free_fifo_is_full(&f);
     fail_unless(full == 0, "empty FIFO should not report that it's full");
     
-    empty = drLockFreeFIFO_isEmpty(&f);
+    empty = wave_lock_free_fifo_is_empty(&f);
     fail_unless(empty == 1, "empty FIFO should report that it's empty");
 }
 

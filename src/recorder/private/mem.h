@@ -1,5 +1,5 @@
-#ifndef DR_MEM_H
-#define DR_MEM_H
+#ifndef WAVE_MEM_H
+#define WAVE_MEM_H
 
 #include <stdlib.h>
 
@@ -19,19 +19,19 @@ extern "C"
      * Tries to allocate a given number of bytes, associating the allocation
      * with an arbitrary user tag.
      */
-    #define DR_MALLOC(size, tag) (drMalloc(size, tag))
+    #define WAVE_MALLOC(size, tag) (wave_malloc(size, tag))
     
     /**
      * Frees a given pointer.
      */
-    #define DR_FREE(ptr) (drFree(ptr))
+    #define WAVE_FREE(ptr) (wave_free(ptr))
     
-    void* drMalloc(size_t size, const char* tag);
+    void* wave_malloc(size_t size, const char* tag);
     
-    void drFree(void* ptr);
+    void wave_free(void* ptr);
     
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
 
-#endif /* DR_MEM_H */
+#endif /* WAVE_MEM_H */

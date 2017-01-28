@@ -3,12 +3,12 @@
 #include "atomic.h"
 
 
-int drAtomicLoad(int* value)
+int wave_atomic_load(int* value)
 {
     return OSAtomicAdd32Barrier(0, value);
 }
 
-void drAtomicStore(int newValue, int* destination)
+void wave_atomic_store(int newValue, int* destination)
 {
     while (true)
     {
@@ -20,7 +20,7 @@ void drAtomicStore(int newValue, int* destination)
     }
 }
 
-int drAtomicAdd(int* value, int amount)
+int wave_atomic_add(int* value, int amount)
 {
     return OSAtomicAdd32Barrier(amount, value);
 }

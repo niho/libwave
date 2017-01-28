@@ -55,8 +55,8 @@ static ogg_packet *make_opus_header0_oggpacket(unsigned char channels, unsigned 
 	ogg_packet *op;
 	unsigned char *data;
     
-	op   = DR_MALLOC(sizeof(*op), "ogg header packet");
-	data = DR_MALLOC(size, "ogg header packet data");
+	op   = WAVE_MALLOC(sizeof(*op), "ogg header packet");
+	data = WAVE_MALLOC(size, "ogg header packet data");
 	if (!op || !data)
 		return NULL;
     
@@ -86,8 +86,8 @@ static ogg_packet *make_opus_header1_oggpacket(char *vendor)
 	ogg_packet *op;
 	unsigned char *data;
     
-	op   = DR_MALLOC(sizeof(*op), "ogg header packet");
-	data = DR_MALLOC(size, "ogg header packet data");
+	op   = WAVE_MALLOC(sizeof(*op), "ogg header packet");
+	data = WAVE_MALLOC(size, "ogg header packet data");
 	if (!op || !data)
 		return NULL;
     
@@ -136,11 +136,11 @@ static int write_ogg_packet(ogg_stream_state *ostream, ogg_packet *opacket, FILE
 }
 
 
-WaveError drOpusEncoder_init(void* opusEncoder, const char* filePath, float fs, float numChannels)
+WaveError wave_opus_encoder_init(void* opusEncoder, const char* filePath, float fs, float numChannels)
 {
     assert(numChannels <= 2);
     
-    drOpusEncoder* encoder = (drOpusEncoder*)opusEncoder;
+    WaveOpusEncoder* encoder = (WaveOpusEncoder*)opusEncoder;
     encoder->numAccumulatedInputFrames = 0;
     
     //create the opus encoder
@@ -184,9 +184,9 @@ WaveError drOpusEncoder_init(void* opusEncoder, const char* filePath, float fs, 
     return WAVE_NO_ERROR;
 }
 
-WaveError drOpusEncoder_write(void* opusEncoder, int numChannels, int numFrames, float* buffer, int* numBytesWritten)
+WaveError wave_opus_encoder_write(void* opusEncoder, int numChannels, int numFrames, float* buffer, int* numBytesWritten)
 {
-    drOpusEncoder* encoder = (drOpusEncoder*)opusEncoder;
+    WaveOpusEncoder* encoder = (WaveOpusEncoder*)opusEncoder;
     *numBytesWritten = 0;
     
     if (encoder->encoder == NULL)
@@ -264,22 +264,22 @@ WaveError drOpusEncoder_write(void* opusEncoder, int numChannels, int numFrames,
     return WAVE_NO_ERROR;
 }
 
-WaveError drOpusEncoder_stop(void* opusEncoder)
+WaveError wave_opus_encoder_stop(void* opusEncoder)
 {
-    drOpusEncoder* encoder = (drOpusEncoder*)opusEncoder;
+    WaveOpusEncoder* encoder = (WaveOpusEncoder*)opusEncoder;
     
     opus_encoder_destroy(encoder->encoder);
     ogg_stream_clear(&encoder->oggStreamState);
     
-    DR_FREE(encoder->oggHeaderPacket0->packet);
-    DR_FREE(encoder->oggHeaderPacket0);
+    WAVE_FREE(encoder->oggHeaderPacket0->packet);
+    WAVE_FREE(encoder->oggHeaderPacket0);
     
-    DR_FREE(encoder->oggHeaderPacket1->packet);
-    DR_FREE(encoder->oggHeaderPacket1);
+    WAVE_FREE(encoder->oggHeaderPacket1->packet);
+    WAVE_FREE(encoder->oggHeaderPacket1);
     
     FILE* f = encoder->file;
     
-    memset(encoder, 0, sizeof(drOpusEncoder));
+    memset(encoder, 0, sizeof(WaveOpusEncoder));
     
     if (f)
     {

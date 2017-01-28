@@ -1,5 +1,5 @@
-#ifndef DR_ANALYZER_H
-#define DR_ANALYZER_H
+#ifndef WAVE_ANALYZER_H
+#define WAVE_ANALYZER_H
 
 /*! \file */
 
@@ -11,15 +11,15 @@ extern "C"
     /**
      *
      */
-    typedef void (*drAnalyzerAudioCallback)(void* analyzer, const float* inBuffer, int numChannels, int numFrames);
+    typedef void (*WaveAnalyzerAudioCallback)(void* analyzer, const float* inBuffer, int numChannels, int numFrames);
     
     /**
      *
      */
-    typedef void (*drAnalyzerDeinitCallback)(void* analyzer);
+    typedef void (*WaveAnalyzerDeinitCallback)(void* analyzer);
     
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
 
-#endif /* DR_ANALYZER_H */
+#endif /* WAVE_ANALYZER_H */

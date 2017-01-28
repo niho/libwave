@@ -1367,7 +1367,6 @@
 				C12E1A8619B5B774004532A8 /* analyzer.h */,
 				C12E1F4119B62595004532A8 /* atomic_darwin.c */,
 				C12E1F4219B62595004532A8 /* atomic.h */,
-				C1F57A0519B4A282000C6BCF /* recorder.c */,
 				C12E1F8A19B7534A004532A8 /* encoder.h */,
 				C1E07B2B19B9F81900F63CA1 /* error_codes.c */,
 				C1F57A0619B4A282000C6BCF /* instance.c */,
@@ -1379,6 +1378,7 @@
 				C12E1F8C19B7583C004532A8 /* platform_util_ios.m */,
 				8535F0971E3BF91C0042E766 /* platform_util_osx.c */,
 				C12E1F8D19B7583C004532A8 /* platform_util.h */,
+				C1F57A0519B4A282000C6BCF /* recorder.c */,
 				C1E07B2719B9C7E900F63CA1 /* settings.c */,
 			);
 			path = private;

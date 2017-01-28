@@ -1,5 +1,5 @@
-#ifndef DR_INSTANCE_H
-#define DR_INSTANCE_H
+#ifndef WAVE_INSTANCE_H
+#define WAVE_INSTANCE_H
 
 /*! \file */
 
@@ -21,77 +21,77 @@ extern "C"
     #define MAX_NUM_INPUT_CHANNELS 1
     #define MAX_NUM_OUTPUT_CHANNELS 2
     
-    #define DR_MAX_PATH_LEN 1024
+    #define WAVE_MAX_PATH_LEN 1024
     
     #define MAX_RECORDED_CHUNK_SIZE 1024
     
-    typedef struct drRecordingSession
+    typedef struct WaveRecordingSession
     {
-        drEncoder encoder;
+        WaveEncoder encoder;
         int numRecordedFrames;
-        char targetFilePath[DR_MAX_PATH_LEN];
-    } drRecordingSession;
+        char targetFilePath[WAVE_MAX_PATH_LEN];
+    } WaveRecordingSession;
     
-    typedef struct drRecordedChunk
+    typedef struct WaveRecordedChunk
     {
         int numChannels;
         int numFrames;
         float samples[MAX_RECORDED_CHUNK_SIZE];
         int lastChunk;
-    } drRecordedChunk;
+    } WaveRecordedChunk;
     
     /**
      * Valid control event types
      */
-    typedef enum drControlEventType
+    typedef enum WaveControlEventType
     {
-        DR_START_RECORDING = 0,
-        DR_PAUSE_RECORDING,
-        DR_RESUME_RECORDING,
-        DR_STOP_RECORDING,
-    } drControlEventType;
+        WAVE_START_RECORDING = 0,
+        WAVE_PAUSE_RECORDING,
+        WAVE_RESUME_RECORDING,
+        WAVE_STOP_RECORDING,
+    } WaveControlEventType;
     
     /**
      * A control event, i.e an event sent form the 
      * main thread to the audio thread.
      */
-    typedef struct drControlEvent
+    typedef struct WaveControlEvent
     {
-        drControlEventType type;
-    } drControlEvent;
+        WaveControlEventType type;
+    } WaveControlEvent;
     
     /**
      * Possible recorder instance states.
      */
-    typedef enum drAudioThreadState
+    typedef enum WaveAudioThreadState
     {
-        DR_STATE_IDLE = 0,
-        DR_STATE_RECORDING,
-        DR_STATE_RECORDING_PAUSED
+        WAVE_STATE_IDLE = 0,
+        WAVE_STATE_RECORDING,
+        WAVE_STATE_RECORDING_PAUSED
         
-    } drState;
+    } WaveState;
     
     /**
      * An analyzer slot.
      */
-    typedef struct drAnalyzerSlot
+    typedef struct WaveAnalyzerSlot
     {
         void* analyzerData;
-        drAnalyzerAudioCallback audioCallback;
-        drAnalyzerDeinitCallback deinitCallback;
-    } drAnalyzerSlot;
+        WaveAnalyzerAudioCallback audioCallback;
+        WaveAnalyzerDeinitCallback deinitCallback;
+    } WaveAnalyzerSlot;
     
     /**
      * A recorder instance.
      */
-    typedef struct drInstance
+    typedef struct WaveInstance
     {
         WaveSettings settings;
         
-        drState stateAudioThread;
-        drState stateMainThread;
+        WaveState stateAudioThread;
+        WaveState stateMainThread;
         
-        drAnalyzerSlot inputAnalyzerSlots[MAX_NUM_ANALYZER_SLOTS];
+        WaveAnalyzerSlot inputAnalyzerSlots[MAX_NUM_ANALYZER_SLOTS];
         
         WaveDevInfo devInfo;
         
@@ -101,10 +101,10 @@ extern "C"
         //used to verify that functions are being called from the right threads
         thrd_t mainThread;
         
-        drLockFreeFIFO notificationFIFO;
-        drLockFreeFIFO controlEventFIFO;
-        drLockFreeFIFO errorFIFO;
-        drLockFreeFIFO realTimeDataFifo;
+        WaveLockFreeFIFO notificationFIFO;
+        WaveLockFreeFIFO controlEventFIFO;
+        WaveLockFreeFIFO errorFIFO;
+        WaveLockFreeFIFO realTimeDataFifo;
         
         WaveAudioWrittenCallback audioWrittenCallback;
         
@@ -113,16 +113,16 @@ extern "C"
         void* callbackUserData;
         
         //Level meters, only accessed from the audio thread
-        drLevelMeter inputLevelMeters[MAX_NUM_INPUT_CHANNELS];
+        WaveLevelMeter inputLevelMeters[MAX_NUM_INPUT_CHANNELS];
         
-        drLevelAdvisor levelAdvisor;
+        WaveLevelAdvisor levelAdvisor;
         
         //Measured levels, copied from audio to main via shared memory
         WaveRealtimeInfo realtimeInfo;
         
-        drLockFreeFIFO inputAudioDataQueue;
+        WaveLockFreeFIFO inputAudioDataQueue;
         
-        drRecordingSession recordingSession;
+        WaveRecordingSession recordingSession;
         
         //actual audio stream parameters
         int sampleRate;
@@ -132,13 +132,13 @@ extern "C"
         //
         int isInputDisabled;
         
-        char requestedAudioFilePath[DR_MAX_PATH_LEN];
-    } drInstance;
+        char requestedAudioFilePath[WAVE_MAX_PATH_LEN];
+    } WaveInstance;
 
     /**
      *
      */
-    WaveError drInstance_init(drInstance* instance,
+    WaveError wave_instance_init(WaveInstance* instance,
                             WaveNotificationCallback notificationCallback,
                             WaveErrorCallback errorCallback,
                             WaveAudioWrittenCallback audioWrittenCallback,
@@ -146,121 +146,121 @@ extern "C"
                             WaveSettings* settings);
     
     /** Implemented for each host. */
-    WaveError drInstance_hostSpecificInit(drInstance* instance);
+    WaveError wave_instance_host_specific_init(WaveInstance* instance);
     
     /**
      *
      */
-    WaveError drInstance_deinit(drInstance* instance);
+    WaveError wave_instance_deinit(WaveInstance* instance);
     
     /** Implemented for each host.*/
-    WaveError drInstance_hostSpecificDeinit(drInstance* instance);
+    WaveError wave_instance_host_specific_deinit(WaveInstance* instance);
     
     /**
      *
      */
-    void drInstance_update(drInstance* instance, float timeStep);
+    void wave_instance_update(WaveInstance* instance, float timeStep);
     
     /**
      *
      */
-    void drInstance_audioInputCallback(drInstance* in, const float* inBuffer, int numChannels, int numFrames);
+    void wave_instance_audio_input_callback(WaveInstance* in, const float* inBuffer, int numChannels, int numFrames);
     
     /**
      *
      */
-    void drInstance_audioOutputCallback(drInstance* in, float* inBuffer, int numChannels, int numFrames);
+    void wave_instance_audio_output_callback(WaveInstance* in, float* inBuffer, int numChannels, int numFrames);
     
     /**
-     * Returns a non-zero value if called from the same thread that called drInstance_init.
+     * Returns a non-zero value if called from the same thread that called wave_instance_init.
      */
-    int drInstance_isOnMainThread(drInstance* instance);
+    int wave_instance_is_on_main_thread(WaveInstance* instance);
     
     /**
      *
      */
-    void drInstance_getRealtimeInfo(drInstance* instance, int channel, int logLevels, WaveRealtimeInfo* result);
+    void wave_instance_get_realtime_info(WaveInstance* instance, int channel, int logLevels, WaveRealtimeInfo* result);
     
     /**
      * Invoked when a control event reaches the audio thread. Invoked on the audio thread.
      */
-    void drInstance_onAudioThreadControlEvent(drInstance* instance, const drControlEvent* event);
+    void wave_instance_on_audio_thread_control_event(WaveInstance* instance, const WaveControlEvent* event);
     
     /**
      * Invoked when a notification reaches the main thread. Invoked on the main thread.
      */
-    void drInstance_onMainThreadNotification(drInstance* instance, const WaveNotification* notification);
+    void wave_instance_on_main_thread_notification(WaveInstance* instance, const WaveNotification* notification);
     
     /**
      *
      */
-    void drInstance_onMainThreadError(drInstance* instance, WaveError error);
+    void wave_instance_on_main_thread_error(WaveInstance* instance, WaveError error);
     
     /**
      * Returns 0 on success, or non-zero if there is no free analyzer slot.
      */
-    int drInstance_addInputAnalyzer(drInstance* instance,
+    int wave_instance_add_input_analyzer(WaveInstance* instance,
                                     void* analyzerData,
-                                    drAnalyzerAudioCallback audioCallback,
-                                    drAnalyzerDeinitCallback deinitCallback);
+                                    WaveAnalyzerAudioCallback audioCallback,
+                                    WaveAnalyzerDeinitCallback deinitCallback);
     
     /**
      *
      */
-    void drInstance_requestStartRecording(drInstance* instance, const char* filePath);
+    void wave_instance_request_start_recording(WaveInstance* instance, const char* filePath);
     
     /**
      *
      */
-    void drInstance_initiateRecording(drInstance* instance);
+    void wave_nstance_initiate_recording(WaveInstance* instance);
     
     /**
      *
      */
-    void drInstance_stopRecording(drInstance* instance);
+    void wave_instance_stop_recording(WaveInstance* instance);
     
     /**
      *
      */
-    void drInstance_invokeErrorCallback(drInstance* instance, WaveError errorCode);
+    void wave_instance_invoke_error_callback(WaveInstance* instance, WaveError errorCode);
     
     /**
      *
      */
-    void drInstance_invokeNotificationCallback(drInstance* instance, const WaveNotification* notification);
+    void wave_instance_invoke_notification_callback(WaveInstance* instance, const WaveNotification* notification);
     
     /**
      * Must be called <strong>only from the audio thread</strong>!
      */
-    void drInstance_enqueueError(drInstance* instance, WaveError error);
+    void wave_instance_enqueue_error(WaveInstance* instance, WaveError error);
     
     /**
      * Must be called <strong>only from the audio thread</strong>!
      */
-    void drInstance_enqueueNotification(drInstance* instance, const WaveNotification* notification);
+    void wave_instance_enqueue_notification(WaveInstance* instance, const WaveNotification* notification);
     
     /**
      * Must be called <strong>only from the audio thread</strong>!
      */
-    void drInstance_enqueueNotificationOfType(drInstance* instance, WaveNotificationType type);
+    void wave_instance_enqueue_notification_of_type(WaveInstance* instance, WaveNotificationType type);
     
     /**
      * Must be called <strong>only from the main thread</strong>!
      */
-    void drInstance_enqueueControlEvent(drInstance* instance, const drControlEvent* event);
+    void wave_instance_enqueue_control_event(WaveInstance* instance, const WaveControlEvent* event);
     
     /**
      * Must be called <strong>only from the main thread</strong>!
      */
-    void drInstance_enqueueControlEventOfType(drInstance* instance, drControlEventType type);
+    void wave_instance_enqueue_control_event_of_type(WaveInstance* instance, WaveControlEventType type);
     
     /**
      *
      */
-    void drInstance_getDevInfo(drInstance* instance, WaveDevInfo* devInfo);
+    void wave_instance_get_dev_info(WaveInstance* instance, WaveDevInfo* devInfo);
     
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
 
-#endif /* DR_INSTANCE_H */
+#endif /* WAVE_INSTANCE_H */

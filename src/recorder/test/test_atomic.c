@@ -13,7 +13,7 @@ static void testStore()
     {
         int valRef = rand() % 100000;
         int val = 0;
-        drAtomicStore(valRef, &val);
+        wave_atomic_store(valRef, &val);
         if (val != valRef)
         {
             fail_unless(val == valRef, "atomically stored value should equal reference value");
@@ -30,7 +30,7 @@ static void testLoad()
     for (int i = -r; i < r; i++)
     {
         int valRef = rand() % 100000;
-        int val = drAtomicLoad(&valRef);
+        int val = wave_atomic_load(&valRef);
         if (val != valRef)
         {
             fail_unless(val == valRef, "atomically loaded value should equal reference value");
@@ -48,7 +48,7 @@ static void testAdd()
     {
         const int valRef = rand() % 100000;
         int val = valRef;
-        drAtomicAdd(&val, i);
+        wave_atomic_add(&val, i);
         if ((val - i) != valRef)
         {
             fail_unless((val - i) == valRef, "atomically incremented value should equal reference value");

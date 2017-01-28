@@ -1,5 +1,5 @@
-#ifndef DR_PLATFORM_UTIL_H
-#define DR_PLATFORM_UTIL_H
+#ifndef WAVE_PLATFORM_UTIL_H
+#define WAVE_PLATFORM_UTIL_H
 
 /*! \file */
 
@@ -10,19 +10,14 @@
 extern "C"
 {
 #endif /* __cplusplus */
-
-    /**
-     * Returns 0 on success, 1 otherwise.
-     */
-    int drGetWritableFilePath(char* buffer, int bufferSize);
     
     /**
      *
      */
-    void drCreateEncoder(drEncoder* encoder, WaveSettings* settings);
+    void wave_create_encoder(WaveEncoder* encoder, WaveSettings* settings);
     
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
 
-#endif /* DR_PLATFORM_UTIL_H */
+#endif /* WAVE_PLATFORM_UTIL_H */

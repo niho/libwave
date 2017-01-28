@@ -1,5 +1,5 @@
-#ifndef DR_TEST_LOCK_FREE_FIFO_H
-#define DR_TEST_LOCK_FREE_FIFO_H
+#ifndef WAVE_TEST_LOCK_FREE_FIFO_H
+#define WAVE_TEST_LOCK_FREE_FIFO_H
 
 
 #ifdef __cplusplus
@@ -13,5 +13,5 @@ extern "C" {
 #endif
 
 
-#endif //DR_TEST_LOCK_FREE_FIFO_H
+#endif //WAVE_TEST_LOCK_FREE_FIFO_H
 

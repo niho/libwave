@@ -1,5 +1,5 @@
-#ifndef DR_TEST_OGGOPUS_H
-#define DR_TEST_OGGOPUS_H
+#ifndef WAVE_TEST_OGGOPUS_H
+#define WAVE_TEST_OGGOPUS_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -12,5 +12,5 @@ extern "C" {
 #endif
 
     
-#endif //DR_TEST_OGGOPUS_H
+#endif //WAVE_TEST_OGGOPUS_H
 

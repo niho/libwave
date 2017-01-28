@@ -6,37 +6,37 @@
 
 #include <Foundation/Foundation.h>
 
-void drCreateEncoder(drEncoder* encoder, WaveSettings* settings)
+void wave_create_encoder(WaveEncoder* encoder, WaveSettings* settings)
 {
     if (settings->encoderFormat == WAVE_ENCODER_FORMAT_RAW)
     {
         //raw
-        drRawEncoder* rawEncoder = DR_MALLOC(sizeof(drRawEncoder), "raw encoder");
-        memset(rawEncoder, 0, sizeof(drRawEncoder));
+        WaveRawEncoder* rawEncoder = WAVE_MALLOC(sizeof(WaveRawEncoder), "raw encoder");
+        memset(rawEncoder, 0, sizeof(WaveRawEncoder));
         encoder->encoderData = rawEncoder;
-        encoder->stopCallback = drRawEncoder_stop;
-        encoder->initCallback = drRawEncoder_init;
-        encoder->writeCallback = drRawEncoder_write;
+        encoder->stopCallback = wave_raw_encoder_stop;
+        encoder->initCallback = wave_raw_encoder_init;
+        encoder->writeCallback = wave_raw_encoder_write;
     }
     else if (settings->encoderFormat == WAVE_ENCODER_FORMAT_OPUS)
     {
         //opus
-        drOpusEncoder* opusEncoder = DR_MALLOC(sizeof(drOpusEncoder), "opus encoder");
-        memset(opusEncoder, 0, sizeof(drOpusEncoder));
+        WaveOpusEncoder* opusEncoder = WAVE_MALLOC(sizeof(WaveOpusEncoder), "opus encoder");
+        memset(opusEncoder, 0, sizeof(WaveOpusEncoder));
         encoder->encoderData = opusEncoder;
-        encoder->stopCallback = drOpusEncoder_stop;
-        encoder->initCallback = drOpusEncoder_init;
-        encoder->writeCallback = drOpusEncoder_write;
+        encoder->stopCallback = wave_opus_encoder_stop;
+        encoder->initCallback = wave_opus_encoder_init;
+        encoder->writeCallback = wave_opus_encoder_write;
     }
     else if (settings->encoderFormat == WAVE_ENCODER_FORMAT_AAC)
     {
         //ios AAC
-        driOSAACEncoder* aacEncoder = DR_MALLOC(sizeof(driOSAACEncoder), "AAC encoder");
-        memset(aacEncoder, 0, sizeof(driOSAACEncoder));
+        WaveiOSAACEncoder* aacEncoder = WAVE_MALLOC(sizeof(WaveiOSAACEncoder), "AAC encoder");
+        memset(aacEncoder, 0, sizeof(WaveiOSAACEncoder));
         encoder->encoderData = aacEncoder;
-        encoder->stopCallback = driOSAACEncoder_stopCallback;
-        encoder->initCallback = driOSAACEncoder_initCallback;
-        encoder->writeCallback = driOSAACEncoder_writeCallback;
+        encoder->stopCallback = wave_ios_aac_encoder_stop_callback;
+        encoder->initCallback = wave_ios_aac_encoder_init_callback;
+        encoder->writeCallback = wave_ios_aac_encoder_write_callback;
     }
     else
     {

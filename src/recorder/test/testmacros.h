@@ -1,5 +1,5 @@
-#ifndef DR_TEST_MACROS_H
-#define DR_TEST_MACROS_H
+#ifndef WAVE_TEST_MACROS_H
+#define WAVE_TEST_MACROS_H
 
 #include <stdio.h>
 
@@ -24,5 +24,5 @@ int numSuccessfulTests;
 #endif
 
     
-#endif //DR
+#endif //WAVE_TEST_MACROS_H
 

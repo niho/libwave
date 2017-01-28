@@ -1,5 +1,5 @@
-#ifndef DR_ATOMIC_H
-#define DR_ATOMIC_H
+#ifndef WAVE_ATOMIC_H
+#define WAVE_ATOMIC_H
 
 /*! \file */ 
 
@@ -11,20 +11,20 @@ extern "C"
     /**
      *
      */
-    int drAtomicLoad(int* value);
+    int wave_atomic_load(int* value);
     
     /**
      *
      */
-    void drAtomicStore(int newValue, int* destination);
+    void wave_atomic_store(int newValue, int* destination);
     
     /**
      *
      */
-    int drAtomicAdd(int* value, int amount);
+    int wave_atomic_add(int* value, int amount);
     
 #ifdef __cplusplus
 } //extern "C"
 #endif /* __cplusplus */
 
-#endif //DR_ATOMIC_H
+#endif //WAVE_ATOMIC_H

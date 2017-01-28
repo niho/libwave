@@ -24,12 +24,12 @@ static int paCallback(const void *inputBuffer,
                       PaStreamCallbackFlags statusFlags,
                       void *userData)
 {
-    drInstance *instance = (drInstance*)userData;
+    WaveInstance *instance = (WaveInstance*)userData;
     
     
-    drInstance_audioOutputCallback(instance, outputBuffer, instance->numOutputChannels, (int)framesPerBuffer);
+    wave_instance_audio_output_callback(instance, outputBuffer, instance->numOutputChannels, (int)framesPerBuffer);
     
-    drInstance_audioInputCallback(instance, inputBuffer, instance->numInputChannels, (int)framesPerBuffer);
+    wave_instance_audio_input_callback(instance, inputBuffer, instance->numInputChannels, (int)framesPerBuffer);
     
     /*Return 0 to indicate that everything went well.*/
     return 0;
@@ -43,15 +43,15 @@ static int paCallback(const void *inputBuffer,
  * @param bufferSize
  * @return An error code.
  */
-drError drInstance_hostSpecificInit(drInstance* instance)
+WaveError wave_instance_host_specific_init(WaveInstance* instance)
 {
-    drError result = DR_NO_ERROR;
+    WaveError result = WAVE_NO_ERROR;
     
     PaError err = Pa_Initialize();
     if (err != paNoError)
     {
         //printf("PortAudio error: %s\n", Pa_GetErrorText(err));
-        result = DR_FAILED_TO_INITIALIZE_HOST;
+        result = WAVE_FAILED_TO_INITIALIZE_HOST;
     }
     
     /* Open an audio I/O stream. */
@@ -72,17 +72,17 @@ drError drInstance_hostSpecificInit(drInstance* instance)
     if (err != paNoError)
     {
         //printf("PortAudio error: %s\n", Pa_GetErrorText(err));
-        result = DR_FAILED_TO_INITIALIZE_HOST;
+        result = WAVE_FAILED_TO_INITIALIZE_HOST;
     }
     
     err = Pa_StartStream(stream);
     if (err != paNoError)
     {
         //printf("PortAudio error: %s\n", Pa_GetErrorText(err));
-        result = DR_FAILED_TO_INITIALIZE_HOST;
+        result = WAVE_FAILED_TO_INITIALIZE_HOST;
     }
 
-    if (result == DR_NO_ERROR)
+    if (result == WAVE_NO_ERROR)
     {
         const PaStreamInfo* si = Pa_GetStreamInfo(stream);
         instance->numInputChannels = instance->settings.desiredNumInputChannels;
@@ -97,29 +97,29 @@ drError drInstance_hostSpecificInit(drInstance* instance)
  * Shuts down PortAudio.
  * @param engine
  */
-drError drInstance_hostSpecificDeinit(drInstance* instance)
+WaveError wave_instance_host_specific_deinit(WaveInstance* instance)
 {
-    drError result = DR_NO_ERROR;
+    WaveError result = WAVE_NO_ERROR;
     
     PaError err = Pa_StopStream(stream);
     if (err != paNoError)
     {
         //printf("PortAudio error: %s\n", Pa_GetErrorText(err));
-        result = DR_FAILED_TO_DEINITIALIZE_HOST;
+        result = WAVE_FAILED_TO_DEINITIALIZE_HOST;
     }
     
     err = Pa_CloseStream(stream);
     if (err != paNoError)
     {
         //printf("PortAudio error: %s\n", Pa_GetErrorText(err));
-        result = DR_FAILED_TO_DEINITIALIZE_HOST;
+        result = WAVE_FAILED_TO_DEINITIALIZE_HOST;
     }
     
     err = Pa_Terminate();
     if (err != paNoError)
     {
         //printf("PortAudio error: %s\n", Pa_GetErrorText(err));
-        result = DR_FAILED_TO_DEINITIALIZE_HOST;
+        result = WAVE_FAILED_TO_DEINITIALIZE_HOST;
     }
     
     return result;

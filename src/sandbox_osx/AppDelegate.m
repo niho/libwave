@@ -10,42 +10,36 @@
 
 #define kUpdateInterval (0.02f)
 
-#import "digger_recorder.h"
+#import "wave_recorder.h"
 
-static void eventCallback(const drNotification* event, void* userData)
+static void eventCallback(const WaveNotification* event, void* userData)
 {
     AppDelegate* ad = (__bridge AppDelegate*)userData;
 }
 
-static void errorCallback(drError error, void* userData)
+static void errorCallback(WaveError error, void* userData)
 {
     AppDelegate* ad = (__bridge AppDelegate*)userData;
 }
 
-static const char* writableFilePathCallback(void* userData)
+static void audioWrittenCallback(const char* path, int numBytes, void* userData)
 {
-    //SandboxViewController* vc = (__bridge SandboxViewController*)userData;
-    
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    
-    NSString* fileName = [NSString stringWithFormat:@"audio-recording-%d", arc4random()];
-    return [[documentsDirectory stringByAppendingPathComponent:fileName] UTF8String];
+    AppDelegate* ad = (__bridge AppDelegate*)userData;
 }
 
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString* settingsFilePath = [documentsDirectory stringByAppendingPathComponent:@"drsettings.json"];
+    WaveSettings settings;
+    wave_settings_init(&settings);
+    settings.encoderFormat = WAVE_ENCODER_FORMAT_AAC;
     
-    drInitialize(eventCallback,
-                 errorCallback,
-                 writableFilePathCallback,
-                 (__bridge void*)(self),
-                 [settingsFilePath UTF8String]);
+    wave_init(eventCallback,
+              errorCallback,
+              audioWrittenCallback,
+              (__bridge void*)(self),
+              &settings);
     
     NSTimer* t = [NSTimer scheduledTimerWithTimeInterval:kUpdateInterval
                                                   target:self
@@ -57,14 +51,14 @@ static const char* writableFilePathCallback(void* userData)
 }
 
 
--(void)onNotification:(const drNotification*)event
+-(void)onNotification:(const WaveNotification*)event
 {
     
 }
 
 -(void)updateTick
 {
-    drUpdate(kUpdateInterval);
+    wave_update(kUpdateInterval);
 }
 
 @end

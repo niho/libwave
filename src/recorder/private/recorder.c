@@ -54,7 +54,7 @@ const char* wave_notification_type_str(WaveNotificationType type)
     return "unknown notification type";
 }
 
-static drInstance* instance = NULL;
+static WaveInstance* instance = NULL;
 
 WaveError wave_init(WaveNotificationCallback notificationCallback,
                     WaveErrorCallback errorCallback,
@@ -67,8 +67,8 @@ WaveError wave_init(WaveNotificationCallback notificationCallback,
         return WAVE_ALREADY_INITIALIZED;
     }
     
-    instance = DR_MALLOC(sizeof(drInstance), "libwave recorder instance");
-    drInstance_init(instance, 
+    instance = WAVE_MALLOC(sizeof(WaveInstance), "libwave recorder instance");
+    wave_instance_init(instance,
                     notificationCallback,
                     errorCallback,
                     audioWrittenCallback,
@@ -85,8 +85,8 @@ WaveError wave_deinit()
         return WAVE_NOT_INITIALIZED;
     }
     
-    drInstance_deinit(instance);
-    DR_FREE(instance);
+    wave_instance_deinit(instance);
+    WAVE_FREE(instance);
     instance = 0;
     
     return WAVE_NO_ERROR;
@@ -99,7 +99,7 @@ WaveError wave_update(float timeStep)
         return WAVE_NOT_INITIALIZED;
     }
     
-    drInstance_update(instance, timeStep);
+    wave_instance_update(instance, timeStep);
     
     return WAVE_NO_ERROR;
 }
@@ -111,7 +111,7 @@ WaveError wave_get_realtime_info(int channel, int logLevels, WaveRealtimeInfo* r
         return WAVE_NOT_INITIALIZED;
     }
     
-    drInstance_getRealtimeInfo(instance, channel, logLevels, result);
+    wave_instance_get_realtime_info(instance, channel, logLevels, result);
     
     return WAVE_NO_ERROR;
 }
@@ -123,7 +123,7 @@ WaveError wave_start_recording(const char* audioFilePath)
         return WAVE_NOT_INITIALIZED;
     }
     
-    drInstance_requestStartRecording(instance, audioFilePath);
+    wave_instance_request_start_recording(instance, audioFilePath);
     
     return WAVE_NO_ERROR;
 }
@@ -135,7 +135,7 @@ WaveError wave_stop_recording()
         return WAVE_NOT_INITIALIZED;
     }
     
-    drInstance_enqueueControlEventOfType(instance, DR_STOP_RECORDING);
+    wave_instance_enqueue_control_event_of_type(instance, WAVE_STOP_RECORDING);
     
     return WAVE_NO_ERROR;
 }
@@ -147,7 +147,7 @@ WaveError wave_pause_recording()
         return WAVE_NOT_INITIALIZED;
     }
     
-    drInstance_enqueueControlEventOfType(instance, DR_PAUSE_RECORDING);
+    wave_instance_enqueue_control_event_of_type(instance, WAVE_PAUSE_RECORDING);
     
     return WAVE_NO_ERROR;
 }
@@ -159,7 +159,7 @@ WaveError wave_resume_recording()
         return WAVE_NOT_INITIALIZED;
     }
     
-    drInstance_enqueueControlEventOfType(instance, DR_RESUME_RECORDING);
+    wave_instance_enqueue_control_event_of_type(instance, WAVE_RESUME_RECORDING);
     
     return WAVE_NO_ERROR;
 }
@@ -171,7 +171,7 @@ WaveError wave_get_dev_info(WaveDevInfo* devInfo)
         return WAVE_NOT_INITIALIZED;
     }
     
-    drInstance_getDevInfo(instance, devInfo);
+    wave_instance_get_dev_info(instance, devInfo);
     
     return WAVE_NO_ERROR;
 }

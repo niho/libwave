@@ -16,11 +16,11 @@ AudioBufferList inputBufferList;
 int inputBufferByteSize = -1;
 
 //TODO: fix this!
-static drInstance* s_instance = NULL;
+static WaveInstance* s_instance = NULL;
 
-#define DR_IOS_TEMP_BUFFER_SIZE_IN_FRAMES 2048
-float inputScratchBuffer[DR_IOS_TEMP_BUFFER_SIZE_IN_FRAMES];
-float outputScratchBuffer[DR_IOS_TEMP_BUFFER_SIZE_IN_FRAMES];
+#define WAVE_IOS_TEMP_BUFFER_SIZE_IN_FRAMES 2048
+float inputScratchBuffer[WAVE_IOS_TEMP_BUFFER_SIZE_IN_FRAMES];
+float outputScratchBuffer[WAVE_IOS_TEMP_BUFFER_SIZE_IN_FRAMES];
 
 /**
  * Converts a buffer of floats to a buffer of signed shorts. The floats are assumed
@@ -29,7 +29,7 @@ float outputScratchBuffer[DR_IOS_TEMP_BUFFER_SIZE_IN_FRAMES];
  * @param targetBuffer The buffer to write converted samples to.
  * @param size The size of the source and target buffers.
  */
-static inline void drFloatToInt16(float* sourceBuffer, short* targetBuffer, int size)
+static inline void wave_float_to_int16(float* sourceBuffer, short* targetBuffer, int size)
 {
     assert(sourceBuffer != NULL);
     assert(targetBuffer != NULL);
@@ -49,7 +49,7 @@ static inline void drFloatToInt16(float* sourceBuffer, short* targetBuffer, int 
  * @param targetBuffer The buffer to write converted samples to.
  * @param size The size of the source and target buffers.
  */
-static inline void drInt16ToFloat(short* sourceBuffer, float* targetBuffer, int size)
+static inline void wave_int16_to_float(short* sourceBuffer, float* targetBuffer, int size)
 {
     assert(sourceBuffer != NULL);
     assert(targetBuffer != NULL);
@@ -62,7 +62,7 @@ static inline void drInt16ToFloat(short* sourceBuffer, float* targetBuffer, int 
     }
 }
 
-WaveError drInstance_hostSpecificInit(drInstance* instance)
+WaveError wave_instance_host_specific_init(WaveInstance* instance)
 {
     //TODO: uuuh...
     assert(s_instance == NULL);
@@ -71,24 +71,24 @@ WaveError drInstance_hostSpecificInit(drInstance* instance)
     /**
      * Create the remote IO instance once.
      */
-    drCreateRemoteIOInstance();
+    wave_create_remote_io_instance();
     
     /*
      * Initialize the audio session
      */
-    drInitAudioSession();
+    wave_init_audio_session();
     
     /*
      * Activates audio session and starts RemoteIO unit if successful.
      */
-    drResume();
+    wave_resume();
     
     return WAVE_NO_ERROR;
 }
 
-WaveError drInstance_hostSpecificDeinit(drInstance* instance)
+WaveError wave_instance_host_specific_deinit(WaveInstance* instance)
 {
-    drStopAndDeinitRemoteIO();
+    wave_stop_and_deinit_remote_io();
     
     AudioComponentInstanceDispose(auComponentInstance);
     
@@ -99,36 +99,36 @@ WaveError drInstance_hostSpecificDeinit(drInstance* instance)
     return WAVE_NO_ERROR;
 }
 
-void drAudioSessionInterruptionCallback(void *inClientData,  UInt32 inInterruptionState)
+void wave_audio_session_interruption_callback(void *inClientData,  UInt32 inInterruptionState)
 {
     if (inInterruptionState == kAudioSessionBeginInterruption)
     {
         //printf("* audio session interruption callback: begin interruption\n");
-        drSuspend();
+        wave_suspend();
     }
     else if (inInterruptionState == kAudioSessionEndInterruption)
     {
         //printf("* audio session interruption callback: end interruption\n");
-        drResume();
+        wave_resume();
     }
     else 
     {
         assert(0 && "unknown interruption state");
     }
-    //drDebugPrintAudioSessionInfo();
+    //wave_debug_print_audio_session_info();
 }
 
 
-void drInputAvailableChangeCallback(void *inUserData,
+void wave_input_available_change_callback(void *inUserData,
                               AudioSessionPropertyID inPropertyID,
                               UInt32 inPropertyValueSize,
                               const void *inPropertyValue)
 {
     //printf("* input availability changed. availability=%d\n", (*(int*)inPropertyValue));
-    //drDebugPrintAudioSessionInfo();
+    //wave_debug_print_audio_session_info();
 }
 
-OSStatus drCoreAudioInputCallback(void *inRefCon,
+OSStatus wave_core_audio_input_callback(void *inRefCon,
                                 AudioUnitRenderActionFlags *ioActionFlags,
                                 const AudioTimeStamp *inTimeStamp,
                                 UInt32 inBusNumber,
@@ -147,7 +147,7 @@ OSStatus drCoreAudioInputCallback(void *inRefCon,
     assert(status == 0);
     
 
-    drInstance* instance = (drInstance*)inRefCon;
+    WaveInstance* instance = (WaveInstance*)inRefCon;
 
     const int numChannels = inputBufferList.mBuffers[0].mNumberChannels;
     short* buffer = (short*) inputBufferList.mBuffers[0].mData;
@@ -155,18 +155,18 @@ OSStatus drCoreAudioInputCallback(void *inRefCon,
     while (currFrame < inNumberFrames)
     {
         int numFramesToMix = inNumberFrames - currFrame;
-        if (numFramesToMix > DR_IOS_TEMP_BUFFER_SIZE_IN_FRAMES)
+        if (numFramesToMix > WAVE_IOS_TEMP_BUFFER_SIZE_IN_FRAMES)
         {
-            numFramesToMix = DR_IOS_TEMP_BUFFER_SIZE_IN_FRAMES;
+            numFramesToMix = WAVE_IOS_TEMP_BUFFER_SIZE_IN_FRAMES;
         }
         
         /*Convert input buffer samples to floats*/
-        drInt16ToFloat(&buffer[currFrame * numChannels], 
+        wave_int16_to_float(&buffer[currFrame * numChannels],
                         inputScratchBuffer,
                         numFramesToMix * numChannels);
             
         /*Pass the converted buffer to the instance*/
-        drInstance_audioInputCallback(instance,
+        wave_instance_audio_input_callback(instance,
                                       &(inputScratchBuffer)[currFrame * numChannels],
                                       numChannels, numFramesToMix);
         
@@ -176,7 +176,7 @@ OSStatus drCoreAudioInputCallback(void *inRefCon,
     return noErr;
 }
 
-OSStatus drCoreAudioOutputCallback(void *inRefCon,
+OSStatus wave_core_audio_output_callback(void *inRefCon,
                                    AudioUnitRenderActionFlags *ioActionFlags,
                                    const AudioTimeStamp *inTimeStamp,
                                    UInt32 inBusNumber,
@@ -192,13 +192,13 @@ OSStatus drCoreAudioOutputCallback(void *inRefCon,
     if (delta > inNumberFrames && prevDelta > 0.0)
     {
         printf("missed deadline, time since prev callback: %f samples, curr buffer size %d samples\n", delta, inNumberFrames);
-        //drDebugPrintAudioSessionInfo();
-        //drDebugPrintRemoteIOInfo();
+        //wave_debug_print_audio_session_info();
+        //wave_debug_print_remote_io_info();
     }
     prevDelta = delta;
 #endif
     
-    drInstance* instance = (drInstance*)inRefCon;
+    WaveInstance* instance = (WaveInstance*)inRefCon;
     
     const int numChannels = ioData->mBuffers[0].mNumberChannels;
     short* buffer = (short*) ioData->mBuffers[0].mData;
@@ -206,15 +206,15 @@ OSStatus drCoreAudioOutputCallback(void *inRefCon,
     while (currFrame < inNumberFrames)
     {
         int numFramesToMix = inNumberFrames - currFrame;
-        if (numFramesToMix > DR_IOS_TEMP_BUFFER_SIZE_IN_FRAMES)
+        if (numFramesToMix > WAVE_IOS_TEMP_BUFFER_SIZE_IN_FRAMES)
         {
-            numFramesToMix = DR_IOS_TEMP_BUFFER_SIZE_IN_FRAMES;
+            numFramesToMix = WAVE_IOS_TEMP_BUFFER_SIZE_IN_FRAMES;
         }
     
         /*prepare a new buffer*/
-        drInstance_audioOutputCallback(instance, outputScratchBuffer, numChannels, numFramesToMix);
+        wave_instance_audio_output_callback(instance, outputScratchBuffer, numChannels, numFramesToMix);
 
-        drFloatToInt16(outputScratchBuffer,
+        wave_float_to_int16(outputScratchBuffer,
                         &buffer[currFrame * numChannels], 
                         numFramesToMix * numChannels);
         currFrame += numFramesToMix;
@@ -223,7 +223,7 @@ OSStatus drCoreAudioOutputCallback(void *inRefCon,
     return noErr;
 }
 
-void drStopAndDeinitRemoteIO()
+void wave_stop_and_deinit_remote_io()
 {
     OSStatus status = AudioOutputUnitStop(auComponentInstance);
     assert(status == noErr);
@@ -235,7 +235,7 @@ void drStopAndDeinitRemoteIO()
     inputBufferList.mBuffers[0].mData = NULL;
 }
 
-void drCreateRemoteIOInstance()
+void wave_create_remote_io_instance()
 {
     /*create audio component description*/
     AudioComponentDescription auDescription;
@@ -256,12 +256,12 @@ void drCreateRemoteIOInstance()
 
 
 
-void drInitAndStartRemoteIO()
+void wave_init_and_start_remote_io()
 {
 	//make sure the audio unit is not initialized more than once.
 	//some of the operations below depend on the unit not being
 	//initialized.
-    drStopAndDeinitRemoteIO();
+    wave_stop_and_deinit_remote_io();
     
     const int bitsPerSample = 16; 
     const int numInChannels = s_instance->settings.desiredNumInputChannels;
@@ -283,7 +283,7 @@ void drInitAndStartRemoteIO()
                                       INPUT_BUS_ID,
                                       &flag, 
                                       sizeof(flag));
-        drEnsureNoAudioUnitError(status);
+        wave_ensure_no_audio_unit_error(status);
     }
     
     /*set buffer size. */
@@ -291,13 +291,13 @@ void drInitAndStartRemoteIO()
     status = AudioSessionSetProperty(kAudioSessionProperty_PreferredHardwareIOBufferDuration, 
                                      sizeof(preferredBufferSize), 
                                      &preferredBufferSize);
-    drEnsureNoAudioSessionError(status);
+    wave_ensure_no_audio_session_error(status);
     
     Float64 sr = sampleRate;
     status = AudioSessionSetProperty(kAudioSessionProperty_PreferredHardwareSampleRate,
                                      sizeof(Float64),
                                      &sr);
-    drEnsureNoAudioSessionError(status);
+    wave_ensure_no_audio_session_error(status);
     
     /*enable playback*/    
     UInt32 flag = 1;
@@ -307,10 +307,10 @@ void drInitAndStartRemoteIO()
                                   OUTPUT_BUS_ID,
                                   &flag, 
                                   sizeof(flag));
-    drEnsureNoAudioUnitError(status);
+    wave_ensure_no_audio_unit_error(status);
     
     /*set up output audio format description*/
-    drSetASBD(&outputFormat, numOutChannels, sampleRate);
+    wave_set_asbd(&outputFormat, numOutChannels, sampleRate);
     
     /*apply format to output*/
     status = AudioUnitSetProperty(auComponentInstance, 
@@ -319,12 +319,12 @@ void drInitAndStartRemoteIO()
                                   OUTPUT_BUS_ID, 
                                   &outputFormat, 
                                   sizeof(outputFormat));
-    drEnsureNoAudioUnitError(status);
+    wave_ensure_no_audio_unit_error(status);
     
     /*apply format to input if enabled*/
     if (numInChannels > 0)
     {
-        drSetASBD(&inputFormat, numInChannels, sampleRate);
+        wave_set_asbd(&inputFormat, numInChannels, sampleRate);
         
         status = AudioUnitSetProperty(auComponentInstance, 
                                       kAudioUnitProperty_StreamFormat, 
@@ -332,7 +332,7 @@ void drInitAndStartRemoteIO()
                                       INPUT_BUS_ID, 
                                       &inputFormat, 
                                       sizeof(outputFormat));
-        drEnsureNoAudioUnitError(status);
+        wave_ensure_no_audio_unit_error(status);
         
         int maxSliceSize = 0;
         int s = sizeof(maxSliceSize);
@@ -342,7 +342,7 @@ void drInitAndStartRemoteIO()
                                       0, 
                                       &maxSliceSize, 
                                       &s);
-        drEnsureNoAudioUnitError(status);
+        wave_ensure_no_audio_unit_error(status);
         
         inputBufferList.mNumberBuffers = 1;
         inputBufferList.mBuffers[0].mNumberChannels = numInChannels;
@@ -357,7 +357,7 @@ void drInitAndStartRemoteIO()
     /*hook up the input callback*/
     if (numInChannels > 0)
     {
-        renderCallbackStruct.inputProc = drCoreAudioInputCallback;
+        renderCallbackStruct.inputProc = wave_core_audio_input_callback;
         renderCallbackStruct.inputProcRefCon = s_instance;
         
         status = AudioUnitSetProperty(auComponentInstance, 
@@ -366,12 +366,12 @@ void drInitAndStartRemoteIO()
                                       OUTPUT_BUS_ID, 
                                       &renderCallbackStruct, 
                                       sizeof(renderCallbackStruct));
-        drEnsureNoAudioUnitError(status);
+        wave_ensure_no_audio_unit_error(status);
     }
     
     
     /*hook up the output callback*/
-    renderCallbackStruct.inputProc = drCoreAudioOutputCallback;
+    renderCallbackStruct.inputProc = wave_core_audio_output_callback;
     renderCallbackStruct.inputProcRefCon = s_instance;
     
     status = AudioUnitSetProperty(auComponentInstance, 
@@ -381,17 +381,17 @@ void drInitAndStartRemoteIO()
                                   &renderCallbackStruct, 
                                   sizeof(renderCallbackStruct));
     
-    drEnsureNoAudioUnitError(status);
+    wave_ensure_no_audio_unit_error(status);
     
     /*init audio unit*/
     status = AudioUnitInitialize(auComponentInstance);
     //printf("status %d\n", status);
-    drEnsureNoAudioUnitError(status);
+    wave_ensure_no_audio_unit_error(status);
     
     /*start audio unit*/
     status = AudioOutputUnitStart(auComponentInstance);
     //printf("status %d\n", status);
-    drEnsureNoAudioUnitError(status);
+    wave_ensure_no_audio_unit_error(status);
     
     //TODO: use these to see what buffer size and sample rate we actually got.
     Float32 buffDur;
@@ -408,13 +408,13 @@ void drInitAndStartRemoteIO()
     s_instance->sampleRate = actualSampleRate;
 }
 
-void drAudioRouteChangeCallback(void *inUserData,
+void wave_audio_route_change_callback(void *inUserData,
                               AudioSessionPropertyID inPropertyID,
                               UInt32 inPropertyValueSize,
                               const void *inPropertyValue)
 {
     //printf("* audio route changed,\n");
-    drInstance* instance = (drInstance*)inUserData;
+    WaveInstance* instance = (WaveInstance*)inUserData;
     
     //get the old audio route name and the reason for the change
     CFDictionaryRef dict = inPropertyValue;
@@ -491,15 +491,15 @@ void drAudioRouteChangeCallback(void *inUserData,
         OSStatus result = AudioSessionGetProperty(kAudioSessionProperty_AudioInputAvailable, 
                                                   &size, 
                                                   &isAudioInputAvailable);
-        drEnsureNoAudioSessionError(result);
+        wave_ensure_no_audio_session_error(result);
         
-        drStopAndDeinitRemoteIO();
+        wave_stop_and_deinit_remote_io();
         
         int numInChannels = isAudioInputAvailable != 0 ? s_instance->settings.desiredNumInputChannels : 0;
         UInt32 sessionCategory = numInChannels == 0 ? kAudioSessionCategory_MediaPlayback : 
                                                       kAudioSessionCategory_PlayAndRecord;
         result = AudioSessionSetProperty(kAudioSessionProperty_AudioCategory, sizeof(sessionCategory), &sessionCategory);
-        drEnsureNoAudioSessionError(result);
+        wave_ensure_no_audio_session_error(result);
         
         if (numInChannels > 0)
         {
@@ -507,17 +507,17 @@ void drAudioRouteChangeCallback(void *inUserData,
             result = AudioSessionSetProperty(kAudioSessionProperty_OverrideCategoryDefaultToSpeaker, 
                                              sizeof(val), 
                                              &val);
-            drEnsureNoAudioSessionError(result);
+            wave_ensure_no_audio_session_error(result);
         }
 
         result = AudioSessionSetActive(true);
-        drEnsureNoAudioSessionError(result); //-12986 seems to mean that kAudioSessionCategory_PlayAndRecord was set and no input is available 
+        wave_ensure_no_audio_session_error(result); //-12986 seems to mean that kAudioSessionCategory_PlayAndRecord was set and no input is available
         
-        drInitAndStartRemoteIO();
+        wave_init_and_start_remote_io();
     }
 }
 
-void drServerDiedCallback(void *inUserData,
+void wave_server_died_callback(void *inUserData,
                         AudioSessionPropertyID inPropertyID,
                         UInt32 inPropertyValueSize,
                         const void *inPropertyValue)
@@ -525,21 +525,21 @@ void drServerDiedCallback(void *inUserData,
     //printf("server died\n");
 }
 
-void drInitAudioSession()
+void wave_init_audio_session()
 {
     OSStatus status = 0;
     
     /*
      * Initialize and activte audio session
      */
-    status = AudioSessionInitialize(NULL, NULL, &drAudioSessionInterruptionCallback, s_instance);
+    status = AudioSessionInitialize(NULL, NULL, &wave_audio_session_interruption_callback, s_instance);
     if (status == kAudioSessionAlreadyInitialized)
     {
         //already initialized
     }
     else
     {
-        drEnsureNoAudioSessionError(status);
+        wave_ensure_no_audio_session_error(status);
         assert(status == noErr);
     }
     
@@ -569,7 +569,7 @@ void drInitAudioSession()
     UInt32 sessionCategory = inputAvailable == 0 ? kAudioSessionCategory_MediaPlayback : 
                                                    kAudioSessionCategory_PlayAndRecord;
     status = AudioSessionSetProperty(kAudioSessionProperty_AudioCategory, sizeof(sessionCategory), &sessionCategory);
-    drEnsureNoAudioSessionError(status);
+    wave_ensure_no_audio_session_error(status);
     
     int val = 1;
     status = AudioSessionSetProperty(kAudioSessionProperty_OverrideCategoryDefaultToSpeaker, 
@@ -577,41 +577,41 @@ void drInitAudioSession()
                                      &val);
     
     status = AudioSessionAddPropertyListener(kAudioSessionProperty_AudioInputAvailable, 
-                                             &drInputAvailableChangeCallback, 
+                                             &wave_input_available_change_callback,
                                              s_instance);
-    drEnsureNoAudioSessionError(status);
+    wave_ensure_no_audio_session_error(status);
     
     status = AudioSessionAddPropertyListener(kAudioSessionProperty_AudioRouteChange, 
-                                             drAudioRouteChangeCallback, 
+                                             wave_audio_route_change_callback,
                                              s_instance);
-    drEnsureNoAudioSessionError(status);
+    wave_ensure_no_audio_session_error(status);
     
     status = AudioSessionAddPropertyListener(kAudioSessionProperty_ServerDied, 
-                                             drServerDiedCallback, 
+                                             wave_server_died_callback,
                                              s_instance);
-    drEnsureNoAudioSessionError(status);
+    wave_ensure_no_audio_session_error(status);
 }
 
-void drSuspend(void)
+void wave_suspend(void)
 {
-    drStopAndDeinitRemoteIO();
+    wave_stop_and_deinit_remote_io();
     OSStatus result = AudioSessionSetActive(0);
-    drEnsureNoAudioSessionError(result);
+    wave_ensure_no_audio_session_error(result);
 }
 
-int drResume(void)
+int wave_resume(void)
 {
     OSStatus result = AudioSessionSetActive(1);
     if (result == noErr)
     {
-        drInitAndStartRemoteIO();
+        wave_init_and_start_remote_io();
         return 1;
     }
     
     return 0;
 }
 
-void drSetASBD(AudioStreamBasicDescription* asbd, int numChannels, float sampleRate)
+void wave_set_asbd(AudioStreamBasicDescription* asbd, int numChannels, float sampleRate)
 {
     memset(asbd, 0, sizeof(AudioStreamBasicDescription));
     assert(numChannels == 1 || numChannels == 2);
@@ -625,7 +625,7 @@ void drSetASBD(AudioStreamBasicDescription* asbd, int numChannels, float sampleR
     asbd->mSampleRate = sampleRate;
 }
 
-void drEnsureNoAudioUnitError(OSStatus result)
+void wave_ensure_no_audio_unit_error(OSStatus result)
 {
     switch (result)
     {
@@ -686,7 +686,7 @@ void drEnsureNoAudioUnitError(OSStatus result)
     }
 }
 
-void drEnsureNoAudioSessionError(OSStatus result)
+void wave_ensure_no_audio_session_error(OSStatus result)
 {
     switch (result) 
     {
@@ -726,7 +726,7 @@ void drEnsureNoAudioSessionError(OSStatus result)
     }
 }
     
-void drDebugPrintAudioSessionInfo()
+void wave_debug_print_audio_session_info()
 {
     int category = -1;
     int numOutChannels = -1;
@@ -755,7 +755,7 @@ void drDebugPrintAudioSessionInfo()
     printf("        n out ch %d\n", numOutChannels);
 }
 
-void drDebugPrintRemoteIOInfo()
+void wave_debug_print_remote_io_info()
 {
     AudioStreamBasicDescription outFmt;
     int sz = sizeof(AudioStreamBasicDescription);

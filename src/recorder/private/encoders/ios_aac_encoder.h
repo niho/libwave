@@ -1,5 +1,5 @@
-#ifndef DR_IOS_AAC_ENCODER_H
-#define DR_IOS_AAC_ENCODER_H
+#ifndef WAVE_IOS_AAC_ENCODER_H
+#define WAVE_IOS_AAC_ENCODER_H
 
 #include <AudioToolbox/AudioToolbox.h>
 #include <stdio.h>
@@ -11,10 +11,10 @@ extern "C"
 {
 #endif /* __cplusplus */
     
-#define DR_AAC_PCM_BUFFER_SIZE_IN_FRAMES (1 << 12)
-#define DR_AAC_OUTPUT_BUFFER_SIZE (1 << 15)
+#define WAVE_AAC_PCM_BUFFER_SIZE_IN_FRAMES (1 << 12)
+#define WAVE_AAC_OUTPUT_BUFFER_SIZE (1 << 15)
     
-    typedef struct driOSAACEncoder
+    typedef struct WaveiOSAACEncoder
     {
         /** The file to write to. */
         FILE* file;
@@ -39,23 +39,23 @@ extern "C"
         /** */
         int numBytesWrittenSinceLastCheck;
         
-    } driOSAACEncoder;
+    } WaveiOSAACEncoder;
     
-    WaveError driOSAACEncoder_initCallback(void* encoderData,
+    WaveError wave_ios_aac_encoder_init_callback(void* encoderData,
                                          const char* filePath,
                                          float fs,
                                          float numChannels);
     
-    WaveError driOSAACEncoder_writeCallback(void* encoderData,
+    WaveError wave_ios_aac_encoder_write_callback(void* encoderData,
                                           int numChannels,
                                           int numFrames,
                                           float* buffer,
                                           int* numBytesWritten);
     
-    WaveError driOSAACEncoder_stopCallback(void* encoderData);
+    WaveError wave_ios_aac_encoder_stop_callback(void* encoderData);
     
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
 
-#endif /* DR_IOS_AAC_ENCODER_H */
+#endif /* WAVE_IOS_AAC_ENCODER_H */

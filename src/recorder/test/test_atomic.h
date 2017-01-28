@@ -1,5 +1,5 @@
-#ifndef DR_TEST_ATOMIC_H
-#define DR_TEST_ATOMIC_H
+#ifndef WAVE_TEST_ATOMIC_H
+#define WAVE_TEST_ATOMIC_H
 
 
 #ifdef __cplusplus
@@ -13,5 +13,5 @@ extern "C" {
 #endif
 
     
-#endif //DR_TEST_ATOMIC_H
+#endif //WAVE_TEST_ATOMIC_H
 

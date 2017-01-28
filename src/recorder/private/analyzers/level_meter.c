@@ -7,14 +7,14 @@
 
 #include "level_meter.h"
 
-void drLevelMeter_init(drLevelMeter* meter,
+void wave_level_meter_init(WaveLevelMeter* meter,
                        int channel,
                        float fs,
                        float attackTime,
                        float decayTime,
                        float rmsWindowSizeInSeconds)
 {
-    memset(meter, 0, sizeof(drLevelMeter));
+    memset(meter, 0, sizeof(WaveLevelMeter));
     meter->channel = channel;
     
     const float thresh = 0.01f;
@@ -30,16 +30,16 @@ void drLevelMeter_init(drLevelMeter* meter,
         //make sure we have at least one window sample
         meter->rmsWindowSize = 1;
     }
-    meter->rmsWindow = (float*)DR_MALLOC(sizeof(float) * meter->rmsWindowSize, "rms window");
+    meter->rmsWindow = (float*)WAVE_MALLOC(sizeof(float) * meter->rmsWindowSize, "rms window");
     memset(meter->rmsWindow, 0, sizeof(float) * meter->rmsWindowSize);
 }
 
-void drLevelMeter_processBuffer(void* levelMeter,
+void wave_level_meter_process_buffer(void* levelMeter,
                                 const float* inBuffer,
                                 int numChannels,
                                 int numFrames)
 {
-    drLevelMeter* meter = (drLevelMeter*)levelMeter;
+    WaveLevelMeter* meter = (WaveLevelMeter*)levelMeter;
     
     if (numFrames == 0)
     {
@@ -90,9 +90,9 @@ void drLevelMeter_processBuffer(void* levelMeter,
     assert(!isnan(meter->rmsLevel));
 }
 
-void drLevelMeter_deinit(void* levelMeter)
+void wave_level_meter_deinit(void* levelMeter)
 {
-    drLevelMeter* meter = (drLevelMeter*)levelMeter;
-    DR_FREE(meter->rmsWindow);
-    memset(meter, sizeof(drLevelMeter), 0);
+    WaveLevelMeter* meter = (WaveLevelMeter*)levelMeter;
+    WAVE_FREE(meter->rmsWindow);
+    memset(meter, sizeof(WaveLevelMeter), 0);
 }

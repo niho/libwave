@@ -1,5 +1,5 @@
-#ifndef DR_LEVEL_ADVISOR_H
-#define DR_LEVEL_ADVISOR_H
+#ifndef WAVE_LEVEL_ADVISOR_H
+#define WAVE_LEVEL_ADVISOR_H
 
 /*! \file */
 
@@ -10,17 +10,17 @@ extern "C"
 {
 #endif /* __cplusplus */
     
-    typedef struct drInstance drInstance;
+    typedef struct WaveInstance WaveInstance;
     
     /**
      *
      */
-    typedef struct drLevelAdvisor
+    typedef struct WaveLevelAdvisor
     {
-        drInstance* instance;
+        WaveInstance* instance;
         
         /** Used to generate a level envelope. */
-        drLevelMeter levelMeter;
+        WaveLevelMeter levelMeter;
         
         int loudWarningDelayInFrames;
         int loudWarningTimer;
@@ -30,25 +30,25 @@ extern "C"
         int quietWarningTimer;
         float quietThreshold;
         
-    } drLevelAdvisor;
+    } WaveLevelAdvisor;
     
-    void drLevelAdvisor_init(drLevelAdvisor* advisor,
-                             drInstance* instance,
+    void wave_level_advisor_init(WaveLevelAdvisor* advisor,
+                             WaveInstance* instance,
                              int channel,
                              float fs);
     
     /**
      * Buffer processing callback.
      */
-    void drLevelAdvisor_processBuffer(void* advisorPtr, const float* inBuffer, int numChannels, int numFrames);
+    void wave_level_advisor_process_buffer(void* advisorPtr, const float* inBuffer, int numChannels, int numFrames);
     
     /**
      * Cleanup callback.
      */
-    void drLevelAdvisor_deinit(void* advisorPtr);
+    void wave_level_advisor_deinit(void* advisorPtr);
     
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
 
-#endif /* DR_LEVEL_ADVISOR_H */
+#endif /* WAVE_LEVEL_ADVISOR_H */

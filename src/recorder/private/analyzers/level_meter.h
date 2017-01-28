@@ -1,5 +1,5 @@
-#ifndef DR_LEVEL_METER_H
-#define DR_LEVEL_METER_H
+#ifndef WAVE_LEVEL_METER_H
+#define WAVE_LEVEL_METER_H
 
 /*! \file */
 
@@ -11,7 +11,7 @@ extern "C"
     /**
      * The state of a single channel level meter.
      */
-    typedef struct drLevelMeter
+    typedef struct WaveLevelMeter
     {
         /** The index of the channel to process. */
         int channel;
@@ -41,9 +41,9 @@ extern "C"
         float peakEnvelopeFeedbackDecay;
         /** */
         int clip;
-    } drLevelMeter;
+    } WaveLevelMeter;
     
-    void drLevelMeter_init(drLevelMeter* meter,
+    void wave_level_meter_init(WaveLevelMeter* meter,
                            int channel,
                            float fs,
                            float attackTime,
@@ -53,15 +53,15 @@ extern "C"
     /** 
      * Buffer processing callback.
      */
-    void drLevelMeter_processBuffer(void* levelMeter, const float* inBuffer, int numChannels, int numFrames);
+    void wave_level_meter_process_buffer(void* levelMeter, const float* inBuffer, int numChannels, int numFrames);
     
     /** 
      * Cleanup callback.
      */
-    void drLevelMeter_deinit(void* levelMeter);
+    void wave_level_meter_deinit(void* levelMeter);
     
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
 
-#endif /* DR_LEVEL_METER_H */
+#endif /* WAVE_LEVEL_METER_H */

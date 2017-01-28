@@ -267,7 +267,7 @@ static OSStatus audioConverterComplexInputDataProc(AudioConverterRef inAudioConv
                                                    AudioStreamPacketDescription** outDataPacketDescription,
                                                    void* inUserData)
 {
-    driOSAACEncoder* encoder = (driOSAACEncoder*)inUserData;
+    WaveiOSAACEncoder* encoder = (WaveiOSAACEncoder*)inUserData;
     
     if (outDataPacketDescription) {
         *outDataPacketDescription = NULL;
@@ -298,7 +298,7 @@ static OSStatus audioConverterComplexInputDataProc(AudioConverterRef inAudioConv
     
     //since this function could be invoked more than once every time the input pcm buffer
     //is full, compute the offset into the buffer to use for this chunk.
-    const int sampleOffset = nChannels * (DR_AAC_PCM_BUFFER_SIZE_IN_FRAMES - encoder->numPcmFramesLeftToDeliverToEncoder);
+    const int sampleOffset = nChannels * (WAVE_AAC_PCM_BUFFER_SIZE_IN_FRAMES - encoder->numPcmFramesLeftToDeliverToEncoder);
     assert(sampleOffset >= 0);
     ioData->mBuffers[0].mData = &(encoder->pcmBuffer[sampleOffset]);
 
@@ -326,7 +326,7 @@ static OSStatus audioFileReadProc(void* inClientData,
                                   void* buffer,
                                   UInt32* actualCount)
 {
-    driOSAACEncoder* encoder = (driOSAACEncoder*)inClientData;
+    WaveiOSAACEncoder* encoder = (WaveiOSAACEncoder*)inClientData;
     
     size_t pos = ftell(encoder->file);
     if (pos != inPosition)
@@ -357,7 +357,7 @@ static OSStatus audioFileWriteProc(void* inClientData,
                                    const void* buffer,
                                    UInt32* actualCount)
 {
-    driOSAACEncoder* encoder = (driOSAACEncoder*)inClientData;
+    WaveiOSAACEncoder* encoder = (WaveiOSAACEncoder*)inClientData;
     
     size_t pos = ftell(encoder->file);
     if (pos != inPosition)
@@ -387,7 +387,7 @@ static OSStatus audioFileWriteProc(void* inClientData,
  */
 static SInt64 audioFileGetSizeProc(void* inClientData)
 {
-    driOSAACEncoder* encoder = (driOSAACEncoder*)inClientData;
+    WaveiOSAACEncoder* encoder = (WaveiOSAACEncoder*)inClientData;
     
     size_t pos = ftell(encoder->file);
     fseek(encoder->file, 0, SEEK_END);
@@ -408,17 +408,17 @@ static SInt64 audioFileGetSizeProc(void* inClientData)
 static OSStatus audioFileSetSizeProc(void* inClientData,
                                      SInt64 inSize)
 {
-    driOSAACEncoder* encoder = (driOSAACEncoder*)inClientData;
+    WaveiOSAACEncoder* encoder = (WaveiOSAACEncoder*)inClientData;
     return 0;
 }
 
-WaveError driOSAACEncoder_initCallback(void* encoderData, const char* filePath, float fs, float numChannels)
+WaveError wave_ios_aac_encoder_init_callback(void* encoderData, const char* filePath, float fs, float numChannels)
 {
-    driOSAACEncoder* encoder = (driOSAACEncoder*)encoderData;
+    WaveiOSAACEncoder* encoder = (WaveiOSAACEncoder*)encoderData;
     
     //pcm scratch buffer
-    const int scratchBufferSize = numChannels * DR_AAC_PCM_BUFFER_SIZE_IN_FRAMES * sizeof(float);
-    encoder->pcmBuffer = (float*)DR_MALLOC(scratchBufferSize, "AAC scratch buffer");
+    const int scratchBufferSize = numChannels * WAVE_AAC_PCM_BUFFER_SIZE_IN_FRAMES * sizeof(float);
+    encoder->pcmBuffer = (float*)WAVE_MALLOC(scratchBufferSize, "AAC scratch buffer");
     memset(encoder->pcmBuffer, 0, scratchBufferSize);
     
     //input format
@@ -516,11 +516,11 @@ WaveError driOSAACEncoder_initCallback(void* encoderData, const char* filePath, 
                                                        &maxOutputPacketSize);
     ensureNoAudioConverterError(maxSizeResult);
     assert(maxOutputPacketSize > 0 && "maximum AAC output packet size should be positive");
-    encoder->aacOutputBuffer = (unsigned char*)DR_MALLOC(DR_AAC_OUTPUT_BUFFER_SIZE, "AAC output buffer");
-    memset(encoder->aacOutputBuffer, 0, DR_AAC_OUTPUT_BUFFER_SIZE);
-    encoder->maxNumOutputPackets = DR_AAC_OUTPUT_BUFFER_SIZE / maxOutputPacketSize;
+    encoder->aacOutputBuffer = (unsigned char*)WAVE_MALLOC(WAVE_AAC_OUTPUT_BUFFER_SIZE, "AAC output buffer");
+    memset(encoder->aacOutputBuffer, 0, WAVE_AAC_OUTPUT_BUFFER_SIZE);
+    encoder->maxNumOutputPackets = WAVE_AAC_OUTPUT_BUFFER_SIZE / maxOutputPacketSize;
     encoder->aacOutputPacketDescriptions =
-            (AudioStreamPacketDescription*)DR_MALLOC(sizeof(AudioStreamPacketDescription) *
+            (AudioStreamPacketDescription*)WAVE_MALLOC(sizeof(AudioStreamPacketDescription) *
                                                      encoder->maxNumOutputPackets, "AAC packet descriptions");
     memset(encoder->aacOutputPacketDescriptions,
            0,
@@ -529,13 +529,13 @@ WaveError driOSAACEncoder_initCallback(void* encoderData, const char* filePath, 
     return WAVE_NO_ERROR;
 }
 
-WaveError driOSAACEncoder_writeCallback(void* encoderData,
+WaveError wave_ios_aac_encoder_write_callback(void* encoderData,
                                       int numChannels,
                                       int numFrames,
                                       float* buffer,
                                       int* numBytesWritten)
 {
-    driOSAACEncoder* encoder = (driOSAACEncoder*)encoderData;
+    WaveiOSAACEncoder* encoder = (WaveiOSAACEncoder*)encoderData;
     //TODO: optimize these loops
     
     *numBytesWritten = 0;
@@ -550,7 +550,7 @@ WaveError driOSAACEncoder_writeCallback(void* encoderData,
         }
         
         encoder->pcmBufferWritePos++;
-        if (encoder->pcmBufferWritePos == DR_AAC_PCM_BUFFER_SIZE_IN_FRAMES)
+        if (encoder->pcmBufferWritePos == WAVE_AAC_PCM_BUFFER_SIZE_IN_FRAMES)
         {
             //printf("accumulated %d pcm frames, about to convert to AAC\n", encoder->pcmBufferWritePos);
             
@@ -558,11 +558,11 @@ WaveError driOSAACEncoder_writeCallback(void* encoderData,
             AudioBufferList fillBufList;
             fillBufList.mNumberBuffers = 1;
             fillBufList.mBuffers[0].mNumberChannels = numChannels;
-            fillBufList.mBuffers[0].mDataByteSize = DR_AAC_OUTPUT_BUFFER_SIZE;
+            fillBufList.mBuffers[0].mDataByteSize = WAVE_AAC_OUTPUT_BUFFER_SIZE;
             fillBufList.mBuffers[0].mData = encoder->aacOutputBuffer;
             
             UInt32 numPackets = encoder->maxNumOutputPackets;
-            encoder->numPcmFramesLeftToDeliverToEncoder = DR_AAC_PCM_BUFFER_SIZE_IN_FRAMES;
+            encoder->numPcmFramesLeftToDeliverToEncoder = WAVE_AAC_PCM_BUFFER_SIZE_IN_FRAMES;
             OSStatus fillResult = AudioConverterFillComplexBuffer(encoder->audioConverter,
                                                                   audioConverterComplexInputDataProc,
                                                                   encoder,
@@ -616,9 +616,9 @@ WaveError driOSAACEncoder_writeCallback(void* encoderData,
     return WAVE_NO_ERROR;
 }
 
-WaveError driOSAACEncoder_stopCallback(void* encoderData)
+WaveError wave_ios_aac_encoder_stop_callback(void* encoderData)
 {
-    driOSAACEncoder* encoder = (driOSAACEncoder*)encoderData;
+    WaveiOSAACEncoder* encoder = (WaveiOSAACEncoder*)encoderData;
     
     OSStatus closeResult = AudioFileClose(encoder->destAudioFile);
     ensureNoAudioFileError(closeResult);
@@ -626,9 +626,9 @@ WaveError driOSAACEncoder_stopCallback(void* encoderData)
     OSStatus disposeResult = AudioConverterDispose(encoder->audioConverter);
     ensureNoAudioConverterError(disposeResult);
     
-    DR_FREE(encoder->pcmBuffer);
-    DR_FREE(encoder->aacOutputBuffer);
-    DR_FREE(encoder->aacOutputPacketDescriptions);
+    WAVE_FREE(encoder->pcmBuffer);
+    WAVE_FREE(encoder->aacOutputBuffer);
+    WAVE_FREE(encoder->aacOutputPacketDescriptions);
     
     //TODO: close file
     
