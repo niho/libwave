@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['levelmeterattacktime',['levelMeterAttackTime',['../structdr_settings.html#aa56b418a167a8b3caf4cc04cadd304ae',1,'drSettings']]],
-  ['levelmeterreleasetime',['levelMeterReleaseTime',['../structdr_settings.html#a2c4ae8019dcdc3d4a74f490fcef001a0',1,'drSettings']]]
+  ['levelmeterattacktime',['levelMeterAttackTime',['../struct_wave_settings.html#ab253e3fe6dcaeab5846e4f01a232ce1c',1,'WaveSettings']]],
+  ['levelmeterreleasetime',['levelMeterReleaseTime',['../struct_wave_settings.html#a3df3cd5ceb607f03e271a617cdc60a89',1,'WaveSettings']]]
 ];

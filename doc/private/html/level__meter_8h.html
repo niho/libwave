@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Digger Recorder Private API: src/recorder/private/analyzers/level_meter.h File Reference</title>
+<title>Wave Recorder Private API: src/recorder/private/analyzers/level_meter.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Digger Recorder Private API
+   <div id="projectname">Wave Recorder Private API
    </div>
   </td>
  </tr>
@@ -75,33 +75,33 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdr_level_meter.html">drLevelMeter</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_wave_level_meter.html">WaveLevelMeter</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a4b3fdb49d34618c648e98cdcce61fbf8"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structdr_level_meter.html">drLevelMeter</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="level__meter_8h.html#a4b3fdb49d34618c648e98cdcce61fbf8">drLevelMeter</a></td></tr>
-<tr class="separator:a4b3fdb49d34618c648e98cdcce61fbf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6fc2ced1b0116d750fe593d3b1263f04"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct_wave_level_meter.html">WaveLevelMeter</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="level__meter_8h.html#a6fc2ced1b0116d750fe593d3b1263f04">WaveLevelMeter</a></td></tr>
+<tr class="separator:a6fc2ced1b0116d750fe593d3b1263f04"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a7ed8424620b6e4dbd4719a611fec0574"><td class="memItemLeft" align="right" valign="top"><a id="a7ed8424620b6e4dbd4719a611fec0574"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>drLevelMeter_init</b> (<a class="el" href="structdr_level_meter.html">drLevelMeter</a> *meter, int channel, float fs, float attackTime, float decayTime, float rmsWindowSizeInSeconds)</td></tr>
-<tr class="separator:a7ed8424620b6e4dbd4719a611fec0574"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad326b9410e81054c83faed8a6e5c6ddb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="level__meter_8h.html#ad326b9410e81054c83faed8a6e5c6ddb">drLevelMeter_processBuffer</a> (void *levelMeter, const float *inBuffer, int numChannels, int numFrames)</td></tr>
-<tr class="separator:ad326b9410e81054c83faed8a6e5c6ddb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab2d339b4e5d6933d45f1583848f1f9d6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="level__meter_8h.html#ab2d339b4e5d6933d45f1583848f1f9d6">drLevelMeter_deinit</a> (void *levelMeter)</td></tr>
-<tr class="separator:ab2d339b4e5d6933d45f1583848f1f9d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e01be1a0c81553864a5692ca0c8382c"><td class="memItemLeft" align="right" valign="top"><a id="a2e01be1a0c81553864a5692ca0c8382c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>wave_level_meter_init</b> (<a class="el" href="struct_wave_level_meter.html">WaveLevelMeter</a> *meter, int channel, float fs, float attackTime, float decayTime, float rmsWindowSizeInSeconds)</td></tr>
+<tr class="separator:a2e01be1a0c81553864a5692ca0c8382c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada325810a9654831b039d4b4da42637e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="level__meter_8h.html#ada325810a9654831b039d4b4da42637e">wave_level_meter_process_buffer</a> (void *levelMeter, const float *inBuffer, int numChannels, int numFrames)</td></tr>
+<tr class="separator:ada325810a9654831b039d4b4da42637e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abad3e6ae00c48e46571a929e20b9605d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="level__meter_8h.html#abad3e6ae00c48e46571a929e20b9605d">wave_level_meter_deinit</a> (void *levelMeter)</td></tr>
+<tr class="separator:abad3e6ae00c48e46571a929e20b9605d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
-<a id="a4b3fdb49d34618c648e98cdcce61fbf8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4b3fdb49d34618c648e98cdcce61fbf8">&#9670;&nbsp;</a></span>drLevelMeter</h2>
+<a id="a6fc2ced1b0116d750fe593d3b1263f04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fc2ced1b0116d750fe593d3b1263f04">&#9670;&nbsp;</a></span>WaveLevelMeter</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef struct <a class="el" href="structdr_level_meter.html">drLevelMeter</a>  <a class="el" href="structdr_level_meter.html">drLevelMeter</a></td>
+          <td class="memname">typedef struct <a class="el" href="struct_wave_level_meter.html">WaveLevelMeter</a>  <a class="el" href="struct_wave_level_meter.html">WaveLevelMeter</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -110,14 +110,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>drLevelMeter_init</b>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ab2d339b4e5d6933d45f1583848f1f9d6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab2d339b4e5d6933d45f1583848f1f9d6">&#9670;&nbsp;</a></span>drLevelMeter_deinit()</h2>
+<a id="abad3e6ae00c48e46571a929e20b9605d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abad3e6ae00c48e46571a929e20b9605d">&#9670;&nbsp;</a></span>wave_level_meter_deinit()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void drLevelMeter_deinit </td>
+          <td class="memname">void wave_level_meter_deinit </td>
           <td>(</td>
           <td class="paramtype">void *&#160;</td>
           <td class="paramname"><em>levelMeter</em></td><td>)</td>
@@ -129,14 +129,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>drLevelMeter_init</b>
 
 </div>
 </div>
-<a id="ad326b9410e81054c83faed8a6e5c6ddb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad326b9410e81054c83faed8a6e5c6ddb">&#9670;&nbsp;</a></span>drLevelMeter_processBuffer()</h2>
+<a id="ada325810a9654831b039d4b4da42637e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada325810a9654831b039d4b4da42637e">&#9670;&nbsp;</a></span>wave_level_meter_process_buffer()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void drLevelMeter_processBuffer </td>
+          <td class="memname">void wave_level_meter_process_buffer </td>
           <td>(</td>
           <td class="paramtype">void *&#160;</td>
           <td class="paramname"><em>levelMeter</em>, </td>

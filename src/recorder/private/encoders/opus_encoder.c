@@ -54,12 +54,12 @@ static ogg_packet *make_opus_header0_oggpacket(unsigned char channels, unsigned 
 	int size = 19;
 	ogg_packet *op;
 	unsigned char *data;
-    
+
 	op   = WAVE_MALLOC(sizeof(*op), "ogg header packet");
 	data = WAVE_MALLOC(size, "ogg header packet data");
 	if (!op || !data)
 		return NULL;
-    
+
 	memcpy(data, "OpusHead", 8);     /* identifier */
 	data[8] = 1;                     /* version */
 	data[9] = channels;              /* channels */
@@ -67,14 +67,14 @@ static ogg_packet *make_opus_header0_oggpacket(unsigned char channels, unsigned 
 	write_le32(data+12, samplerate); /* original sample rate */
 	write_le16(data+16, 0);          /* gain */
 	data[18] = 0;                    /* channel mapping family */
-    
+
 	op->packet     = data;
 	op->bytes      = size;
 	op->b_o_s      = 1;
 	op->e_o_s      = 0;
 	op->granulepos = 0;
 	op->packetno   = 0;
-    
+
 	return op;
 }
 
@@ -85,24 +85,24 @@ static ogg_packet *make_opus_header1_oggpacket(char *vendor)
 	int size = strlen(identifier) + 4 + strlen(vendor) + 4;
 	ogg_packet *op;
 	unsigned char *data;
-    
+
 	op   = WAVE_MALLOC(sizeof(*op), "ogg header packet");
 	data = WAVE_MALLOC(size, "ogg header packet data");
 	if (!op || !data)
 		return NULL;
-    
+
 	memcpy(data, identifier, 8);
 	write_le32(data+8, strlen(vendor));
 	memcpy(data+12, vendor, strlen(vendor));
 	write_le32(data+12+strlen(vendor), 0);
-    
+
 	op->packet     = data;
 	op->bytes      = size;
 	op->b_o_s      = 0;
 	op->e_o_s      = 0;
 	op->granulepos = 0;
 	op->packetno   = 1;
-    
+
 	return op;
 }
 
@@ -110,7 +110,7 @@ static int write_ogg_packet(ogg_stream_state *ostream, ogg_packet *opacket, FILE
 {
     *numBytesWritten = 0;
 	ogg_page opage;
-    
+
 #if DEBUGOGG
 	print_opacket_info(opacket);
 #endif
@@ -139,10 +139,10 @@ static int write_ogg_packet(ogg_stream_state *ostream, ogg_packet *opacket, FILE
 WaveError wave_opus_encoder_init(void* opusEncoder, const char* filePath, float fs, float numChannels)
 {
     assert(numChannels <= 2);
-    
+
     WaveOpusEncoder* encoder = (WaveOpusEncoder*)opusEncoder;
     encoder->numAccumulatedInputFrames = 0;
-    
+
     //create the opus encoder
     {
         int err;
@@ -155,32 +155,32 @@ WaveError wave_opus_encoder_init(void* opusEncoder, const char* filePath, float 
             //assert(err >= 0 && "failed to create opus encoder");
             return WAVE_FAILED_TO_INITIALIZE_ENCODER;
         }
-        
+
         err = opus_encoder_ctl(encoder->encoder, OPUS_SET_BITRATE(BITRATE));
         assert(err >= 0 && "failed to set oupus encoder bitrate");
     }
-    
+
     //open file to write to
     {
         assert(encoder->file == 0);
         encoder->file = fopen(filePath, "a+");
-        
+
         if (encoder->file == 0)
         {
             return WAVE_FAILED_TO_OPEN_ENCODER_TARGET_FILE;
         }
     }
-    
+
     //init ogg container file
     const int serialNo = rand(); //TODO: make sure this is unique per stream in the scope of a file
     int oggInitResult = ogg_stream_init(&encoder->oggStreamState, serialNo);
     assert(oggInitResult >= 0);
-    
+
     encoder->oggHeaderPacket0 = make_opus_header0_oggpacket(numChannels, fs);
     assert(encoder->oggHeaderPacket0);
-    encoder->oggHeaderPacket1 = make_opus_header1_oggpacket("digger recorder");
+    encoder->oggHeaderPacket1 = make_opus_header1_oggpacket("wave");
     assert(encoder->oggHeaderPacket1);
-    
+
     return WAVE_NO_ERROR;
 }
 
@@ -188,13 +188,13 @@ WaveError wave_opus_encoder_write(void* opusEncoder, int numChannels, int numFra
 {
     WaveOpusEncoder* encoder = (WaveOpusEncoder*)opusEncoder;
     *numBytesWritten = 0;
-    
+
     if (encoder->encoder == NULL)
     {
         //the encoder was not created properly. do nothing
         return WAVE_FAILED_TO_WRITE_ENCODED_AUDIO_DATA;
     }
-    
+
     //accumulate buffer to encode
     for (int i = 0; i < numFrames; i++)
     {
@@ -229,10 +229,10 @@ WaveError wave_opus_encoder_write(void* opusEncoder, int numChannels, int numFra
                         result     = write_ogg_packet(&encoder->oggStreamState,  encoder->oggHeaderPacket1, encoder->file, 1, &b);
                         assert(result >= 0);
                         totalBytesWritten += b;
-                        
+
                         encoder->hasWrittenHeaderPackets = 1;
                     }
-                    
+
                     // forge ogg packet
                     ogg_packet opacket;
                     memset(&opacket, 0, sizeof(ogg_packet));
@@ -243,14 +243,14 @@ WaveError wave_opus_encoder_write(void* opusEncoder, int numChannels, int numFra
                     opacket.granulepos = (encoder->packetsWritten + 1) * FRAME_SIZE;
                     opacket.packetno   = encoder->packetsWritten + 1;
                     encoder->packetsWritten++;
-                    
+
                     int b = 0;
                     int writeResult = write_ogg_packet(&encoder->oggStreamState, &opacket, encoder->file, 0, &b);
-                    
+
                     totalBytesWritten += b;
-                    
+
                     *numBytesWritten = totalBytesWritten;
-                    
+
                     //int n = fwrite(encoder->scratchOutputBuffer, 1, encodedPacketSize, encoder->file);
                     if (writeResult < 0)
                     {
@@ -260,27 +260,27 @@ WaveError wave_opus_encoder_write(void* opusEncoder, int numChannels, int numFra
             }
         }
     }
-    
+
     return WAVE_NO_ERROR;
 }
 
 WaveError wave_opus_encoder_stop(void* opusEncoder)
 {
     WaveOpusEncoder* encoder = (WaveOpusEncoder*)opusEncoder;
-    
+
     opus_encoder_destroy(encoder->encoder);
     ogg_stream_clear(&encoder->oggStreamState);
-    
+
     WAVE_FREE(encoder->oggHeaderPacket0->packet);
     WAVE_FREE(encoder->oggHeaderPacket0);
-    
+
     WAVE_FREE(encoder->oggHeaderPacket1->packet);
     WAVE_FREE(encoder->oggHeaderPacket1);
-    
+
     FILE* f = encoder->file;
-    
+
     memset(encoder, 0, sizeof(WaveOpusEncoder));
-    
+
     if (f)
     {
         if (fclose(f) != 0)
@@ -288,8 +288,8 @@ WaveError wave_opus_encoder_stop(void* opusEncoder)
             return WAVE_FAILED_TO_CLOSE_ENCODER_TARGET_FILE;
         }
     }
-    
-    
+
+
     return WAVE_NO_ERROR;
-    
+
 }

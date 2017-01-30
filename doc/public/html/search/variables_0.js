@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['controleventfifolevel',['controlEventFIFOLevel',['../structdr_dev_info.html#a2ef0366263cc275d0fc294f3acebc5af',1,'drDevInfo']]],
-  ['controleventfifounderrun',['controlEventFIFOUnderrun',['../structdr_dev_info.html#a21815c2377c306cfb20f5ecf6a99aad4',1,'drDevInfo']]]
+  ['controleventfifolevel',['controlEventFIFOLevel',['../struct_wave_dev_info.html#a28ddda9b0daeff0f0534ec911249e8ac',1,'WaveDevInfo']]],
+  ['controleventfifounderrun',['controlEventFIFOUnderrun',['../struct_wave_dev_info.html#a4572ca13c1ee4ac268656cc43b89aeed',1,'WaveDevInfo']]]
 ];

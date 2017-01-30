@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Digger Recorder Private API: src/recorder/private/encoder.h File Reference</title>
+<title>Wave Recorder Private API: src/recorder/private/encoder.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Digger Recorder Private API
+   <div id="projectname">Wave Recorder Private API
    </div>
   </td>
  </tr>
@@ -69,29 +69,29 @@ $(function() {
 <div class="title">encoder.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="error__codes_8h_source.html">error_codes.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="wave__error__codes_8h_source.html">wave_error_codes.h</a>&quot;</code><br />
 </div>
 <p><a href="encoder_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdr_encoder.html">drEncoder</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_wave_encoder.html">WaveEncoder</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:aa5acf8d8a68f429bb794085bcd44443b"><td class="memItemLeft" align="right" valign="top"><a id="aa5acf8d8a68f429bb794085bcd44443b"></a>
-typedef <a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>(*&#160;</td><td class="memItemRight" valign="bottom"><b>drEncoderInitCallback</b>) (void *encoderData, const char *filePath, float fs, float numChannels)</td></tr>
-<tr class="separator:aa5acf8d8a68f429bb794085bcd44443b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b86775e41b71e6c67440c2a0f1984e4"><td class="memItemLeft" align="right" valign="top"><a id="a6b86775e41b71e6c67440c2a0f1984e4"></a>
-typedef <a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>(*&#160;</td><td class="memItemRight" valign="bottom"><b>drEncoderWriteCallback</b>) (void *encoderData, int numChannels, int numFrames, float *buffer, int *numBytesWritten)</td></tr>
-<tr class="separator:a6b86775e41b71e6c67440c2a0f1984e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ba7c8ea8c800d16d7914b331035cdfc"><td class="memItemLeft" align="right" valign="top"><a id="a1ba7c8ea8c800d16d7914b331035cdfc"></a>
-typedef <a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>(*&#160;</td><td class="memItemRight" valign="bottom"><b>drEncoderStopCallback</b>) (void *encoderData)</td></tr>
-<tr class="separator:a1ba7c8ea8c800d16d7914b331035cdfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa9a6afa4ccb10ce06241aba1f0003c98"><td class="memItemLeft" align="right" valign="top"><a id="aa9a6afa4ccb10ce06241aba1f0003c98"></a>
-typedef struct <a class="el" href="structdr_encoder.html">drEncoder</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drEncoder</b></td></tr>
-<tr class="separator:aa9a6afa4ccb10ce06241aba1f0003c98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4792c18f11f9051abc14ac1a0e47379"><td class="memItemLeft" align="right" valign="top"><a id="ae4792c18f11f9051abc14ac1a0e47379"></a>
+typedef <a class="el" href="wave__error__codes_8h.html#ad710357474f1fa4e71b7ffc5f7f0127a">WaveError</a>(*&#160;</td><td class="memItemRight" valign="bottom"><b>WaveEncoderInitCallback</b>) (void *encoderData, const char *filePath, float fs, float numChannels)</td></tr>
+<tr class="separator:ae4792c18f11f9051abc14ac1a0e47379"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41c3d90de3c8a63f8aebd6f2038696ac"><td class="memItemLeft" align="right" valign="top"><a id="a41c3d90de3c8a63f8aebd6f2038696ac"></a>
+typedef <a class="el" href="wave__error__codes_8h.html#ad710357474f1fa4e71b7ffc5f7f0127a">WaveError</a>(*&#160;</td><td class="memItemRight" valign="bottom"><b>WaveEncoderWriteCallback</b>) (void *encoderData, int numChannels, int numFrames, float *buffer, int *numBytesWritten)</td></tr>
+<tr class="separator:a41c3d90de3c8a63f8aebd6f2038696ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab09c0d98e780391e79ee310bd3339ee9"><td class="memItemLeft" align="right" valign="top"><a id="ab09c0d98e780391e79ee310bd3339ee9"></a>
+typedef <a class="el" href="wave__error__codes_8h.html#ad710357474f1fa4e71b7ffc5f7f0127a">WaveError</a>(*&#160;</td><td class="memItemRight" valign="bottom"><b>WaveEncoderStopCallback</b>) (void *encoderData)</td></tr>
+<tr class="separator:ab09c0d98e780391e79ee310bd3339ee9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe87527fb804cc48d32e5d9efce94d21"><td class="memItemLeft" align="right" valign="top"><a id="abe87527fb804cc48d32e5d9efce94d21"></a>
+typedef struct <a class="el" href="struct_wave_encoder.html">WaveEncoder</a>&#160;</td><td class="memItemRight" valign="bottom"><b>WaveEncoder</b></td></tr>
+<tr class="separator:abe87527fb804cc48d32e5d9efce94d21"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->

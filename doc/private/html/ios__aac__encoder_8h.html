@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Digger Recorder Private API: src/recorder/private/encoders/ios_aac_encoder.h File Reference</title>
+<title>Wave Recorder Private API: src/recorder/private/encoders/ios_aac_encoder.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Digger Recorder Private API
+   <div id="projectname">Wave Recorder Private API
    </div>
   </td>
  </tr>
@@ -78,35 +78,35 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdri_o_s_a_a_c_encoder.html">driOSAACEncoder</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_wavei_o_s_a_a_c_encoder.html">WaveiOSAACEncoder</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:af1e748ee276662083c99d8dc619ee48e"><td class="memItemLeft" align="right" valign="top"><a id="af1e748ee276662083c99d8dc619ee48e"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>DR_AAC_PCM_BUFFER_SIZE_IN_FRAMES</b>&#160;&#160;&#160;(1 &lt;&lt; 12)</td></tr>
-<tr class="separator:af1e748ee276662083c99d8dc619ee48e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3bf74a998906c7c298a6ae3b5fcb318a"><td class="memItemLeft" align="right" valign="top"><a id="a3bf74a998906c7c298a6ae3b5fcb318a"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>DR_AAC_OUTPUT_BUFFER_SIZE</b>&#160;&#160;&#160;(1 &lt;&lt; 15)</td></tr>
-<tr class="separator:a3bf74a998906c7c298a6ae3b5fcb318a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23c7c4bdf8893de67ca8a5d90805367b"><td class="memItemLeft" align="right" valign="top"><a id="a23c7c4bdf8893de67ca8a5d90805367b"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>WAVE_AAC_PCM_BUFFER_SIZE_IN_FRAMES</b>&#160;&#160;&#160;(1 &lt;&lt; 12)</td></tr>
+<tr class="separator:a23c7c4bdf8893de67ca8a5d90805367b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab70e1175db6f24e9940a38a90600ee4"><td class="memItemLeft" align="right" valign="top"><a id="aab70e1175db6f24e9940a38a90600ee4"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>WAVE_AAC_OUTPUT_BUFFER_SIZE</b>&#160;&#160;&#160;(1 &lt;&lt; 15)</td></tr>
+<tr class="separator:aab70e1175db6f24e9940a38a90600ee4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a03f56080801f59e373b2fc64f50428f9"><td class="memItemLeft" align="right" valign="top"><a id="a03f56080801f59e373b2fc64f50428f9"></a>
-typedef struct <a class="el" href="structdri_o_s_a_a_c_encoder.html">driOSAACEncoder</a>&#160;</td><td class="memItemRight" valign="bottom"><b>driOSAACEncoder</b></td></tr>
-<tr class="separator:a03f56080801f59e373b2fc64f50428f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61788e6b23959dd3860a163c5f716f63"><td class="memItemLeft" align="right" valign="top"><a id="a61788e6b23959dd3860a163c5f716f63"></a>
+typedef struct <a class="el" href="struct_wavei_o_s_a_a_c_encoder.html">WaveiOSAACEncoder</a>&#160;</td><td class="memItemRight" valign="bottom"><b>WaveiOSAACEncoder</b></td></tr>
+<tr class="separator:a61788e6b23959dd3860a163c5f716f63"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a0e311e51455277ebbb488ce253686882"><td class="memItemLeft" align="right" valign="top"><a id="a0e311e51455277ebbb488ce253686882"></a>
-<a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>driOSAACEncoder_initCallback</b> (void *encoderData, const char *filePath, float fs, float numChannels)</td></tr>
-<tr class="separator:a0e311e51455277ebbb488ce253686882"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa927995491a671888fbec8ad91958d92"><td class="memItemLeft" align="right" valign="top"><a id="aa927995491a671888fbec8ad91958d92"></a>
-<a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>driOSAACEncoder_writeCallback</b> (void *encoderData, int numChannels, int numFrames, float *buffer, int *numBytesWritten)</td></tr>
-<tr class="separator:aa927995491a671888fbec8ad91958d92"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af24cd54fd35a1aa67cddf58997b7d794"><td class="memItemLeft" align="right" valign="top"><a id="af24cd54fd35a1aa67cddf58997b7d794"></a>
-<a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>driOSAACEncoder_stopCallback</b> (void *encoderData)</td></tr>
-<tr class="separator:af24cd54fd35a1aa67cddf58997b7d794"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a212edbf15d8bd5b67d30785a6642b8b2"><td class="memItemLeft" align="right" valign="top"><a id="a212edbf15d8bd5b67d30785a6642b8b2"></a>
+<a class="el" href="wave__error__codes_8h.html#ad710357474f1fa4e71b7ffc5f7f0127a">WaveError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>wave_ios_aac_encoder_init_callback</b> (void *encoderData, const char *filePath, float fs, float numChannels)</td></tr>
+<tr class="separator:a212edbf15d8bd5b67d30785a6642b8b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4ef17cc842922b7abaa88743801273b"><td class="memItemLeft" align="right" valign="top"><a id="ad4ef17cc842922b7abaa88743801273b"></a>
+<a class="el" href="wave__error__codes_8h.html#ad710357474f1fa4e71b7ffc5f7f0127a">WaveError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>wave_ios_aac_encoder_write_callback</b> (void *encoderData, int numChannels, int numFrames, float *buffer, int *numBytesWritten)</td></tr>
+<tr class="separator:ad4ef17cc842922b7abaa88743801273b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92a34ef19c57d065ae78af339d667670"><td class="memItemLeft" align="right" valign="top"><a id="a92a34ef19c57d065ae78af339d667670"></a>
+<a class="el" href="wave__error__codes_8h.html#ad710357474f1fa4e71b7ffc5f7f0127a">WaveError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>wave_ios_aac_encoder_stop_callback</b> (void *encoderData)</td></tr>
+<tr class="separator:a92a34ef19c57d065ae78af339d667670"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->

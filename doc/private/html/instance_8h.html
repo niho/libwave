@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Digger Recorder Private API: src/recorder/private/instance.h File Reference</title>
+<title>Wave Recorder Private API: src/recorder/private/instance.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Digger Recorder Private API
+   <div id="projectname">Wave Recorder Private API
    </div>
   </td>
  </tr>
@@ -73,11 +73,11 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;tinycthread.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="digger__recorder_8h_source.html">digger_recorder.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="wave__recorder_8h_source.html">wave_recorder.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="level__meter_8h_source.html">level_meter.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="analyzer_8h_source.html">analyzer.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="lock__free__fifo_8h_source.html">lock_free_fifo.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="settings_8h_source.html">settings.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="wave__settings_8h_source.html">wave_settings.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="encoder_8h_source.html">encoder.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="level__advisor_8h_source.html">level_advisor.h</a>&quot;</code><br />
 </div>
@@ -85,15 +85,15 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdr_recording_session.html">drRecordingSession</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_wave_recording_session.html">WaveRecordingSession</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdr_recorded_chunk.html">drRecordedChunk</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_wave_recorded_chunk.html">WaveRecordedChunk</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdr_control_event.html">drControlEvent</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_wave_control_event.html">WaveControlEvent</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdr_analyzer_slot.html">drAnalyzerSlot</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_wave_analyzer_slot.html">WaveAnalyzerSlot</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdr_instance.html">drInstance</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_wave_instance.html">WaveInstance</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
@@ -107,119 +107,119 @@ Macros</h2></td></tr>
 <tr class="memitem:a627d06cd9915962fcd6f77ce55b6bf19"><td class="memItemLeft" align="right" valign="top"><a id="a627d06cd9915962fcd6f77ce55b6bf19"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>MAX_NUM_OUTPUT_CHANNELS</b>&#160;&#160;&#160;2</td></tr>
 <tr class="separator:a627d06cd9915962fcd6f77ce55b6bf19"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a49ee90eaf7cacc2822ab65e83cc9cab1"><td class="memItemLeft" align="right" valign="top"><a id="a49ee90eaf7cacc2822ab65e83cc9cab1"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>DR_MAX_PATH_LEN</b>&#160;&#160;&#160;1024</td></tr>
-<tr class="separator:a49ee90eaf7cacc2822ab65e83cc9cab1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a955b9279354ff9a806c45c006d2c9536"><td class="memItemLeft" align="right" valign="top"><a id="a955b9279354ff9a806c45c006d2c9536"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>WAVE_MAX_PATH_LEN</b>&#160;&#160;&#160;1024</td></tr>
+<tr class="separator:a955b9279354ff9a806c45c006d2c9536"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4161917fc535beb61a4b3f8028b58dcb"><td class="memItemLeft" align="right" valign="top"><a id="a4161917fc535beb61a4b3f8028b58dcb"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>MAX_RECORDED_CHUNK_SIZE</b>&#160;&#160;&#160;1024</td></tr>
 <tr class="separator:a4161917fc535beb61a4b3f8028b58dcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a3200530ac16f3125781d78ef8ccbdab5"><td class="memItemLeft" align="right" valign="top"><a id="a3200530ac16f3125781d78ef8ccbdab5"></a>
-typedef struct <a class="el" href="structdr_recording_session.html">drRecordingSession</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drRecordingSession</b></td></tr>
-<tr class="separator:a3200530ac16f3125781d78ef8ccbdab5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8b7023acee58e961556eec5c469f18ea"><td class="memItemLeft" align="right" valign="top"><a id="a8b7023acee58e961556eec5c469f18ea"></a>
-typedef struct <a class="el" href="structdr_recorded_chunk.html">drRecordedChunk</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drRecordedChunk</b></td></tr>
-<tr class="separator:a8b7023acee58e961556eec5c469f18ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8df122261b8d4508f6dc4e61a78d5a76"><td class="memItemLeft" align="right" valign="top">typedef enum <a class="el" href="instance_8h.html#a0e0cf566b0a0b37e8ef4581497cad3ec">drControlEventType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="instance_8h.html#a8df122261b8d4508f6dc4e61a78d5a76">drControlEventType</a></td></tr>
-<tr class="separator:a8df122261b8d4508f6dc4e61a78d5a76"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a58c5f0bf03fa6ac0183ec5dea22150e6"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structdr_control_event.html">drControlEvent</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="instance_8h.html#a58c5f0bf03fa6ac0183ec5dea22150e6">drControlEvent</a></td></tr>
-<tr class="separator:a58c5f0bf03fa6ac0183ec5dea22150e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a39853c209fab28b5104e8223253ffdae"><td class="memItemLeft" align="right" valign="top">typedef enum <a class="el" href="instance_8h.html#aa8e9bbc5a5422bfdb275027cc29b652d">drAudioThreadState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="instance_8h.html#a39853c209fab28b5104e8223253ffdae">drState</a></td></tr>
-<tr class="separator:a39853c209fab28b5104e8223253ffdae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c97b7fa98eaa8f493257731b9da84d7"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structdr_analyzer_slot.html">drAnalyzerSlot</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="instance_8h.html#a1c97b7fa98eaa8f493257731b9da84d7">drAnalyzerSlot</a></td></tr>
-<tr class="separator:a1c97b7fa98eaa8f493257731b9da84d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af38ade5d20fc4cd124aa8e77d05da814"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structdr_instance.html">drInstance</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="instance_8h.html#af38ade5d20fc4cd124aa8e77d05da814">drInstance</a></td></tr>
-<tr class="separator:af38ade5d20fc4cd124aa8e77d05da814"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2802edff1a1f11ce165a7fc7d44c6396"><td class="memItemLeft" align="right" valign="top"><a id="a2802edff1a1f11ce165a7fc7d44c6396"></a>
+typedef struct <a class="el" href="struct_wave_recording_session.html">WaveRecordingSession</a>&#160;</td><td class="memItemRight" valign="bottom"><b>WaveRecordingSession</b></td></tr>
+<tr class="separator:a2802edff1a1f11ce165a7fc7d44c6396"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cd94dcc852c03089746af8c0ffc8116"><td class="memItemLeft" align="right" valign="top"><a id="a8cd94dcc852c03089746af8c0ffc8116"></a>
+typedef struct <a class="el" href="struct_wave_recorded_chunk.html">WaveRecordedChunk</a>&#160;</td><td class="memItemRight" valign="bottom"><b>WaveRecordedChunk</b></td></tr>
+<tr class="separator:a8cd94dcc852c03089746af8c0ffc8116"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89ff1efa1f3ece18916f7450ff06ea82"><td class="memItemLeft" align="right" valign="top">typedef enum <a class="el" href="instance_8h.html#ac36261f769a2ab0eba4dd706242ed9ab">WaveControlEventType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="instance_8h.html#a89ff1efa1f3ece18916f7450ff06ea82">WaveControlEventType</a></td></tr>
+<tr class="separator:a89ff1efa1f3ece18916f7450ff06ea82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a512d9cb4b89baa78f9613a8ee7ed7c1e"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct_wave_control_event.html">WaveControlEvent</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="instance_8h.html#a512d9cb4b89baa78f9613a8ee7ed7c1e">WaveControlEvent</a></td></tr>
+<tr class="separator:a512d9cb4b89baa78f9613a8ee7ed7c1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71c46212fdeed080e778b0262cee6f6d"><td class="memItemLeft" align="right" valign="top">typedef enum <a class="el" href="instance_8h.html#ad31ed175aa8d9fecdf673386cd00147b">WaveAudioThreadState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="instance_8h.html#a71c46212fdeed080e778b0262cee6f6d">WaveState</a></td></tr>
+<tr class="separator:a71c46212fdeed080e778b0262cee6f6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac02f3afec936747f3649fe566b81d111"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct_wave_analyzer_slot.html">WaveAnalyzerSlot</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="instance_8h.html#ac02f3afec936747f3649fe566b81d111">WaveAnalyzerSlot</a></td></tr>
+<tr class="separator:ac02f3afec936747f3649fe566b81d111"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad746c740cba7777d8def3d7014f53958"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct_wave_instance.html">WaveInstance</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="instance_8h.html#ad746c740cba7777d8def3d7014f53958">WaveInstance</a></td></tr>
+<tr class="separator:ad746c740cba7777d8def3d7014f53958"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:a0e0cf566b0a0b37e8ef4581497cad3ec"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="instance_8h.html#a0e0cf566b0a0b37e8ef4581497cad3ec">drControlEventType</a> { <b>DR_START_RECORDING</b> = 0, 
-<b>DR_PAUSE_RECORDING</b>, 
-<b>DR_RESUME_RECORDING</b>, 
-<b>DR_STOP_RECORDING</b>
+<tr class="memitem:ac36261f769a2ab0eba4dd706242ed9ab"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="instance_8h.html#ac36261f769a2ab0eba4dd706242ed9ab">WaveControlEventType</a> { <b>WAVE_START_RECORDING</b> = 0, 
+<b>WAVE_PAUSE_RECORDING</b>, 
+<b>WAVE_RESUME_RECORDING</b>, 
+<b>WAVE_STOP_RECORDING</b>
  }</td></tr>
-<tr class="separator:a0e0cf566b0a0b37e8ef4581497cad3ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8e9bbc5a5422bfdb275027cc29b652d"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="instance_8h.html#aa8e9bbc5a5422bfdb275027cc29b652d">drAudioThreadState</a> { <b>DR_STATE_IDLE</b> = 0, 
-<b>DR_STATE_RECORDING</b>, 
-<b>DR_STATE_RECORDING_PAUSED</b>
+<tr class="separator:ac36261f769a2ab0eba4dd706242ed9ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad31ed175aa8d9fecdf673386cd00147b"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="instance_8h.html#ad31ed175aa8d9fecdf673386cd00147b">WaveAudioThreadState</a> { <b>WAVE_STATE_IDLE</b> = 0, 
+<b>WAVE_STATE_RECORDING</b>, 
+<b>WAVE_STATE_RECORDING_PAUSED</b>
  }</td></tr>
-<tr class="separator:aa8e9bbc5a5422bfdb275027cc29b652d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:ad31ed175aa8d9fecdf673386cd00147b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a5c59bd3262be786c4de248fa2e7f0506"><td class="memItemLeft" align="right" valign="top"><a id="a5c59bd3262be786c4de248fa2e7f0506"></a>
-<a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drInstance_init</b> (<a class="el" href="structdr_instance.html">drInstance</a> *instance, <a class="el" href="digger__recorder_8h.html#a1647e3ec376511d37afc0fd89f25f056">drNotificationCallback</a> notificationCallback, <a class="el" href="digger__recorder_8h.html#a3a3e69e3e5b8cc2bd38acc80114bdb75">drErrorCallback</a> errorCallback, drAudioWrittenCallback audioWrittenCallback, void *callbackUserData, <a class="el" href="structdr_settings.html">drSettings</a> *settings)</td></tr>
-<tr class="separator:a5c59bd3262be786c4de248fa2e7f0506"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a496a793c8d7302128f74cebd661b1196"><td class="memItemLeft" align="right" valign="top"><a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="instance_8h.html#a496a793c8d7302128f74cebd661b1196">drInstance_hostSpecificInit</a> (<a class="el" href="structdr_instance.html">drInstance</a> *instance)</td></tr>
-<tr class="separator:a496a793c8d7302128f74cebd661b1196"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac427bd473939e78d593b222de6b70586"><td class="memItemLeft" align="right" valign="top"><a id="ac427bd473939e78d593b222de6b70586"></a>
-<a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drInstance_deinit</b> (<a class="el" href="structdr_instance.html">drInstance</a> *instance)</td></tr>
-<tr class="separator:ac427bd473939e78d593b222de6b70586"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7cdaa01ceb3239d38d1e54151789b86"><td class="memItemLeft" align="right" valign="top"><a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="instance_8h.html#ad7cdaa01ceb3239d38d1e54151789b86">drInstance_hostSpecificDeinit</a> (<a class="el" href="structdr_instance.html">drInstance</a> *instance)</td></tr>
-<tr class="separator:ad7cdaa01ceb3239d38d1e54151789b86"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a87e0088847b44256f0c3f510a4281542"><td class="memItemLeft" align="right" valign="top"><a id="a87e0088847b44256f0c3f510a4281542"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>drInstance_update</b> (<a class="el" href="structdr_instance.html">drInstance</a> *instance, float timeStep)</td></tr>
-<tr class="separator:a87e0088847b44256f0c3f510a4281542"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf97ee1a839261689b66963a29b62418"><td class="memItemLeft" align="right" valign="top"><a id="abf97ee1a839261689b66963a29b62418"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>drInstance_audioInputCallback</b> (<a class="el" href="structdr_instance.html">drInstance</a> *in, const float *inBuffer, int numChannels, int numFrames)</td></tr>
-<tr class="separator:abf97ee1a839261689b66963a29b62418"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0fe9c9379df9d7a4cbec4d61ecdad86d"><td class="memItemLeft" align="right" valign="top"><a id="a0fe9c9379df9d7a4cbec4d61ecdad86d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>drInstance_audioOutputCallback</b> (<a class="el" href="structdr_instance.html">drInstance</a> *in, float *inBuffer, int numChannels, int numFrames)</td></tr>
-<tr class="separator:a0fe9c9379df9d7a4cbec4d61ecdad86d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7cf93f2ab72c808b80e495b661f851d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="instance_8h.html#ad7cf93f2ab72c808b80e495b661f851d">drInstance_isOnMainThread</a> (<a class="el" href="structdr_instance.html">drInstance</a> *instance)</td></tr>
-<tr class="separator:ad7cf93f2ab72c808b80e495b661f851d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ed6e95da4554fc1cb63ad1a7d938f46"><td class="memItemLeft" align="right" valign="top"><a id="a4ed6e95da4554fc1cb63ad1a7d938f46"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>drInstance_getRealtimeInfo</b> (<a class="el" href="structdr_instance.html">drInstance</a> *instance, int channel, int logLevels, <a class="el" href="structdr_realtime_info.html">drRealtimeInfo</a> *result)</td></tr>
-<tr class="separator:a4ed6e95da4554fc1cb63ad1a7d938f46"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a868e4e6c98330227cc4a156ce8eb9018"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="instance_8h.html#a868e4e6c98330227cc4a156ce8eb9018">drInstance_onAudioThreadControlEvent</a> (<a class="el" href="structdr_instance.html">drInstance</a> *instance, const <a class="el" href="structdr_control_event.html">drControlEvent</a> *event)</td></tr>
-<tr class="separator:a868e4e6c98330227cc4a156ce8eb9018"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e8326f61afeb7258aa1733f142d26cf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="instance_8h.html#a2e8326f61afeb7258aa1733f142d26cf">drInstance_onMainThreadNotification</a> (<a class="el" href="structdr_instance.html">drInstance</a> *instance, const <a class="el" href="structdr_notification.html">drNotification</a> *notification)</td></tr>
-<tr class="separator:a2e8326f61afeb7258aa1733f142d26cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1392c2b93ddd75312340ccbcf0daab2e"><td class="memItemLeft" align="right" valign="top"><a id="a1392c2b93ddd75312340ccbcf0daab2e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>drInstance_onMainThreadError</b> (<a class="el" href="structdr_instance.html">drInstance</a> *instance, <a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a> error)</td></tr>
-<tr class="separator:a1392c2b93ddd75312340ccbcf0daab2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aecddc614f402ba00c2a8904ce544cfd9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="instance_8h.html#aecddc614f402ba00c2a8904ce544cfd9">drInstance_addInputAnalyzer</a> (<a class="el" href="structdr_instance.html">drInstance</a> *instance, void *analyzerData, drAnalyzerAudioCallback audioCallback, drAnalyzerDeinitCallback deinitCallback)</td></tr>
-<tr class="separator:aecddc614f402ba00c2a8904ce544cfd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6114da8d7241870f83dc56118e03d36e"><td class="memItemLeft" align="right" valign="top"><a id="a6114da8d7241870f83dc56118e03d36e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>drInstance_requestStartRecording</b> (<a class="el" href="structdr_instance.html">drInstance</a> *instance, const char *filePath)</td></tr>
-<tr class="separator:a6114da8d7241870f83dc56118e03d36e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a009da60d3e8a0245380e8bcd78deb708"><td class="memItemLeft" align="right" valign="top"><a id="a009da60d3e8a0245380e8bcd78deb708"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>drInstance_initiateRecording</b> (<a class="el" href="structdr_instance.html">drInstance</a> *instance)</td></tr>
-<tr class="separator:a009da60d3e8a0245380e8bcd78deb708"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5dcdf40acf208b922aa4fbdf61b2bf46"><td class="memItemLeft" align="right" valign="top"><a id="a5dcdf40acf208b922aa4fbdf61b2bf46"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>drInstance_stopRecording</b> (<a class="el" href="structdr_instance.html">drInstance</a> *instance)</td></tr>
-<tr class="separator:a5dcdf40acf208b922aa4fbdf61b2bf46"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad82b8b6b307d82b9edc7b583061ac0f7"><td class="memItemLeft" align="right" valign="top"><a id="ad82b8b6b307d82b9edc7b583061ac0f7"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>drInstance_invokeErrorCallback</b> (<a class="el" href="structdr_instance.html">drInstance</a> *instance, <a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a> errorCode)</td></tr>
-<tr class="separator:ad82b8b6b307d82b9edc7b583061ac0f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaf84aebd934bd23a7ecf431412da7d09"><td class="memItemLeft" align="right" valign="top"><a id="aaf84aebd934bd23a7ecf431412da7d09"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>drInstance_invokeNotificationCallback</b> (<a class="el" href="structdr_instance.html">drInstance</a> *instance, const <a class="el" href="structdr_notification.html">drNotification</a> *notification)</td></tr>
-<tr class="separator:aaf84aebd934bd23a7ecf431412da7d09"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f9ec09c00ffde627935df2e5e76a875"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="instance_8h.html#a2f9ec09c00ffde627935df2e5e76a875">drInstance_enqueueError</a> (<a class="el" href="structdr_instance.html">drInstance</a> *instance, <a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a> error)</td></tr>
-<tr class="separator:a2f9ec09c00ffde627935df2e5e76a875"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a952f566c91e479b7b5175e5183e3bd92"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="instance_8h.html#a952f566c91e479b7b5175e5183e3bd92">drInstance_enqueueNotification</a> (<a class="el" href="structdr_instance.html">drInstance</a> *instance, const <a class="el" href="structdr_notification.html">drNotification</a> *notification)</td></tr>
-<tr class="separator:a952f566c91e479b7b5175e5183e3bd92"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ae1f9767b70c750f6eeb32a7d1014c8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="instance_8h.html#a6ae1f9767b70c750f6eeb32a7d1014c8">drInstance_enqueueNotificationOfType</a> (<a class="el" href="structdr_instance.html">drInstance</a> *instance, <a class="el" href="notification_8h.html#aec428a6e7cda7dcbcf08964c34a21861">drNotificationType</a> type)</td></tr>
-<tr class="separator:a6ae1f9767b70c750f6eeb32a7d1014c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af630066616f0ecccb150b87d784f8d59"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="instance_8h.html#af630066616f0ecccb150b87d784f8d59">drInstance_enqueueControlEvent</a> (<a class="el" href="structdr_instance.html">drInstance</a> *instance, const <a class="el" href="structdr_control_event.html">drControlEvent</a> *event)</td></tr>
-<tr class="separator:af630066616f0ecccb150b87d784f8d59"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa017a1f360ae6146302a5881bf795e64"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="instance_8h.html#aa017a1f360ae6146302a5881bf795e64">drInstance_enqueueControlEventOfType</a> (<a class="el" href="structdr_instance.html">drInstance</a> *instance, <a class="el" href="instance_8h.html#a0e0cf566b0a0b37e8ef4581497cad3ec">drControlEventType</a> type)</td></tr>
-<tr class="separator:aa017a1f360ae6146302a5881bf795e64"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00a123f3e7c824414e2eb6a4ba54c42a"><td class="memItemLeft" align="right" valign="top"><a id="a00a123f3e7c824414e2eb6a4ba54c42a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>drInstance_getDevInfo</b> (<a class="el" href="structdr_instance.html">drInstance</a> *instance, <a class="el" href="structdr_dev_info.html">drDevInfo</a> *devInfo)</td></tr>
-<tr class="separator:a00a123f3e7c824414e2eb6a4ba54c42a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c3addecb5461a1be130673397dada76"><td class="memItemLeft" align="right" valign="top"><a id="a6c3addecb5461a1be130673397dada76"></a>
+<a class="el" href="wave__error__codes_8h.html#ad710357474f1fa4e71b7ffc5f7f0127a">WaveError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>wave_instance_init</b> (<a class="el" href="struct_wave_instance.html">WaveInstance</a> *instance, <a class="el" href="wave__recorder_8h.html#ac230cce4819b72f8fbe55dbcaf283300">WaveNotificationCallback</a> notificationCallback, <a class="el" href="wave__recorder_8h.html#a1d4dca5224732e9d904e02f57f7f5acc">WaveErrorCallback</a> errorCallback, WaveAudioWrittenCallback audioWrittenCallback, void *callbackUserData, <a class="el" href="struct_wave_settings.html">WaveSettings</a> *settings)</td></tr>
+<tr class="separator:a6c3addecb5461a1be130673397dada76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aacbfdcf64472fb907631ca9ac4c9afc1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="wave__error__codes_8h.html#ad710357474f1fa4e71b7ffc5f7f0127a">WaveError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="instance_8h.html#aacbfdcf64472fb907631ca9ac4c9afc1">wave_instance_host_specific_init</a> (<a class="el" href="struct_wave_instance.html">WaveInstance</a> *instance)</td></tr>
+<tr class="separator:aacbfdcf64472fb907631ca9ac4c9afc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad751899f1d48039fe5aea78e7bb50f94"><td class="memItemLeft" align="right" valign="top"><a id="ad751899f1d48039fe5aea78e7bb50f94"></a>
+<a class="el" href="wave__error__codes_8h.html#ad710357474f1fa4e71b7ffc5f7f0127a">WaveError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>wave_instance_deinit</b> (<a class="el" href="struct_wave_instance.html">WaveInstance</a> *instance)</td></tr>
+<tr class="separator:ad751899f1d48039fe5aea78e7bb50f94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1a81dda2a4aeeafd3531d454d53456b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="wave__error__codes_8h.html#ad710357474f1fa4e71b7ffc5f7f0127a">WaveError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="instance_8h.html#af1a81dda2a4aeeafd3531d454d53456b">wave_instance_host_specific_deinit</a> (<a class="el" href="struct_wave_instance.html">WaveInstance</a> *instance)</td></tr>
+<tr class="separator:af1a81dda2a4aeeafd3531d454d53456b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac79282baae0edd3b023d95da36bb8303"><td class="memItemLeft" align="right" valign="top"><a id="ac79282baae0edd3b023d95da36bb8303"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>wave_instance_update</b> (<a class="el" href="struct_wave_instance.html">WaveInstance</a> *instance, float timeStep)</td></tr>
+<tr class="separator:ac79282baae0edd3b023d95da36bb8303"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d44344a823e1ba57d140025ce26a49e"><td class="memItemLeft" align="right" valign="top"><a id="a6d44344a823e1ba57d140025ce26a49e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>wave_instance_audio_input_callback</b> (<a class="el" href="struct_wave_instance.html">WaveInstance</a> *in, const float *inBuffer, int numChannels, int numFrames)</td></tr>
+<tr class="separator:a6d44344a823e1ba57d140025ce26a49e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0affd8c7a39f1dfd3a3e2bae4fa33108"><td class="memItemLeft" align="right" valign="top"><a id="a0affd8c7a39f1dfd3a3e2bae4fa33108"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>wave_instance_audio_output_callback</b> (<a class="el" href="struct_wave_instance.html">WaveInstance</a> *in, float *inBuffer, int numChannels, int numFrames)</td></tr>
+<tr class="separator:a0affd8c7a39f1dfd3a3e2bae4fa33108"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad943ad0074c9ea7445962f2d88cd76a2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="instance_8h.html#ad943ad0074c9ea7445962f2d88cd76a2">wave_instance_is_on_main_thread</a> (<a class="el" href="struct_wave_instance.html">WaveInstance</a> *instance)</td></tr>
+<tr class="separator:ad943ad0074c9ea7445962f2d88cd76a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b14ea5635c1b67f3f1fc39c11ad9948"><td class="memItemLeft" align="right" valign="top"><a id="a9b14ea5635c1b67f3f1fc39c11ad9948"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>wave_instance_get_realtime_info</b> (<a class="el" href="struct_wave_instance.html">WaveInstance</a> *instance, int channel, int logLevels, <a class="el" href="struct_wave_realtime_info.html">WaveRealtimeInfo</a> *result)</td></tr>
+<tr class="separator:a9b14ea5635c1b67f3f1fc39c11ad9948"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3f848dfed040d5c3a58d552027b5030"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="instance_8h.html#aa3f848dfed040d5c3a58d552027b5030">wave_instance_on_audio_thread_control_event</a> (<a class="el" href="struct_wave_instance.html">WaveInstance</a> *instance, const <a class="el" href="struct_wave_control_event.html">WaveControlEvent</a> *event)</td></tr>
+<tr class="separator:aa3f848dfed040d5c3a58d552027b5030"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afba03fbce99882575699a68810ddd37a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="instance_8h.html#afba03fbce99882575699a68810ddd37a">wave_instance_on_main_thread_notification</a> (<a class="el" href="struct_wave_instance.html">WaveInstance</a> *instance, const <a class="el" href="struct_wave_notification.html">WaveNotification</a> *notification)</td></tr>
+<tr class="separator:afba03fbce99882575699a68810ddd37a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a498a104c8012262bee746b4928abb1e5"><td class="memItemLeft" align="right" valign="top"><a id="a498a104c8012262bee746b4928abb1e5"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>wave_instance_on_main_thread_error</b> (<a class="el" href="struct_wave_instance.html">WaveInstance</a> *instance, <a class="el" href="wave__error__codes_8h.html#ad710357474f1fa4e71b7ffc5f7f0127a">WaveError</a> error)</td></tr>
+<tr class="separator:a498a104c8012262bee746b4928abb1e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3fe21c6fd263f5898feb7c8570c7e292"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="instance_8h.html#a3fe21c6fd263f5898feb7c8570c7e292">wave_instance_add_input_analyzer</a> (<a class="el" href="struct_wave_instance.html">WaveInstance</a> *instance, void *analyzerData, WaveAnalyzerAudioCallback audioCallback, WaveAnalyzerDeinitCallback deinitCallback)</td></tr>
+<tr class="separator:a3fe21c6fd263f5898feb7c8570c7e292"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec3a6432289e4a8eb5acac67d44c9966"><td class="memItemLeft" align="right" valign="top"><a id="aec3a6432289e4a8eb5acac67d44c9966"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>wave_instance_request_start_recording</b> (<a class="el" href="struct_wave_instance.html">WaveInstance</a> *instance, const char *filePath)</td></tr>
+<tr class="separator:aec3a6432289e4a8eb5acac67d44c9966"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ae239ec26c9e746589d828c0c1f6f09"><td class="memItemLeft" align="right" valign="top"><a id="a8ae239ec26c9e746589d828c0c1f6f09"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>wave_nstance_initiate_recording</b> (<a class="el" href="struct_wave_instance.html">WaveInstance</a> *instance)</td></tr>
+<tr class="separator:a8ae239ec26c9e746589d828c0c1f6f09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ec67cdb126d20ea836e177630dc79d6"><td class="memItemLeft" align="right" valign="top"><a id="a2ec67cdb126d20ea836e177630dc79d6"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>wave_instance_stop_recording</b> (<a class="el" href="struct_wave_instance.html">WaveInstance</a> *instance)</td></tr>
+<tr class="separator:a2ec67cdb126d20ea836e177630dc79d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13912283b28d7315deb922b988ebb700"><td class="memItemLeft" align="right" valign="top"><a id="a13912283b28d7315deb922b988ebb700"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>wave_instance_invoke_error_callback</b> (<a class="el" href="struct_wave_instance.html">WaveInstance</a> *instance, <a class="el" href="wave__error__codes_8h.html#ad710357474f1fa4e71b7ffc5f7f0127a">WaveError</a> errorCode)</td></tr>
+<tr class="separator:a13912283b28d7315deb922b988ebb700"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb8716e15c5c94b50918c36e7d25ad3e"><td class="memItemLeft" align="right" valign="top"><a id="adb8716e15c5c94b50918c36e7d25ad3e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>wave_instance_invoke_notification_callback</b> (<a class="el" href="struct_wave_instance.html">WaveInstance</a> *instance, const <a class="el" href="struct_wave_notification.html">WaveNotification</a> *notification)</td></tr>
+<tr class="separator:adb8716e15c5c94b50918c36e7d25ad3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c687815575bdb2d77c5c1eaa900126b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="instance_8h.html#a9c687815575bdb2d77c5c1eaa900126b">wave_instance_enqueue_error</a> (<a class="el" href="struct_wave_instance.html">WaveInstance</a> *instance, <a class="el" href="wave__error__codes_8h.html#ad710357474f1fa4e71b7ffc5f7f0127a">WaveError</a> error)</td></tr>
+<tr class="separator:a9c687815575bdb2d77c5c1eaa900126b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32d1e4bccee541e6b5ea1ba51b009884"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="instance_8h.html#a32d1e4bccee541e6b5ea1ba51b009884">wave_instance_enqueue_notification</a> (<a class="el" href="struct_wave_instance.html">WaveInstance</a> *instance, const <a class="el" href="struct_wave_notification.html">WaveNotification</a> *notification)</td></tr>
+<tr class="separator:a32d1e4bccee541e6b5ea1ba51b009884"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5fe5802b908611ca27d83e1e01578482"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="instance_8h.html#a5fe5802b908611ca27d83e1e01578482">wave_instance_enqueue_notification_of_type</a> (<a class="el" href="struct_wave_instance.html">WaveInstance</a> *instance, <a class="el" href="wave__notification_8h.html#a21236b2104a9731c87f5b02703c45dbd">WaveNotificationType</a> type)</td></tr>
+<tr class="separator:a5fe5802b908611ca27d83e1e01578482"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bc70cb21e1275f37e11b46f1d95cbe2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="instance_8h.html#a7bc70cb21e1275f37e11b46f1d95cbe2">wave_instance_enqueue_control_event</a> (<a class="el" href="struct_wave_instance.html">WaveInstance</a> *instance, const <a class="el" href="struct_wave_control_event.html">WaveControlEvent</a> *event)</td></tr>
+<tr class="separator:a7bc70cb21e1275f37e11b46f1d95cbe2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16bcd56bc66e3ad1c39f1831182b035d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="instance_8h.html#a16bcd56bc66e3ad1c39f1831182b035d">wave_instance_enqueue_control_event_of_type</a> (<a class="el" href="struct_wave_instance.html">WaveInstance</a> *instance, <a class="el" href="instance_8h.html#ac36261f769a2ab0eba4dd706242ed9ab">WaveControlEventType</a> type)</td></tr>
+<tr class="separator:a16bcd56bc66e3ad1c39f1831182b035d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae8904a678c6e42b3336db49b9efe127"><td class="memItemLeft" align="right" valign="top"><a id="aae8904a678c6e42b3336db49b9efe127"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>wave_instance_get_dev_info</b> (<a class="el" href="struct_wave_instance.html">WaveInstance</a> *instance, <a class="el" href="struct_wave_dev_info.html">WaveDevInfo</a> *devInfo)</td></tr>
+<tr class="separator:aae8904a678c6e42b3336db49b9efe127"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
-<a id="a1c97b7fa98eaa8f493257731b9da84d7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1c97b7fa98eaa8f493257731b9da84d7">&#9670;&nbsp;</a></span>drAnalyzerSlot</h2>
+<a id="ac02f3afec936747f3649fe566b81d111"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac02f3afec936747f3649fe566b81d111">&#9670;&nbsp;</a></span>WaveAnalyzerSlot</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef struct <a class="el" href="structdr_analyzer_slot.html">drAnalyzerSlot</a>  <a class="el" href="structdr_analyzer_slot.html">drAnalyzerSlot</a></td>
+          <td class="memname">typedef struct <a class="el" href="struct_wave_analyzer_slot.html">WaveAnalyzerSlot</a>  <a class="el" href="struct_wave_analyzer_slot.html">WaveAnalyzerSlot</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -227,14 +227,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>drInstance_getDevInfo
 
 </div>
 </div>
-<a id="a58c5f0bf03fa6ac0183ec5dea22150e6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a58c5f0bf03fa6ac0183ec5dea22150e6">&#9670;&nbsp;</a></span>drControlEvent</h2>
+<a id="a512d9cb4b89baa78f9613a8ee7ed7c1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a512d9cb4b89baa78f9613a8ee7ed7c1e">&#9670;&nbsp;</a></span>WaveControlEvent</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef struct <a class="el" href="structdr_control_event.html">drControlEvent</a>  <a class="el" href="structdr_control_event.html">drControlEvent</a></td>
+          <td class="memname">typedef struct <a class="el" href="struct_wave_control_event.html">WaveControlEvent</a>  <a class="el" href="struct_wave_control_event.html">WaveControlEvent</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -242,14 +242,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>drInstance_getDevInfo
 
 </div>
 </div>
-<a id="a8df122261b8d4508f6dc4e61a78d5a76"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8df122261b8d4508f6dc4e61a78d5a76">&#9670;&nbsp;</a></span>drControlEventType</h2>
+<a id="a89ff1efa1f3ece18916f7450ff06ea82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89ff1efa1f3ece18916f7450ff06ea82">&#9670;&nbsp;</a></span>WaveControlEventType</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef enum <a class="el" href="instance_8h.html#a0e0cf566b0a0b37e8ef4581497cad3ec">drControlEventType</a>  <a class="el" href="instance_8h.html#a0e0cf566b0a0b37e8ef4581497cad3ec">drControlEventType</a></td>
+          <td class="memname">typedef enum <a class="el" href="instance_8h.html#ac36261f769a2ab0eba4dd706242ed9ab">WaveControlEventType</a>  <a class="el" href="instance_8h.html#ac36261f769a2ab0eba4dd706242ed9ab">WaveControlEventType</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -257,29 +257,29 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>drInstance_getDevInfo
 
 </div>
 </div>
-<a id="af38ade5d20fc4cd124aa8e77d05da814"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af38ade5d20fc4cd124aa8e77d05da814">&#9670;&nbsp;</a></span>drInstance</h2>
+<a id="ad746c740cba7777d8def3d7014f53958"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad746c740cba7777d8def3d7014f53958">&#9670;&nbsp;</a></span>WaveInstance</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef struct <a class="el" href="structdr_instance.html">drInstance</a>  <a class="el" href="structdr_instance.html">drInstance</a></td>
+          <td class="memname">typedef struct <a class="el" href="struct_wave_instance.html">WaveInstance</a>  <a class="el" href="struct_wave_instance.html">WaveInstance</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>A Digger recorder instance. </p>
+<p>A recorder instance. </p>
 
 </div>
 </div>
-<a id="a39853c209fab28b5104e8223253ffdae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a39853c209fab28b5104e8223253ffdae">&#9670;&nbsp;</a></span>drState</h2>
+<a id="a71c46212fdeed080e778b0262cee6f6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71c46212fdeed080e778b0262cee6f6d">&#9670;&nbsp;</a></span>WaveState</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef enum <a class="el" href="instance_8h.html#aa8e9bbc5a5422bfdb275027cc29b652d">drAudioThreadState</a>  <a class="el" href="instance_8h.html#a39853c209fab28b5104e8223253ffdae">drState</a></td>
+          <td class="memname">typedef enum <a class="el" href="instance_8h.html#ad31ed175aa8d9fecdf673386cd00147b">WaveAudioThreadState</a>  <a class="el" href="instance_8h.html#a71c46212fdeed080e778b0262cee6f6d">WaveState</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -288,14 +288,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>drInstance_getDevInfo
 </div>
 </div>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
-<a id="aa8e9bbc5a5422bfdb275027cc29b652d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa8e9bbc5a5422bfdb275027cc29b652d">&#9670;&nbsp;</a></span>drAudioThreadState</h2>
+<a id="ad31ed175aa8d9fecdf673386cd00147b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad31ed175aa8d9fecdf673386cd00147b">&#9670;&nbsp;</a></span>WaveAudioThreadState</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="instance_8h.html#aa8e9bbc5a5422bfdb275027cc29b652d">drAudioThreadState</a></td>
+          <td class="memname">enum <a class="el" href="instance_8h.html#ad31ed175aa8d9fecdf673386cd00147b">WaveAudioThreadState</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -303,14 +303,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>drInstance_getDevInfo
 
 </div>
 </div>
-<a id="a0e0cf566b0a0b37e8ef4581497cad3ec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0e0cf566b0a0b37e8ef4581497cad3ec">&#9670;&nbsp;</a></span>drControlEventType</h2>
+<a id="ac36261f769a2ab0eba4dd706242ed9ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac36261f769a2ab0eba4dd706242ed9ab">&#9670;&nbsp;</a></span>WaveControlEventType</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="instance_8h.html#a0e0cf566b0a0b37e8ef4581497cad3ec">drControlEventType</a></td>
+          <td class="memname">enum <a class="el" href="instance_8h.html#ac36261f769a2ab0eba4dd706242ed9ab">WaveControlEventType</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -319,16 +319,16 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>drInstance_getDevInfo
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="aecddc614f402ba00c2a8904ce544cfd9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aecddc614f402ba00c2a8904ce544cfd9">&#9670;&nbsp;</a></span>drInstance_addInputAnalyzer()</h2>
+<a id="a3fe21c6fd263f5898feb7c8570c7e292"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3fe21c6fd263f5898feb7c8570c7e292">&#9670;&nbsp;</a></span>wave_instance_add_input_analyzer()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int drInstance_addInputAnalyzer </td>
+          <td class="memname">int wave_instance_add_input_analyzer </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structdr_instance.html">drInstance</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="struct_wave_instance.html">WaveInstance</a> *&#160;</td>
           <td class="paramname"><em>instance</em>, </td>
         </tr>
         <tr>
@@ -340,13 +340,13 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>drInstance_getDevInfo
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">drAnalyzerAudioCallback&#160;</td>
+          <td class="paramtype">WaveAnalyzerAudioCallback&#160;</td>
           <td class="paramname"><em>audioCallback</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">drAnalyzerDeinitCallback&#160;</td>
+          <td class="paramtype">WaveAnalyzerDeinitCallback&#160;</td>
           <td class="paramname"><em>deinitCallback</em>&#160;</td>
         </tr>
         <tr>
@@ -360,22 +360,22 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>drInstance_getDevInfo
 
 </div>
 </div>
-<a id="af630066616f0ecccb150b87d784f8d59"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af630066616f0ecccb150b87d784f8d59">&#9670;&nbsp;</a></span>drInstance_enqueueControlEvent()</h2>
+<a id="a7bc70cb21e1275f37e11b46f1d95cbe2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bc70cb21e1275f37e11b46f1d95cbe2">&#9670;&nbsp;</a></span>wave_instance_enqueue_control_event()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void drInstance_enqueueControlEvent </td>
+          <td class="memname">void wave_instance_enqueue_control_event </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structdr_instance.html">drInstance</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="struct_wave_instance.html">WaveInstance</a> *&#160;</td>
           <td class="paramname"><em>instance</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="structdr_control_event.html">drControlEvent</a> *&#160;</td>
+          <td class="paramtype">const <a class="el" href="struct_wave_control_event.html">WaveControlEvent</a> *&#160;</td>
           <td class="paramname"><em>event</em>&#160;</td>
         </tr>
         <tr>
@@ -389,22 +389,22 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>drInstance_getDevInfo
 
 </div>
 </div>
-<a id="aa017a1f360ae6146302a5881bf795e64"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa017a1f360ae6146302a5881bf795e64">&#9670;&nbsp;</a></span>drInstance_enqueueControlEventOfType()</h2>
+<a id="a16bcd56bc66e3ad1c39f1831182b035d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16bcd56bc66e3ad1c39f1831182b035d">&#9670;&nbsp;</a></span>wave_instance_enqueue_control_event_of_type()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void drInstance_enqueueControlEventOfType </td>
+          <td class="memname">void wave_instance_enqueue_control_event_of_type </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structdr_instance.html">drInstance</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="struct_wave_instance.html">WaveInstance</a> *&#160;</td>
           <td class="paramname"><em>instance</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="instance_8h.html#a0e0cf566b0a0b37e8ef4581497cad3ec">drControlEventType</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="instance_8h.html#ac36261f769a2ab0eba4dd706242ed9ab">WaveControlEventType</a>&#160;</td>
           <td class="paramname"><em>type</em>&#160;</td>
         </tr>
         <tr>
@@ -418,22 +418,22 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>drInstance_getDevInfo
 
 </div>
 </div>
-<a id="a2f9ec09c00ffde627935df2e5e76a875"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2f9ec09c00ffde627935df2e5e76a875">&#9670;&nbsp;</a></span>drInstance_enqueueError()</h2>
+<a id="a9c687815575bdb2d77c5c1eaa900126b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c687815575bdb2d77c5c1eaa900126b">&#9670;&nbsp;</a></span>wave_instance_enqueue_error()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void drInstance_enqueueError </td>
+          <td class="memname">void wave_instance_enqueue_error </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structdr_instance.html">drInstance</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="struct_wave_instance.html">WaveInstance</a> *&#160;</td>
           <td class="paramname"><em>instance</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="wave__error__codes_8h.html#ad710357474f1fa4e71b7ffc5f7f0127a">WaveError</a>&#160;</td>
           <td class="paramname"><em>error</em>&#160;</td>
         </tr>
         <tr>
@@ -447,22 +447,22 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>drInstance_getDevInfo
 
 </div>
 </div>
-<a id="a952f566c91e479b7b5175e5183e3bd92"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a952f566c91e479b7b5175e5183e3bd92">&#9670;&nbsp;</a></span>drInstance_enqueueNotification()</h2>
+<a id="a32d1e4bccee541e6b5ea1ba51b009884"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32d1e4bccee541e6b5ea1ba51b009884">&#9670;&nbsp;</a></span>wave_instance_enqueue_notification()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void drInstance_enqueueNotification </td>
+          <td class="memname">void wave_instance_enqueue_notification </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structdr_instance.html">drInstance</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="struct_wave_instance.html">WaveInstance</a> *&#160;</td>
           <td class="paramname"><em>instance</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="structdr_notification.html">drNotification</a> *&#160;</td>
+          <td class="paramtype">const <a class="el" href="struct_wave_notification.html">WaveNotification</a> *&#160;</td>
           <td class="paramname"><em>notification</em>&#160;</td>
         </tr>
         <tr>
@@ -476,22 +476,22 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>drInstance_getDevInfo
 
 </div>
 </div>
-<a id="a6ae1f9767b70c750f6eeb32a7d1014c8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ae1f9767b70c750f6eeb32a7d1014c8">&#9670;&nbsp;</a></span>drInstance_enqueueNotificationOfType()</h2>
+<a id="a5fe5802b908611ca27d83e1e01578482"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5fe5802b908611ca27d83e1e01578482">&#9670;&nbsp;</a></span>wave_instance_enqueue_notification_of_type()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void drInstance_enqueueNotificationOfType </td>
+          <td class="memname">void wave_instance_enqueue_notification_of_type </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structdr_instance.html">drInstance</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="struct_wave_instance.html">WaveInstance</a> *&#160;</td>
           <td class="paramname"><em>instance</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="notification_8h.html#aec428a6e7cda7dcbcf08964c34a21861">drNotificationType</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="wave__notification_8h.html#a21236b2104a9731c87f5b02703c45dbd">WaveNotificationType</a>&#160;</td>
           <td class="paramname"><em>type</em>&#160;</td>
         </tr>
         <tr>
@@ -505,16 +505,16 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>drInstance_getDevInfo
 
 </div>
 </div>
-<a id="ad7cdaa01ceb3239d38d1e54151789b86"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad7cdaa01ceb3239d38d1e54151789b86">&#9670;&nbsp;</a></span>drInstance_hostSpecificDeinit()</h2>
+<a id="af1a81dda2a4aeeafd3531d454d53456b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1a81dda2a4aeeafd3531d454d53456b">&#9670;&nbsp;</a></span>wave_instance_host_specific_deinit()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a> drInstance_hostSpecificDeinit </td>
+          <td class="memname"><a class="el" href="wave__error__codes_8h.html#ad710357474f1fa4e71b7ffc5f7f0127a">WaveError</a> wave_instance_host_specific_deinit </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structdr_instance.html">drInstance</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="struct_wave_instance.html">WaveInstance</a> *&#160;</td>
           <td class="paramname"><em>instance</em></td><td>)</td>
           <td></td>
         </tr>
@@ -530,16 +530,16 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>drInstance_getDevInfo
 
 </div>
 </div>
-<a id="a496a793c8d7302128f74cebd661b1196"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a496a793c8d7302128f74cebd661b1196">&#9670;&nbsp;</a></span>drInstance_hostSpecificInit()</h2>
+<a id="aacbfdcf64472fb907631ca9ac4c9afc1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aacbfdcf64472fb907631ca9ac4c9afc1">&#9670;&nbsp;</a></span>wave_instance_host_specific_init()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a> drInstance_hostSpecificInit </td>
+          <td class="memname"><a class="el" href="wave__error__codes_8h.html#ad710357474f1fa4e71b7ffc5f7f0127a">WaveError</a> wave_instance_host_specific_init </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structdr_instance.html">drInstance</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="struct_wave_instance.html">WaveInstance</a> *&#160;</td>
           <td class="paramname"><em>instance</em></td><td>)</td>
           <td></td>
         </tr>
@@ -559,41 +559,41 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>drInstance_getDevInfo
 
 </div>
 </div>
-<a id="ad7cf93f2ab72c808b80e495b661f851d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad7cf93f2ab72c808b80e495b661f851d">&#9670;&nbsp;</a></span>drInstance_isOnMainThread()</h2>
+<a id="ad943ad0074c9ea7445962f2d88cd76a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad943ad0074c9ea7445962f2d88cd76a2">&#9670;&nbsp;</a></span>wave_instance_is_on_main_thread()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int drInstance_isOnMainThread </td>
+          <td class="memname">int wave_instance_is_on_main_thread </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structdr_instance.html">drInstance</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="struct_wave_instance.html">WaveInstance</a> *&#160;</td>
           <td class="paramname"><em>instance</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Returns a non-zero value if called from the same thread that called drInstance_init. </p>
+<p>Returns a non-zero value if called from the same thread that called wave_instance_init. </p>
 
 </div>
 </div>
-<a id="a868e4e6c98330227cc4a156ce8eb9018"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a868e4e6c98330227cc4a156ce8eb9018">&#9670;&nbsp;</a></span>drInstance_onAudioThreadControlEvent()</h2>
+<a id="aa3f848dfed040d5c3a58d552027b5030"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3f848dfed040d5c3a58d552027b5030">&#9670;&nbsp;</a></span>wave_instance_on_audio_thread_control_event()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void drInstance_onAudioThreadControlEvent </td>
+          <td class="memname">void wave_instance_on_audio_thread_control_event </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structdr_instance.html">drInstance</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="struct_wave_instance.html">WaveInstance</a> *&#160;</td>
           <td class="paramname"><em>instance</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="structdr_control_event.html">drControlEvent</a> *&#160;</td>
+          <td class="paramtype">const <a class="el" href="struct_wave_control_event.html">WaveControlEvent</a> *&#160;</td>
           <td class="paramname"><em>event</em>&#160;</td>
         </tr>
         <tr>
@@ -607,22 +607,22 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>drInstance_getDevInfo
 
 </div>
 </div>
-<a id="a2e8326f61afeb7258aa1733f142d26cf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2e8326f61afeb7258aa1733f142d26cf">&#9670;&nbsp;</a></span>drInstance_onMainThreadNotification()</h2>
+<a id="afba03fbce99882575699a68810ddd37a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afba03fbce99882575699a68810ddd37a">&#9670;&nbsp;</a></span>wave_instance_on_main_thread_notification()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void drInstance_onMainThreadNotification </td>
+          <td class="memname">void wave_instance_on_main_thread_notification </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structdr_instance.html">drInstance</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="struct_wave_instance.html">WaveInstance</a> *&#160;</td>
           <td class="paramname"><em>instance</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="structdr_notification.html">drNotification</a> *&#160;</td>
+          <td class="paramtype">const <a class="el" href="struct_wave_notification.html">WaveNotification</a> *&#160;</td>
           <td class="paramname"><em>notification</em>&#160;</td>
         </tr>
         <tr>

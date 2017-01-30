@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['recordfifolevel',['recordFIFOLevel',['../structdr_dev_info.html#ae411c31ec841d87bf9351ea5b91b50b6',1,'drDevInfo']]],
-  ['recordfifounderrun',['recordFIFOUnderrun',['../structdr_dev_info.html#abc058d75b77dbdcad62527a0d7af97a3',1,'drDevInfo']]],
-  ['rmswindowsizeinseconds',['rmsWindowSizeInSeconds',['../structdr_settings.html#a9aea08aed68e99bf70a5f27a8456aadb',1,'drSettings']]]
+  ['recordfifolevel',['recordFIFOLevel',['../struct_wave_dev_info.html#ad60ea35aeb746dc6da39618ff412e024',1,'WaveDevInfo']]],
+  ['recordfifounderrun',['recordFIFOUnderrun',['../struct_wave_dev_info.html#aaae15f83dbab44918e471780eb7fff4c',1,'WaveDevInfo']]],
+  ['rmswindowsizeinseconds',['rmsWindowSizeInSeconds',['../struct_wave_settings.html#a7363505ad451b9cd5ff77d473bf0bba4',1,'WaveSettings']]]
 ];

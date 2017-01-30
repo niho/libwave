@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['draudiothreadstate',['drAudioThreadState',['../instance_8h.html#aa8e9bbc5a5422bfdb275027cc29b652d',1,'instance.h']]],
-  ['drcontroleventtype',['drControlEventType',['../instance_8h.html#a0e0cf566b0a0b37e8ef4581497cad3ec',1,'instance.h']]],
-  ['drencoderformat',['drEncoderFormat',['../settings_8h.html#aa3850f2b7e6129e93fb3d9d4a9bc524d',1,'settings.h']]],
-  ['drerror',['drError',['../error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1',1,'error_codes.h']]],
-  ['drnotificationtype',['drNotificationType',['../notification_8h.html#aec428a6e7cda7dcbcf08964c34a21861',1,'notification.h']]]
+  ['waveaudiothreadstate',['WaveAudioThreadState',['../instance_8h.html#ad31ed175aa8d9fecdf673386cd00147b',1,'instance.h']]],
+  ['wavecontroleventtype',['WaveControlEventType',['../instance_8h.html#ac36261f769a2ab0eba4dd706242ed9ab',1,'instance.h']]],
+  ['waveencoderformat',['WaveEncoderFormat',['../wave__settings_8h.html#a31eebd72e5f711b2e8f8b59ef5beacf2',1,'wave_settings.h']]],
+  ['waveerror',['WaveError',['../wave__error__codes_8h.html#ad710357474f1fa4e71b7ffc5f7f0127a',1,'wave_error_codes.h']]],
+  ['wavenotificationtype',['WaveNotificationType',['../wave__notification_8h.html#a21236b2104a9731c87f5b02703c45dbd',1,'wave_notification.h']]]
 ];

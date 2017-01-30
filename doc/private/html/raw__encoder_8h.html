@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Digger Recorder Private API: src/recorder/private/encoders/raw_encoder.h File Reference</title>
+<title>Wave Recorder Private API: src/recorder/private/encoders/raw_encoder.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Digger Recorder Private API
+   <div id="projectname">Wave Recorder Private API
    </div>
   </td>
  </tr>
@@ -76,35 +76,35 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdr_raw_encoder.html">drRawEncoder</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_wave_raw_encoder.html">WaveRawEncoder</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a04c93c06316ebfa0d8dea9b697612fa0"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structdr_raw_encoder.html">drRawEncoder</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="raw__encoder_8h.html#a04c93c06316ebfa0d8dea9b697612fa0">drRawEncoder</a></td></tr>
-<tr class="separator:a04c93c06316ebfa0d8dea9b697612fa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2f4c747aa4ed6bdd32435a0a5997f3f"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct_wave_raw_encoder.html">WaveRawEncoder</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="raw__encoder_8h.html#aa2f4c747aa4ed6bdd32435a0a5997f3f">WaveRawEncoder</a></td></tr>
+<tr class="separator:aa2f4c747aa4ed6bdd32435a0a5997f3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aa0808a8f1c8297357dce0be587d194e6"><td class="memItemLeft" align="right" valign="top"><a id="aa0808a8f1c8297357dce0be587d194e6"></a>
-<a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drRawEncoder_init</b> (void *rawEncoder, const char *filePath, float fs, float numChannels)</td></tr>
-<tr class="separator:aa0808a8f1c8297357dce0be587d194e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a93a6de1e775f56936a25a06a76f26b95"><td class="memItemLeft" align="right" valign="top"><a id="a93a6de1e775f56936a25a06a76f26b95"></a>
-<a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drRawEncoder_write</b> (void *rawEncoder, int numChannels, int numFrames, float *buffer, int *numBytesWritten)</td></tr>
-<tr class="separator:a93a6de1e775f56936a25a06a76f26b95"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d0981306120a7d37d087dfe1e31b44b"><td class="memItemLeft" align="right" valign="top"><a id="a2d0981306120a7d37d087dfe1e31b44b"></a>
-<a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drRawEncoder_stop</b> (void *rawEncoder)</td></tr>
-<tr class="separator:a2d0981306120a7d37d087dfe1e31b44b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63ada90f1420b43333efe7bb58838780"><td class="memItemLeft" align="right" valign="top"><a id="a63ada90f1420b43333efe7bb58838780"></a>
+<a class="el" href="wave__error__codes_8h.html#ad710357474f1fa4e71b7ffc5f7f0127a">WaveError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>wave_raw_encoder_init</b> (void *rawEncoder, const char *filePath, float fs, float numChannels)</td></tr>
+<tr class="separator:a63ada90f1420b43333efe7bb58838780"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5d266203028329d8ac5cbf460676589"><td class="memItemLeft" align="right" valign="top"><a id="ad5d266203028329d8ac5cbf460676589"></a>
+<a class="el" href="wave__error__codes_8h.html#ad710357474f1fa4e71b7ffc5f7f0127a">WaveError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>wave_raw_encoder_write</b> (void *rawEncoder, int numChannels, int numFrames, float *buffer, int *numBytesWritten)</td></tr>
+<tr class="separator:ad5d266203028329d8ac5cbf460676589"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96141a878667aab9ccb94668dbdea36c"><td class="memItemLeft" align="right" valign="top"><a id="a96141a878667aab9ccb94668dbdea36c"></a>
+<a class="el" href="wave__error__codes_8h.html#ad710357474f1fa4e71b7ffc5f7f0127a">WaveError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>wave_raw_encoder_stop</b> (void *rawEncoder)</td></tr>
+<tr class="separator:a96141a878667aab9ccb94668dbdea36c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
-<a id="a04c93c06316ebfa0d8dea9b697612fa0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a04c93c06316ebfa0d8dea9b697612fa0">&#9670;&nbsp;</a></span>drRawEncoder</h2>
+<a id="aa2f4c747aa4ed6bdd32435a0a5997f3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2f4c747aa4ed6bdd32435a0a5997f3f">&#9670;&nbsp;</a></span>WaveRawEncoder</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef struct <a class="el" href="structdr_raw_encoder.html">drRawEncoder</a>  <a class="el" href="structdr_raw_encoder.html">drRawEncoder</a></td>
+          <td class="memname">typedef struct <a class="el" href="struct_wave_raw_encoder.html">WaveRawEncoder</a>  <a class="el" href="struct_wave_raw_encoder.html">WaveRawEncoder</a></td>
         </tr>
       </table>
 </div><div class="memdoc">

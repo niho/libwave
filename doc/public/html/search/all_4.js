@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['notification_2eh',['notification.h',['../notification_8h.html',1,'']]],
-  ['notificationfifolevel',['notificationFIFOLevel',['../structdr_dev_info.html#a9bc133ae48d0b27192589f52e56a1d27',1,'drDevInfo']]],
-  ['notificationfifounderrun',['notificationFIFOUnderrun',['../structdr_dev_info.html#a5e666ef2b27ff2f0e50a795066a50f18',1,'drDevInfo']]]
+  ['recordfifolevel',['recordFIFOLevel',['../struct_wave_dev_info.html#ad60ea35aeb746dc6da39618ff412e024',1,'WaveDevInfo']]],
+  ['recordfifounderrun',['recordFIFOUnderrun',['../struct_wave_dev_info.html#aaae15f83dbab44918e471780eb7fff4c',1,'WaveDevInfo']]],
+  ['rmswindowsizeinseconds',['rmsWindowSizeInSeconds',['../struct_wave_settings.html#a7363505ad451b9cd5ff77d473bf0bba4',1,'WaveSettings']]]
 ];

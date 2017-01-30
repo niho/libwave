@@ -1,12 +1,12 @@
 var searchData=
 [
-  ['drdevinfo',['drDevInfo',['../digger__recorder_8h.html#ac3da50bb80430fc1b01adb1da2a5ae77',1,'digger_recorder.h']]],
-  ['drencoderformat',['drEncoderFormat',['../settings_8h.html#a3bf70c4c9c5357372090d1d019374588',1,'settings.h']]],
-  ['drerror',['drError',['../error__codes_8h.html#a7e5fa3554a083bde109f9a09b3715dc9',1,'error_codes.h']]],
-  ['drerrorcallback',['drErrorCallback',['../digger__recorder_8h.html#a3a3e69e3e5b8cc2bd38acc80114bdb75',1,'digger_recorder.h']]],
-  ['drnotification',['drNotification',['../notification_8h.html#a28ae04d4723cceb9165444d54947fdaa',1,'notification.h']]],
-  ['drnotificationcallback',['drNotificationCallback',['../digger__recorder_8h.html#a1647e3ec376511d37afc0fd89f25f056',1,'digger_recorder.h']]],
-  ['drnotificationtype',['drNotificationType',['../notification_8h.html#ab9973d109ff125cfed8ac5742cdfbf54',1,'notification.h']]],
-  ['drrealtimeinfo',['drRealtimeInfo',['../digger__recorder_8h.html#af0385d13fe457912502332231913568c',1,'digger_recorder.h']]],
-  ['drsettings',['drSettings',['../settings_8h.html#aeaa159cc19a58894c1c5708eff1796c4',1,'settings.h']]]
+  ['wavedevinfo',['WaveDevInfo',['../wave__recorder_8h.html#aa9ce5dca94211d6de05a6c68d2597af1',1,'wave_recorder.h']]],
+  ['waveencoderformat',['WaveEncoderFormat',['../wave__settings_8h.html#a2b7e9df5598a65c4278e84caf84fb43f',1,'wave_settings.h']]],
+  ['waveerror',['WaveError',['../wave__error__codes_8h.html#a24ae5e9cf263b5b48097e45823cd7331',1,'wave_error_codes.h']]],
+  ['waveerrorcallback',['WaveErrorCallback',['../wave__recorder_8h.html#a1d4dca5224732e9d904e02f57f7f5acc',1,'wave_recorder.h']]],
+  ['wavenotification',['WaveNotification',['../wave__notification_8h.html#ab1317ce69b3aca51b906d05e86caf71f',1,'wave_notification.h']]],
+  ['wavenotificationcallback',['WaveNotificationCallback',['../wave__recorder_8h.html#ac230cce4819b72f8fbe55dbcaf283300',1,'wave_recorder.h']]],
+  ['wavenotificationtype',['WaveNotificationType',['../wave__notification_8h.html#a1c159fc39ea1ebe5b28ee68f8c42ddc9',1,'wave_notification.h']]],
+  ['waverealtimeinfo',['WaveRealtimeInfo',['../wave__recorder_8h.html#a9ffe997fb2f175f03c3b1c783d2ed5cf',1,'wave_recorder.h']]],
+  ['wavesettings',['WaveSettings',['../wave__settings_8h.html#ad48a702b16b6d7f59fb279b0d68b4553',1,'wave_settings.h']]]
 ];

@@ -6,7 +6,7 @@
 #  Copyright (c) 2014 Join the conversation AB. All rights reserved.
 #
 
-LIB := digger_recorder
+LIB := libwave
 
 SRCDIR := src
 EXTERNALDIR := external

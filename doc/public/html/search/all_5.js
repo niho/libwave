@@ -1,6 +1,26 @@
 var searchData=
 [
-  ['recordfifolevel',['recordFIFOLevel',['../structdr_dev_info.html#ae411c31ec841d87bf9351ea5b91b50b6',1,'drDevInfo']]],
-  ['recordfifounderrun',['recordFIFOUnderrun',['../structdr_dev_info.html#abc058d75b77dbdcad62527a0d7af97a3',1,'drDevInfo']]],
-  ['rmswindowsizeinseconds',['rmsWindowSizeInSeconds',['../structdr_settings.html#a9aea08aed68e99bf70a5f27a8456aadb',1,'drSettings']]]
+  ['wave_5fdeinit',['wave_deinit',['../wave__recorder_8h.html#a72e6f45626b1d70d0c5d181c7fd9e15b',1,'wave_recorder.h']]],
+  ['wave_5ferror_5fcodes_2eh',['wave_error_codes.h',['../wave__error__codes_8h.html',1,'']]],
+  ['wave_5ferror_5fstr',['wave_error_str',['../wave__error__codes_8h.html#ab9085a0aa982f903d481c9f22e3cf825',1,'wave_error_codes.h']]],
+  ['wave_5finit',['wave_init',['../wave__recorder_8h.html#a97b52c4e6e4920d18aec93bcd65e4ddb',1,'wave_recorder.h']]],
+  ['wave_5fnotification_2eh',['wave_notification.h',['../wave__notification_8h.html',1,'']]],
+  ['wave_5fnotification_5ftype_5fstr',['wave_notification_type_str',['../wave__notification_8h.html#a8d705c8fa79ed714296a7a0ae7db4318',1,'wave_notification.h']]],
+  ['wave_5fpause_5frecording',['wave_pause_recording',['../wave__recorder_8h.html#a2c0ae68dcfd5cb0607e9aa8529a0275a',1,'wave_recorder.h']]],
+  ['wave_5frecorder_2eh',['wave_recorder.h',['../wave__recorder_8h.html',1,'']]],
+  ['wave_5fresume_5frecording',['wave_resume_recording',['../wave__recorder_8h.html#a856f40c1e5b2db2d546cd6052fd5db89',1,'wave_recorder.h']]],
+  ['wave_5fsettings_2eh',['wave_settings.h',['../wave__settings_8h.html',1,'']]],
+  ['wave_5fsettings_5finit',['wave_settings_init',['../wave__settings_8h.html#a127abd5756db30d74c6ba038dc66a62e',1,'wave_settings.h']]],
+  ['wave_5fstart_5frecording',['wave_start_recording',['../wave__recorder_8h.html#aa2cd71b447bc75c0580ffb2c7f7419d5',1,'wave_recorder.h']]],
+  ['wave_5fstop_5frecording',['wave_stop_recording',['../wave__recorder_8h.html#a25a821282b0fa77ac81b2ceecb7ec98b',1,'wave_recorder.h']]],
+  ['wave_5fupdate',['wave_update',['../wave__recorder_8h.html#a652fa70600a44314ffb44048ed3d3f40',1,'wave_recorder.h']]],
+  ['wavedevinfo',['WaveDevInfo',['../struct_wave_dev_info.html',1,'WaveDevInfo'],['../wave__recorder_8h.html#aa9ce5dca94211d6de05a6c68d2597af1',1,'WaveDevInfo():&#160;wave_recorder.h']]],
+  ['waveencoderformat',['WaveEncoderFormat',['../wave__settings_8h.html#a31eebd72e5f711b2e8f8b59ef5beacf2',1,'WaveEncoderFormat():&#160;wave_settings.h'],['../wave__settings_8h.html#a2b7e9df5598a65c4278e84caf84fb43f',1,'WaveEncoderFormat():&#160;wave_settings.h']]],
+  ['waveerror',['WaveError',['../wave__error__codes_8h.html#ad710357474f1fa4e71b7ffc5f7f0127a',1,'WaveError():&#160;wave_error_codes.h'],['../wave__error__codes_8h.html#a24ae5e9cf263b5b48097e45823cd7331',1,'WaveError():&#160;wave_error_codes.h']]],
+  ['waveerrorcallback',['WaveErrorCallback',['../wave__recorder_8h.html#a1d4dca5224732e9d904e02f57f7f5acc',1,'wave_recorder.h']]],
+  ['wavenotification',['WaveNotification',['../struct_wave_notification.html',1,'WaveNotification'],['../wave__notification_8h.html#ab1317ce69b3aca51b906d05e86caf71f',1,'WaveNotification():&#160;wave_notification.h']]],
+  ['wavenotificationcallback',['WaveNotificationCallback',['../wave__recorder_8h.html#ac230cce4819b72f8fbe55dbcaf283300',1,'wave_recorder.h']]],
+  ['wavenotificationtype',['WaveNotificationType',['../wave__notification_8h.html#a21236b2104a9731c87f5b02703c45dbd',1,'WaveNotificationType():&#160;wave_notification.h'],['../wave__notification_8h.html#a1c159fc39ea1ebe5b28ee68f8c42ddc9',1,'WaveNotificationType():&#160;wave_notification.h']]],
+  ['waverealtimeinfo',['WaveRealtimeInfo',['../struct_wave_realtime_info.html',1,'WaveRealtimeInfo'],['../wave__recorder_8h.html#a9ffe997fb2f175f03c3b1c783d2ed5cf',1,'WaveRealtimeInfo():&#160;wave_recorder.h']]],
+  ['wavesettings',['WaveSettings',['../struct_wave_settings.html',1,'WaveSettings'],['../wave__settings_8h.html#ad48a702b16b6d7f59fb279b0d68b4553',1,'WaveSettings():&#160;wave_settings.h']]]
 ];

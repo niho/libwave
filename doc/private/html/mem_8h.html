@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Digger Recorder Private API: src/recorder/private/mem.h File Reference</title>
+<title>Wave Recorder Private API: src/recorder/private/mem.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Digger Recorder Private API
+   <div id="projectname">Wave Recorder Private API
    </div>
   </td>
  </tr>
@@ -75,35 +75,35 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a7929988ef95158d3331d7f1d13411e91"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mem_8h.html#a7929988ef95158d3331d7f1d13411e91">DR_MALLOC</a>(size,  tag)&#160;&#160;&#160;(drMalloc(size, tag))</td></tr>
-<tr class="separator:a7929988ef95158d3331d7f1d13411e91"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf47b1ae70ada80392bf56d6669af530"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mem_8h.html#abf47b1ae70ada80392bf56d6669af530">DR_FREE</a>(ptr)&#160;&#160;&#160;(drFree(ptr))</td></tr>
-<tr class="separator:abf47b1ae70ada80392bf56d6669af530"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41a5411ed2ca777248ece4fcffd32847"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mem_8h.html#a41a5411ed2ca777248ece4fcffd32847">WAVE_MALLOC</a>(size,  tag)&#160;&#160;&#160;(wave_malloc(size, tag))</td></tr>
+<tr class="separator:a41a5411ed2ca777248ece4fcffd32847"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47b0990520fa7b618897e0ecafb417f5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mem_8h.html#a47b0990520fa7b618897e0ecafb417f5">WAVE_FREE</a>(ptr)&#160;&#160;&#160;(wave_free(ptr))</td></tr>
+<tr class="separator:a47b0990520fa7b618897e0ecafb417f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ab7ff980de5e6266cac843e3271be2360"><td class="memItemLeft" align="right" valign="top"><a id="ab7ff980de5e6266cac843e3271be2360"></a>
-void *&#160;</td><td class="memItemRight" valign="bottom"><b>drMalloc</b> (size_t size, const char *tag)</td></tr>
-<tr class="separator:ab7ff980de5e6266cac843e3271be2360"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad828179c01128ec94bfc0c49649a2413"><td class="memItemLeft" align="right" valign="top"><a id="ad828179c01128ec94bfc0c49649a2413"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>drFree</b> (void *ptr)</td></tr>
-<tr class="separator:ad828179c01128ec94bfc0c49649a2413"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3682143f3c8e50fde82feda08b428f7c"><td class="memItemLeft" align="right" valign="top"><a id="a3682143f3c8e50fde82feda08b428f7c"></a>
+void *&#160;</td><td class="memItemRight" valign="bottom"><b>wave_malloc</b> (size_t size, const char *tag)</td></tr>
+<tr class="separator:a3682143f3c8e50fde82feda08b428f7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0250e83f6afb9198c4c7b04516e3736"><td class="memItemLeft" align="right" valign="top"><a id="af0250e83f6afb9198c4c7b04516e3736"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>wave_free</b> (void *ptr)</td></tr>
+<tr class="separator:af0250e83f6afb9198c4c7b04516e3736"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Memory management macros to make it easier to debug memory usage. </p>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="abf47b1ae70ada80392bf56d6669af530"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abf47b1ae70ada80392bf56d6669af530">&#9670;&nbsp;</a></span>DR_FREE</h2>
+<a id="a47b0990520fa7b618897e0ecafb417f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47b0990520fa7b618897e0ecafb417f5">&#9670;&nbsp;</a></span>WAVE_FREE</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define DR_FREE</td>
+          <td class="memname">#define WAVE_FREE</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">ptr</td><td>)</td>
-          <td>&#160;&#160;&#160;(drFree(ptr))</td>
+          <td>&#160;&#160;&#160;(wave_free(ptr))</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -111,14 +111,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>drFree</b> (void *ptr
 
 </div>
 </div>
-<a id="a7929988ef95158d3331d7f1d13411e91"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7929988ef95158d3331d7f1d13411e91">&#9670;&nbsp;</a></span>DR_MALLOC</h2>
+<a id="a41a5411ed2ca777248ece4fcffd32847"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41a5411ed2ca777248ece4fcffd32847">&#9670;&nbsp;</a></span>WAVE_MALLOC</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define DR_MALLOC</td>
+          <td class="memname">#define WAVE_MALLOC</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">size, </td>
@@ -132,7 +132,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>drFree</b> (void *ptr
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;(drMalloc(size, tag))</td>
+          <td></td><td>&#160;&#160;&#160;(wave_malloc(size, tag))</td>
         </tr>
       </table>
 </div><div class="memdoc">

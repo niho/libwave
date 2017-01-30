@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Digger Recorder Private API: src/recorder/private/analyzers/level_advisor.h File Reference</title>
+<title>Wave Recorder Private API: src/recorder/private/analyzers/level_advisor.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Digger Recorder Private API
+   <div id="projectname">Wave Recorder Private API
    </div>
   </td>
  </tr>
@@ -76,37 +76,37 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdr_level_advisor.html">drLevelAdvisor</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_wave_level_advisor.html">WaveLevelAdvisor</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a1aa4c540ed4a57e496a154a67c672619"><td class="memItemLeft" align="right" valign="top"><a id="a1aa4c540ed4a57e496a154a67c672619"></a>
-typedef struct <a class="el" href="structdr_instance.html">drInstance</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drInstance</b></td></tr>
-<tr class="separator:a1aa4c540ed4a57e496a154a67c672619"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0fcd053db55d53799334067a288dc991"><td class="memItemLeft" align="right" valign="top"><a id="a0fcd053db55d53799334067a288dc991"></a>
-typedef struct <a class="el" href="structdr_level_advisor.html">drLevelAdvisor</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drLevelAdvisor</b></td></tr>
-<tr class="separator:a0fcd053db55d53799334067a288dc991"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a143a392c9fcb37393ea022596c4fb6"><td class="memItemLeft" align="right" valign="top"><a id="a3a143a392c9fcb37393ea022596c4fb6"></a>
+typedef struct <a class="el" href="struct_wave_instance.html">WaveInstance</a>&#160;</td><td class="memItemRight" valign="bottom"><b>WaveInstance</b></td></tr>
+<tr class="separator:a3a143a392c9fcb37393ea022596c4fb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e7c4ce16ebc19c9c3167c03eda5fd9b"><td class="memItemLeft" align="right" valign="top"><a id="a9e7c4ce16ebc19c9c3167c03eda5fd9b"></a>
+typedef struct <a class="el" href="struct_wave_level_advisor.html">WaveLevelAdvisor</a>&#160;</td><td class="memItemRight" valign="bottom"><b>WaveLevelAdvisor</b></td></tr>
+<tr class="separator:a9e7c4ce16ebc19c9c3167c03eda5fd9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ad6d8adcfaf8c9e5c2c4de9f0347b0564"><td class="memItemLeft" align="right" valign="top"><a id="ad6d8adcfaf8c9e5c2c4de9f0347b0564"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>drLevelAdvisor_init</b> (<a class="el" href="structdr_level_advisor.html">drLevelAdvisor</a> *advisor, <a class="el" href="structdr_instance.html">drInstance</a> *instance, int channel, float fs)</td></tr>
-<tr class="separator:ad6d8adcfaf8c9e5c2c4de9f0347b0564"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0effaa097bdf723573d012eca441073d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="level__advisor_8h.html#a0effaa097bdf723573d012eca441073d">drLevelAdvisor_processBuffer</a> (void *advisorPtr, const float *inBuffer, int numChannels, int numFrames)</td></tr>
-<tr class="separator:a0effaa097bdf723573d012eca441073d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a76ef00ef438bcd10858acb303664c6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="level__advisor_8h.html#a4a76ef00ef438bcd10858acb303664c6">drLevelAdvisor_deinit</a> (void *advisorPtr)</td></tr>
-<tr class="separator:a4a76ef00ef438bcd10858acb303664c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f930eded3cdfb6816442814737067d8"><td class="memItemLeft" align="right" valign="top"><a id="a6f930eded3cdfb6816442814737067d8"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>wave_level_advisor_init</b> (<a class="el" href="struct_wave_level_advisor.html">WaveLevelAdvisor</a> *advisor, <a class="el" href="struct_wave_instance.html">WaveInstance</a> *instance, int channel, float fs)</td></tr>
+<tr class="separator:a6f930eded3cdfb6816442814737067d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4aa58de4c778140790f862e287667e3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="level__advisor_8h.html#ae4aa58de4c778140790f862e287667e3">wave_level_advisor_process_buffer</a> (void *advisorPtr, const float *inBuffer, int numChannels, int numFrames)</td></tr>
+<tr class="separator:ae4aa58de4c778140790f862e287667e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2358b4ec331ab1780dd781af3b502aed"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="level__advisor_8h.html#a2358b4ec331ab1780dd781af3b502aed">wave_level_advisor_deinit</a> (void *advisorPtr)</td></tr>
+<tr class="separator:a2358b4ec331ab1780dd781af3b502aed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a4a76ef00ef438bcd10858acb303664c6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4a76ef00ef438bcd10858acb303664c6">&#9670;&nbsp;</a></span>drLevelAdvisor_deinit()</h2>
+<a id="a2358b4ec331ab1780dd781af3b502aed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2358b4ec331ab1780dd781af3b502aed">&#9670;&nbsp;</a></span>wave_level_advisor_deinit()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void drLevelAdvisor_deinit </td>
+          <td class="memname">void wave_level_advisor_deinit </td>
           <td>(</td>
           <td class="paramtype">void *&#160;</td>
           <td class="paramname"><em>advisorPtr</em></td><td>)</td>
@@ -118,14 +118,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>drLevelAdvisor_init</
 
 </div>
 </div>
-<a id="a0effaa097bdf723573d012eca441073d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0effaa097bdf723573d012eca441073d">&#9670;&nbsp;</a></span>drLevelAdvisor_processBuffer()</h2>
+<a id="ae4aa58de4c778140790f862e287667e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4aa58de4c778140790f862e287667e3">&#9670;&nbsp;</a></span>wave_level_advisor_process_buffer()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void drLevelAdvisor_processBuffer </td>
+          <td class="memname">void wave_level_advisor_process_buffer </td>
           <td>(</td>
           <td class="paramtype">void *&#160;</td>
           <td class="paramname"><em>advisorPtr</em>, </td>

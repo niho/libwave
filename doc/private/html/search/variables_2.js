@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['destaudiofile',['destAudioFile',['../structdri_o_s_a_a_c_encoder.html#a8194fe8a090b7a6a6515e92e7e0f7fa4',1,'driOSAACEncoder']]]
+  ['destaudiofile',['destAudioFile',['../struct_wavei_o_s_a_a_c_encoder.html#ae62449c55124555f847d9b3ffda4eef0',1,'WaveiOSAACEncoder']]]
 ];

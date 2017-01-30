@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Digger Recorder Private API: src/recorder/private/encoders/opus_encoder.h File Reference</title>
+<title>Wave Recorder Private API: src/recorder/private/encoders/opus_encoder.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Digger Recorder Private API
+   <div id="projectname">Wave Recorder Private API
    </div>
   </td>
  </tr>
@@ -74,13 +74,13 @@ $(function() {
 <div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;ogg/ogg.h&gt;</code><br />
 <code>#include &quot;opus.h&quot;</code><br />
-<code>#include &quot;<a class="el" href="error__codes_8h_source.html">error_codes.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="wave__error__codes_8h_source.html">wave_error_codes.h</a>&quot;</code><br />
 </div>
 <p><a href="opus__encoder_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdr_opus_encoder.html">drOpusEncoder</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_wave_opus_encoder.html">WaveOpusEncoder</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
@@ -97,21 +97,21 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:ae420903843b73e74f8822a84861cf464"><td class="memItemLeft" align="right" valign="top"><a id="ae420903843b73e74f8822a84861cf464"></a>
-typedef struct <a class="el" href="structdr_opus_encoder.html">drOpusEncoder</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drOpusEncoder</b></td></tr>
-<tr class="separator:ae420903843b73e74f8822a84861cf464"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14ec63d26314998464f5c40eccfcf626"><td class="memItemLeft" align="right" valign="top"><a id="a14ec63d26314998464f5c40eccfcf626"></a>
+typedef struct <a class="el" href="struct_wave_opus_encoder.html">WaveOpusEncoder</a>&#160;</td><td class="memItemRight" valign="bottom"><b>WaveOpusEncoder</b></td></tr>
+<tr class="separator:a14ec63d26314998464f5c40eccfcf626"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aafa31cf2ccffcc85cefe1a7e82459799"><td class="memItemLeft" align="right" valign="top"><a id="aafa31cf2ccffcc85cefe1a7e82459799"></a>
-<a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drOpusEncoder_init</b> (void *opusEncoder, const char *filePath, float fs, float numChannels)</td></tr>
-<tr class="separator:aafa31cf2ccffcc85cefe1a7e82459799"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e517ab98ee59c793f8fe60eea0faf7b"><td class="memItemLeft" align="right" valign="top"><a id="a3e517ab98ee59c793f8fe60eea0faf7b"></a>
-<a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drOpusEncoder_write</b> (void *opusEncoder, int numChannels, int numFrames, float *buffer, int *numBytesWritten)</td></tr>
-<tr class="separator:a3e517ab98ee59c793f8fe60eea0faf7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaee9fce602b6d449098077d2ba76e961"><td class="memItemLeft" align="right" valign="top"><a id="aaee9fce602b6d449098077d2ba76e961"></a>
-<a class="el" href="error__codes_8h.html#ad51fe2bf01827fafcca3b93cbe6091e1">drError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>drOpusEncoder_stop</b> (void *opusEncoder)</td></tr>
-<tr class="separator:aaee9fce602b6d449098077d2ba76e961"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc18e8fa2682dc85c81e52133c2df48c"><td class="memItemLeft" align="right" valign="top"><a id="acc18e8fa2682dc85c81e52133c2df48c"></a>
+<a class="el" href="wave__error__codes_8h.html#ad710357474f1fa4e71b7ffc5f7f0127a">WaveError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>wave_opus_encoder_init</b> (void *opusEncoder, const char *filePath, float fs, float numChannels)</td></tr>
+<tr class="separator:acc18e8fa2682dc85c81e52133c2df48c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9336cedaa92da69159219c08784480f9"><td class="memItemLeft" align="right" valign="top"><a id="a9336cedaa92da69159219c08784480f9"></a>
+<a class="el" href="wave__error__codes_8h.html#ad710357474f1fa4e71b7ffc5f7f0127a">WaveError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>wave_opus_encoder_write</b> (void *opusEncoder, int numChannels, int numFrames, float *buffer, int *numBytesWritten)</td></tr>
+<tr class="separator:a9336cedaa92da69159219c08784480f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab969ce6202be519232ef70f8762a8639"><td class="memItemLeft" align="right" valign="top"><a id="ab969ce6202be519232ef70f8762a8639"></a>
+<a class="el" href="wave__error__codes_8h.html#ad710357474f1fa4e71b7ffc5f7f0127a">WaveError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>wave_opus_encoder_stop</b> (void *opusEncoder)</td></tr>
+<tr class="separator:ab969ce6202be519232ef70f8762a8639"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->

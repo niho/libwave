@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['notification_2eh',['notification.h',['../notification_8h.html',1,'']]],
-  ['notificationfifolevel',['notificationFIFOLevel',['../structdr_dev_info.html#a9bc133ae48d0b27192589f52e56a1d27',1,'drDevInfo']]],
-  ['notificationfifounderrun',['notificationFIFOUnderrun',['../structdr_dev_info.html#a5e666ef2b27ff2f0e50a795066a50f18',1,'drDevInfo']]]
+  ['notificationfifolevel',['notificationFIFOLevel',['../struct_wave_dev_info.html#ac53f04dd1f253aed68aada42e4842439',1,'WaveDevInfo']]],
+  ['notificationfifounderrun',['notificationFIFOUnderrun',['../struct_wave_dev_info.html#adb6e0a99419b65e31fd336863d0bcd21',1,'WaveDevInfo']]]
 ];

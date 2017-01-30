@@ -1,6 +1,6 @@
-//Instructions for Doxygen on how to generate 
+//Instructions for Doxygen on how to generate
 //API documentation.
-PROJECT_NAME      = "Digger Recorder Public API"
+PROJECT_NAME      = "Wave Recorder Public API"
 OUTPUT_DIRECTORY  = doc/public
 GENERATE_MAN      = NO
 GENERATE_LATEX    = NO

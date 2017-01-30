@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Digger Recorder Private API: src/recorder/private/platform_util.h File Reference</title>
+<title>Wave Recorder Private API: src/recorder/private/platform_util.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Digger Recorder Private API
+   <div id="projectname">Wave Recorder Private API
    </div>
   </td>
  </tr>
@@ -69,48 +69,16 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="encoder_8h_source.html">encoder.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="settings_8h_source.html">settings.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="wave__settings_8h_source.html">wave_settings.h</a>&quot;</code><br />
 </div>
 <p><a href="platform__util_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a0c3138e41b01ccbea023fe264b8fee07"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="platform__util_8h.html#a0c3138e41b01ccbea023fe264b8fee07">drGetWritableFilePath</a> (char *buffer, int bufferSize)</td></tr>
-<tr class="separator:a0c3138e41b01ccbea023fe264b8fee07"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a26ae5899fbf9b6f660c233b679d325b5"><td class="memItemLeft" align="right" valign="top"><a id="a26ae5899fbf9b6f660c233b679d325b5"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>drCreateEncoder</b> (<a class="el" href="structdr_encoder.html">drEncoder</a> *encoder, <a class="el" href="structdr_settings.html">drSettings</a> *settings)</td></tr>
-<tr class="separator:a26ae5899fbf9b6f660c233b679d325b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9c06422a32f7dc43c25c82b040fc606"><td class="memItemLeft" align="right" valign="top"><a id="ac9c06422a32f7dc43c25c82b040fc606"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>wave_create_encoder</b> (<a class="el" href="struct_wave_encoder.html">WaveEncoder</a> *encoder, <a class="el" href="struct_wave_settings.html">WaveSettings</a> *settings)</td></tr>
+<tr class="separator:ac9c06422a32f7dc43c25c82b040fc606"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="a0c3138e41b01ccbea023fe264b8fee07"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0c3138e41b01ccbea023fe264b8fee07">&#9670;&nbsp;</a></span>drGetWritableFilePath()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int drGetWritableFilePath </td>
-          <td>(</td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>buffer</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>bufferSize</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Returns 0 on success, 1 otherwise. </p>
-
-</div>
-</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C118B3EC19B4B18D00005678 /* libdigger_recorder_osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F57B0019B4A88A000C6BCF /* libdigger_recorder_osx.a */; };
+		855795581E3FAB52007FA432 /* libwave_osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 855795551E3FA983007FA432 /* libwave_osx.a */; };
+		855795591E3FAB59007FA432 /* libwave_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 855795531E3FA983007FA432 /* libwave_ios.a */; };
 		C118B40119B4B5D400005678 /* LevelMeterView.m in Sources */ = {isa = PBXBuildFile; fileRef = C118B40019B4B5D400005678 /* LevelMeterView.m */; };
 		C12E1F5B19B63410004532A8 /* DevInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F5A19B63410004532A8 /* DevInfoView.m */; };
 		C12E1F7E19B709D7004532A8 /* BufferLevelView.m in Sources */ = {isa = PBXBuildFile; fileRef = C12E1F7D19B709D7004532A8 /* BufferLevelView.m */; };
@@ -19,7 +20,6 @@
 		C1F57A6E19B4A38A000C6BCF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F57A6719B4A38A000C6BCF /* main.m */; };
 		C1F57A6F19B4A38A000C6BCF /* SandboxView.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F57A6919B4A38A000C6BCF /* SandboxView.m */; };
 		C1F57A7019B4A38A000C6BCF /* SandboxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F57A6B19B4A38A000C6BCF /* SandboxViewController.m */; };
-		C1F57A7F19B4A41C000C6BCF /* libdigger_recorder_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F57A7719B4A40C000C6BCF /* libdigger_recorder_ios.a */; };
 		C1F57A8119B4A424000C6BCF /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F57A8019B4A424000C6BCF /* CoreAudio.framework */; };
 		C1F57A8319B4A42B000C6BCF /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F57A8219B4A42B000C6BCF /* AudioToolbox.framework */; };
 		C1F57A9119B4A757000C6BCF /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F57A9019B4A757000C6BCF /* Cocoa.framework */; };
@@ -34,50 +34,34 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		C12E1F8019B709D7004532A8 /* PBXContainerItemProxy */ = {
+		855795521E3FA983007FA432 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = C1F57A7119B4A40C000C6BCF /* digger_recorder.xcodeproj */;
+			containerPortal = C1F57A7119B4A40C000C6BCF /* libwave.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C1F579DC19B4A262000C6BCF;
+			remoteInfo = libwave_ios;
+		};
+		855795541E3FA983007FA432 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C1F57A7119B4A40C000C6BCF /* libwave.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C118B3F119B4B28E00005678;
+			remoteInfo = libwave_osx;
+		};
+		855795561E3FA983007FA432 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C1F57A7119B4A40C000C6BCF /* libwave.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = C12E1F6819B6FE8B004532A8;
 			remoteInfo = unittests_osx;
 		};
-		C1F57A7619B4A40C000C6BCF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C1F57A7119B4A40C000C6BCF /* digger_recorder.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C1F579DC19B4A262000C6BCF;
-			remoteInfo = digger_recorder_ios;
-		};
-		C1F57A7D19B4A415000C6BCF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C1F57A7119B4A40C000C6BCF /* digger_recorder.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = C1F579DB19B4A262000C6BCF;
-			remoteInfo = digger_recorder_ios;
-		};
-		C1F57AFC19B4A88A000C6BCF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C1F57A7119B4A40C000C6BCF /* digger_recorder.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = C118B3F019B4B28E00005678;
-			remoteInfo = digger_recorder_osx;
-		};
-		C1F57AFF19B4A88A000C6BCF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C1F57A7119B4A40C000C6BCF /* digger_recorder.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C1F57AD219B4A842000C6BCF;
-			remoteInfo = digger_recorder_osx;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		C118B3FD19B4B2DC00005678 /* libkowalski.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libkowalski.dylib; path = "../../../../Library/Developer/Xcode/DerivedData/sandbox-fhfsgipjxfyknhcabryyxbpksmut/Build/Products/Debug/libkowalski.dylib"; sourceTree = "<group>"; };
 		C118B3FF19B4B5D400005678 /* LevelMeterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelMeterView.h; sourceTree = "<group>"; };
 		C118B40019B4B5D400005678 /* LevelMeterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelMeterView.m; sourceTree = "<group>"; };
 		C12E1A8E19B5D9A8004532A8 /* sandbox_ios-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "sandbox_ios-Info.plist"; sourceTree = "<group>"; };
 		C12E1A8F19B5D9A8004532A8 /* sandbox_ios-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "sandbox_ios-Prefix.pch"; sourceTree = "<group>"; };
-		C12E1F0219B61523004532A8 /* libkowalski_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libkowalski_ios.a; path = "../../external/kowalski/projects/xcode/build/Debug-iphoneos/libkowalski_ios.a"; sourceTree = "<group>"; };
 		C12E1F5919B63410004532A8 /* DevInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DevInfoView.h; sourceTree = "<group>"; };
 		C12E1F5A19B63410004532A8 /* DevInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DevInfoView.m; sourceTree = "<group>"; };
 		C12E1F7C19B709D7004532A8 /* BufferLevelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BufferLevelView.h; sourceTree = "<group>"; };
@@ -95,7 +79,7 @@
 		C1F57A6919B4A38A000C6BCF /* SandboxView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SandboxView.m; sourceTree = "<group>"; };
 		C1F57A6A19B4A38A000C6BCF /* SandboxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SandboxViewController.h; sourceTree = "<group>"; };
 		C1F57A6B19B4A38A000C6BCF /* SandboxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SandboxViewController.m; sourceTree = "<group>"; };
-		C1F57A7119B4A40C000C6BCF /* digger_recorder.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = digger_recorder.xcodeproj; sourceTree = "<group>"; };
+		C1F57A7119B4A40C000C6BCF /* libwave.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = libwave.xcodeproj; sourceTree = "<group>"; };
 		C1F57A8019B4A424000C6BCF /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/CoreAudio.framework; sourceTree = DEVELOPER_DIR; };
 		C1F57A8219B4A42B000C6BCF /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/AudioToolbox.framework; sourceTree = DEVELOPER_DIR; };
 		C1F57A8F19B4A757000C6BCF /* sandbox_osx.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sandbox_osx.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -121,9 +105,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				855795591E3FAB59007FA432 /* libwave_ios.a in Frameworks */,
 				C1F57A8319B4A42B000C6BCF /* AudioToolbox.framework in Frameworks */,
 				C1F57A8119B4A424000C6BCF /* CoreAudio.framework in Frameworks */,
-				C1F57A7F19B4A41C000C6BCF /* libdigger_recorder_ios.a in Frameworks */,
 				C1F57A3719B4A36D000C6BCF /* CoreGraphics.framework in Frameworks */,
 				C1F57A3919B4A36D000C6BCF /* UIKit.framework in Frameworks */,
 				C1F57A3519B4A36D000C6BCF /* Foundation.framework in Frameworks */,
@@ -134,8 +118,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				855795581E3FAB52007FA432 /* libwave_osx.a in Frameworks */,
 				C1E5476E19BDCF1F00797DFB /* libportaudio_osx.a in Frameworks */,
-				C118B3EC19B4B18D00005678 /* libdigger_recorder_osx.a in Frameworks */,
 				C1F57A9119B4A757000C6BCF /* Cocoa.framework in Frameworks */,
 				C1F57B0A19B4A9B8000C6BCF /* AudioToolbox.framework in Frameworks */,
 				C1F57B0819B4A9A4000C6BCF /* AudioUnit.framework in Frameworks */,
@@ -146,10 +130,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8557954D1E3FA983007FA432 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				855795531E3FA983007FA432 /* libwave_ios.a */,
+				855795551E3FA983007FA432 /* libwave_osx.a */,
+				855795571E3FA983007FA432 /* unittests_osx */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		C1F579D119B4A22F000C6BCF = {
 			isa = PBXGroup;
 			children = (
-				C1F57A7119B4A40C000C6BCF /* digger_recorder.xcodeproj */,
+				C1F57A7119B4A40C000C6BCF /* libwave.xcodeproj */,
 				C1F57A6119B4A37F000C6BCF /* src */,
 				C1F57A3319B4A36D000C6BCF /* Frameworks */,
 				C1F57A3219B4A36D000C6BCF /* Products */,
@@ -169,8 +163,6 @@
 			isa = PBXGroup;
 			children = (
 				C1E5476D19BDCF1F00797DFB /* libportaudio_osx.a */,
-				C12E1F0219B61523004532A8 /* libkowalski_ios.a */,
-				C118B3FD19B4B2DC00005678 /* libkowalski.dylib */,
 				C1F57B0B19B4AA22000C6BCF /* CoreAudioKit.framework */,
 				C1F57B0919B4A9B8000C6BCF /* AudioToolbox.framework */,
 				C1F57B0719B4A9A4000C6BCF /* AudioUnit.framework */,
@@ -219,16 +211,6 @@
 			path = ../../src/sandbox_ios;
 			sourceTree = "<group>";
 		};
-		C1F57A7219B4A40C000C6BCF /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				C1F57A7719B4A40C000C6BCF /* libdigger_recorder_ios.a */,
-				C1F57B0019B4A88A000C6BCF /* libdigger_recorder_osx.a */,
-				C12E1F8119B709D7004532A8 /* unittests_osx */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		C1F57A9219B4A757000C6BCF /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -268,7 +250,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				C1F57A7E19B4A415000C6BCF /* PBXTargetDependency */,
 			);
 			name = sandbox_ios;
 			productName = sandbox_ios;
@@ -286,7 +267,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				C1F57AFD19B4A88A000C6BCF /* PBXTargetDependency */,
 			);
 			name = sandbox_osx;
 			productName = sandbox_osx;
@@ -319,8 +299,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = C1F57A7219B4A40C000C6BCF /* Products */;
-					ProjectRef = C1F57A7119B4A40C000C6BCF /* digger_recorder.xcodeproj */;
+					ProductGroup = 8557954D1E3FA983007FA432 /* Products */;
+					ProjectRef = C1F57A7119B4A40C000C6BCF /* libwave.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -332,25 +312,25 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		C12E1F8119B709D7004532A8 /* unittests_osx */ = {
+		855795531E3FA983007FA432 /* libwave_ios.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libwave_ios.a;
+			remoteRef = 855795521E3FA983007FA432 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		855795551E3FA983007FA432 /* libwave_osx.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libwave_osx.a;
+			remoteRef = 855795541E3FA983007FA432 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		855795571E3FA983007FA432 /* unittests_osx */ = {
 			isa = PBXReferenceProxy;
 			fileType = "compiled.mach-o.executable";
 			path = unittests_osx;
-			remoteRef = C12E1F8019B709D7004532A8 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C1F57A7719B4A40C000C6BCF /* libdigger_recorder_ios.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libdigger_recorder_ios.a;
-			remoteRef = C1F57A7619B4A40C000C6BCF /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C1F57B0019B4A88A000C6BCF /* libdigger_recorder_osx.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libdigger_recorder_osx.a;
-			remoteRef = C1F57AFF19B4A88A000C6BCF /* PBXContainerItemProxy */;
+			remoteRef = 855795561E3FA983007FA432 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -400,19 +380,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		C1F57A7E19B4A415000C6BCF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = digger_recorder_ios;
-			targetProxy = C1F57A7D19B4A415000C6BCF /* PBXContainerItemProxy */;
-		};
-		C1F57AFD19B4A88A000C6BCF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = digger_recorder_osx;
-			targetProxy = C1F57AFC19B4A88A000C6BCF /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		C1F579D619B4A22F000C6BCF /* Debug */ = {
@@ -475,7 +442,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/sandbox-fhfsgipjxfyknhcabryyxbpksmut/Build/Products/Debug",
-					"/Users/perarne/code/digger_recorder/external/kowalski/projects/xcode/build/Debug-iphoneos",
+					../../lib,
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -525,7 +492,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/sandbox-fhfsgipjxfyknhcabryyxbpksmut/Build/Products/Debug",
-					"/Users/perarne/code/digger_recorder/external/kowalski/projects/xcode/build/Debug-iphoneos",
+					../../lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;

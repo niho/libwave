@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Digger Recorder Private API: src/recorder/private/lock_free_fifo.h File Reference</title>
+<title>Wave Recorder Private API: src/recorder/private/lock_free_fifo.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Digger Recorder Private API
+   <div id="projectname">Wave Recorder Private API
    </div>
   </td>
  </tr>
@@ -75,45 +75,45 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdr_lock_free_f_i_f_o.html">drLockFreeFIFO</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_wave_lock_free_f_i_f_o.html">WaveLockFreeFIFO</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:ab4a844344f033ba859be83a1a653a7f8"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structdr_lock_free_f_i_f_o.html">drLockFreeFIFO</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lock__free__fifo_8h.html#ab4a844344f033ba859be83a1a653a7f8">drLockFreeFIFO</a></td></tr>
-<tr class="separator:ab4a844344f033ba859be83a1a653a7f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3ff5a6baee99e6846635423f3b5506e"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct_wave_lock_free_f_i_f_o.html">WaveLockFreeFIFO</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lock__free__fifo_8h.html#aa3ff5a6baee99e6846635423f3b5506e">WaveLockFreeFIFO</a></td></tr>
+<tr class="separator:aa3ff5a6baee99e6846635423f3b5506e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ab4ac73d5c5c46ef4d3dfc1d6f6bbfd6f"><td class="memItemLeft" align="right" valign="top"><a id="ab4ac73d5c5c46ef4d3dfc1d6f6bbfd6f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>drLockFreeFIFO_init</b> (<a class="el" href="structdr_lock_free_f_i_f_o.html">drLockFreeFIFO</a> *fifo, int capacity, int elementSize)</td></tr>
-<tr class="separator:ab4ac73d5c5c46ef4d3dfc1d6f6bbfd6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9cce51bfc37a037fcb443a0741314ebe"><td class="memItemLeft" align="right" valign="top"><a id="a9cce51bfc37a037fcb443a0741314ebe"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>drLockFreeFIFO_deinit</b> (<a class="el" href="structdr_lock_free_f_i_f_o.html">drLockFreeFIFO</a> *fifo)</td></tr>
-<tr class="separator:a9cce51bfc37a037fcb443a0741314ebe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a788c50efed82baf544238d0540885ee3"><td class="memItemLeft" align="right" valign="top"><a id="a788c50efed82baf544238d0540885ee3"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>drLockFreeFIFO_isEmpty</b> (<a class="el" href="structdr_lock_free_f_i_f_o.html">drLockFreeFIFO</a> *fifo)</td></tr>
-<tr class="separator:a788c50efed82baf544238d0540885ee3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a636a395283d3c67c00e3d3832117ec40"><td class="memItemLeft" align="right" valign="top"><a id="a636a395283d3c67c00e3d3832117ec40"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>drLockFreeFIFO_isFull</b> (<a class="el" href="structdr_lock_free_f_i_f_o.html">drLockFreeFIFO</a> *fifo)</td></tr>
-<tr class="separator:a636a395283d3c67c00e3d3832117ec40"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe7d1840eeabe4b70174888335e9073d"><td class="memItemLeft" align="right" valign="top"><a id="afe7d1840eeabe4b70174888335e9073d"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>drLockFreeFIFO_getNumElements</b> (<a class="el" href="structdr_lock_free_f_i_f_o.html">drLockFreeFIFO</a> *fifo)</td></tr>
-<tr class="separator:afe7d1840eeabe4b70174888335e9073d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13df84b89448e1f90394c43de9f87cd1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lock__free__fifo_8h.html#a13df84b89448e1f90394c43de9f87cd1">drLockFreeFIFO_push</a> (<a class="el" href="structdr_lock_free_f_i_f_o.html">drLockFreeFIFO</a> *fifo, const void *element)</td></tr>
-<tr class="separator:a13df84b89448e1f90394c43de9f87cd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acddeff3814ca5b70943e12f9a05746bb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lock__free__fifo_8h.html#acddeff3814ca5b70943e12f9a05746bb">drLockFreeFIFO_pop</a> (<a class="el" href="structdr_lock_free_f_i_f_o.html">drLockFreeFIFO</a> *fifo, void *element)</td></tr>
-<tr class="separator:acddeff3814ca5b70943e12f9a05746bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a5d4ae94de6f48f62151222a016edf5"><td class="memItemLeft" align="right" valign="top"><a id="a4a5d4ae94de6f48f62151222a016edf5"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>wave_lock_free_fifo_init</b> (<a class="el" href="struct_wave_lock_free_f_i_f_o.html">WaveLockFreeFIFO</a> *fifo, int capacity, int elementSize)</td></tr>
+<tr class="separator:a4a5d4ae94de6f48f62151222a016edf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbd891dd4a54d04ea30dd9843fba4fb5"><td class="memItemLeft" align="right" valign="top"><a id="afbd891dd4a54d04ea30dd9843fba4fb5"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>wave_lock_free_fifo_deinit</b> (<a class="el" href="struct_wave_lock_free_f_i_f_o.html">WaveLockFreeFIFO</a> *fifo)</td></tr>
+<tr class="separator:afbd891dd4a54d04ea30dd9843fba4fb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb4ad257568f56494e9f13a91ddae501"><td class="memItemLeft" align="right" valign="top"><a id="abb4ad257568f56494e9f13a91ddae501"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>wave_lock_free_fifo_is_empty</b> (<a class="el" href="struct_wave_lock_free_f_i_f_o.html">WaveLockFreeFIFO</a> *fifo)</td></tr>
+<tr class="separator:abb4ad257568f56494e9f13a91ddae501"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2a945b25398f2121d8d03172770ae75"><td class="memItemLeft" align="right" valign="top"><a id="ac2a945b25398f2121d8d03172770ae75"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>wave_lock_free_fifo_is_full</b> (<a class="el" href="struct_wave_lock_free_f_i_f_o.html">WaveLockFreeFIFO</a> *fifo)</td></tr>
+<tr class="separator:ac2a945b25398f2121d8d03172770ae75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac1f1ef1468c223002e96f3e7b58a1bb"><td class="memItemLeft" align="right" valign="top"><a id="aac1f1ef1468c223002e96f3e7b58a1bb"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>wave_lock_free_fifo_get_num_elements</b> (<a class="el" href="struct_wave_lock_free_f_i_f_o.html">WaveLockFreeFIFO</a> *fifo)</td></tr>
+<tr class="separator:aac1f1ef1468c223002e96f3e7b58a1bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a390835ff2f3aae267a098a8ebf753754"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lock__free__fifo_8h.html#a390835ff2f3aae267a098a8ebf753754">wave_lock_free_fifo_push</a> (<a class="el" href="struct_wave_lock_free_f_i_f_o.html">WaveLockFreeFIFO</a> *fifo, const void *element)</td></tr>
+<tr class="separator:a390835ff2f3aae267a098a8ebf753754"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20de23599e870604db78abaeda5c3aa7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lock__free__fifo_8h.html#a20de23599e870604db78abaeda5c3aa7">wave_lock_free_fifo_pop</a> (<a class="el" href="struct_wave_lock_free_f_i_f_o.html">WaveLockFreeFIFO</a> *fifo, void *element)</td></tr>
+<tr class="separator:a20de23599e870604db78abaeda5c3aa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
-<a id="ab4a844344f033ba859be83a1a653a7f8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab4a844344f033ba859be83a1a653a7f8">&#9670;&nbsp;</a></span>drLockFreeFIFO</h2>
+<a id="aa3ff5a6baee99e6846635423f3b5506e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3ff5a6baee99e6846635423f3b5506e">&#9670;&nbsp;</a></span>WaveLockFreeFIFO</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef struct <a class="el" href="structdr_lock_free_f_i_f_o.html">drLockFreeFIFO</a>  <a class="el" href="structdr_lock_free_f_i_f_o.html">drLockFreeFIFO</a></td>
+          <td class="memname">typedef struct <a class="el" href="struct_wave_lock_free_f_i_f_o.html">WaveLockFreeFIFO</a>  <a class="el" href="struct_wave_lock_free_f_i_f_o.html">WaveLockFreeFIFO</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -122,16 +122,16 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>drLockFreeFIFO_getNumE
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="acddeff3814ca5b70943e12f9a05746bb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acddeff3814ca5b70943e12f9a05746bb">&#9670;&nbsp;</a></span>drLockFreeFIFO_pop()</h2>
+<a id="a20de23599e870604db78abaeda5c3aa7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20de23599e870604db78abaeda5c3aa7">&#9670;&nbsp;</a></span>wave_lock_free_fifo_pop()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int drLockFreeFIFO_pop </td>
+          <td class="memname">int wave_lock_free_fifo_pop </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structdr_lock_free_f_i_f_o.html">drLockFreeFIFO</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="struct_wave_lock_free_f_i_f_o.html">WaveLockFreeFIFO</a> *&#160;</td>
           <td class="paramname"><em>fifo</em>, </td>
         </tr>
         <tr>
@@ -151,16 +151,16 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>drLockFreeFIFO_getNumE
 
 </div>
 </div>
-<a id="a13df84b89448e1f90394c43de9f87cd1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a13df84b89448e1f90394c43de9f87cd1">&#9670;&nbsp;</a></span>drLockFreeFIFO_push()</h2>
+<a id="a390835ff2f3aae267a098a8ebf753754"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a390835ff2f3aae267a098a8ebf753754">&#9670;&nbsp;</a></span>wave_lock_free_fifo_push()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int drLockFreeFIFO_push </td>
+          <td class="memname">int wave_lock_free_fifo_push </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structdr_lock_free_f_i_f_o.html">drLockFreeFIFO</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="struct_wave_lock_free_f_i_f_o.html">WaveLockFreeFIFO</a> *&#160;</td>
           <td class="paramname"><em>fifo</em>, </td>
         </tr>
         <tr>
