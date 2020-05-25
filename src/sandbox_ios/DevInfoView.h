@@ -1,6 +1,6 @@
 
 #import <UIKit/UIKit.h>
-#import "wave_recorder.h"
+#import "wave.h"
 #import "BufferLevelView.h"
 
 @interface DevInfoView : UIView

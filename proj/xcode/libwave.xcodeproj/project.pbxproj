@@ -759,7 +759,7 @@
 		C1F57A0519B4A282000C6BCF /* recorder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = recorder.c; sourceTree = "<group>"; };
 		C1F57A0619B4A282000C6BCF /* instance.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = instance.c; sourceTree = "<group>"; };
 		C1F57A0719B4A282000C6BCF /* instance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = instance.h; sourceTree = "<group>"; };
-		C1F57A0E19B4A282000C6BCF /* wave_recorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wave_recorder.h; sourceTree = "<group>"; };
+		C1F57A0E19B4A282000C6BCF /* wave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wave.h; sourceTree = "<group>"; };
 		C1F57A8519B4A475000C6BCF /* tinycthread.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = tinycthread.c; path = ../../external/tinycthread/source/tinycthread.c; sourceTree = "<group>"; };
 		C1F57AD319B4A842000C6BCF /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		C1F57AD619B4A842000C6BCF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -1315,7 +1315,7 @@
 			isa = PBXGroup;
 			children = (
 				C12E1F8719B74B65004532A8 /* wave_error_codes.h */,
-				C1F57A0E19B4A282000C6BCF /* wave_recorder.h */,
+				C1F57A0E19B4A282000C6BCF /* wave.h */,
 				C12E1F8519B74B25004532A8 /* wave_notification.h */,
 				C1E07B2A19B9C7F000F63CA1 /* wave_settings.h */,
 			);

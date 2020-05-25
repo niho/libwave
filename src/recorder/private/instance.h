@@ -4,7 +4,7 @@
 /*! \file */
 
 #include <tinycthread.h>
-#include "wave_recorder.h"
+#include "wave.h"
 #include "level_meter.h"
 #include "analyzer.h"
 #include "lock_free_fifo.h"

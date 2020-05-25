@@ -3,7 +3,7 @@
 
 #import "SandboxView.h"
 
-#import "wave_recorder.h"
+#import "wave.h"
 
 #define kUpdateInterval (0.025f)
 

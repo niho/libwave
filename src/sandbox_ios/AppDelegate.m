@@ -1,7 +1,7 @@
 #import "AppDelegate.h"
 #import "SandboxViewController.h"
 
-#import "wave_recorder.h"
+#import "wave.h"
 
 @implementation AppDelegate
 

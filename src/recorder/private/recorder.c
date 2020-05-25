@@ -4,7 +4,7 @@
 #include <math.h>
 #include "assert.h"
 
-#include "wave_recorder.h"
+#include "wave.h"
 #include "tinycthread.h"
 #include "instance.h"
 #include "mem.h"
