@@ -1,8 +1,4 @@
-
 #import "SandboxViewController.h"
-
-static const int tempBufSize = 16000;
-static char tempBuf[tempBufSize];
 
 static void eventCallback(const WaveNotification* event, void* userData)
 {
@@ -16,11 +12,10 @@ static void errorCallback(WaveError error, void* userData)
     [vc onError:error];
 }
 
-static void audioWrittenCallback(const char* path, int numBytes, void* userData)
+static void audioWrittenCallback(const void* buffer, size_t numBytes, void* userData)
 {
     SandboxViewController* vc = (__bridge SandboxViewController*)userData;
-    [vc onAudioDataWritten:[NSString stringWithUTF8String:path]
-                          :numBytes];
+    [vc onAudioDataWritten:buffer numBytes:numBytes];
 }
 
 
@@ -36,11 +31,11 @@ static void audioWrittenCallback(const char* path, int numBytes, void* userData)
     
     [self onInit:nil];
     
-    NSTimer* t = [NSTimer scheduledTimerWithTimeInterval:kUpdateInterval
-                                                  target:self
-                                                selector:@selector(updateTick)
-                                                userInfo:nil
-                                                 repeats:YES];
+    [NSTimer scheduledTimerWithTimeInterval:kUpdateInterval
+                                     target:self
+                                   selector:@selector(updateTick)
+                                   userInfo:nil
+                                    repeats:YES];
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
@@ -75,9 +70,8 @@ static void audioWrittenCallback(const char* path, int numBytes, void* userData)
                                       forControlEvents:UIControlEventTouchUpInside];
             break;
         }
-        case WAVE_RECORDING_STARTED:
+        case WAVE_STREAMING_STARTED:
         {
-            memset(tempBuf, 0, tempBufSize);
             m_uploadTargetFile = fopen([m_uploadTargetPath UTF8String], "wb");
             assert(m_uploadTargetFile);
             
@@ -94,7 +88,7 @@ static void audioWrittenCallback(const char* path, int numBytes, void* userData)
             self.sandboxView.recToggleButton.backgroundColor = [UIColor redColor];
             break;
         }
-        case WAVE_RECORDING_STOPPED:
+        case WAVE_STREAMING_STOPPED:
         {
             fclose(m_uploadTargetFile);
             m_uploadTargetFile = NULL;
@@ -110,7 +104,7 @@ static void audioWrittenCallback(const char* path, int numBytes, void* userData)
                                        forControlEvents:UIControlEventTouchUpInside];
             break;
         }
-        case WAVE_RECORDING_PAUSED:
+        case WAVE_STREAMING_PAUSED:
         {
             [self.sandboxView.recPauseButton addTarget:self
                                                 action:@selector(onRecResume:)
@@ -118,7 +112,7 @@ static void audioWrittenCallback(const char* path, int numBytes, void* userData)
             [self.sandboxView.recPauseButton setTitle:@"resume" forState:UIControlStateNormal];
             break;
         }
-        case WAVE_RECORDING_RESUMED:
+        case WAVE_STREAMING_RESUMED:
         {
             [self.sandboxView.recPauseButton addTarget:self
                                                 action:@selector(onRecPause:)
@@ -193,22 +187,22 @@ static void audioWrittenCallback(const char* path, int numBytes, void* userData)
 
 -(void)onRecStart:(id)sender
 {
-    wave_start_recording([m_recordingTargetPath UTF8String]);
+    wave_start_streaming();
 }
 
 -(void)onRecStop:(id)sender
 {
-    wave_stop_recording();
+    wave_stop_streaming();
 }
 
 -(void)onRecPause:(id)sender
 {
-    wave_pause_recording();
+    wave_pause_streaming();
 }
 
 -(void)onRecResume:(id)sender
 {
-    wave_resume_recording();
+    wave_resume_streaming();
 }
 
 -(void)onUpdateIntervalChanged:(UISegmentedControl*)c
@@ -220,8 +214,8 @@ static void audioWrittenCallback(const char* path, int numBytes, void* userData)
 
 -(void)onInit:(id)sender
 {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
+    //NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    //NSString *documentsDirectory = [paths objectAtIndex:0];
     
     WaveSettings settings;
     wave_settings_init(&settings);
@@ -239,28 +233,15 @@ static void audioWrittenCallback(const char* path, int numBytes, void* userData)
     wave_deinit();
 }
 
--(void)onAudioDataWritten:(NSString*)path
-                         :(int)numBytes
+-(void)onAudioDataWritten:(const void*)buffer
+                 numBytes:(size_t)numBytes
 {
-    NSLog(@"%d bytes of audio data written", numBytes);
+    NSLog(@"%lu bytes of audio data written", numBytes);
     
-    assert(path);
-    assert([path isEqualToString:m_recordingTargetPath]);
+    assert(buffer);
+    assert(numBytes > 0);
     
-    if (!m_recordingTargetFile)
-    {
-        m_recordingTargetFile = fopen([m_recordingTargetPath UTF8String], "r");
-        assert(m_recordingTargetFile);
-    }
-    
-
-    fseek(m_recordingTargetFile, m_numBytesWritten, SEEK_SET);
-    int nr = fread(tempBuf, 1, numBytes, m_recordingTargetFile);
-    
-        
-    
-    assert(nr = numBytes);
-    int nw = fwrite(tempBuf, 1, numBytes, m_uploadTargetFile);
+    size_t nw = fwrite(buffer, 1, numBytes, m_uploadTargetFile);
     fflush(m_uploadTargetFile);
     assert(nw == numBytes);
     

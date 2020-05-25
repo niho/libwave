@@ -4,18 +4,15 @@
 #include <math.h>
 #include "assert.h"
 #include "wave_error_codes.h"
+#include "stream.h"
 
 #include "raw_encoder.h"
 
-WaveError wave_raw_encoder_init(void* rawEncoder, const char* filePath, float fs, float numChannels)
+WaveError wave_raw_encoder_init(void* rawEncoder, WaveStream stream, float sampleRate, float numChannels)
 {
     WaveRawEncoder* re = (WaveRawEncoder*)rawEncoder;
-    assert(re->file == 0);
-    re->file = fopen(filePath, "a+");
-    if (re->file == 0)
-    {
-        return WAVE_FAILED_TO_OPEN_ENCODER_TARGET_FILE;
-    }
+    
+    re->stream = stream;
     
     return WAVE_NO_ERROR;
 }
@@ -25,13 +22,9 @@ WaveError wave_raw_encoder_write(void* rawEncoder, int numChannels, int numFrame
     *numBytesWritten = 0;
     
     WaveRawEncoder* re = (WaveRawEncoder*)rawEncoder;
-    size_t bytesWritten = fwrite(buffer, sizeof(float), numFrames * numChannels, re->file);
-    if (numFrames * numChannels != bytesWritten)
-    {
-        return WAVE_FAILED_TO_WRITE_ENCODED_AUDIO_DATA;
-    }
     
-    fflush(re->file);
+    int bytesWritten = sizeof(float) * numFrames * numChannels;
+    re->stream.write(buffer, bytesWritten, re->stream.userData);
     
     *numBytesWritten = bytesWritten;
     
@@ -41,12 +34,8 @@ WaveError wave_raw_encoder_write(void* rawEncoder, int numChannels, int numFrame
 WaveError wave_raw_encoder_stop(void* rawEncoder)
 {
     WaveRawEncoder* re = (WaveRawEncoder*)rawEncoder;
-    if (fclose(re->file) != 0)
-    {
-        return WAVE_FAILED_TO_CLOSE_ENCODER_TARGET_FILE;
-    }
     
-    re->file = 0;
+    memset(re, 0, sizeof(WaveRawEncoder));
     
     return WAVE_NO_ERROR;
 }

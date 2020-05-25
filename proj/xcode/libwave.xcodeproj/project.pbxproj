@@ -448,6 +448,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		85141A47247C4CE5005DE26C /* stream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stream.h; sourceTree = "<group>"; };
 		8535F0971E3BF91C0042E766 /* platform_util_osx.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = platform_util_osx.c; sourceTree = "<group>"; };
 		C118B3F119B4B28E00005678 /* libwave_osx.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libwave_osx.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C118B40A19B4C9FB00005678 /* level_meter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = level_meter.c; sourceTree = "<group>"; };
@@ -1305,6 +1306,7 @@
 				C12E1F8D19B7583C004532A8 /* platform_util.h */,
 				C1F57A0519B4A282000C6BCF /* recorder.c */,
 				C1E07B2719B9C7E900F63CA1 /* settings.c */,
+				85141A47247C4CE5005DE26C /* stream.h */,
 			);
 			path = private;
 			sourceTree = "<group>";
@@ -1517,6 +1519,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = C1C7B9EC19B4A1EB00C0ED1D;

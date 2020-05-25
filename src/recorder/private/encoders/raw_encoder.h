@@ -2,6 +2,7 @@
 #define WAVE_RAW_ENCODER_H
 
 #include <stdio.h>
+#include "stream.h"
 
 /*! \file */
 
@@ -15,10 +16,10 @@ extern "C"
      */
     typedef struct WaveRawEncoder
     {
-        FILE* file;   
+        WaveStream stream;
     } WaveRawEncoder;
     
-    WaveError wave_raw_encoder_init(void* rawEncoder, const char* filePath, float fs, float numChannels);
+    WaveError wave_raw_encoder_init(void* rawEncoder, WaveStream stream, float sampleRate, float numChannels);
     
     WaveError wave_raw_encoder_write(void* rawEncoder, int numChannels, int numFrames, float* buffer, int* numBytesWritten);
     

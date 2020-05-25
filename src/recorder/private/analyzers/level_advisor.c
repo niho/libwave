@@ -31,7 +31,7 @@ void wave_level_advisor_process_buffer(void* advisorPtr, const float* inBuffer, 
 {
     WaveLevelAdvisor* advisor = (WaveLevelAdvisor*)advisorPtr;
     
-    if (advisor->instance->stateAudioThread != WAVE_STATE_RECORDING)
+    if (advisor->instance->stateAudioThread != WAVE_STATE_STREAMING)
     {
         advisor->loudWarningTimer = 0;
         advisor->quietWarningTimer = 0;

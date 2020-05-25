@@ -30,8 +30,6 @@
 
 -(void)onRecStop:(id)sender;
 
--(void)onRecCancel:(id)sender;
-
 -(void)onRecPause:(id)sender;
 
 -(void)onRecResume:(id)sender;
@@ -42,6 +40,6 @@
 
 -(void)onDeinit:(id)sender;
 
--(void)onAudioDataWritten:(NSString*)path:(int)numBytes;
+-(void)onAudioDataWritten:(const void*)buffer numBytes:(size_t)numBytes;
 
 @end

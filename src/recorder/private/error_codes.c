@@ -32,17 +32,9 @@ const char* wave_error_str(WaveError errorCode)
         {
             return "failed to encode audio data";
         }
-        case WAVE_FAILED_TO_OPEN_ENCODER_TARGET_FILE:
-        {
-            return "failed to open encoder target file";
-        }
         case WAVE_FAILED_TO_WRITE_ENCODED_AUDIO_DATA:
         {
             return "failed to write encoded data";
-        }
-        case WAVE_FAILED_TO_CLOSE_ENCODER_TARGET_FILE:
-        {
-            return "failed to close encoded target file";
         }
         default:
         {

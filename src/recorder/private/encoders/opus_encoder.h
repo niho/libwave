@@ -8,6 +8,7 @@
 
 #include "opus.h"
 #include "wave_error_codes.h"
+#include "stream.h"
 
 #ifdef __cplusplus
 extern "C"
@@ -23,7 +24,7 @@ extern "C"
     {
         OpusEncoder* encoder;
         ogg_stream_state oggStreamState;
-        FILE* file;
+        WaveStream stream;
         unsigned char scratchOutputBuffer[MAX_PACKET_SIZE];
         int numAccumulatedInputFrames;
         float scratchInputBuffer[2 * FRAME_SIZE]; //max 2 channels
@@ -34,7 +35,7 @@ extern "C"
 
     } WaveOpusEncoder;
     
-    WaveError wave_opus_encoder_init(void* opusEncoder, const char* filePath, float fs, float numChannels);
+    WaveError wave_opus_encoder_init(void* opusEncoder, WaveStream stream, float sampleRate, float numChannels);
     
     WaveError wave_opus_encoder_write(void* opusEncoder, int numChannels, int numFrames, float* buffer, int* numBytesWritten);
     

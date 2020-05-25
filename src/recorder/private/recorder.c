@@ -21,21 +21,21 @@ const char* wave_notification_type_str(WaveNotificationType type)
         {
             return "audio system shut down";
         }
-        case WAVE_RECORDING_STARTED:
+        case WAVE_STREAMING_STARTED:
         {
-            return "recording started";
+            return "streaming started";
         }
-        case WAVE_RECORDING_PAUSED:
+        case WAVE_STREAMING_PAUSED:
         {
-            return "recording paused";
+            return "streaming paused";
         }
-        case WAVE_RECORDING_RESUMED:
+        case WAVE_STREAMING_RESUMED:
         {
-            return "recording resumed";
+            return "streaming resumed";
         }
-        case WAVE_RECORDING_STOPPED:
+        case WAVE_STREAMING_STOPPED:
         {
-            return "recording stopped";
+            return "streaming stopped";
         }
         case WAVE_LEVEL_HIGH_WARNING:
         {
@@ -58,7 +58,7 @@ static WaveInstance* instance = NULL;
 
 WaveError wave_init(WaveNotificationCallback notificationCallback,
                     WaveErrorCallback errorCallback,
-                    WaveAudioWrittenCallback audioWrittenCallback,
+                    WaveAudioStreamCallback audioStreamCallback,
                     void* callbackUserData,
                     WaveSettings* settings)
 {
@@ -67,11 +67,11 @@ WaveError wave_init(WaveNotificationCallback notificationCallback,
         return WAVE_ALREADY_INITIALIZED;
     }
     
-    instance = WAVE_MALLOC(sizeof(WaveInstance), "libwave recorder instance");
+    instance = WAVE_MALLOC(sizeof(WaveInstance), "libwave instance");
     wave_instance_init(instance,
                     notificationCallback,
                     errorCallback,
-                    audioWrittenCallback,
+                    audioStreamCallback,
                     callbackUserData,
                     settings);
     
@@ -116,50 +116,50 @@ WaveError wave_get_realtime_info(int channel, int logLevels, WaveRealtimeInfo* r
     return WAVE_NO_ERROR;
 }
 
-WaveError wave_start_recording(const char* audioFilePath)
+WaveError wave_start_streaming()
 {
     if (!instance)
     {
         return WAVE_NOT_INITIALIZED;
     }
     
-    wave_instance_request_start_recording(instance, audioFilePath);
+    wave_instance_request_start_streaming(instance);
     
     return WAVE_NO_ERROR;
 }
 
-WaveError wave_stop_recording()
+WaveError wave_stop_streaming()
 {
     if (!instance)
     {
         return WAVE_NOT_INITIALIZED;
     }
     
-    wave_instance_enqueue_control_event_of_type(instance, WAVE_STOP_RECORDING);
+    wave_instance_enqueue_control_event_of_type(instance, WAVE_STOP_STREAMING);
     
     return WAVE_NO_ERROR;
 }
 
-WaveError wave_pause_recording()
+WaveError wave_pause_streaming()
 {
     if (!instance)
     {
         return WAVE_NOT_INITIALIZED;
     }
     
-    wave_instance_enqueue_control_event_of_type(instance, WAVE_PAUSE_RECORDING);
+    wave_instance_enqueue_control_event_of_type(instance, WAVE_PAUSE_STREAMING);
     
     return WAVE_NO_ERROR;
 }
 
-WaveError wave_resume_recording()
+WaveError wave_resume_streaming()
 {
     if (!instance)
     {
         return WAVE_NOT_INITIALIZED;
     }
     
-    wave_instance_enqueue_control_event_of_type(instance, WAVE_RESUME_RECORDING);
+    wave_instance_enqueue_control_event_of_type(instance, WAVE_RESUME_STREAMING);
     
     return WAVE_NO_ERROR;
 }

@@ -18,7 +18,7 @@
 WaveError wave_instance_init(WaveInstance* instance,
                              WaveNotificationCallback notificationCallback,
                              WaveErrorCallback errorCallback,
-                             WaveAudioWrittenCallback audioWrittenCallback,
+                             WaveAudioStreamCallback audioStreamCallback,
                              void* callbackUserData,
                              WaveSettings* settings)
 {
@@ -42,17 +42,17 @@ WaveError wave_instance_init(WaveInstance* instance,
     instance->mainThread = thrd_current();
     
     //hook up notification callback
-    instance->audioWrittenCallback = audioWrittenCallback;
+    instance->audioStreamCallback = audioStreamCallback;
     instance->notificationCallback = notificationCallback;
     instance->errorCallback = errorCallback;
     instance->callbackUserData = callbackUserData;
     
-    wave_create_encoder(&instance->recordingSession.encoder,
-                    &instance->settings);
+    wave_create_encoder(&instance->streamingSession.encoder,
+                        &instance->settings);
     
     wave_lock_free_fifo_init(&instance->inputAudioDataQueue,
                              instance->settings.recordFIFOCapacity,
-                             sizeof(WaveRecordedChunk));
+                             sizeof(WaveAudioChunk));
     
     //create error, notification and control event queues
     wave_lock_free_fifo_init(&instance->notificationFIFO,
@@ -122,7 +122,7 @@ WaveError wave_instance_deinit(WaveInstance* instance)
         }
     }
     
-    WAVE_FREE(instance->recordingSession.encoder.encoderData);
+    WAVE_FREE(instance->streamingSession.encoder.encoderData);
     
     wave_lock_free_fifo_deinit(&instance->inputAudioDataQueue);
     
@@ -175,8 +175,8 @@ void wave_instance_update(WaveInstance* instance, float timeStep)
     }
     
     //pump audio data FIFO after the notifiaction FIFO, to make sure
-    //a recording started event arrives before the first audio data.
-    WaveRecordedChunk c;
+    //a streaming started event arrives before the first audio data.
+    WaveAudioChunk c;
     int errorOccured = 0;
     while (wave_lock_free_fifo_pop(&instance->inputAudioDataQueue, &c))
     {
@@ -192,18 +192,11 @@ void wave_instance_update(WaveInstance* instance, float timeStep)
             if (c.numFrames > 0)
             {
                 int numBytesWritten = 0;
-                writeResult = instance->recordingSession.encoder.writeCallback(instance->recordingSession.encoder.encoderData,
+                writeResult = instance->streamingSession.encoder.writeCallback(instance->streamingSession.encoder.encoderData,
                                                                                c.numChannels,
                                                                                c.numFrames,
                                                                                c.samples,
                                                                                &numBytesWritten);
-                
-                if (numBytesWritten > 0)
-                {
-                    instance->audioWrittenCallback(instance->recordingSession.targetFilePath,
-                                                   numBytesWritten,
-                                                   instance->callbackUserData);
-                }
             }
             
             //gettimeofday(&tv2, NULL);
@@ -216,14 +209,14 @@ void wave_instance_update(WaveInstance* instance, float timeStep)
             {
                 errorOccured = 1;
                 wave_instance_on_main_thread_error(instance, writeResult);
-                wave_instance_enqueue_control_event_of_type(instance, WAVE_STOP_RECORDING);
+                wave_instance_enqueue_control_event_of_type(instance, WAVE_STOP_STREAMING);
             }
             else
             {
                 //printf("recorded %d frames on the main thread\n", instance->recordingSession.numRecordedFrames);
                 if (c.lastChunk)
                 {
-                    wave_instance_stop_recording(instance);
+                    wave_instance_stop_streaming(instance);
                 }
             }
         }
@@ -242,15 +235,15 @@ void wave_instance_audio_input_callback(WaveInstance* in, const float* inBuffer,
     }
     
     //record, if requested
-    if (in->stateAudioThread == WAVE_STATE_RECORDING ||
-        in->stateAudioThread == WAVE_STATE_RECORDING_PAUSED)
+    if (in->stateAudioThread == WAVE_STATE_STREAMING ||
+        in->stateAudioThread == WAVE_STATE_STREAMING_PAUSED)
     {
-        WaveRecordedChunk c;
-        const int lastBuffer = in->stopRecordingRequested;
+        WaveAudioChunk c;
+        const int lastBuffer = in->stopStreamingRequested;
         
         const int numSamples = numChannels * numFrames;
         int sampleIdx = 0;
-        const int chunkSize = MAX_RECORDED_CHUNK_SIZE;
+        const int chunkSize = MAX_STREAM_CHUNK_SIZE;
         const int numChunks = ceil(numSamples / (float)chunkSize);
         int chunkIdx = 0;
         while (sampleIdx < numSamples)
@@ -262,7 +255,7 @@ void wave_instance_audio_input_callback(WaveInstance* in, const float* inBuffer,
             }
             
             //TODO: this is a double memcpy....
-            const int paused = in->stateAudioThread == WAVE_STATE_RECORDING_PAUSED;
+            const int paused = in->stateAudioThread == WAVE_STATE_STREAMING_PAUSED;
             c.numFrames = paused ? 0 : samplesLeft;
             c.numChannels = numChannels;
             c.lastChunk = 0;
@@ -277,9 +270,9 @@ void wave_instance_audio_input_callback(WaveInstance* in, const float* inBuffer,
             {
                 in->devInfo.recordFIFOUnderrun = 1;
             }
-            else if (in->stateAudioThread == WAVE_STATE_RECORDING)
+            else if (in->stateAudioThread == WAVE_STATE_STREAMING)
             {
-                in->recordingSession.numRecordedFrames += samplesLeft;
+                in->streamingSession.numRecordedFrames += samplesLeft;
             }
             
             sampleIdx += samplesLeft;
@@ -287,11 +280,11 @@ void wave_instance_audio_input_callback(WaveInstance* in, const float* inBuffer,
         }
         
         
-        if (in->stopRecordingRequested)
+        if (in->stopStreamingRequested)
         {
-            in->stopRecordingRequested = 0;
+            in->stopStreamingRequested = 0;
             in->stateAudioThread = WAVE_STATE_IDLE;
-            wave_instance_enqueue_notification_of_type(in, WAVE_RECORDING_STOPPED);
+            wave_instance_enqueue_notification_of_type(in, WAVE_STREAMING_STOPPED);
         }
     }
     
@@ -305,7 +298,7 @@ void wave_instance_audio_input_callback(WaveInstance* in, const float* inBuffer,
         l.peakLevel = m->peak;
         l.peakLevelEnvelope = m->peakEnvelope;
         l.rmsLevel = m->rmsLevel;
-        l.numRecordedSeconds = in->recordingSession.numRecordedFrames / (float)in->settings.desiredSampleRate;
+        l.numRecordedSeconds = in->streamingSession.numRecordedFrames / (float)in->settings.desiredSampleRate;
         
         //TODO: edge detect or something?
         l.hasClipped = m->clip;
@@ -368,22 +361,21 @@ int wave_instance_add_input_analyzer(WaveInstance* instance,
     return 1;
 }
 
-void wave_instance_request_start_recording(WaveInstance* instance, const char* filePath)
+void wave_instance_request_start_streaming(WaveInstance* instance)
 {
-    
-    strncpy(instance->requestedAudioFilePath, filePath, WAVE_MAX_PATH_LEN);
-    wave_instance_enqueue_control_event_of_type(instance, WAVE_START_RECORDING);
-
+    wave_instance_enqueue_control_event_of_type(instance, WAVE_START_STREAMING);
 }
 
-void wave_instance_initiate_recording(WaveInstance* instance)
+void wave_instance_initiate_streaming(WaveInstance* instance)
 {
     assert(wave_instance_is_on_main_thread(instance));
-    strcpy(instance->recordingSession.targetFilePath, instance->requestedAudioFilePath);
-    instance->requestedAudioFilePath[0] = '\0';
-    assert(strlen(instance->recordingSession.targetFilePath) > 0);
-    WaveError initResult = instance->recordingSession.encoder.initCallback(instance->recordingSession.encoder.encoderData,
-                                                    instance->recordingSession.targetFilePath,
+    
+    WaveStream stream;
+    stream.write = instance->audioStreamCallback;
+    stream.userData = instance->callbackUserData;
+    
+    WaveError initResult = instance->streamingSession.encoder.initCallback(instance->streamingSession.encoder.encoderData,
+                                                    stream,
                                                     instance->sampleRate,
                                                     instance->settings.desiredNumInputChannels); //TODO
     
@@ -392,27 +384,27 @@ void wave_instance_initiate_recording(WaveInstance* instance)
         wave_instance_invoke_error_callback(instance, initResult);
     }
     
-    printf("wave_instance_initiate_recording\n");
+    printf("wave_instance_initiate_streaming\n");
 }
 
-void wave_instance_stop_recording(WaveInstance* instance)
+void wave_instance_stop_streaming(WaveInstance* instance)
 {
     assert(wave_instance_is_on_main_thread(instance));
-    printf("wave_instance_stop_recording\n");
+    printf("wave_instance_stop_streaming\n");
     
     //clear any queued up audio chunks
     while (!wave_lock_free_fifo_is_empty(&instance->inputAudioDataQueue))
     {
-        WaveRecordedChunk c;
+        WaveAudioChunk c;
         wave_lock_free_fifo_pop(&instance->inputAudioDataQueue, &c);
         
         //TODO: write this chunk!
         //instance->recordingSession.encoder.writeCallback(
     }
     
-    instance->recordingSession.encoder.stopCallback(instance->recordingSession.encoder.encoderData);
+    instance->streamingSession.encoder.stopCallback(instance->streamingSession.encoder.encoderData);
     
-    instance->recordingSession.numRecordedFrames = 0;
+    instance->streamingSession.numRecordedFrames = 0;
 }
 
 
@@ -486,48 +478,48 @@ void wave_instance_on_audio_thread_control_event(WaveInstance* instance, const W
     
     switch (event->type)
     {
-        case WAVE_START_RECORDING:
+        case WAVE_START_STREAMING:
         {
             if (instance->stateAudioThread == WAVE_STATE_IDLE)
             {
-                //recording requested and we're currently not recording.
-                //start recording.
-                instance->recordingSession.numRecordedFrames = 0;
-                instance->stateAudioThread = WAVE_STATE_RECORDING;
-                wave_instance_enqueue_notification_of_type(instance, WAVE_RECORDING_STARTED);
+                //streaming requested and we're currently not streaming.
+                //start streaming.
+                instance->streamingSession.numRecordedFrames = 0;
+                instance->stateAudioThread = WAVE_STATE_STREAMING;
+                wave_instance_enqueue_notification_of_type(instance, WAVE_STREAMING_STARTED);
             }
             break;
         }
-        case WAVE_PAUSE_RECORDING:
+        case WAVE_PAUSE_STREAMING:
         {
-            if (instance->stateAudioThread == WAVE_STATE_RECORDING)
+            if (instance->stateAudioThread == WAVE_STATE_STREAMING)
             {
-                //recording pause requested and we're currently recording.
-                //pause recording.
-                instance->stateAudioThread = WAVE_STATE_RECORDING_PAUSED;
-                wave_instance_enqueue_notification_of_type(instance, WAVE_RECORDING_PAUSED);
+                //streaming pause requested and we're currently streaming.
+                //pause streaming.
+                instance->stateAudioThread = WAVE_STATE_STREAMING_PAUSED;
+                wave_instance_enqueue_notification_of_type(instance, WAVE_STREAMING_PAUSED);
             }
             break;
         }
-        case WAVE_RESUME_RECORDING:
+        case WAVE_RESUME_STREAMING:
         {
-            if (instance->stateAudioThread == WAVE_STATE_RECORDING_PAUSED)
+            if (instance->stateAudioThread == WAVE_STATE_STREAMING_PAUSED)
             {
-                //recording resume requested and we're currently paused.
-                //resume recording.
-                instance->stateAudioThread = WAVE_STATE_RECORDING;
-                wave_instance_enqueue_notification_of_type(instance, WAVE_RECORDING_RESUMED);
+                //streaming resume requested and we're currently paused.
+                //resume streaming.
+                instance->stateAudioThread = WAVE_STATE_STREAMING;
+                wave_instance_enqueue_notification_of_type(instance, WAVE_STREAMING_RESUMED);
             }
             break;
         }
-        case WAVE_STOP_RECORDING:
+        case WAVE_STOP_STREAMING:
         {
-            if (instance->stateAudioThread == WAVE_STATE_RECORDING ||
-                instance->stateAudioThread == WAVE_STATE_RECORDING_PAUSED)
+            if (instance->stateAudioThread == WAVE_STATE_STREAMING ||
+                instance->stateAudioThread == WAVE_STATE_STREAMING_PAUSED)
             {
-                //cancel recording requested and we're currently recording.
+                //cancel streaming requested and we're currently streaming.
                 //cancel.
-                instance->stopRecordingRequested = 1;
+                instance->stopStreamingRequested = 1;
             }
             break;
         }
@@ -556,28 +548,28 @@ void wave_instance_on_main_thread_notification(WaveInstance* instance, const Wav
         {
             break;
         }
-        case WAVE_RECORDING_STARTED:
+        case WAVE_STREAMING_STARTED:
         {
-            instance->stateMainThread = WAVE_STATE_RECORDING;
-            //initiate recording
-            wave_instance_initiate_recording(instance);
+            instance->stateMainThread = WAVE_STATE_STREAMING;
+            //initiate streaming
+            wave_instance_initiate_streaming(instance);
             break;
         }
-        case WAVE_RECORDING_STOPPED:
+        case WAVE_STREAMING_STOPPED:
         {
-            //nothing here. the recording is finished when the last buffer
+            //nothing here. the streaming is finished when the last buffer
             //has been received.
             instance->stateMainThread = WAVE_STATE_IDLE;
             break;
         }
-        case WAVE_RECORDING_PAUSED:
+        case WAVE_STREAMING_PAUSED:
         {
-            instance->stateMainThread = WAVE_STATE_RECORDING_PAUSED;
+            instance->stateMainThread = WAVE_STATE_STREAMING_PAUSED;
             break;
         }
-        case WAVE_RECORDING_RESUMED:
+        case WAVE_STREAMING_RESUMED:
         {
-            instance->stateMainThread = WAVE_STATE_RECORDING;
+            instance->stateMainThread = WAVE_STATE_STREAMING;
             break;
         }
         

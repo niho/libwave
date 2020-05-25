@@ -21,34 +21,31 @@ extern "C"
     #define MAX_NUM_INPUT_CHANNELS 1
     #define MAX_NUM_OUTPUT_CHANNELS 2
     
-    #define WAVE_MAX_PATH_LEN 1024
+    #define MAX_STREAM_CHUNK_SIZE 1024
     
-    #define MAX_RECORDED_CHUNK_SIZE 1024
-    
-    typedef struct WaveRecordingSession
+    typedef struct WaveStreamingSession
     {
         WaveEncoder encoder;
         int numRecordedFrames;
-        char targetFilePath[WAVE_MAX_PATH_LEN];
-    } WaveRecordingSession;
+    } WaveStreamingSession;
     
-    typedef struct WaveRecordedChunk
+    typedef struct WaveAudioChunk
     {
         int numChannels;
         int numFrames;
-        float samples[MAX_RECORDED_CHUNK_SIZE];
+        float samples[MAX_STREAM_CHUNK_SIZE];
         int lastChunk;
-    } WaveRecordedChunk;
+    } WaveAudioChunk;
     
     /**
      * Valid control event types
      */
     typedef enum WaveControlEventType
     {
-        WAVE_START_RECORDING = 0,
-        WAVE_PAUSE_RECORDING,
-        WAVE_RESUME_RECORDING,
-        WAVE_STOP_RECORDING,
+        WAVE_START_STREAMING = 0,
+        WAVE_PAUSE_STREAMING,
+        WAVE_RESUME_STREAMING,
+        WAVE_STOP_STREAMING,
     } WaveControlEventType;
     
     /**
@@ -66,9 +63,8 @@ extern "C"
     typedef enum WaveAudioThreadState
     {
         WAVE_STATE_IDLE = 0,
-        WAVE_STATE_RECORDING,
-        WAVE_STATE_RECORDING_PAUSED
-        
+        WAVE_STATE_STREAMING,
+        WAVE_STATE_STREAMING_PAUSED
     } WaveState;
     
     /**
@@ -96,7 +92,7 @@ extern "C"
         WaveDevInfo devInfo;
         
         int firstSampleHasPlayed;
-        int stopRecordingRequested;
+        int stopStreamingRequested;
         
         //used to verify that functions are being called from the right threads
         thrd_t mainThread;
@@ -106,8 +102,7 @@ extern "C"
         WaveLockFreeFIFO errorFIFO;
         WaveLockFreeFIFO realTimeDataFifo;
         
-        WaveAudioWrittenCallback audioWrittenCallback;
-        
+        WaveAudioStreamCallback audioStreamCallback;
         WaveNotificationCallback notificationCallback;
         WaveErrorCallback errorCallback;
         void* callbackUserData;
@@ -122,7 +117,7 @@ extern "C"
         
         WaveLockFreeFIFO inputAudioDataQueue;
         
-        WaveRecordingSession recordingSession;
+        WaveStreamingSession streamingSession;
         
         //actual audio stream parameters
         int sampleRate;
@@ -131,8 +126,6 @@ extern "C"
         
         //
         int isInputDisabled;
-        
-        char requestedAudioFilePath[WAVE_MAX_PATH_LEN];
     } WaveInstance;
 
     /**
@@ -141,7 +134,7 @@ extern "C"
     WaveError wave_instance_init(WaveInstance* instance,
                             WaveNotificationCallback notificationCallback,
                             WaveErrorCallback errorCallback,
-                            WaveAudioWrittenCallback audioWrittenCallback,
+                            WaveAudioStreamCallback audioStreamCallback,
                             void* callbackUserData,
                             WaveSettings* settings);
     
@@ -207,17 +200,17 @@ extern "C"
     /**
      *
      */
-    void wave_instance_request_start_recording(WaveInstance* instance, const char* filePath);
+    void wave_instance_request_start_streaming(WaveInstance* instance);
     
     /**
      *
      */
-    void wave_nstance_initiate_recording(WaveInstance* instance);
+    void wave_nstance_initiate_streaming(WaveInstance* instance);
     
     /**
      *
      */
-    void wave_instance_stop_recording(WaveInstance* instance);
+    void wave_instance_stop_streaming(WaveInstance* instance);
     
     /**
      *

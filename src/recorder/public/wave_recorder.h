@@ -1,8 +1,8 @@
-#ifndef WAVE_RECORDER_H
-#define WAVE_RECORDER_H
+#ifndef WAVE_H
+#define WAVE_H
 
 /*! \file 
- Public Recorder API
+ Public  API
  */
 
 #include <stdio.h>
@@ -72,16 +72,16 @@ extern "C"
     typedef void (*WaveNotificationCallback)(const WaveNotification* event, void* userData);
     
     /**
-     *
+     * A callback to invoke for streaming audio.
      */
-    typedef void (*WaveAudioWrittenCallback)(const char* path, int numBytes, void* userData);
+    typedef void (*WaveAudioStreamCallback)(const void* buffer, size_t numBytes, void* userData);
     
     /**
      * Initializes the recorder.
      */
     WaveError wave_init(WaveNotificationCallback notificationCallback,
                         WaveErrorCallback errorCallback,
-                        WaveAudioWrittenCallback audioWrittenCallback,
+                        WaveAudioStreamCallback audioStreamCallback,
                         void* callbackUserData,
                         WaveSettings* settings);
     
@@ -102,35 +102,32 @@ extern "C"
     WaveError wave_get_realtime_info(int channel, int logLevels, WaveRealtimeInfo* result);
     
     /**
-     * Starts recording audio to a file at a given path. If \c audioFilePath
-     * already exists, it is assumed that some audio has already been recorded
-     * to that file and new audio will be appended to the end of the file.
-     * @param audioFilePath The path of the file to record to.
+     * Starts streaming audio to the audioWrittenCallback.
      */
-    WaveError wave_start_recording(const char* audioFilePath);
+    WaveError wave_start_streaming();
     
     
     /**
-     * Shuts down the encoder and closes the file it's recording to.
-     * If recording is not in progress, this function does nothing.
+     * Shuts down the encoder and closes the stream.
+     * If streaming is not in progress, this function does nothing.
      */
-    WaveError wave_stop_recording();
+    WaveError wave_stop_streaming();
     
     /**
-     * Pauses recording, i.e prevents the audio thread from passing
-     * audio data to the encoder until \c wave_resume_recording() is called.
-     * If the system is not recording or if recording is already paused,
+     * Pauses streaming, i.e prevents the audio thread from passing
+     * audio data to the encoder until \c wave_resume_streaming() is called.
+     * If the system is not streaming or if streaming is already paused,
      * this function does nothing.
-     * @see wave_resume_recording
+     * @see wave_resume_streaming
      */
-    WaveError wave_pause_recording();
+    WaveError wave_pause_streaming();
     
     /**
-     * Resumes recording, i.e instructs the audio thread to start
+     * Resumes streaming, i.e instructs the audio thread to start
      * passing audio data to the encoder again.
-     * @see wave_pause_recording
+     * @see wave_pause_streaming
      */
-    WaveError wave_resume_recording();
+    WaveError wave_resume_streaming();
     
     /**
      *
@@ -142,4 +139,4 @@ extern "C"
 }
 #endif /* __cplusplus */
 
-#endif /* WAVE_RECORDER_H */
+#endif /* WAVE_H */
