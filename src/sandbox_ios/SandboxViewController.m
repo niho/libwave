@@ -45,8 +45,8 @@ static void audioWrittenCallback(const char* path, int numBytes, void* userData)
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     
-    m_recordingTargetPath = [documentsDirectory stringByAppendingPathComponent:@"test-recording.adts"];
-    m_uploadTargetPath = [documentsDirectory stringByAppendingPathComponent:@"test-recording-upload.adts"];
+    m_recordingTargetPath = [documentsDirectory stringByAppendingPathComponent:@"test-recording.opus"];
+    m_uploadTargetPath = [documentsDirectory stringByAppendingPathComponent:@"test-recording-upload.opus"];
     NSLog(@"%@", m_recordingTargetPath);
     NSLog(@"%@", m_uploadTargetPath);
     
@@ -225,7 +225,7 @@ static void audioWrittenCallback(const char* path, int numBytes, void* userData)
     
     WaveSettings settings;
     wave_settings_init(&settings);
-    settings.encoderFormat = WAVE_ENCODER_FORMAT_AAC;
+    settings.encoderFormat = WAVE_ENCODER_FORMAT_OPUS;
     
     wave_init(eventCallback,
               errorCallback,

@@ -33,7 +33,7 @@ static void audioWrittenCallback(const char* path, int numBytes, void* userData)
 {
     WaveSettings settings;
     wave_settings_init(&settings);
-    settings.encoderFormat = WAVE_ENCODER_FORMAT_AAC;
+    settings.encoderFormat = WAVE_ENCODER_FORMAT_OPUS;
     
     wave_init(eventCallback,
               errorCallback,
